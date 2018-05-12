@@ -35,7 +35,7 @@ int				space_in(const char *str);
 int				full_digits(const char *str);
 
 void			swap(long *pile, int nb);
-void			push(long *pile1, long pile2, int nb);
+void			push(long *a, long b, int nb);
 void			rotate(long *pile, int nb);
 void			reverse_rotate(long *pile, int nb);
 
@@ -46,7 +46,7 @@ void			check_nb(int ac, char **av);
 
 long			*stock_table(int ac, char **av);
 long			*create_table(int ac);
-void			free_pile(long *pile1, long *pile2);
+void			free_pile(long *a, long *b);
 
 int				is_sort(long *pile, int nb);
 

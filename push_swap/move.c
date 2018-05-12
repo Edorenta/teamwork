@@ -28,19 +28,19 @@ void		swap(long *pile, int nb)
 	}
 }
 
-void		push(long *pile1, long *pile2, int nb)
+void		push(long *a, long *b, int nb)
 {
 	int		i;
 	int		j;
 	int		tmp;
 
-	i = first_elem(pile1, nb);
-	j = first_elem(pile2, nb);
-	if (pile1[i] != null)
+	i = first_elem(a, nb);
+	j = first_elem(b, nb);
+	if (a[i] != null)
 	{
-		tmp = pile1[i];
-		pile1[i] = pile2[j];
-		pile2[j] = tmp;
+		tmp = a[i];
+		a[i] = b[j];
+		b[j] = tmp;
 	}
 }
 
