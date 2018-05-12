@@ -12,7 +12,7 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# define null 2200000000
+# define NONE 2200000000
 
 # include <stdlib.h>
 
@@ -28,6 +28,8 @@ typedef struct		s_env
 }					t_env;
 
 int				slen(char *s);
+long			ft_atol(const char *str)
+int				is_digits(const char c);
 int				is_space(const char c);
 int				space_in(const char *str);
 int				full_digits(const char *str);

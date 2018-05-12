@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_error.c                                      :+:      :+:    :+:   */
+/*   get_stack.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,24 @@
 
 #include "push_swap.h"
 
-static void	put_error(void)
+int		alloc_piles(t_env *env)
 {
-	ft_putstr("Error\n");
-	exit(1);
+	int i;
+
+	i = -1;
+	if (!(env->a = (int *)malloc(sizeof(int) * env->size)))
+		put_error();
+	if (!(env->b = (int *)malloc(sizeof(int) * env->size)))
+		put_error();
+	while (++i < env->size)
+	{
+		env->a[i] = NONE;
+		env->b[i] = NONE;
+	}
+	return (1);
 }
 
-int 		compliant_arg(int ac, char **av, t_env *env)
+int 	compliant_arg(int ac, char **av, t_env *env)
 {
 	int spaces;
 
