@@ -18,11 +18,11 @@ static void	ft_error(void)
 	exit(1);
 }
 
-static void max_int(char *av, int signe)
+static void max_int(char *av, int sign)
 {
 	int i;
 
-	i = (signe == -1) ? 1 : 0;
+	i = (sign == -1) ? 1 : 0;
 	if (av[i] > 2)
 		ft_error();
 	if (av[++i] > 2)
@@ -41,27 +41,36 @@ static void max_int(char *av, int signe)
 		ft_error();
 	if (av[++i] > 4)
 		ft_error();
-	if ((signe == 1 && av[++i] > 7) || (signe == -1 && av[++i] > 8))
+	if ((sign == 1 && av[++i] > 7) || (sign == -1 && av[++i] > 8))
 		ft_error();
 }
 
 void		check_nb(int ac, char **av)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	int		spaces;
 
-	i = 1;
-	while (i < ac)
+	i = env->index;
+	j = i;
+	while (j < ac && i > 0 && av[i])
 	{
-		j = 0;
-		while (av[i][j])
+		if (!full_digits(av[i]))
+			return (-1);
+		spaces = space_in(av[i]);
+		if (spaces)
 		{
-			if (ft_isdigit(av[i][j]) == 0 && (j != 0 || av[i][j] != '-')
-				ft_error();
-			j++;
+			ac += spaces;
+			j += split_push(av[i], spaces, env);
+			i++;
 		}
-		i++;
+		else
+		{
+			j += push_to_stack(av[i], env);
+			i++;
+		}
 	}
+	return (j);
 }
 
 void		check_same(int ac, char **av)
@@ -88,22 +97,22 @@ void		check_int(int ac, char **av)
 	int i;
 	int j;
 	int	len;
-	int	signe;
+	int	sign;
 
 	i = 1;
-	signe = 1;
+	sign = 1;
 	while (av[i])
 	{
 		len = ft_strlen(av[i]);
 		if (av[i][0] == '-')
 		{
 			len--;
-			signe = -1;
+			sign = -1;
 		}
 		if (len > 10)
 			ft_error();
-		if (len == 10)
-			if (max_int(av[i], signe) == 1)
+		if (len == 10 || len == 11 && sign == -1)
+			if (max_int(av[i], sign) == 1)
 				ft_error();
 		i++;
 	}

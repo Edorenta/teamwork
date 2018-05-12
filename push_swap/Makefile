@@ -16,7 +16,7 @@ NAME1 = push_swap
 NAME2 = checker
 SOURCE1 = checker.c
 SOURCE2 = push_swap.c
-SOURCES = check_error.c is_sort.c move.c stock_table.c
+SOURCES = check_error.c is_sort.c move.c stock_table.c parsing_utils.c
 OBJ = $(SOURCES:.c=.o)
 
 all : $(NAME1) $(NAME2)

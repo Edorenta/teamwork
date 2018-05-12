@@ -16,18 +16,36 @@
 
 # include <stdlib.h>
 
+typedef struct		s_env
+{
+	long			*a;
+	long			*b;
+	int				a1;
+	int 			b1;
+	int				size;
+	int				pivot;
+	int				opt;
+}					t_env;
+
+int				slen(char *s);
+int				is_space(const char c);
+int				space_in(const char *str);
+int				full_digits(const char *str);
+
 void			swap(long *pile, int nb);
 void			push(long *pile1, long pile2, int nb);
 void			rotate(long *pile, int nb);
 void			reverse_rotate(long *pile, int nb);
-void			free_pile(long *pile1, long *pile2);
+
+
 void			check_int(int ac, char **av);
 void			check_same(int ac, char **av);
 void			check_nb(int ac, char **av);
+
 long			*stock_table(int ac, char **av);
 long			*create_table(int ac);
-int				first_elem(long *pile, int nb);
-int				is_sort(long *pile, int nb);
+void			free_pile(long *pile1, long *pile2);
 
+int				is_sort(long *pile, int nb);
 
 #endif
