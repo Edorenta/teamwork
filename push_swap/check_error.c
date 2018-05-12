@@ -26,14 +26,14 @@ int 		compliant_arg(int ac, char **av, t_env *env)
 	i = 1;
 	while (env->size < ac && av[i])
 	{
-		if (!full_digits(av[i]))
-			return (0);
 		spaces += space_in(av[i]);
 		if (spaces && ac += spaces)
 			//env->size += split_push(av[i], spaces, env);
 			env->size += (spaces + 1);
-		else
+		else if (full_digits(av[i]))
 			env->size += 1;
+		else
+			return (0);
 		i++;
 	}
 	return (1);
