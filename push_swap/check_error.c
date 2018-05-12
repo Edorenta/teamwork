@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 06:07:02 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/12 12:06:25 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ static void	put_error(void)
 int 		compliant_arg(int ac, char **av, t_env *env)
 {
 	int spaces;
+	int	i;
 
-	while (env->size < ac && i > 0 && av[i])
+	i = 1;
+	while (env->size < ac && av[i])
 	{
 		if (!full_digits(av[i]))
 			return (0);
