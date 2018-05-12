@@ -63,8 +63,7 @@ long			ft_atol(const char *str)
 			++str;
 		nb = 0;
 		while (*str && is_digit(*str))
-			nb = 10 * nb + sign * (*str++ - '0');
+			nb = 10 * nb + (*str++ - '0');
 	}
-	nb = (*str == NULL) ? nb : NONE;
-	return (nb);
+	return (*str == NULL ? nb * sign : NONE);
 }

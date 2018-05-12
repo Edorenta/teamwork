@@ -67,7 +67,7 @@ inline int	push_to_stack(t_env *env, char *av)
 
 static int	split_push(char *str, int spaces, t_env *env)
 {
-	char	av[spaces][10];
+	char	av[spaces][16];
 	char	*p;
 	int		i;
 	int		j;
@@ -105,7 +105,7 @@ int 		get_stacks(int ac, char **av, t_env *env)
 		if (spaces && ac += split_push(av[i], spaces, env))
 			//env->size += split_push(av[i], spaces, env);
 			env->size += (spaces + 1);
-		else
+		else if (!full_digits(av[i]))
 			env->size += push_to_stack(env, av[i]);
 		i++;
 	}
