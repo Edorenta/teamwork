@@ -6,29 +6,28 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 15:03:48 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/12 15:18:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		swap(long *pile, int size)
+long	*swap(long *pile, int size, int feleim)
 {
-	int	i;
-	int	tmp;
+	int		tmp;
+	int		i;
 
-	i = 0;
-	while (pile[i] == NONE && i < size)
-		i++;
+	i = felem;
 	if (i < size && pile[i] != NONE && pile[i + 1] != NONE)
 	{
 		tmp = pile[i];
 		pile[i] = pile[i + 1];
 		pile[i + 1] = tmp;
 	}
+	return (pile);
 }
 
-t_env		*push(t_env *env)
+t_env	*push(t_env *env)
 {
 	int		i;
 	int		j;
@@ -42,12 +41,13 @@ t_env		*push(t_env *env)
 		a[i] = b[j];
 		b[j] = tmp;
 	}
+	return (env);
 }
 
-void		rotate(long *pile, int size, int felem)
+long	*rotate(long *pile, int size, int felem)
 {
-	int	i;
-	int tmp;
+	int		i;
+	int		tmp;
 
 	i = felem;
 	if (i < size)
@@ -60,12 +60,13 @@ void		rotate(long *pile, int size, int felem)
 		}
 		pile[i] = tmp;
 	}
+	return (pile);
 }
 
-void		reverse_rotate(long *pile, int size)
+long	*reverse_rotate(long *pile, int size)
 {
-	int i;
-	int tmp;
+	int		i;
+	int		tmp;
 
 	i = size - 1;
 	tmp = pile[i];
@@ -75,4 +76,5 @@ void		reverse_rotate(long *pile, int size)
 		i--;
 	}
 	pile[i] = tmp;
+	return (pile);
 }
