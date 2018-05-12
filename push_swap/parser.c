@@ -10,47 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void		check_nb(int ac, char **av)
+int		check_dup(int *pile, int size)
 {
-	int i;
-	int j;
+	int *cmp1;
+	int *cmp2;
 
-	i = 1;
-	while (i < ac)
+	cmp1 = pile;
+	cmp2 = pile + 1;
+	while (cmp2 != (pile + size))
 	{
-		j = 0;
-		while (av[i][j])
+		while (cmp1 != (pile + size))
 		{
-			if (ft_isdigit(av[i][j]) == 0 && (j != 0 || av[i][j] != '-'))
-				put_error();
-			j++;
+			if (cmp1 != cmp2 && *cmp1 == *cmp2)
+				return (0);
+			++cmp1;
 		}
-		i++;
+		++cmp2;
 	}
-}
-
-void		check_dup(int ac, char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (av[i])
-	{
-		j = i + 1;
-		while (av[j])
-		{
-			if (ft_strcmp(av[i], av[j]) == 0)
-				put_error();
-			j++;
-		}
-		i++;
-	}
+	return (1);
 }
 
 int		check_int(char *av)
 {
-	return ((av && full_digits(av)))
+	return (av && (ft_atol(av) >= INT_MIN && ft_atol(av) <= INT_MAX));
 }
 
 inline int	push_to_stack(t_env *env, char *av)
@@ -90,24 +72,4 @@ static int	split_push(char *str, int spaces, t_env *env)
 	while (++i < (spaces + 1))
 		push_to_stack(av[i], env);
 	return (spaces + 1);
-}
-
-int 		get_stacks(int ac, char **av, t_env *env)
-{
-	int spaces;
-
-	env->size = 0;
-	while (env->size < ac && i > 0 && av[i])
-	{
-//		if (!full_digits(av[i]))
-//			return (0);
-		spaces += space_in(av[i]);
-		if (spaces && ac += split_push(av[i], spaces, env))
-			//env->size += split_push(av[i], spaces, env);
-			env->size += (spaces + 1);
-		else if (!full_digits(av[i]))
-			env->size += push_to_stack(env, av[i]);
-		i++;
-	}
-	return (1);
 }

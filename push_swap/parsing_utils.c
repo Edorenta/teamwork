@@ -15,6 +15,12 @@ int			slen(char *s)
 	return (*s ? slen(++s) + 1 : 0);
 }
 
+int			pstr(const char *s)
+{
+	*s ? write(1, s, slen(s)) : 0;
+	write(1, "\n", 1);
+}
+
 int			is_space(const char c)
 {
 	return ((c < 14 && c > 7) || c == 32);
@@ -39,8 +45,7 @@ int			space_in(const char *str)
 		prev = is_space(*p) ? 1 : 0;
 		p++;
 	}
-	i = prev ? (i - 1) : i;
-	return (i);
+	return (prev ? (i - 1) : i);
 }
 
 int			full_digits(const char *str)
