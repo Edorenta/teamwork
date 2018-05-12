@@ -6,21 +6,21 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 06:07:07 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/12 15:03:48 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		swap(long *pile, int nb)
+void		swap(long *pile, int size)
 {
 	int	i;
 	int	tmp;
 
 	i = 0;
-	while (pile[i] == null && i < nb)
+	while (pile[i] == NONE && i < size)
 		i++;
-	if (i < nb && pile[i] != null && pile[i + 1] != null)
+	if (i < size && pile[i] != NONE && pile[i + 1] != NONE)
 	{
 		tmp = pile[i];
 		pile[i] = pile[i + 1];
@@ -28,15 +28,15 @@ void		swap(long *pile, int nb)
 	}
 }
 
-void		push(long *a, long *b, int nb)
+t_env		*push(t_env *env)
 {
 	int		i;
 	int		j;
 	int		tmp;
 
-	i = first_elem(a, nb);
-	j = first_elem(b, nb);
-	if (a[i] != null)
+	i = env->a1;
+	j = env->b1;
+	if (env->a[i] != NONE)
 	{
 		tmp = a[i];
 		a[i] = b[j];
@@ -44,16 +44,16 @@ void		push(long *a, long *b, int nb)
 	}
 }
 
-void		rotate(long *pile, int nb)
+void		rotate(long *pile, int size, int felem)
 {
 	int	i;
 	int tmp;
 
-	i = first_elem(pile, nb);
-	if (i < nb)
+	i = felem;
+	if (i < size)
 	{
 		tmp = pile[i];
-		while (i < nb - 1)
+		while (i < size - 1)
 		{
 			pile[i] = pile[i + 1];
 			i++;
@@ -62,14 +62,14 @@ void		rotate(long *pile, int nb)
 	}
 }
 
-void		reverse_rotate(long *pile, int nb)
+void		reverse_rotate(long *pile, int size)
 {
 	int i;
 	int tmp;
 
-	i = nb - 1;
+	i = size - 1;
 	tmp = pile[i];
-	while (pile[i - 1] != null)
+	while (pile[i - 1] != NONE)
 	{
 		pile[i] = pile[i - 1];
 		i--;
