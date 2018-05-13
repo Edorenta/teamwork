@@ -42,7 +42,7 @@ inline int	push_to_pile(t_env *env, char *av)
 	return (1);
 }
 
-static int	split_to_pile(char *str, int spaces, t_env *env)
+static int	split_to_pile(t_env *env, char *str, int spaces)
 {
 	char	av[spaces][16];
 	char	*p;

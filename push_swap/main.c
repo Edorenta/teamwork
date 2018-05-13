@@ -14,7 +14,7 @@
 
 static void	put_error(t_env *env, const char *err_msg)
 {
-	free_pile(env);
+	free_piles(env);
 	pstr(err_msg);
 	exit(1);
 }
@@ -35,13 +35,13 @@ int		alloc_piles(t_env *env)
 	return (1);
 }
 
-void	free_pile(t_env *env);
+void	free_piles(t_env *env);
 {
 	env->a ? free(a) : 0;
 	env->b ? free(b) : 0;
 }
 
-int 	arg_to_pile(int ac, char **av, t_env *env)
+int 	arg_to_piles(t_env *env, int ac, char **av)
 {
 	int	i;
 
@@ -51,12 +51,7 @@ int 	arg_to_pile(int ac, char **av, t_env *env)
 	alloc_piles(env);
 	i = 0;
 	while (++i < ac && av[i])
-	{
-		space_in(av[i]) ? split_to_pile;
-		else if (!full_digits(av[i]))
-			env->size += push_to_pile(env, av[i]);
-		i++;
-	}
+		space_in(av[i]) ? split_to_pile(env, av[i], space_in(av[i])) : push_to_pile(env, av[i]);
 	return (1);
 }
 
@@ -67,19 +62,20 @@ inline	void init_piles(t_env *env, int ac)
 	env->b = NULL;
 }
 
+inline	void deinit_piles(t_env *env, int ac)
+{
+	free_piles()
+}
+
 int		main(int ac, char **av)
 {
 	t_env env;
 
-	init_piles(&env, ac);
+	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !compliant_arg(ac, av, &env))
 		put_error(env, Error);
-	arg_to_pile()
-	//get_option(ac, av, &env);
-	begin_sort(&env);
-	//a = stock_table(ac, av); >> get_stack
-	//b = create_table(ac); >> get_stack
-	//push_swap(a, b, ac - 1);
-	free_pile(a, b);
+	arg_to_piles()
+	sort_pile(&env);
+	deinit_env(&env);
 	return (1);
 }
