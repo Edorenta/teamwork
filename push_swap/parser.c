@@ -31,7 +31,7 @@ int		no_duplicates(int *pile, int size)
 	return (1);
 }
 
-inline int	push_to_stack(t_env *env, char *av)
+inline int	push_to_pile(t_env *env, char *av)
 {
 	long		nb;
 	static int  i = -1;
@@ -42,7 +42,7 @@ inline int	push_to_stack(t_env *env, char *av)
 	return (1);
 }
 
-static int	split_push(char *str, int spaces, t_env *env)
+static int	split_to_pile(char *str, int spaces, t_env *env)
 {
 	char	av[spaces][16];
 	char	*p;
@@ -65,6 +65,6 @@ static int	split_push(char *str, int spaces, t_env *env)
 	dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
 	i = -1;
 	while (++i < (spaces + 1))
-		push_to_stack(av[i], env);
+		push_to_pile(av[i], env);
 	return (spaces + 1);
 }
