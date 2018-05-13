@@ -6,13 +6,13 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 15:18:29 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/13 19:50:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	*swap(long *pile, int size, int feleim)
+long	*swap(long *pile, int size, int felem)
 {
 	int		tmp;
 	int		i;
@@ -37,9 +37,9 @@ t_env	*push(t_env *env)
 	j = env->b1;
 	if (env->a[i] != NONE)
 	{
-		tmp = a[i];
-		a[i] = b[j];
-		b[j] = tmp;
+		tmp = env->a[i];
+		env->a[i] = env->b[j];
+		env->b[j] = tmp;
 	}
 	return (env);
 }
