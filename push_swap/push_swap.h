@@ -27,27 +27,50 @@ typedef struct		s_env
 	int				opt;
 }					t_env;
 
-int				slen(char *s);
-long			ft_atol(const char *str);
-int				is_digits(const char c);
-int				is_space(const char c);
-int				space_in(const char *str);
-int				full_digits(const char *str);
+/*
+ * BASICS
+ */
 
-long			*swap(long *pile, int size, int felem);
-long			*rotate(long *pile,int size, int felem);
-long			*reverse_rotate(long *pile, int nb);
-t_env			*push(t_env *env);
+int					slen(char *s);
+int					pstr(const char *s);
+int					is_space(const char c);
+int					is_digit(const char c);
 
+/*
+ * PARSER
+ */
 
-void			is_int(int ac, char **av);
-void			check_same(int ac, char **av);
-void			check_nb(int ac, char **av);
+int 				arg_to_piles(t_env *env, int ac, char **av);
+int					no_duplicates(int *pile, int size);
+int					full_digits(const char *str);
+int					spaces_in(const char *str);
+long				ft_atol(const char *str);
+int					is_int(char *av);
 
-long			*stock_table(int ac, char **av);
-long			*create_table(int ac);
-void			free_pile(long *a, long *b);
+/*
+ * PILES MANAGEMENT
+ */
 
-int				is_sort(long *pile, int nb);
+int					alloc_piles(t_env *env);
+void				free_piles(t_env *env);
+
+/*
+ * CHECKS & ERRORS
+ */
+
+void				put_error(t_env *env, const char *err_msg);
+
+/*
+ * MOVE OPERATIONS
+ */
+
+long				*swap(long *pile, int size, int felem);
+long				*rotate(long *pile,int size, int felem);
+long				*reverse_rotate(long *pile, int nb);
+t_env				*push(t_env *env);
+
+/*
+ * LOGIC (ALL)
+ */
 
 #endif
