@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/13 19:48:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/13 19:52:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				space_in(const char *str);
 int				full_digits(const char *str);
 
 long			*swap(long *pile, int size, int felem);
-long			*rotate(long *pile, int nb);
+long			*rotate(long *pile,int size, int felem);
 long			*reverse_rotate(long *pile, int nb);
 t_env			*push(t_env *env);
 

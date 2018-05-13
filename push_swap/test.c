@@ -13,7 +13,7 @@ int main(void)
 	printf("before : %ld\n", test[0]);
 	printf("before : %ld\n", test[1]);
 	printf("before : %ld\n", test[2]);
-	test = swap(&test, size, felem);
+	test = swap(test, size, felem);
 	printf("after : %ld\n", test[0]);
 	printf("after : %ld\n", test[1]);
 	printf("after : %ld\n", test[2]);
