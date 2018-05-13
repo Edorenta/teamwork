@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 06:10:08 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/13 19:48:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ typedef struct		s_env
 }					t_env;
 
 int				slen(char *s);
-long			ft_atol(const char *str)
+long			ft_atol(const char *str);
 int				is_digits(const char c);
 int				is_space(const char c);
 int				space_in(const char *str);
 int				full_digits(const char *str);
 
-void			swap(long *pile, int nb);
-void			push(long *a, long b, int nb);
-void			rotate(long *pile, int nb);
-void			reverse_rotate(long *pile, int nb);
+long			*swap(long *pile, int size, int felem);
+long			*rotate(long *pile, int nb);
+long			*reverse_rotate(long *pile, int nb);
+t_env			*push(t_env *env);
 
 
 void			is_int(int ac, char **av);
