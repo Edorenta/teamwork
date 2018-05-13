@@ -38,9 +38,8 @@ int				main(int ac, char **av)
 	t_env env;
 
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !compliant_arg(ac, av, &env))
+	if (ac < 2 || !av[1] || !arg_to_piles(ac, av, &env))
 		put_error(env, Error);
-	arg_to_piles()
 	sort_pile(&env);
 	deinit_env(&env);
 	return (1);

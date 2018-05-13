@@ -12,28 +12,14 @@
 
 #include "push_swap.h"
 
-int 				arg_to_piles(t_env *env, int ac, char **av)
-{
-	int	i;
-
-	i = 0;
-	while (++i < ac && av[i])
-		env->size += spaces_in(av[i]);
-	alloc_piles(env);
-	i = 0;
-	while (++i < ac && av[i])
-		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i])) : push_to_pile(env, av[i]);
-	return (1);
-}
-
 inline static int	push_to_pile(t_env *env, char *av)
 {
 	long		nb;
 	static int  i = -1;
 
-	if (!no_duplicates(av) || !is_int(ac, av))
-		put_error();
+	!is_int(av[i]) ? put_error() : 0;
 	env->a[++i] = ft_atol(av[i]);
+	!no_duplicates(env->a, env->size) ? put_error() : 0;
 	return (1);
 }
 
@@ -62,4 +48,18 @@ inline static int	split_to_pile(t_env *env, char *str, int spaces)
 	while (++i < (spaces + 1))
 		push_to_pile(av[i], env);
 	return (spaces + 1);
+}
+
+int 				arg_to_piles(t_env *env, int ac, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (++i < ac && av[i])
+		env->size += spaces_in(av[i]);
+	alloc_piles(env);
+	i = 0;
+	while (++i < ac && av[i])
+		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i])) : push_to_pile(env, av[i]);
+	return (1);
 }
