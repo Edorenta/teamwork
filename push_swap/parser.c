@@ -10,28 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		no_duplicates(int *pile, int size)
-{
-	int *i;
-	int *j;
+#include "push_swap.h"
 
-	j = pile;
-	while (j != (pile + size - 1))
-	{
-		i = j + 1;
-		while (i != (pile + size))
-		{
-		 	//dprintf(1, "i:%d j:%d\n", *i,*j);
-			if (i != j && *i == *j)
-				return (0);
-			++i;
-		}
-		++j;
-	}
+int 				arg_to_piles(t_env *env, int ac, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (++i < ac && av[i])
+		env->size += spaces_in(av[i]);
+	alloc_piles(env);
+	i = 0;
+	while (++i < ac && av[i])
+		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i])) : push_to_pile(env, av[i]);
 	return (1);
 }
 
-inline int	push_to_pile(t_env *env, char *av)
+inline static int	push_to_pile(t_env *env, char *av)
 {
 	long		nb;
 	static int  i = -1;
@@ -42,7 +37,7 @@ inline int	push_to_pile(t_env *env, char *av)
 	return (1);
 }
 
-static int	split_to_pile(t_env *env, char *str, int spaces)
+inline static int	split_to_pile(t_env *env, char *str, int spaces)
 {
 	char	av[spaces][16];
 	char	*p;
@@ -59,10 +54,10 @@ static int	split_to_pile(t_env *env, char *str, int spaces)
 		while (*p && (*p >= '0' && *p <= '9'))
 			av[i][++j] = *p++;
 		av[i][++j] = '\0';
-		dprintf(1, "tok[%d] : %s\n", i, av[i]);
+		//dprintf(1, "tok[%d] : %s\n", i, av[i]);
 		i++;
 	}
-	dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
+	//dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
 	i = -1;
 	while (++i < (spaces + 1))
 		push_to_pile(av[i], env);

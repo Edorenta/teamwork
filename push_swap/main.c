@@ -12,62 +12,28 @@
 
 #include "push_swap.h"
 
-static void	put_error(t_env *env, const char *err_msg)
+void			put_error(t_env *env, const char *err_msg)
 {
 	free_piles(env);
 	pstr(err_msg);
 	exit(1);
 }
 
-int		alloc_piles(t_env *env)
-{
-	int i;
-
-	i = -1;
-	if (!(env->a = (int *)malloc(sizeof(int) * env->size))
-		|| !(env->b = (int *)malloc(sizeof(int) * env->size)))
-		put_error(env, "Error");
-	while (++i < env->size)
-	{
-		env->a[i] = NONE;
-		env->b[i] = NONE;
-	}
-	return (1);
-}
-
-void	free_piles(t_env *env);
-{
-	env->a ? free(a) : 0;
-	env->b ? free(b) : 0;
-}
-
-int 	arg_to_piles(t_env *env, int ac, char **av)
-{
-	int	i;
-
-	i = 0;
-	while (++i < ac && av[i])
-		env->size += space_in(av[i]);
-	alloc_piles(env);
-	i = 0;
-	while (++i < ac && av[i])
-		space_in(av[i]) ? split_to_pile(env, av[i], space_in(av[i])) : push_to_pile(env, av[i]);
-	return (1);
-}
-
-inline	void init_piles(t_env *env, int ac)
+inline void		init_env(t_env *env)
 {
 	env->size = ac;
 	env->a = NULL;
 	env->b = NULL;
+	env->a1 = 0;
+	env->b1 = 0;
 }
 
-inline	void deinit_piles(t_env *env, int ac)
+inline void		deinit_env(t_env *env)
 {
-	free_piles()
+	free_piles();
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_env env;
 

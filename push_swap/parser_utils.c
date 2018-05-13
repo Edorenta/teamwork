@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int			slen(char *s)
-{
-	return (*s ? slen(++s) + 1 : 0);
-}
+#include "push_swap.h"
 
-int			pstr(const char *s)
-{
-	*s ? write(1, s, slen(s)) : 0;
-	write(1, "\n", 1);
-}
-
-int			is_space(const char c)
-{
-	return ((c < 14 && c > 7) || c == 32);
-}
-
-int			is_digit(const char c)
-{
-	return ((c >= '0' && c <= '9') ? 1 : 0);
-}
-
-int			space_in(const char *str)
+int			spaces_in(const char *str)
 {
 	const char	*p = str;
 	int			i;
