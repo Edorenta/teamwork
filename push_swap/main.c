@@ -41,7 +41,7 @@ void	free_pile(t_env *env);
 	env->b ? free(b) : 0;
 }
 
-int 		arg_to_pile(int ac, char **av, t_env *env)
+int 	arg_to_pile(int ac, char **av, t_env *env)
 {
 	int	i;
 
@@ -52,8 +52,7 @@ int 		arg_to_pile(int ac, char **av, t_env *env)
 	i = 0;
 	while (++i < ac && av[i])
 	{
-		if (space_in(av[i]))
-			env->size += (spaces + 1);
+		space_in(av[i]) ? split_to_pile;
 		else if (!full_digits(av[i]))
 			env->size += push_to_pile(env, av[i]);
 		i++;
