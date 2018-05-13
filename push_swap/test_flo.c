@@ -37,7 +37,9 @@ void test_push()
 	}
 	env->a1 = 0;
 	env->b1 = 4;
-	env = push(env);
+	printf("a1 :%d\n", env->a1);
+	printf("b1 :%d\n", env->b1);
+	env = push(env, 'A');
 	printf("%ld\n", env->a[0]);
 	printf("%ld\n", env->a[1]);
 	printf("%ld\n", env->a[2]);
@@ -48,4 +50,6 @@ void test_push()
 	printf("%ld\n", env->b[2]);
 	printf("%ld\n", env->b[3]);
 	printf("%ld\n", env->b[4]);
+	printf("a1 :%d\n", env->a1);
+	printf("b1 :%d\n", env->b1);
 }

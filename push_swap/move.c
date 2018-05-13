@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/13 20:41:42 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/13 21:00:04 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,23 @@ long	*swap(long *pile, int size, int felem)
 
 t_env	*push(t_env *env, char to)
 {
-	int		i;
-	int		j;
+	int		*i;
+	int		*j;
 	int		tmp;
 	long	*pilefrom;
 	long	*pileto;
 
 	pilefrom = (to == 'B' ? env->a : env->b);
 	pileto = (to == 'B' ? env->b : env->a);
-	i = (to == 'B' ? env->a1 : env->b1);
-	j = (to == 'B' ? env->b1 : env->a1);
-	if (pilefrom[i] != NONE)
+	i = (to == 'B' ? &env->a1 : &env->b1);
+	j = (to == 'B' ? &env->b1 : &env->a1);
+	if (pilefrom[*i] != NONE)
 	{
-		tmp = pilefrom[i];
-		pilefrom[i] = pileto[j];
-		pileto[j] = tmp;
+		tmp = pilefrom[*i];
+		pilefrom[*i] = pileto[*j];
+		pileto[*j] = tmp;
+		--*i;
+		++*j;
 	}
 	return (env);
 }

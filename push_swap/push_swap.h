@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/13 19:52:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/13 21:01:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void				put_error(t_env *env, const char *err_msg);
 long				*swap(long *pile, int size, int felem);
 long				*rotate(long *pile,int size, int felem);
 long				*reverse_rotate(long *pile, int nb);
-t_env				*push(t_env *env);
+t_env				*push(t_env *env, char to);
 
 /*
  * LOGIC (ALL)
