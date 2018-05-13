@@ -10,29 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		check_dup(int *pile, int size)
+int		no_duplicates(int *pile, int size)
 {
-	int *cmp1;
-	int *cmp2;
+	int *i;
+	int *j;
 
-	cmp1 = pile;
-	cmp2 = pile + 1;
-	while (cmp2 != (pile + size))
+	j = pile;
+	while (j != (pile + size - 1))
 	{
-		while (cmp1 != (pile + size))
+		i = j + 1;
+		while (i != (pile + size))
 		{
-			if (cmp1 != cmp2 && *cmp1 == *cmp2)
+		 	//dprintf(1, "i:%d j:%d\n", *i,*j);
+			if (i != j && *i == *j)
 				return (0);
-			++cmp1;
+			++i;
 		}
-		++cmp2;
+		++j;
 	}
 	return (1);
-}
-
-int		check_int(char *av)
-{
-	return (av && (ft_atol(av) >= INT_MIN && ft_atol(av) <= INT_MAX));
 }
 
 inline int	push_to_stack(t_env *env, char *av)
@@ -40,8 +36,7 @@ inline int	push_to_stack(t_env *env, char *av)
 	long		nb;
 	static int  i = -1;
 
-	if (!check_nb(av) || !check_dup(av) || !check_int(ac, av)
-		|| !full_digits(av))
+	if (!no_duplicates(av) || !is_int(ac, av))
 		put_error();
 	env->a[++i] = ft_atol(av[i]);
 	return (1);

@@ -53,7 +53,12 @@ int			full_digits(const char *str)
 	return (ft_atol(str) != NONE ? 1 : 0);
 }
 
-long			ft_atol(const char *str)
+int			is_int(char *av)
+{
+	return (av && (ft_atol(av) >= INT_MIN && ft_atol(av) <= INT_MAX));
+}
+
+long		ft_atol(const char *str)
 {
 	long		nb;
 	long		sign;

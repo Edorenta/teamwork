@@ -40,7 +40,7 @@ void			rotate(long *pile, int nb);
 void			reverse_rotate(long *pile, int nb);
 
 
-void			check_int(int ac, char **av);
+void			is_int(int ac, char **av);
 void			check_same(int ac, char **av);
 void			check_nb(int ac, char **av);
 
