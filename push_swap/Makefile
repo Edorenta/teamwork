@@ -6,12 +6,13 @@
 #    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
-#    Updated: 2018/05/14 14:51:12 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/05/14 14:52:54 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -O2 -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -O2
+CFLAGS_DBG = -g -fsanitize=address
 NAME1 = push_swap
 NAME2 = checker
 SOURCE1 = checker.c
@@ -39,6 +40,6 @@ fclean : clean
 	@ rm -rf $(NAME1) $(NAME2)
 
 dbg :
-	@ gcc test.c
+	@ $(CC) $(FLAGS_DBG) test.c
 
 re : fclean all
