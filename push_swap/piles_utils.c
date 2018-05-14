@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:37:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:48:17 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int		alloc_piles(t_env *env)
 
 	i = -1;
 	if (!(env->a = (long *)malloc(sizeof(long) * env->size))
-		|| !(env->b = (long *)malloc(sizeof(long) * env->size)))
+		|| !(env->b = (long *)malloc(sizeof(long) * env->size))
+		|| !(env->c = (long *)malloc(sizeof(long) * env->size)))
 		put_error(env, "Error");
 	while (++i < env->size)
 	{
 		env->a[i] = NONE;
 		env->b[i] = NONE;
+		env->c[i] = NONE;
 	}
 	return (1);
 }
@@ -53,4 +55,5 @@ void	free_piles(t_env *env)
 {
 	env->a ? free(env->a) : 0;
 	env->b ? free(env->b) : 0;
+	env->c ? free(env->c) : 0;
 }

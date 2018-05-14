@@ -13,7 +13,7 @@ void			put_error(t_env *env, const char *err_msg)
 	exit(1);
 }
 
-inline void		init_env(t_env *env, int ac)
+inline static void		init_env(t_env *env, int ac)
 {
 	env->size = ac;
 	env->a = NULL;
@@ -22,7 +22,7 @@ inline void		init_env(t_env *env, int ac)
 	env->b1 = 0;
 }
 
-inline void		deinit_env(t_env *env)
+inline static void		deinit_env(t_env *env)
 {
 	free_piles(env);
 }

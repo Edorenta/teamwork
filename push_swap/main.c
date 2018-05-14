@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:35:43 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:46:49 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ inline void		init_env(t_env *env, int ac)
 	env->size = ac;
 	env->a = NULL;
 	env->b = NULL;
+	env->c = NULL;
 	env->a1 = 0;
 	env->b1 = 0;
 }
