@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:46:49 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 15:57:26 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				main(int ac, char **av)
 
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
-		put_error(&env, "Error");
+		put_error(&env, "Error: wrong input");
 	//sort_pile(&env);
 	deinit_env(&env);
 	return (1);

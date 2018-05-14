@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:56:10 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 16:26:49 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 inline static int	push_to_pile(t_env *env, char *av)
 {
 	static int  i = -1;
-
-	!is_int(av) ? put_error(env, "Error") : 0;
+	
+	//printf("%s\n", av);
+	!is_int(av) ? put_error(env, "Error: arg not int") : 0;
 	env->a[++i] = ft_atol(av);
-	!no_duplicates(env->a, env->size) ? put_error(env, "Error") : 0;
+	printf("%ld\n", env->a[i]);
+	!no_duplicates(env->a, i + 1) ? put_error(env, "Error: duplicates") : 0;
 	return (1);
 }
 
@@ -37,16 +39,16 @@ inline static int	split_to_pile(t_env *env, char *str, int spaces)
 			p++;
 		j = -1;
 		while (*p && (*p >= '0' && *p <= '9'))
-			av[i][++j] = *p++;
+			av[i][++j] = *(p++);
 		av[i][++j] = '\0';
-		//dprintf(1, "tok[%d] : %s\n", i, av[i]);
+		dprintf(1, "tok[%d] : %s\n", i, av[i]);
 		i++;
 	}
-	//dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
+	dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
 	i = -1;
-	while (++i < (spaces + 1))
+	while (++i < (spaces))
 		push_to_pile(env, av[i]);
-	return (spaces + 1);
+	return (spaces);
 }
 
 int 				arg_to_piles(t_env *env, int ac, char **av)
@@ -59,6 +61,7 @@ int 				arg_to_piles(t_env *env, int ac, char **av)
 	alloc_piles(env);
 	i = 0;
 	while (++i < ac && av[i])
-		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i])) : push_to_pile(env, av[i]);
+		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i]) + 1)
+		: push_to_pile(env, av[i]);
 	return (1);
 }

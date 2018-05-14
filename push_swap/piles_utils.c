@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:48:17 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 15:13:45 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		no_duplicates(long *pile, int size)
 		i = j + 1;
 		while (i != (pile + size))
 		{
-		 	//dprintf(1, "i:%d j:%d\n", *i,*j);
+		 	///dprintf(1, "i:%ld j:%ld\n", *i,*j);
 			if (i != j && *i == *j)
 				return (0);
 			++i;
@@ -41,7 +41,7 @@ int		alloc_piles(t_env *env)
 	if (!(env->a = (long *)malloc(sizeof(long) * env->size))
 		|| !(env->b = (long *)malloc(sizeof(long) * env->size))
 		|| !(env->c = (long *)malloc(sizeof(long) * env->size)))
-		put_error(env, "Error");
+		put_error(env, "Error: piles allocation failed");
 	while (++i < env->size)
 	{
 		env->a[i] = NONE;

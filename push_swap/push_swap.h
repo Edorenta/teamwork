@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:43:24 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 15:06:01 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 typedef struct		s_env
 {

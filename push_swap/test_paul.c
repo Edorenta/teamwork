@@ -15,7 +15,7 @@ void			put_error(t_env *env, const char *err_msg)
 
 inline static void		init_env(t_env *env, int ac)
 {
-	env->size = ac;
+	env->size = ac - 1;
 	env->a = NULL;
 	env->b = NULL;
 	env->a1 = 0;
@@ -33,8 +33,8 @@ int				test_paul(int ac, char **av)
 
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
-		put_error(&env, "Error");
-	for (int i = 0; i <= env.size; i++)
+		put_error(&env, "Error: wrong input");
+	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	//sort_pile(&env);
 	deinit_env(&env);
