@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 16:41:33 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 16:45:43 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline static int	push_to_pile(t_env *env, char *av)
 	//printf("%s\n", av);
 	!is_int(av) ? put_error(env, "Error: arg not int") : 0;
 	env->a[++i] = ft_atol(av);
-	printf("%ld\n", env->a[i]);
+	//printf("%ld\n", env->a[i]);
 	!no_duplicates(env->a, i + 1) ? put_error(env, "Error: duplicates") : 0;
 	return (1);
 }
