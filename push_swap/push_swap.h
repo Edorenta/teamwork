@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:38:18 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:43:24 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_env
 {
 	long			*a;
 	long			*b;
+	long			*c;
 	int				a1;
 	int 			b1;
 	int				size;
