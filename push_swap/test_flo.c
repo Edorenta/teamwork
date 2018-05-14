@@ -3,6 +3,43 @@
 
 #include "move.c"
 
+void test_rotate()
+{
+	long *test;
+
+	test = malloc(sizeof(long) * 3);
+	test[0] = 1;
+	test[1] = 2;
+	test[2] = 3;
+	int size = 3;
+	int felem = 1;
+	printf("before : %ld\n", test[0]);
+	printf("before : %ld\n", test[1]);
+	printf("before : %ld\n", test[2]);
+	test = rotate(test, size, felem);
+	printf("after : %ld\n", test[0]);
+	printf("after : %ld\n", test[1]);
+	printf("after : %ld\n", test[2]);
+}
+
+void test_rotate_reverse()
+{
+	long *test;
+
+	test = malloc(sizeof(long) * 3);
+	test[0] = 1;
+	test[1] = 2;
+	test[2] = 3;
+	int size = 3;
+	printf("before : %ld\n", test[0]);
+	printf("before : %ld\n", test[1]);
+	printf("before : %ld\n", test[2]);
+	test = reverse_rotate(test, size);
+	printf("after : %ld\n", test[0]);
+	printf("after : %ld\n", test[1]);
+	printf("after : %ld\n", test[2]);
+}
+
 void test_swap()
 {
 	long *test;
