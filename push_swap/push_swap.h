@@ -73,6 +73,8 @@ void			free_piles(t_env *env);
  */
 
 void			put_error(t_env *env, const char *err_msg);
+int				is_sort(long *pile, int size, int felem);
+int				all_sort(t_env *env);
 
 /*
  * MOVE OPERATIONS
