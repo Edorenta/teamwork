@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 12:06:27 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 11:51:03 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			full_digits(const char *str)
 
 int			is_int(char *av)
 {
-	return (av && (ft_atol(av) >= INT_MIN && ft_atol(av) <= INT_MAX));
+	return (av && (ft_atol(av) >= -2147483648 && ft_atol(av) <= 2147483647));
 }
 
 long		ft_atol(const char *str)
@@ -54,7 +54,7 @@ long		ft_atol(const char *str)
 			++str;
 		nb = 0;
 		while (*str && is_digit(*str))
-			nb = 10 * nb + (*str++ - '0');
+			nb = 10 * nb + (*(str++) - '0');
 	}
-	return (*str == NULL ? nb * sign : NONE);
+	return (*str == '\0' ? nb * sign : NONE);
 }

@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 12:06:01 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 11:28:28 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ inline static int	push_to_pile(t_env *env, char *av)
 	long		nb;
 	static int  i = -1;
 
-	!is_int(av[i]) ? put_error() : 0;
-	env->a[++i] = ft_atol(av[i]);
-	!no_duplicates(env->a, env->size) ? put_error() : 0;
+	!is_int(av) ? put_error(env, "Error") : 0;
+	env->a[++i] = ft_atol(av);
+	!no_duplicates(env->a, env->size) ? put_error(env, "Error") : 0;
 	return (1);
 }
 

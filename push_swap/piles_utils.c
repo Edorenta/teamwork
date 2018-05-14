@@ -6,13 +6,13 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 12:06:27 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 11:29:01 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		no_duplicates(int *pile, int size)
+int		no_duplicates(long *pile, int size)
 {
 	int *i;
 	int *j;

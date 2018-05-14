@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/13 21:01:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/14 12:21:31 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 # define NONE 2200000000
 
+# include <unistd.h>
 # include <stdlib.h>
 
 typedef struct		s_env
@@ -32,7 +33,7 @@ typedef struct		s_env
  */
 
 int					slen(char *s);
-int					pstr(const char *s);
+int					pstr(char *s);
 int					is_space(const char c);
 int					is_digit(const char c);
 
@@ -41,7 +42,7 @@ int					is_digit(const char c);
  */
 
 int 				arg_to_piles(t_env *env, int ac, char **av);
-int					no_duplicates(int *pile, int size);
+int					no_duplicates(long *pile, int size);
 int					full_digits(const char *str);
 int					spaces_in(const char *str);
 long				ft_atol(const char *str);

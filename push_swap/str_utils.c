@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/12 12:06:01 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 12:21:10 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			slen(char *s)
 	return (*s ? slen(++s) + 1 : 0);
 }
 
-int			pstr(const char *s)
+int			pstr(char *s)
 {
 	*s ? write(1, s, slen(s)) : 0;
 	write(1, "\n", 1);
