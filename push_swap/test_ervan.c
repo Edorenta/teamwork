@@ -41,6 +41,7 @@ int				test_ervan(int ac, char **av)
 	ft_index(&env);
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("c[%d] = %ld\n", i, env.c[i]);
+	printf("is_sort : %d, all_sort : %d\n", is_sort(env.a, env.size, 0), all_sort(&env));
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	deinit_env(&env);

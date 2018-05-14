@@ -6,11 +6,29 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 15:13:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:17:29 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int		is_sort(long *pile, int size, int felem)
+{
+	int		i;
+
+	i = felem - 1;
+	while (++i < size - 1)
+		if (pile[i] >= pile[i + 1])
+			return (0);
+	return (1);
+}
+
+int		all_sort(t_env *env)
+{
+	if (!is_sort(env->a, env->size, 0) || env->b[env->size - 1] != NONE)
+		return (0);
+	return (1);
+}
 
 int		no_duplicates(long *pile, int size)
 {

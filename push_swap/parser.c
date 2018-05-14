@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 16:45:43 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:18:16 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ inline static int	split_to_pile(t_env *env, char *str, int spaces)
 		while (*p && is_space(*p))
 			p++;
 		j = -1;
-		while (*p && (*p >= '0' && *p <= '9'))
+		while (*p && ((*p >= '0' && *p <= '9') || *p == '-' || *p == '+'))
 			av[i][++j] = *(p++);
 		av[i][++j] = '\0';
 		//dprintf(1, "tok[%d] : %s\n", i, av[i]);

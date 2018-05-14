@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 19:25:29 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:08:46 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void				free_piles(t_env *env);
  * CHECKS & ERRORS
  */
 
+int					is_sort(long *pile, int size, int felem);
+int					all_sort(t_env *env);
 void				put_error(t_env *env, const char *err_msg);
 
 /*
