@@ -22,7 +22,7 @@ void test_rotate()
 	printf("after : %ld\n", test[2]);
 }
 
-void test_rotate_reverse()
+void test_reverse()
 {
 	long *test;
 
