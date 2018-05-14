@@ -34,7 +34,7 @@ void test_reverse()
 	printf("before : %ld\n", test[0]);
 	printf("before : %ld\n", test[1]);
 	printf("before : %ld\n", test[2]);
-	test = reverse_rotate(test, size);
+	test = reverse_rotate(test, size, 0);
 	printf("after : %ld\n", test[0]);
 	printf("after : %ld\n", test[1]);
 	printf("after : %ld\n", test[2]);

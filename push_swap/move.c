@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 17:02:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/14 19:25:27 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,16 @@ long	*reverse_rotate(long *pile, int size, int felem)
 	int		i;
 	int		tmp;
 
-	i = felem;
-	tmp = pile[i];
-	while (pile[i - 1] != NONE)
+	i = size - 1;
+	if (pile[size - 1] != NONE)
 	{
-		pile[i] = pile[i - 1];
-		i--;
+		tmp = pile[size - 1];
+		while (i >= felem)
+		{
+			pile[i] = pile[i - 1];
+			i--;
+		}
+		pile[felem] = tmp;
 	}
-	pile[i] = tmp;
 	return (pile);
 }
