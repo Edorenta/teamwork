@@ -28,7 +28,7 @@ inline static void		deinit_env(t_env *env)
 	free_piles(env);
 }
 
-int				test_paul(int ac, char **av)
+int				test_ervan(int ac, char **av)
 {
 	t_env env;
 
@@ -38,8 +38,11 @@ int				test_paul(int ac, char **av)
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	bb_sort(&env);
+	ft_index(&env);
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("c[%d] = %ld\n", i, env.c[i]);
+	for (int i = 0; i <= env.size - 1; i++)
+		printf("a[%d] = %ld\n", i, env.a[i]);
 	deinit_env(&env);
 	return (1);
 }

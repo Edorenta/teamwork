@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 14:29:14 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 16:43:39 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/14 17:00:47 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,22 @@ void	bb_sort(t_env *env)
 	}
 }
 
-void	index(t_env *env)
+void	ft_index(t_env *env)
 {
 	int		i;
 	int		j;
 	
 	i = 0;
 	j = 0;
-	while (i < size)
+	while (i < env->size)
 	{
 		j = 0;
-		while (env->a
+		while (env->a[j] != env->c[i])
+			j++;
+		env->a[j] = i;
+		i++;
+	}
+}
 
 
 
