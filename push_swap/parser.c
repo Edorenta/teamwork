@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 11:28:28 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:36:20 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ inline static int	split_to_pile(t_env *env, char *str, int spaces)
 	//dprintf(1, "tokens: %d theorical: %d\n", i, spaces + 1);
 	i = -1;
 	while (++i < (spaces + 1))
-		push_to_pile(av[i], env);
+		push_to_pile(env, av[i]);
 	return (spaces + 1);
 }
 

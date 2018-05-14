@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 11:29:01 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:37:45 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		no_duplicates(long *pile, int size)
 {
-	int *i;
-	int *j;
+	long *i;
+	long *j;
 
 	j = pile;
 	while (j != (pile + size - 1))
@@ -38,8 +38,8 @@ int		alloc_piles(t_env *env)
 	int i;
 
 	i = -1;
-	if (!(env->a = (int *)malloc(sizeof(int) * env->size))
-		|| !(env->b = (int *)malloc(sizeof(int) * env->size)))
+	if (!(env->a = (long *)malloc(sizeof(long) * env->size))
+		|| !(env->b = (long *)malloc(sizeof(long) * env->size)))
 		put_error(env, "Error");
 	while (++i < env->size)
 	{
@@ -49,8 +49,8 @@ int		alloc_piles(t_env *env)
 	return (1);
 }
 
-void	free_piles(t_env *env);
+void	free_piles(t_env *env)
 {
-	env->a ? free(a) : 0;
-	env->b ? free(b) : 0;
+	env->a ? free(env->a) : 0;
+	env->b ? free(env->b) : 0;
 }

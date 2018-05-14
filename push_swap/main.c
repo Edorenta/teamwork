@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/13 19:37:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/14 14:35:43 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			put_error(t_env *env, const char *err_msg)
 	exit(1);
 }
 
-inline void		init_env(t_env *env)
+inline void		init_env(t_env *env, int ac)
 {
 	env->size = ac;
 	env->a = NULL;
@@ -30,7 +30,7 @@ inline void		init_env(t_env *env)
 
 inline void		deinit_env(t_env *env)
 {
-	free_piles();
+	free_piles(env);
 }
 
 int				main(int ac, char **av)
@@ -38,9 +38,9 @@ int				main(int ac, char **av)
 	t_env env;
 
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(ac, av, &env))
-		put_error(env, Error);
-	sort_pile(&env);
+	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
+		put_error(&env, "Error");
+	//sort_pile(&env);
 	deinit_env(&env);
 	return (1);
 }

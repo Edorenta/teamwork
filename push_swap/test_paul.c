@@ -13,7 +13,7 @@ void			put_error(t_env *env, const char *err_msg)
 	exit(1);
 }
 
-inline void		init_env(t_env *env)
+inline void		init_env(t_env *env, int ac)
 {
 	env->size = ac;
 	env->a = NULL;
@@ -24,7 +24,7 @@ inline void		init_env(t_env *env)
 
 inline void		deinit_env(t_env *env)
 {
-	free_piles();
+	free_piles(env);
 }
 
 int				test_paul(int ac, char **av)
@@ -32,11 +32,11 @@ int				test_paul(int ac, char **av)
 	t_env env;
 
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(ac, av, &env))
-		put_error(env, Error);
-	for (int i = 0; i = env->size; i++)
-		printf("a[%d] = %d\n", env->a[i]);
-	sort_pile(&env);
+	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
+		put_error(&env, "Error");
+	for (int i = 0; i <= env.size; i++)
+		printf("a[%d] = %ld\n", i, env.a[i]);
+	//sort_pile(&env);
 	deinit_env(&env);
 	return (1);
 }
