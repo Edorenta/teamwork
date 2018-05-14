@@ -12,25 +12,19 @@
 
 #include "push_swap.h"
 
-int		new_move(const char *id, )
+t_move	*new_move(const char *id, t_move *prev, t_move *next)
 {
+	t_move *mv;
 
-	if (!(env->a = (long *)malloc(sizeof(long) * env->size))
-		|| !(env->b = (long *)malloc(sizeof(long) * env->size))
-		|| !(env->c = (long *)malloc(sizeof(long) * env->size)))
-		put_error(env, "Error: piles allocation failed");
-	while (++i < env->size)
-	{
-		env->a[i] = NONE;
-		env->b[i] = NONE;
-		env->c[i] = NONE;
-	}
-	return (1);
+	if (!(mv = (t_move *)malloc(sizeof(t_move))))
+		return (NULL);
+	mv->prev = prev;
+	mv->next = next;
+	scpy(mv->id, id);
+	return (mv);
 }
 
-void	free_move(t_move *mv)
+void	del_move(t_move *mv)
 {
-	env->a ? free(env->a) : 0;
-	env->b ? free(env->b) : 0;
-	env->c ? free(env->c) : 0;
+	mv ? free(mv) : 0;
 }

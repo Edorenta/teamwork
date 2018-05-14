@@ -49,6 +49,7 @@ int				slen(char *s);
 int				pstr(const char *s);
 int				is_space(const char c);
 int				is_digit(const char c);
+int				scpy(char *dest, const char *src);
 
 /*
  * PARSER

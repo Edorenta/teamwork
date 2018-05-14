@@ -36,3 +36,14 @@ int			pstr(const char *s)
 	write(1, "\n", 1);
 	return (1);
 }
+
+int			scpy(char *dest, const char *src)
+{
+	int i;
+
+	i = -1;
+	while (src[++i] != '\0')
+		dest[i] = src[i];
+	dest[i] = '\0';
+	return (1);
+}
