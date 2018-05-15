@@ -18,6 +18,7 @@ inline static void		init_env(t_env *env, int ac)
 	env->size = ac - 1;
 	env->a = NULL;
 	env->b = NULL;
+	env->c = NULL;
 	env->a1 = 0;
 	env->b1 = 0;
 }
