@@ -23,7 +23,7 @@ inline void		init_env(t_env *env, int ac)
 {
 	env->size = ac;
 	env->first_move = NULL;
-	env->last_move = NULL;
+	env->this_move = NULL;
 	env->a = NULL;
 	env->b = NULL;
 	env->c = NULL;

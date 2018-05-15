@@ -31,5 +31,5 @@ void	del_move(t_move *mv)
 
 void	put_move(t_move *mv)
 {
-	(mv && mv->id) ? pstr(mv->id);
+	(mv && mv->id) ? pstr(mv->id) : 0;
 }

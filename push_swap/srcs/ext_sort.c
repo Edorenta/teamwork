@@ -14,9 +14,7 @@
 
 int		sort_pile(t_env *env)
 {
-	if (ext_sort(env) && all_sort(env))
-		return (1);
-	return (0);
+	return (((ext_sort(env) && all_sort(env)) ? 1 : 0));
 }
 
 int		ext_sort(t_env *env)

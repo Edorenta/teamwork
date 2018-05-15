@@ -57,7 +57,7 @@ struct			s_move
 struct			s_env
 {
 	t_move		*first_move;
-	t_move		*last_move;	
+	t_move		*this_move;	
 	long		*a;
 	long		*b;
 	long		*c;
