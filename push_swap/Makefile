@@ -6,7 +6,7 @@
 #    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
-#    Updated: 2018/05/15 11:12:53 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/15 11:26:18 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,7 @@ SRC_NAME = algo.c \
 		   parser.c \
 		   piles_utils.c
 
-OBJ_NAME = $(SRCS_NAME:.c=.o)
-
+OBJ_NAME = $(SRC_NAME:.c=.o)
 
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
@@ -45,9 +44,7 @@ INC = $(addprefix -I,$(INC_PATH))
 
 .PHONY : all clean fclean re
 
-all : 
-	$(NAME1) 
-	$(NAME2)
+all : $(OBJ) $(NAME1) $(NAME2)
 
 $(OBJ) : | $(OBJ_PATH)
 
@@ -57,14 +54,14 @@ $(OBJ_PATH) :
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
-$(NAME1) : $(OBJ)
-	@ $(CC) $(CFLAGS) $(INC) -c $(SRC1) $(SRC)
+$(NAME1) :
+	@ $(CC) $(CFLAGS) $(INC) -c $(SRC1) $(OBJ)
 
-$(NAME2) : $(OBJS)
-	@ $(CC) $(CFLAGS) $(INC) -c $(SRC2) $(SRC)
+$(NAME2) :
+	@ $(CC) $(CFLAGS) $(INC) -c $(SRC2) $(OBJ)
 
 clean :
-	@ rm -rf $(OBJS)
+	@ rm -rf $(OBJ)
 
 fclean : clean
 	@ rm -rf $(NAME1) $(NAME2)
