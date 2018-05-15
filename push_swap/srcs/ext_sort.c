@@ -21,5 +21,5 @@ int		ext_sort(t_env *env)
 {
 	while (A_BOT > A_TOP)
 		PB;
-
+	
 }

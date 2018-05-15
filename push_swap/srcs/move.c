@@ -26,8 +26,7 @@ long	*swap(t_env *env, char which)
 		pile[i] = pile[i + 1];
 		pile[i + 1] = tmp;
 	}
-	env->this_move = new_move("S", which, env->prev_move); 
-	env->this_move = env->this_move->next;
+	archive_move(env, "S", which, env->prev_move);
 	return (pile);
 }
 
@@ -51,8 +50,7 @@ t_env	*push(t_env *env, char to)
 		--*i;
 		++*j;
 	}
-	env->this_move = new_move("P", to, env->prev_move); 
-	env->this_move = env->this_move->next;
+	archive_move(env, "P", which, env->this_move);
 	return (env);
 }
 
@@ -98,8 +96,7 @@ long	*reverse_rotate(t_env *env, char which)
 		}
 		pile[felem] = tmp;
 	}
-	env->this_move = new_move("RR", which, env->prev_move); 
-	env->this_move = env->this_move->next;
+	archive_move(env, "RR", which, env->prev_move);
 	return (pile);
 }
 

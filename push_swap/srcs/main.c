@@ -24,6 +24,8 @@ inline void		init_env(t_env *env, int ac)
 	env->size = ac;
 	env->first_move = NULL;
 	env->this_move = NULL;
+	env->next_move = NULL;
+	env->prev_move = NULL;
 	env->a = NULL;
 	env->b = NULL;
 	env->c = NULL;
@@ -43,13 +45,21 @@ int				main(int ac, char **av)
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
+	//print init piles
 	pstr("Before sort:")
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
+	//go sort
 	sort_pile(&env);
+	//print sorted pile
 	pstr("After sort:")
 	for (i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
+	//deinit piles
 	deinit_env(&env);
+	//print commands
+	pstr("Commands:")
+	t_move *histo_move = env.first_move;
+	while(++i )
 	return (1);
 }
