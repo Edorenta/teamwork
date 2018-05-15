@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 15:13:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/15 18:05:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,27 @@ inline void		deinit_env(t_env *env)
 
 int				main(int ac, char **av)
 {
-	t_env env;
+	t_env	env;
 
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
 	//print init piles
-	pstr("Before sort:")
+	pstr("Before sort:");
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	//go sort
 	sort_pile(&env);
 	//print sorted pile
-	pstr("After sort:")
+	pstr("After sort:");
 	for (i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	//deinit piles
 	deinit_env(&env);
 	//print commands
-	pstr("Commands:")
+	pstr("Commands:");
 	t_move *histo_move = env.first_move;
-	while(++i )
+	while(++i)
+		;
 	return (1);
 }

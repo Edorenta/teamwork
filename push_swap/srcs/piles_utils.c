@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 20:17:29 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/15 18:03:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		no_duplicates(long *pile, int size)
 		i = j + 1;
 		while (i != (pile + size))
 		{
-		 	///dprintf(1, "i:%ld j:%ld\n", *i,*j);
 			if (i != j && *i == *j)
 				return (0);
 			++i;
