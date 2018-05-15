@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -O2
+CFLAGS = -Wall -Werror -Wextra #-O2
 CFLAGS_DBG = -g -fsanitize=address
 NAME1 = push_swap
 NAME2 = checker

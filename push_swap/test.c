@@ -1,9 +1,10 @@
-#include "test_flo.c"
+//#include "test_flo.c"
 //#include "test_paul.c"
-//#include "test_ervan.c"
+#include "test_ervan.c"
 
-int main()
+int main(int ac, char **av)
 {
+	test_ervan(ac, av);
 	//test_push();
-	test_reverse();
+	//test_reverse();
 }

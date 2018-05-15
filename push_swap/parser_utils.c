@@ -47,14 +47,13 @@ long		ft_atol(const char *str)
 	nb = NONE;
 	while (is_space(*str))
 		++str;
-	if (*str)
-	{
-		sign = *str == '-' ? -1 : 1;
-		if (*str == '+' || *str == '-')
-			++str;
-		nb = 0;
-		while (*str && is_digit(*str))
-			nb = 10 * nb + (*(str++) - '0');
-	}
+	if (!(*str))
+		return (NONE);
+	sign = *str == '-' ? -1 : 1;
+	if (*str == '+' || *str == '-')
+		++str;
+	nb = 0;
+	while (*str && is_digit(*str))
+		nb = 10 * nb + (*(str++) - '0');
 	return (*str == '\0' ? nb * sign : NONE);
 }

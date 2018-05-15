@@ -23,16 +23,16 @@
 
 # define NONE		200000000
 
-# define SA			swap(env->a, env->size, env->a1)
-# define SB			swap(env->b, env->size, env->b1)
+# define SA			swap(env, 'A')
+# define SB			swap(env, 'B')
 # define SS			combine(swap, env)
 # define PA			push(env, 'A')
 # define PB			push(env, 'B')
-# define RA			rotate(env->a, env->size, env->a1)
-# define RB			rotate(env->b, env->size, env->b1)
+# define RA			rotate(env, 'A')
+# define RB			rotate(env, 'B')
 # define RR			combine(rotate, env)
-# define RRA		reverse_rotate(env->a, env->size, env->a1)
-# define RRB		reverse_rotate(env->b, env->size, env->b1)
+# define RRA		reverse_rotate(env, 'A')
+# define RRB		reverse_rotate(env, 'B')
 # define RRR		combine(reverse_rotate, env)
 
 # define A_TOP		env->a[env->a1]

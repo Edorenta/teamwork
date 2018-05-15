@@ -33,8 +33,7 @@ int			pstr(const char *s)
 
 	p = (char *)s;
 	*s ? write(1, s, slen(p)) : 0;
-	write(1, "\n", 1);
-	return (1);
+	return (write(1, "\n", 1) ? 1 : 0);
 }
 
 int			scpy(char *dest, const char *src)
