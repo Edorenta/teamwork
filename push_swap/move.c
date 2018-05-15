@@ -87,3 +87,9 @@ long	*reverse_rotate(long *pile, int size, int felem)
 	}
 	return (pile);
 }
+
+void	combine(long (*move)(long *, int, int), t_env *env)
+{
+	move(env->a, env->size, env->a1);
+	move(env->b, env->size, env->b1);
+}

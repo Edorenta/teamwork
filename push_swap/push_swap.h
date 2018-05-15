@@ -12,11 +12,31 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# define NONE 2200000000
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+
+/*
+ * DEFINITIONS
+ */
+
+# define NONE		200000000
+# define SA			swap(env->a, env->size, env->a1)
+# define SB			swap(env->b, env->size, env->b1)
+# define SS			combine(swap, env)
+# define PA			push(env, 'A')
+# define PB			push(env, 'B')
+# define RA			rotate(env->a, env->size, env->a1)
+# define RB			rotate(env->b, env->size, env->b1)
+# define RR			combine(rotate, env)
+# define RRA		reverse_rotate(env->a, env->size, env->a1)
+# define RRB		reverse_rotate(env->b, env->size, env->b1)
+# define RRR		combine(reverse_rotate, env)
+
+/*
+ * SRUCTS
+ */
 
 typedef struct	s_move	t_move;
 typedef struct	s_env	t_env;
@@ -85,6 +105,7 @@ long			*swap(long *pile, int size, int felem);
 long			*rotate(long *pile,int size, int felem);
 long    		*reverse_rotate(long *pile, int size, int felem);
 t_env	 		*push(t_env *env, char to);
+void			combine(long (*move)(long *, int, int), t_env *env);
 
 /*
  * LOGIC (ALL)
