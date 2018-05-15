@@ -36,13 +36,14 @@ int			pstr(const char *s)
 	return (write(1, "\n", 1) ? 1 : 0);
 }
 
-int			scpy(char *dest, const char *src)
+int			scat(char *dest, const char *src, const char c)
 {
 	int i;
 
 	i = -1;
 	while (src[++i] != '\0')
 		dest[i] = src[i];
-	dest[i] = '\0';
+	dest[i] = c;
+	dest[++i] = '\0';
 	return (1);
 }

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_move	*new_move(const char *id, t_move *prev)
+t_move	*new_move(const char *id, char which, t_move *prev)
 {
 	t_move *mv;
 
@@ -20,7 +20,7 @@ t_move	*new_move(const char *id, t_move *prev)
 		return (NULL);
 	mv->prev = prev;
 	mv->next = NULL;
-	scpy(mv->id, id);
+	scat(mv->id, id, which);
 	return (mv);
 }
 
