@@ -1,12 +1,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-#include "parser.c"
-#include "parser_utils.c"
-#include "piles_utils.c"
-#include "str_utils.c"
-#include "bubble_sort.c"
-
 void			put_error(t_env *env, const char *err_msg)
 {
 	free_piles(env);

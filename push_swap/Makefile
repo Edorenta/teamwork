@@ -6,7 +6,7 @@
 #    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
-#    Updated: 2018/05/15 11:26:18 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/15 12:14:23 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,6 @@ fclean : clean
 	@ rm -rf $(NAME1) $(NAME2)
 
 dbg :
-	@ $(CC) $(CFLAGS) $(CFLAGS_DBG) ../tests/test.c
+	@ $(CC) $(SRC) $(CFLAGS) $(CFLAGS_DBG) $(INC) ../tests/test.c
 
 re : fclean all
