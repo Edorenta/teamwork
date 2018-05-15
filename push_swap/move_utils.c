@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-t_move	*new_move(const char *id, t_move *prev, t_move *next)
+t_move	*new_move(const char *id, t_move *prev)
 {
 	t_move *mv;
 
 	if (!(mv = (t_move *)malloc(sizeof(t_move))))
 		return (NULL);
 	mv->prev = prev;
-	mv->next = next;
+	mv->next = NULL;
 	scpy(mv->id, id);
 	return (mv);
 }

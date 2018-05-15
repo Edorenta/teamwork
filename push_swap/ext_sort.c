@@ -21,6 +21,7 @@ int		sort_pile(t_env *env)
 
 int		ext_sort(t_env *env)
 {
-	while (A_TOP > A_BOT)
+	while (A_BOT > A_TOP)
+		PB;
 
 }
