@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 19:25:27 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/15 15:18:20 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long	*swap(t_env *env, char which)
 		pile[i] = pile[i + 1];
 		pile[i + 1] = tmp;
 	}
-	archive_move(env, "S", which, env->prev_move);
+	archive_move(env, "S", which, env->this_move);
 	return (pile);
 }
 
@@ -72,7 +72,7 @@ long	*rotate(t_env *env, char which)
 		}
 		pile[i] = tmp;
 	}
-	archive_move(env, "R", which, env->prev_move);
+	archive_move(env, "R", which, env->this_move);
 	return (pile);
 }
 
@@ -96,7 +96,7 @@ long	*reverse_rotate(t_env *env, char which)
 		}
 		pile[felem] = tmp;
 	}
-	archive_move(env, "RR", which, env->prev_move);
+	archive_move(env, "RR", which, env->this_move);
 	return (pile);
 }
 
@@ -105,58 +105,3 @@ void	combine(long (*move)(t_env *, char), t_env *env)
 	move(env, 'A');
 	move(env, 'B');
 }
-
-/*
-long	*swap(long *pile, int size, int felem)
-{
-	int		tmp;
-	int		i;
-
-	i = felem;
-	if (i < size && pile[i] != NONE && pile[i + 1] != NONE)
-	{
-		tmp = pile[i];
-		pile[i] = pile[i + 1];
-		pile[i + 1] = tmp;
-	}
-	return (pile);
-}
-
-long	*rotate(long *pile, int size, int felem)
-{
-	int		i;
-	int		tmp;
-
-	i = felem;
-	if (i < size)
-	{
-		tmp = pile[i];
-		while (i < size - 1)
-		{
-			pile[i] = pile[i + 1];
-			i++;
-		}
-		pile[i] = tmp;
-	}
-	return (pile);
-}
-
-long	*reverse_rotate(long *pile, int size, int felem)
-{
-	int		i;
-	int		tmp;
-
-	i = size - 1;
-	if (pile[size - 1] != NONE)
-	{
-		tmp = pile[size - 1];
-		while (i >= felem)
-		{
-			pile[i] = pile[i - 1];
-			i--;
-		}
-		pile[felem] = tmp;
-	}
-	return (pile);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 19:25:27 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/15 15:18:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,42 @@
 
 t_move	*new_move(const char *id, char which, t_move *prev)
 {
-	t_move *mv;
+	t_move	*mv;
 
 	if (!(mv = (t_move *)malloc(sizeof(t_move))))
 		return (NULL);
 	scat(mv->id, id, which);
-	prev->next = mv;
-	mv->prev = prev;
+	if (prev)
+	{
+		prev->next = mv;
+		mv->prev = prev;
+	}
 	mv->next = NULL;
 	return (mv);
 }
 
 void	del_move(t_move *mv)
 {
-	mv ? free(mv) : 0;
+	t_move	*prev;
+	t_move	*next;
+
+	if (mv)
+	{
+		if (mv->next)
+			next = mv->next;
+		else
+			prev->next = NULL;
+		if (mv->prev)
+			prev = mv->prev;
+		else if (mv->next)
+			next->prev = NULL;
+		if (prev && next)
+		{
+			prev->next = next;
+			next->prev = prev;
+		}
+		free(mv);
+	}
 }
 
 void	put_move(t_move *mv)
@@ -40,5 +62,6 @@ int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 	if ((env->this_move = new_move(id, which, prev)))
 		env->first_move = (env->first_move ? env->first_move : env->this_move);
 	else
-		put_error(env, "Error: this.move not historized");
+		put_error(env, "Error: this.move is not historized");
+	return (1);
 }
