@@ -22,6 +22,7 @@
  */
 
 # define NONE		200000000
+
 # define SA			swap(env->a, env->size, env->a1)
 # define SB			swap(env->b, env->size, env->b1)
 # define SS			combine(swap, env)
@@ -33,6 +34,11 @@
 # define RRA		reverse_rotate(env->a, env->size, env->a1)
 # define RRB		reverse_rotate(env->b, env->size, env->b1)
 # define RRR		combine(reverse_rotate, env)
+
+# define A_TOP		env->a[env->a1]
+# define A_BOT		env->a[env->size]
+# define B_TOP		env->b[env->b1]
+# define B_BOT		env->b[env->size]
 
 /*
  * SRUCTS
