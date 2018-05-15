@@ -33,3 +33,11 @@ void	put_move(t_move *mv)
 {
 	(mv && mv->id) ? pstr(mv->id) : 0;
 }
+
+int		archive_move(t_env *env, const char *id, char which, t_move *prev)
+{
+	if ((env->this_move = new_move(id, which, prev)))
+		env->this_move = env->this_move->next;
+	else
+		put_error(env, "Error: this.move not historized");
+}

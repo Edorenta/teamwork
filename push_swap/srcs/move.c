@@ -74,8 +74,7 @@ long	*rotate(t_env *env, char which)
 		}
 		pile[i] = tmp;
 	}
-	env->this_move = new_move("R", which, env->prev_move); 
-	env->this_move = env->this_move->next;
+	archive_move(env, "R", which, env->prev_move);
 	return (pile);
 }
 

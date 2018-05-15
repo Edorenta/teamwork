@@ -115,7 +115,8 @@ long			*rotate(t_env *env, char which);
 long    		*reverse_rotate(t_env *env, char which);
 void			combine(long (*move)(t_env *, char), t_env *env);
 
-t_move			*new_move(const char *id, t_move *prev);
+int				archive_move(t_env *env, const char *id, char which, t_move *prev);
+t_move			*new_move(const char *id, char which, t_move *prev);
 void			del_move(t_move *mv);
 void			put_move(t_move *mv);
 
