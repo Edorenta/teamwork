@@ -4,7 +4,7 @@
 
 int main(int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	test_ervan(ac, av);
-	//test_push();
-	//test_reverse();
 }

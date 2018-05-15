@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 14:29:14 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 17:00:47 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/15 10:35:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	cpy_pile(t_env *env)
 int		bb_sort(t_env *env)
 {
 	int		i;
-	int 	j;
-	int 	min;
+	int		j;
+	int		min;
 	int		tmp;
 
-	i = 0;
+	i = -1;
 	cpy_pile(env);
-	while (i < env->size - 1)
+	while (++i < env->size - 1)
 	{
 		min = env->c[i];
 		tmp = i;
@@ -46,7 +46,6 @@ int		bb_sort(t_env *env)
 		}
 		env->c[tmp] = env->c[i];
 		env->c[i] = min;
-		i++;
 	}
 	return (all_sort(env) ? 1 : 0);
 }
@@ -55,7 +54,7 @@ void	ft_index(t_env *env)
 {
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	while (i < env->size)
