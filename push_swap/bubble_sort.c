@@ -16,12 +16,9 @@ void	cpy_pile(t_env *env)
 {
 	int i;
 
-	i = 0;
-	while (i < env->size)
-	{
+	i = -1;
+	while (++i < env->size)
 		env->c[i] = env->a[i];
-		i++;
-	}
 }
 
 int		bb_sort(t_env *env)
@@ -70,11 +67,3 @@ void	ft_index(t_env *env)
 		i++;
 	}
 }
-
-
-
-
-
-
-
-
