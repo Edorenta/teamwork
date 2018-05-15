@@ -41,7 +41,13 @@ int				main(int ac, char **av)
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
+	pstr("Before sort:")
+	for (int i = 0; i <= env.size - 1; i++)
+		printf("a[%d] = %ld\n", i, env.a[i]);
 	//sort_pile(&env);
+	pstr("After sort:")
+	for (i = 0; i <= env.size - 1; i++)
+		printf("a[%d] = %ld\n", i, env.a[i]);
 	deinit_env(&env);
 	return (1);
 }
