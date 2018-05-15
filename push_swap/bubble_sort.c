@@ -24,7 +24,7 @@ void	cpy_pile(t_env *env)
 	}
 }
 
-void	bb_sort(t_env *env)
+int		bb_sort(t_env *env)
 {
 	int		i;
 	int 	j;
@@ -51,6 +51,7 @@ void	bb_sort(t_env *env)
 		env->c[i] = min;
 		i++;
 	}
+	return (all_sort(env) ? 1 : 0);
 }
 
 void	ft_index(t_env *env)

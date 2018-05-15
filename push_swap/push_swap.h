@@ -110,5 +110,7 @@ void			combine(long (*move)(long *, int, int), t_env *env);
 /*
  * LOGIC (ALL)
  */
+int				bb_sort(t_env *env);
+int				ext_sort(t_env *env);
 
 #endif

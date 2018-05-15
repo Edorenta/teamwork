@@ -5,6 +5,7 @@
 #include "parser_utils.c"
 #include "piles_utils.c"
 #include "str_utils.c"
+#include "ext_sort.c"
 
 void			put_error(t_env *env, const char *err_msg)
 {

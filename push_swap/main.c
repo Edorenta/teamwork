@@ -44,7 +44,7 @@ int				main(int ac, char **av)
 	pstr("Before sort:")
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
-	//sort_pile(&env);
+	sort_pile(&env);
 	pstr("After sort:")
 	for (i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
