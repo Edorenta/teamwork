@@ -22,6 +22,8 @@ void			put_error(t_env *env, const char *err_msg)
 inline void		init_env(t_env *env, int ac)
 {
 	env->size = ac;
+	env->first_move = NULL;
+	env->last_move = NULL;
 	env->a = NULL;
 	env->b = NULL;
 	env->c = NULL;

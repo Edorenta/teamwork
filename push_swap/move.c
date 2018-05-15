@@ -12,13 +12,15 @@
 
 #include "push_swap.h"
 
-long	*swap(long *pile, int size, int felem)
+long	*swap(t_env *env, char which)
 {
+	long	*pile;
 	int		tmp;
 	int		i;
 
-	i = felem;
-	if (i < size && pile[i] != NONE && pile[i + 1] != NONE)
+	pile = (which == 'A' ? env->a : env->b);
+	i = (which == 'A' ? env->a1 : env->b1);
+	if (i < env->size && pile[i] != NONE && pile[i + 1] != NONE)
 	{
 		tmp = pile[i];
 		pile[i] = pile[i + 1];
@@ -48,6 +50,72 @@ t_env	*push(t_env *env, char to)
 		++*j;
 	}
 	return (env);
+}
+
+long	*rotate(t_env *env, char which)
+{
+	long	*pile;
+	int		tmp;
+	int		i;
+
+	pile = (which == 'A' ? env->a : env->b);
+	i = (which == 'A' ? env->a1 : env->b1);
+	if (i < env->size)
+	{
+		tmp = pile[i];
+		while (i < env->size - 1)
+		{
+			pile[i] = pile[i + 1];
+			i++;
+		}
+		pile[i] = tmp;
+	}
+	return (pile);
+}
+
+long	*reverse_rotate(t_env *env, char which)
+{
+	long	*pile;
+	int		tmp;
+	int		felem;
+	int		i;
+
+	pile = (which == 'A' ? env->a : env->b);
+	felem = (which == 'A' ? env->a1 : env->b1);
+	i = env->size - 1;
+	if (pile[env->size - 1] != NONE)
+	{
+		tmp = pile[env->size - 1];
+		while (i >= felem)
+		{
+			pile[i] = pile[i - 1];
+			i--;
+		}
+		pile[felem] = tmp;
+	}
+	return (pile);
+}
+
+void	combine(long (*move)(t_env *, char), t_env *env)
+{
+	move(env, 'A');
+	move(env, 'B');
+}
+
+/*
+long	*swap(long *pile, int size, int felem)
+{
+	int		tmp;
+	int		i;
+
+	i = felem;
+	if (i < size && pile[i] != NONE && pile[i + 1] != NONE)
+	{
+		tmp = pile[i];
+		pile[i] = pile[i + 1];
+		pile[i + 1] = tmp;
+	}
+	return (pile);
 }
 
 long	*rotate(long *pile, int size, int felem)
@@ -87,9 +155,4 @@ long	*reverse_rotate(long *pile, int size, int felem)
 	}
 	return (pile);
 }
-
-void	combine(long (*move)(long *, int, int), t_env *env)
-{
-	move(env->a, env->size, env->a1);
-	move(env->b, env->size, env->b1);
-}
+*/

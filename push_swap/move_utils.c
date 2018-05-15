@@ -28,3 +28,8 @@ void	del_move(t_move *mv)
 {
 	mv ? free(mv) : 0;
 }
+
+void	put_move(t_move *mv)
+{
+	(mv && mv->id) ? pstr(mv->id);
+}

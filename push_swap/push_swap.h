@@ -56,6 +56,8 @@ struct			s_move
 
 struct			s_env
 {
+	t_move		*first_move;
+	t_move		*last_move;	
 	long		*a;
 	long		*b;
 	long		*c;
@@ -107,15 +109,20 @@ int				all_sort(t_env *env);
  * MOVE OPERATIONS
  */
 
-long			*swap(long *pile, int size, int felem);
-long			*rotate(long *pile,int size, int felem);
-long    		*reverse_rotate(long *pile, int size, int felem);
 t_env	 		*push(t_env *env, char to);
-void			combine(long (*move)(long *, int, int), t_env *env);
+long			*swap(t_env *env, char which);
+long			*rotate(t_env *env, char which);
+long    		*reverse_rotate(t_env *env, char which);
+void			combine(long (*move)(t_env *, char), t_env *env);
+
+t_move			*new_move(const char *id, t_move *prev, t_move *next);
+void			del_move(t_move *mv);
+void			put_move(t_move *mv);
 
 /*
  * LOGIC (ALL)
  */
+
 int				bb_sort(t_env *env);
 int				ext_sort(t_env *env);
 
