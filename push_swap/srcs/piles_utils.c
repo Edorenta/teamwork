@@ -25,7 +25,7 @@ int		is_sort(long *pile, int start, int end)
 
 int		all_sort(t_env *env)
 {
-	if (!is_sort(env->a, env->size, 0) || env->b[env->size - 1] != NONE)
+	if (!is_sort(env->a, 0, env->size - 1) || env->b[env->size - 1] != NONE)
 		return (0);
 	return (1);
 }
