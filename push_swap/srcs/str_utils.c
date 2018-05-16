@@ -30,12 +30,9 @@ int			plong(int fd, long n, char end)
 	n = (n < 0 ? -n : n);
 	i = 15;
 	n == 0 ? str[--i] = '0' : 0;
-	while (n != 0)
-	{
-		str[--i] = '0' + (n % 10);
+	while (n != 0 && (str[--i] = '0' + (n % 10)))
 		n /= 10;
-	}
-	pstr(2, &str[i], '\n');
+	pstr(fd, &str[i], '\n');
 }
 
 int			scat(char *dest, const char *src, const char c)
