@@ -68,6 +68,6 @@ fclean : clean
 	@ rm -rf $(NAME1) $(NAME2)
 
 dbg :
-	@ $(CC) $(CFLAGS) $(CFLAGS_DBG) $(INC) ../tests/test.c
+	@ $(CC) $(CFLAGS) $(INC) ../tests/test.c
 
 re : fclean all

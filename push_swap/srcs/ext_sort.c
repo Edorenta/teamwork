@@ -19,7 +19,6 @@ int		sort_pile(t_env *env)
 
 int		ext_sort(t_env *env)
 {
-	while (A_BOT > A_TOP)
-		PB;
+	PB;
 	return (1);
 }
