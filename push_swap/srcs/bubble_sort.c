@@ -12,15 +12,6 @@
 
 #include "push_swap.h"
 
-void	cpy_pile(t_env *env)
-{
-	int i;
-
-	i = -1;
-	while (++i < env->size)
-		env->c[i] = env->a[i];
-}
-
 int		bb_sort(t_env *env)
 {
 	int		i;
@@ -29,7 +20,7 @@ int		bb_sort(t_env *env)
 	int		tmp;
 
 	i = -1;
-	cpy_pile(env);
+	duplicate_pile(env);
 	while (++i < env->size - 1)
 	{
 		min = env->c[i];
@@ -48,21 +39,4 @@ int		bb_sort(t_env *env)
 		env->c[i] = min;
 	}
 	return (all_sort(env) ? 1 : 0);
-}
-
-void	ft_index(t_env *env)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (i < env->size)
-	{
-		j = 0;
-		while (env->a[j] != env->c[i])
-			j++;
-		env->a[j] = i;
-		i++;
-	}
 }

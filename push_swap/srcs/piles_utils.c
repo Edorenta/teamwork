@@ -48,7 +48,7 @@ void	put_piles(t_env *env)
 	i = env->b1 - 1;
 	(env->b[env->b1] != NONE) ? pstr(2, "Pile B:", '\n')
 	: pstr(2, "Pile B: EMPTY", '\n');
-	if (env->b[env->b1] != NONE && dprintf(1, "env->b[b1]: %ld\n", env->b[env->b1]))
+	if (env->b[env->b1] != NONE)
 		while (++i < env->size && env->b[i] && env->b[i] != NONE)
 			if (i == env->size - 1)
 				plong(2, env->b[i], '\n');

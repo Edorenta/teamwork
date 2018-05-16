@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ext_sort.c                                         :+:      :+:    :+:   */
+/*   rebase.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/15 17:59:43 by fmadura          ###   ########.fr       */
+/*   Created: 2018/05/14 14:29:14 by jyildiz-          #+#    #+#             */
+/*   Updated: 2018/05/15 10:35:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		sort_pile(t_env *env)
+void	duplicate_pile(t_env *env)
 {
-	return (((ext_sort(env) && all_sort(env)) ? 1 : 0));
-}
-/*
-int		mean_value(long *pile, int start, int stop)
-{
+	int i;
 
+	i = -1;
+	while (++i < env->size)
+		env->c[i] = env->a[i];
 }
-*/
-int		ext_sort(t_env *env)
+
+void	index_pile(t_env *env)
 {
-	RA; PB; PB; RB;
-	return (1);
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < env->size)
+	{
+		j = 0;
+		while (env->a[j] != env->c[i])
+			j++;
+		env->a[j] = i;
+		i++;
+	}
 }

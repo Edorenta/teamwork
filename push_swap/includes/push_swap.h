@@ -95,6 +95,8 @@ int				is_int(char *av);
  * PILES MANAGEMENT
  */
 
+void			duplicate_pile(t_env *env);
+void			index_pile(t_env *env);
 void			put_piles(t_env *env);
 int				alloc_piles(t_env *env);
 void			free_piles(t_env *env);
