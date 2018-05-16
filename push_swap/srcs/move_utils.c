@@ -30,24 +30,10 @@ t_move	*new_move(const char *id, char which, t_move *prev)
 
 void	del_move(t_move *mv)
 {
-	t_move	*prev;
-	t_move	*next;
-
 	if (mv)
 	{
-		if (mv->next)
-			next = mv->next;
-		else
-			prev->next = NULL;
-		if (mv->prev)
-			prev = mv->prev;
-		else if (mv->next)
-			next->prev = NULL;
-		if (prev && next)
-		{
-			prev->next = next;
-			next->prev = prev;
-		}
+		mv->prev->next = mv->next ? mv->next : NULL;
+		mv->next->prev = mv->prev ? mv->prev : NULL;
 		free(mv);
 	}
 }
