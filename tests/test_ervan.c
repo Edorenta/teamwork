@@ -4,7 +4,7 @@
 void			put_error(t_env *env, const char *err_msg)
 {
 	free_piles(env);
-	pstr(err_msg);
+	pstr(2, err_msg, '\n');
 	exit(1);
 }
 
