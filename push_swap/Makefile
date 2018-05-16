@@ -24,9 +24,7 @@ NAME2 = checker
 SRC1_NAME = checker.c
 SRC2_NAME = push_swap.c
 
-SRC_NAME = algo.c \
-		   checker.c \
-	 	   main.c \
+SRC_NAME = main.c \
    		   move_utils.c \
 		   parser_utils.c \
 		   str_utils.c \
@@ -36,6 +34,8 @@ SRC_NAME = algo.c \
 		   move.c \
 		   parser.c \
 		   piles_utils.c
+		   #algo.c \
+		   #checker.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -68,6 +68,6 @@ fclean : clean
 	@ rm -rf $(NAME1) $(NAME2)
 
 dbg :
-	@ $(CC) $(SRC) $(CFLAGS) $(CFLAGS_DBG) $(INC) ../tests/test.c
+	@ $(CC) $(CFLAGS) $(CFLAGS_DBG) $(INC) ../tests/test.c
 
 re : fclean all

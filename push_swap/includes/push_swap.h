@@ -130,7 +130,7 @@ int				put_moves(t_move *start, int dir, char sep);
 /*
  * LOGIC (ALL)
  */
-
+int				sort_pile(t_env *env);
 int				bb_sort(t_env *env);
 int				ext_sort(t_env *env);
 

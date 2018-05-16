@@ -36,7 +36,7 @@ void	put_piles(t_env *env)
 
 	pstr(2, "Pile A:", '\n');
 	i = env->a1 - 1;
-	if (env->a[a1] != NONE)
+	if (env->a[env->a1] != NONE)
 		while (++i < env->size && env->a[i] && env->a[i] != NONE)
 			if (i == env->size - 1)
 				plong(2, env->a[i], '\n');
@@ -44,7 +44,7 @@ void	put_piles(t_env *env)
 				plong(2, env->a[i], ' ');
 	pstr(2, "Pile B:", '\n');
 	i = env->b1 - 1;
-	if (env->b[b1] != NONE)
+	if (env->b[env->b1] != NONE)
 		while (++i < env->size && env->b[i] && env->b[i] != NONE)
 			if (i == env->size - 1)
 				plong(2, env->b[i], '\n');

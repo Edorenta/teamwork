@@ -44,19 +44,17 @@ int				main(int ac, char **av)
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
 	//print init piles
-	pstr(1, "Before sort:", '\n');
-	for (int i = 0; i <= env.size - 1; i++)
-		printf("a[%d] = %ld\n", i, env.a[i]);
+	pstr(2, "Before sort:", '\n');
+	put_piles(&env);
 	//go sort
 	sort_pile(&env);
 	//print sorted pile
-	pstr(1, "After sort:", '\n');
-	for (i = 0; i <= env.size - 1; i++)
-		printf("a[%d] = %ld\n", i, env.a[i]);
+	pstr(2, "After sort:", '\n');
+	put_piles(&env);
 	//deinit piles
 	deinit_env(&env);
 	//print commands
-	pstr("Commands:");
+	pstr(2, "Commands:", '\n');
 	put_moves(env.first_move, 1, ' ');
 	return (1);
 }

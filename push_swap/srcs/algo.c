@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+/*
 void		algo(t_env *env)
 {
 	int		mediane;
@@ -24,4 +25,4 @@ void		algo(t_env *env)
 
 	}
 }
-
+*/

@@ -38,7 +38,7 @@ void	del_move(t_move *mv)
 	}
 }
 
-void	put_move(t_move *move, char end)
+void	put_move(t_move *mv, char end)
 {
 	(mv && mv->id) ? pstr(1, mv->id, end) : 0;
 }
@@ -48,18 +48,18 @@ int		put_moves(t_move *start, int dir, char sep)
 	if (dir == 1)
 		while (1)
 		{
-			mv->next ? put_move(mv, sep) : put_move(mv, '\n');
-			if (mv->next)
-				mv = mv->next;
+			start->next ? put_move(start, sep) : put_move(start, '\n');
+			if (start->next)
+				start = start->next;
 			else
 				return (1);
 		}
 	else if (dir == 2)
 		while (1)
 		{
-			mv->prev ? put_move(mv, sep) : put_move(mv, '\n');
-			if (mv->prev)
-				mv = mv->prev;
+			start->prev ? put_move(start, sep) : put_move(start, '\n');
+			if (start->prev)
+				start = start->prev;
 			else
 				return (1);
 		}

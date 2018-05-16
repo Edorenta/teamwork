@@ -32,7 +32,7 @@ int			plong(int fd, long n, char end)
 	n == 0 ? str[--i] = '0' : 0;
 	while (n != 0 && (str[--i] = '0' + (n % 10)))
 		n /= 10;
-	pstr(fd, &str[i], '\n');
+	return (pstr(fd, &str[i], end));
 }
 
 int			scat(char *dest, const char *src, const char c)

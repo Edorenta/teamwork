@@ -50,7 +50,7 @@ t_env	*push(t_env *env, char to)
 		--*i;
 		++*j;
 	}
-	archive_move(env, "P", which, env->this_move);
+	archive_move(env, "P", to, env->this_move);
 	return (env);
 }
 
