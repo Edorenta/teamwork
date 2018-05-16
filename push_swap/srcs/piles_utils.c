@@ -33,8 +33,8 @@ int		all_sort(t_env *env)
 void	put_piles(t_env *env)
 {
 	int i;
-	dprintf(1, "env->a[a1]: %ld\n", env->a[env->a1]);
-	dprintf(1, "env->b[b1]: %ld\n", env->b[env->b1]);
+	//dprintf(2, "env->a[a1]: %ld\n", env->a[env->a1]);
+	//dprintf(2, "env->b[b1]: %ld\n", env->b[env->b1]);
 	
 	i = env->a1 - 1;
 	(env->a[env->a1] != NONE) ? pstr(2, "Pile A:", '\n')

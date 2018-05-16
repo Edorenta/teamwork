@@ -1,0 +1,229 @@
+/* BODY & CORE STYLING*/
+
+/* GENERICS */
+
+html,
+body {
+    position: fixed; 
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+canvas {
+   position:absolute;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   z-index: -1;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 10px;
+}
+
+label {
+  display: inline;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+/* CLASSES */
+
+.intro_button {
+    font-family: 'Tahoma';
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 400;
+    height: 3vw;
+    width: 13vw;
+    border-width: 0.1vw;
+    border-radius: 0.3vw;
+    border-color: #fff;
+    background: transparent;
+    background: #000;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.18), 0 1px 5px 0 rgba(0,0,0,.15);
+    color: white;
+    display: block;
+    margin: 0 auto;
+    /*
+    position: relative;
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    */
+}
+
+.intro_button:hover {
+    transition-duration: 0.5s;
+    filter: invert(78%);
+}
+
+.hidden {
+    visibility: hidden;
+    font-size: 0%;
+    display: none;
+}
+
+.ptr_top {
+    position: absolute;
+    color: white;
+    font-family: 'Tahoma';
+    font-size: 3vh;
+    left: 0px;
+    top: 12.5vh;
+    background-color: transparent;
+}
+
+.ptr_bot {
+    position: absolute;
+    color: white;
+    font-family: 'Tahoma';
+    font-size: 3vh;
+    left: 0px;
+    bottom: 13vh;
+    background-color: transparent;
+}
+
+.txt_color {
+    color: cyan;
+}
+
+.banner_txt {
+    font-family: 'Tahoma';
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a2d2c;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+/* IDs */
+
+#title {
+    position: absolute;
+    background-color: transparent;
+    font-family: 'Tahoma';
+    font-size: 3.2vh;
+    font-style: normal;
+    font-weight: 400;
+    top: 0vh;
+    width: 100vw;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#a_title {
+    position: absolute;
+    left: 0vw;
+    top: 6vh;
+    width: 50vw;
+    height: 3vh;
+}
+
+#b_title {
+    position: absolute;
+    left: 50vw;
+    top: 6vh;
+    width: 50vw;
+    height: 3vh;
+}
+
+#menu_title {
+    position: absolute;
+    left: 0vw;
+    top: 87vh;
+    width: 60vw;
+    height: 3vh;
+}
+
+#speed_title {
+    position: absolute;
+    left: 60vw;
+    top: 87vh;
+    width: 40vw;
+    height: 3vh;
+}
+
+#details_check {
+    position: absolute;
+    color: white;
+    font-family: 'Tahoma';
+    font-size: 1.6vh;
+    font-style: normal;
+    font-weight: normal;
+    width: 20vw;
+    height: 3vh;
+    right: 0vw;
+    top: 2vh;
+    text-align: left;
+}
+
+#details_pane {
+    position: absolute;
+    color: white;
+    font-family: 'Courier New';
+    font-size: 2.4vh;
+    font-style: normal;
+    font-weight: normal;
+    left: 0vw;
+    top: 10vh;
+    width: 100vw;
+    height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+
+#hidden_div {
+    position: absolute;
+    visibility: hidden;
+    font-size: 0%;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;-family: 'Tahoma';
+    font-weight: 100;
+    top: 0vh;
+    width: 100vw;
+    height: 50%;
+    display: none;
+}
+
+#menu_div {
+    position: absolute;
+    top: 90vh;
+    width: 100vw;
+    height: 10vh;
+    display: grid;
+    grid-template-columns: 15vw 15vw 15vw 15vw 40vw;
+    grid-gap: 0vw;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+}
+
+#speed_set {
+  position: absolute;
+  padding-top: 3.5vh;
+  width: 34vw;
+  height: 100%;
+  left: 63vw;
+}

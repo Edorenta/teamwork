@@ -59,5 +59,6 @@ int					arg_to_piles(t_env *env, int ac, char **av)
 	while (++i < ac && av[i])
 		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i]) + 1)
 		: push_to_pile(env, av[i]);
+	env->b1 = env->size - 1;
 	return (1);
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="stylesheet" type="text/css" href="../css/animate.css">
+        <link rel="stylesheet" type="text/css" href="../css/slider.css">
+        <link rel="stylesheet" type="text/css" href="../css/color_picker.css">
+        <script src="../js/addons/p5.min.js"></script>
+        <script src="../js/addons/p5.dom.min.js"></script>
+        <script src="../js/addons/iro.min.js"></script>
+        <script src="../js/_visualizer.js"></script>
+    </head>
+    <body>
+        <div class="txt" id="title"><div class="animated rubberBand">PUSH SWAP VISUALIZER</div></div>
+        <div class="txt banner_txt" id="a_title">STACK A</div>
+        <div class="txt banner_txt" id="b_title">STACK B</div>
+        <div id="menu_div">
+            <button id="bt1" class="txt intro_button hvr-outline-in" type="button" onclick="_switch()">▶ START</button>
+            <button id="bt2" class="txt intro_button hvr-outline-in" type="button" onclick="_next()">>> NEXT</button>
+            <button id="bt3" class="txt intro_button hvr-outline-in" type="button" onclick="_prev()"><< PREV</button>
+            <button id="bt4" class="txt intro_button hvr-outline-in" type="button" onclick="_reset()">↺ RESET</button>
+            <div id="speed_set">
+                <div>
+                    <input class="slider" type="range" id="speed_slider" min="0" max="60" value="30" step="2" oninput="speed_box.value = this.value">
+                </div>
+                <div>
+                    <input class="txt box" type="text" id="speed_box" placeholder="Speed" value="30" oninput="speed_slider.value = this.value">
+                </div>
+            </div>
+        </div>
+        <div id="details_check">
+            <input class="txt" type="checkbox" id="show_details" onclick="toggle_details()">
+            <label> TOGGLE DETAILS </label>
+        </div>
+        <button id="bt0" class="txt intro_button hvr-outline-in" type="button" onclick="toggle_colors()">COLORS</button>
+        <div class="txt hidden" id="details_pane"></div>
+        <div class="hidden" id="clr_pane">
+            <div id="clr_container">
+                <div id="picker"></div>
+            </div>
+            <div id="clr_caption_div">
+                <div id="clr_caption"></div>
+            </div>
+            <div id="clr_select_div">
+              <select class="txt" name="clr_list" id="clr_select">
+                <option value="1">BACKGROUND</option>
+                <option value="2">TEXT BACKGROUND</option>
+                <option value="3">TEXT FONT</option>
+                <option value="4">STACK A OUTLINE</option>
+                <option value="5">STACK B OUTLINE</option>
+                <option value="6">STACK A FILL</option>
+                <option value="7">STACK B FILL</option>
+              </select>
+            </div>
+        </div>
+        <div class="banner_txt txt" id="speed_title">EXECUTION SPEED (OPS)</div>
+        <div class="banner_txt txt" id="menu_title">ACTION PANE</div>
+        <div class="ptr_top hidden" id="ptr_1">👇</div>
+        <div class="ptr_top hidden" id="ptr_2">👇</div>
+        <div class="ptr_top hidden" id="ptr_3">👇</div>
+        <div class="ptr_top hidden" id="ptr_4">👇</div>
+        <div class="ptr_bot hidden" id="ptr_5">👆</div>
+        <div class="ptr_bot hidden" id="ptr_6">👆</div>
+        <div class="ptr_bot hidden" id="ptr_7">👆</div>
+        <div class="ptr_bot hidden" id="ptr_8">👆</div>
+        <div id="hidden_div">
+            <p id="int_list">
+            </p>
+            <p id="commands">
+            </p>
+        </div>
+    </body>
+</html>
