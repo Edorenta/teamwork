@@ -58,8 +58,5 @@ int				main(int ac, char **av)
 	//print commands
 	pstr("Commands:");
 	put_moves(env.first_move, 1, ' ');
-
-	while(++i)
-		;
 	return (1);
 }
