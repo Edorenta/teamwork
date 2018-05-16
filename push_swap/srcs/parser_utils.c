@@ -12,6 +12,26 @@
 
 #include "push_swap.h"
 
+int			no_duplicates(long *pile, int size)
+{
+	long *i;
+	long *j;
+
+	j = pile;
+	while (j != (pile + size - 1))
+	{
+		i = j + 1;
+		while (i != (pile + size))
+		{
+			if (i != j && *i == *j)
+				return (0);
+			++i;
+		}
+		++j;
+	}
+	return (1);
+}
+
 int			spaces_in(const char *str)
 {
 	const char	*p = str;

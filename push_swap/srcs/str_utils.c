@@ -12,21 +12,6 @@
 
 #include "push_swap.h"
 
-int			is_space(const char c)
-{
-	return ((c < 14 && c > 7) || c == 32);
-}
-
-int			is_digit(const char c)
-{
-	return ((c >= '0' && c <= '9') ? 1 : 0);
-}
-
-int			slen(char *s)
-{
-	return (*s ? slen(++s) + 1 : 0);
-}
-
 int			pstr(int fd, const char *s, char end)
 {
 	char *p;
@@ -34,6 +19,23 @@ int			pstr(int fd, const char *s, char end)
 	p = (char *)s;
 	*s ? write(fd, s, slen(p)) : 0;
 	return (write(fd, &end, 1) ? 1 : 0);
+}
+
+int			plong(int fd, long n, char end)
+{
+	char	str[16];
+	int		i;
+
+	n < 0 ? write(fd, "-", 1) : 0;
+	n = (n < 0 ? -n : n);
+	i = 15;
+	n == 0 ? str[--i] = '0' : 0;
+	while (n != 0)
+	{
+		str[--i] = '0' + (n % 10);
+		n /= 10;
+	}
+	pstr(2, &str[i], '\n');
 }
 
 int			scat(char *dest, const char *src, const char c)

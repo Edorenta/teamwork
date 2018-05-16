@@ -30,24 +30,21 @@ int		all_sort(t_env *env)
 	return (1);
 }
 
-int		no_duplicates(long *pile, int size)
+void	put_piles(t_env *env)
 {
-	long *i;
-	long *j;
+	int i;
 
-	j = pile;
-	while (j != (pile + size - 1))
-	{
-		i = j + 1;
-		while (i != (pile + size))
-		{
-			if (i != j && *i == *j)
-				return (0);
-			++i;
-		}
-		++j;
-	}
-	return (1);
+	pstr(2, "Pile A:", '\n');
+	i = env->a1 - 1;
+	if (env->a[a1] != NONE)
+		while (++i < env->size && env->a[i] && env->a[i] != NONE)
+			plong(env->a[i]);
+	pstr(2, "Pile B:", '\n');
+	i = env->b1 - 1;
+	if (env->b[b1] != NONE)
+		while (++i < env->size && env->b[i] && env->b[i] != NONE)
+			plong(env->b[i]);
+	write(2, "\n", 1);
 }
 
 int		alloc_piles(t_env *env)

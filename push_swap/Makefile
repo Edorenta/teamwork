@@ -30,6 +30,7 @@ SRC_NAME = algo.c \
    		   move_utils.c \
 		   parser_utils.c \
 		   str_utils.c \
+		   basics.c \
 		   bubble_sort.c \
 		   ext_sort.c \
 		   move.c \
