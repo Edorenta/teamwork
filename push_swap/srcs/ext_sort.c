@@ -19,6 +19,6 @@ int		sort_pile(t_env *env)
 
 int		ext_sort(t_env *env)
 {
-	PB;
+	PB; PB; PB; PA; PA; PA;
 	return (1);
 }

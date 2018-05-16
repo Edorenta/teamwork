@@ -34,7 +34,6 @@ t_env	*push(t_env *env, char to)
 {
 	int		*i;
 	int		*j;
-	int		tmp;
 	long	*pilefrom;
 	long	*pileto;
 
@@ -44,11 +43,10 @@ t_env	*push(t_env *env, char to)
 	j = (to == 'B' ? &env->b1 : &env->a1);
 	if (pilefrom[*i] != NONE)
 	{
-		tmp = pilefrom[*i];
-		pilefrom[*i] = pileto[*j];
-		pileto[*j] = tmp;
-		--*i;
-		++*j;
+		(*j == env->size - 1 && pileto[*j] == NONE) ? 0 : --*j;
+		pileto[*j] = pilefrom[*i];
+		pilefrom[*i] = NONE;
+		*i == env->size - 1 ? 0 : ++*i;
 	}
 	archive_move(env, "P", to, env->this_move);
 	return (env);
