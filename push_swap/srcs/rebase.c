@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-void	duplicate_pile(t_env *env)
+void	duplicate_pile(long *src, long *dest, int start, int end)
 {
 	int i;
 
-	i = -1;
-	while (++i < env->size)
-		env->c[i] = env->a[i];
+	i = start - 1;
+	while (++i <= end && src[i] != NONE)
+		dest[i] = src[i];
 }
 
 void	index_pile(t_env *env)
@@ -28,6 +28,10 @@ void	index_pile(t_env *env)
 
 	i = 0;
 	j = 0;
+	duplicate_pile(env->a, env->c, env->a1, env->size - 1);
+	put_piles(env);
+	bb_sort(env);
+	put_piles(env);
 	while (i < env->size)
 	{
 		j = 0;

@@ -95,7 +95,7 @@ int				is_int(char *av);
  * PILES MANAGEMENT
  */
 
-void			duplicate_pile(t_env *env);
+void			duplicate_pile(long *src, long *dest, int start, int end);
 void			index_pile(t_env *env);
 void			put_piles(t_env *env);
 int				alloc_piles(t_env *env);
@@ -106,7 +106,7 @@ void			free_piles(t_env *env);
  */
 
 void			put_error(t_env *env, const char *err_msg);
-int				is_sort(long *pile, int size, int felem);
+int				is_sort(long *pile, int start, int end);
 int				all_sort(t_env *env);
 
 /*

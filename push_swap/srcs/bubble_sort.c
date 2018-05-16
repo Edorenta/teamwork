@@ -12,31 +12,30 @@
 
 #include "push_swap.h"
 
-int		bb_sort(t_env *env)
+int		bb_sort(long *pile, int start, int end)
 {
 	int		i;
 	int		j;
 	int		min;
 	int		tmp;
 
-	i = -1;
-	duplicate_pile(env);
-	while (++i < env->size - 1)
+	i = start - 1;
+	while (++i < end)
 	{
-		min = env->c[i];
+		min = pile[i];
 		tmp = i;
 		j = i + 1;
-		while (j < env->size)
+		while (j <= end)
 		{
-			if (min > env->c[j])
+			if (min > pile[j])
 			{
-				min = env->c[j];
+				min = pile[j];
 				tmp = j;
 			}
 			j++;
 		}
-		env->c[tmp] = env->c[i];
-		env->c[i] = min;
+		pile[tmp] = pile[i];
+		pile[i] = min;
 	}
 	return (all_sort(env) ? 1 : 0);
 }

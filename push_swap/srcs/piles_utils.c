@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-int		is_sort(long *pile, int size, int felem)
+int		is_sort(long *pile, int start, int end)
 {
 	int		i;
 
-	i = felem - 1;
-	while (++i < size - 1)
+	i = start - 1;
+	while (++i < end)
 		if (pile[i] >= pile[i + 1])
 			return (0);
 	return (1);
@@ -30,30 +30,28 @@ int		all_sort(t_env *env)
 	return (1);
 }
 
-void	put_piles(t_env *env)
+inline	static void put_pile(long *pile, int start, int end, const char *title)
 {
 	int i;
+
+	i = start - 1;
+	pstr(2, title, '\n');
+	pile[start] == NONE ? pstr(2, "empty", '\n') : 0;
+	if (pile[start] != NONE)
+		while (++i <= end && pile[i] && pile[i] != NONE)
+			if (i == end)
+				plong(2, pile[i], '\n');
+			else
+				plong(2, pile[i], ' ');
+}
+
+void	put_piles(t_env *env)
+{
 	//dprintf(2, "env->a[a1]: %ld\n", env->a[env->a1]);
 	//dprintf(2, "env->b[b1]: %ld\n", env->b[env->b1]);
-	
-	i = env->a1 - 1;
-	(env->a[env->a1] != NONE) ? pstr(2, "Pile A:", '\n')
-	: pstr(2, "Pile A: EMPTY", '\n');
-	if (env->a[env->a1] != NONE)
-		while (++i < env->size && env->a[i] && env->a[i] != NONE)
-			if (i == env->size - 1)
-				plong(2, env->a[i], '\n');
-			else
-				plong(2, env->a[i], ' ');
-	i = env->b1 - 1;
-	(env->b[env->b1] != NONE) ? pstr(2, "Pile B:", '\n')
-	: pstr(2, "Pile B: EMPTY", '\n');
-	if (env->b[env->b1] != NONE)
-		while (++i < env->size && env->b[i] && env->b[i] != NONE)
-			if (i == env->size - 1)
-				plong(2, env->b[i], '\n');
-			else
-				plong(2, env->b[i], ' ');
+	put_pile(env->a, env->a1, env->size - 1, "Pile A:");
+	put_pile(env->b, env->b1, env->size - 1, "Pile B:");
+	put_pile(env->c, env->a1, env->size - 1, "Pile C:");
 	write(2, "\n", 1);
 }
 
