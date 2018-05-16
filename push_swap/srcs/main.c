@@ -15,7 +15,7 @@
 void			put_error(t_env *env, const char *err_msg)
 {
 	free_piles(env);
-	pstr(err_msg);
+	pstr(2, err_msg, '\n');
 	exit(1);
 }
 
@@ -44,20 +44,21 @@ int				main(int ac, char **av)
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
 	//print init piles
-	pstr("Before sort:");
+	pstr(1, "Before sort:", '\n');
 	for (int i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	//go sort
 	sort_pile(&env);
 	//print sorted pile
-	pstr("After sort:");
+	pstr(1, "After sort:", '\n');
 	for (i = 0; i <= env.size - 1; i++)
 		printf("a[%d] = %ld\n", i, env.a[i]);
 	//deinit piles
 	deinit_env(&env);
 	//print commands
 	pstr("Commands:");
-	t_move *histo_move = env.first_move;
+	put_moves(env.first_move, 1, ' ');
+
 	while(++i)
 		;
 	return (1);

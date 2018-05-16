@@ -27,13 +27,13 @@ int			slen(char *s)
 	return (*s ? slen(++s) + 1 : 0);
 }
 
-int			pstr(const char *s)
+int			pstr(int fd, const char *s, char end)
 {
 	char *p;
 
 	p = (char *)s;
-	*s ? write(1, s, slen(p)) : 0;
-	return (write(1, "\n", 1) ? 1 : 0);
+	*s ? write(fd, s, slen(p)) : 0;
+	return (write(fd, &end, 1) ? 1 : 0);
 }
 
 int			scat(char *dest, const char *src, const char c)

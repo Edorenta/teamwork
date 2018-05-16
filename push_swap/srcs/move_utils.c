@@ -38,9 +38,32 @@ void	del_move(t_move *mv)
 	}
 }
 
-void	put_move(t_move *mv)
+void	put_move(t_move *move, char end)
 {
-	(mv && mv->id) ? pstr(mv->id) : 0;
+	(mv && mv->id) ? pstr(1, mv->id, end) : 0;
+}
+
+int		put_moves(t_move *start, int dir, char sep)
+{
+	if (dir == 1)
+		while (1)
+		{
+			mv->next ? put_move(mv, sep) : put_move(mv, '\n');
+			if (mv->next)
+				mv = mv->next;
+			else
+				return (1);
+		}
+	else if (dir == 2)
+		while (1)
+		{
+			mv->prev ? put_move(mv, sep) : put_move(mv, '\n');
+			if (mv->prev)
+				mv = mv->prev;
+			else
+				return (1);
+		}
+	return (0);
 }
 
 int		archive_move(t_env *env, const char *id, char which, t_move *prev)
