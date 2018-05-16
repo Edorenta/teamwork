@@ -140,25 +140,25 @@ class Bars {
                 moved_b[1] = 1;
                 break;
             case 'pa':
-                op_details = 'PA >> swaps a[0] with a[last]'
+                op_details = 'PA >> pushes b[0] to top of a[0]'
                 moved_a[0] = 0;
                 moved_b[0] = 0;
                 break;
             case 'pb':
-                op_details = 'PB >> swaps b[0] with b[last]'
+                op_details = 'PB >> pushes a[0] top of b[0]'
                 moved_a[0] = 0;
                 moved_b[0] = 0;
                 break;
             case 'ra':
-                op_details = 'RA >> rotates a >> pushs a[last] to front of a[0] and removes a[last]'
+                op_details = 'RA >> rotates a >> pushs a[last] to top of a[0] and removes a[last]'
                 moved_a[0] = this.na - 1;
                 break;
             case 'rb':
-                op_details = 'RB >> rotates b >> pushs b[last] to front of b[0] and removes b[last]'
+                op_details = 'RB >> rotates b >> pushs b[last] to top of b[0] and removes b[last]'
                 moved_b[0] = this.nb - 1;
                 break;
             case 'rr':
-                op_details = 'RR >> rotates a and b: >> pushs a[last] to front of a[0] and removes a[last] >> pushs b[last] to front of b[0] >> removes b[last]'
+                op_details = 'RR >> rotates a and b: >> pushs a[last] to top of a[0] and removes a[last] >> pushs b[last] to front of b[0] >> removes b[last]'
                 moved_a[0] = this.na - 1;
                 moved_b[0] = this.nb - 1;
                 break;
