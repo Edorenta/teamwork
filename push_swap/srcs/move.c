@@ -67,6 +67,7 @@ long	*rotate(t_env *env, char which)
 		{
 			pile[i] = pile[i + 1];
 			i++;
+			dprintf(1, "pile[%d] = %ld\n", i, pile[i]);
 		}
 		pile[i] = tmp;
 	}
