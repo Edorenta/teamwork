@@ -59,20 +59,23 @@ int		mass_smart_insert(t_env *env, char to, int mean)
 int 	quick_fix(t_env *env)
 {
 	while ((env->a[env->a1] != NONE)
-		&& (env->a[env->a1] > env->a[env->size - 1] ||
-		env->a[env->a1] > env->a[env->a1 + 1]))
+		&& (env->a[env->a1] > env->a[env->size - 1]
+		|| env->a[env->a1] > env->a[env->a1 + 1]
+		|| env->a[env->size - 2] > env->a[env->size - 1]))
 	{
 		//RRA;
-		(env->a[env->a1] != NONE && env->a[env->a1] > env->a[env->size - 1]) ? RA : RRA;
-		(env->a[env->a1] != NONE && env->a[env->a1] > env->a[env->a1 + 1]) ? SA : 0;
+		(env->a1 != (env->size - 1) && env->a[env->a1] > env->a[env->size - 1]) ? RA : 0;
+		(env->a[env->a1 + 1] != NONE && env->a[env->a1] > env->a[env->a1 + 1]) ? SA : 0;
+		(env->a[env->size - 2] != NONE && env->a[env->size - 2] > env->a[env->size - 1]) ? RRA : 0;
 	}
 	while ((env->b[env->b1] != NONE)
 		&& (env->b[env->b1] > env->b[env->size - 1] ||
 		env->b[env->b1] > env->b[env->b1 + 1]))
 	{
 		//RRB;
-		(env->b[env->b1] != NONE && env->b[env->b1] > env->b[env->size - 1]) ? RB : RRB;
-		(env->b[env->b1] != NONE && env->b[env->b1] > env->b[env->b1 + 1]) ? SB : 0;
+		(env->b1 != (env->size - 1) && env->b[env->b1] > env->b[env->size - 1]) ? RB : RRB;
+		(env->b[env->b1 + 1] != NONE && env->b[env->b1] > env->b[env->b1 + 1]) ? SB : 0;
+		(env->b[env->size - 2] != NONE && env->b[env->size - 2] > env->b[env->size - 1]) ? RRB : 0;
 	}
 		pstr(1, "fixed:",'\n');
 		put_piles(env);
@@ -86,10 +89,10 @@ int		smart_insert(t_env *env, char to, int mean)
 
 	i = to == 'b' ? &env->a1 : &env->b1;
 	pilefrom = (to == 'b' ? env->a : env->b);
+	quick_fix(env);
 	while (pilefrom[*i] != NONE
 		&& (pilefrom[*i] > mean || pilefrom[env->size - 1] > mean))
 	{
-		quick_fix(env);
 		push(env, to);
 		pstr(1, "pushed:",'\n');
 		put_piles(env);
@@ -99,7 +102,6 @@ int		smart_insert(t_env *env, char to, int mean)
 		&& (pilefrom[*i] < mean || pilefrom[env->size - 1] < mean))
 	{
 		//dprintf(1, "second loop\n");
-		quick_fix(env);
 		pilefrom[*i] < pilefrom[env->size - 1] ? reverse_rotate(env, to == 'b' ? 'a' : 'b') : 0;
 		push(env, to);
 		pstr(1, "pushed:",'\n');
