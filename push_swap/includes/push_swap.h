@@ -118,7 +118,7 @@ t_env	 		*push(t_env *env, char to);
 long			*swap(t_env *env, char which);
 long			*rotate(t_env *env, char which);
 long    		*reverse_rotate(t_env *env, char which);
-void			combine(long (*move)(t_env *, char), t_env *env);
+void			combine(long *(*move)(t_env *, char), t_env *env);
 
 /*
  * MOVE CHAINED LIST
@@ -134,8 +134,11 @@ int				put_moves(t_move *start, int dir, char sep);
  * LOGIC (ALL)
  */
 int				sort_pile(t_env *env);
+int 			quick_fix(t_env *env);
 int				ext_sort(t_env *env);
 int				bb_sort(long *pile, int start, int end);
 int				mean_value(long *pile, int start, int stop);
+int				smart_insert(t_env *env, char to, int mean);
+int				mass_smart_insert(t_env *env, char to, int mean);
 
 #endif

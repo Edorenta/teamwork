@@ -99,7 +99,7 @@ long	*reverse_rotate(t_env *env, char which)
 	return (pile);
 }
 
-void	combine(long (*move)(t_env *, char), t_env *env)
+void	combine(long *(*move)(t_env *, char), t_env *env)
 {
 	move(env, 'a');
 	move(env, 'b');
