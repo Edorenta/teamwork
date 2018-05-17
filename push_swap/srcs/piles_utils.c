@@ -12,22 +12,9 @@
 
 #include "push_swap.h"
 
-int		is_sort(long *pile, int start, int end)
+int		sort_pile(t_env *env)
 {
-	int		i;
-
-	i = start - 1;
-	while (++i < end)
-		if (pile[i] >= pile[i + 1])
-			return (0);
-	return (1);
-}
-
-int		all_sort(t_env *env)
-{
-	if (!is_sort(env->a, 0, env->size - 1) || env->b[env->size - 1] != NONE)
-		return (0);
-	return (1);
+	return (((quick_sort(env) && all_sort(env)) ? 1 : 0));
 }
 
 inline	static void put_pile(long *pile, int start, int end, const char *title)

@@ -12,58 +12,7 @@
 
 #include "push_swap.h"
 
-int		sort_pile(t_env *env)
-{
-	return (((ext_sort(env) && all_sort(env)) ? 1 : 0));
-}
-
-int		mean_value(long *pile, int start, int end)
-{
-	int		i;
-	int		sum;
-
-	i = start - 1;
-	sum = 0;
-	while (++i <= end)
-		sum += pile[i];
-//	dprintf(1, "sum: %d\n", sum);
-	return (sum / (i - start));
-}
-
-int		mass_push(t_env *env, char to, int start, int end)
-{
-	int i;
-
-	i = to == 'b' ? env->a1 : env->b1;
-	while (++i <= start)
-		rotate(env, (to == 'b' ? 'a' : 'b'));
-	i = to == 'b' ? env->a1 : env->b1;
-	while (++i <= (end - start + 1))
-		push(env, to);
-	return (1);
-}
-
-int		swap_last(t_env *env, char which)
-{
-	if (which == 'a')
-	{
-		RRA;
-		RRA;
-		SA;
-		RA;
-		RA;
-	}
-	else
-	{
-		RRB;
-		RRB;
-		SB;
-		RB;
-		RB;
-	}
-	return (1);
-}
-
+/*
 int		mass_smart_insert(t_env *env, char to, int mean)
 {
 	int		*i;	
@@ -83,14 +32,29 @@ int 	quick_fix(t_env *env)
 		pstr(1, "before fix:",'\n');
 		put_piles(env);
 
-		while (1)
-			if (A_LAST < MEAN_A)
-				if (A_FIRST > MEAN_A)
-					RRA; SA; RA;
-			if ()
-			RRA;
-		while ()
-/*
+		if (A1 > A2)
+			SA;
+		if (A4 < MEAN_A)
+		{
+			if (A1 > MEAN_A)
+			{
+				RRA;
+				SA;
+			}
+			RA;
+		}
+		if (B1 > B2)
+			SB;
+		if (B4 < MEAN_B)
+		{
+			if (B1 > MEAN_B)
+			{
+				RRB;
+				SB;
+			}
+			RB;
+		}		
+		PA;
 	while ((env->a[env->a1] != NONE)
 		&& (env->a1 != (env->size - 1) && (env->a[env->a1] > env->a[env->size - 1]
 		|| (env->a[env->a1 + 1] != NONE && env->a[env->a1] > env->a[env->a1 + 1])
@@ -115,7 +79,7 @@ int 	quick_fix(t_env *env)
 		//(env->b[env->size - 2] != NONE && env->b[env->size - 2] > env->b[env->size - 1]) ? RSB : 0;
 		(env->b[env->b1] > mean_value(env->b, env->b1, (env->size - 1))) ? RB : 0;
 	}
-*/
+
 		pstr(1, "after fix:",'\n');
 		put_piles(env);
 	return (1);
@@ -149,7 +113,7 @@ int		smart_insert(t_env *env, char to, int mean)
 	}
 	return (1);
 }
-
+*/
 /*
 	int max;
 	int gap[4];
@@ -171,8 +135,8 @@ int		ext_sort(t_env *env)
 	int mean[2];
 
 	//reinsert smartly on stack 1
-	//while (!all_sort(env))
-	for (int i = 0; i < 10 ; i++)
+	while (!all_sort(env))
+	//for (int i = 0; i < 10 ; i++)
 	{
 		mean[0] = mean_value(env->a, env->a1, (env->size - 1) / 2);
 		mean[1] = mean_value(env->a, 1 + (env->size - 1) / 2, env->size - 1);
@@ -182,7 +146,7 @@ int		ext_sort(t_env *env)
 		: mass_push(env, 'b', (env->size - (env->a1)) / 2, (env->size - 1));
 		pstr(1, "after split:",'\n');
 		put_piles(env);
-		mass_smart_insert(env, 'a', (mean[1] > mean[0] ? mean[1] : mean[0]));
+		//mass_smart_insert(env, 'a', (mean[1] > mean[0] ? mean[1] : mean[0]));
 	}
 	return (1);
 }
