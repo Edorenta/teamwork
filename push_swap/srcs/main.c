@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-void			put_error(t_env *env, const char *err_msg)
+void						put_error(t_env *env, const char *err_msg)
 {
 	free_piles(env);
 	pstr(2, err_msg, '\n');
 	exit(1);
 }
 
-inline void		init_env(t_env *env, int ac)
+inline static	void		init_env(t_env *env, int ac)
 {
 	env->size = ac - 1;
 	env->first_move = NULL;
@@ -31,7 +31,7 @@ inline void		init_env(t_env *env, int ac)
 	env->b1 = env->size - 1;
 }
 
-inline void		deinit_env(t_env *env)
+inline static	void		deinit_env(t_env *env)
 {
 	free_piles(env);
 }
@@ -43,13 +43,16 @@ int				main(int ac, char **av)
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
-	//print init piles
-	pstr(2, "Before sort:", '\n');
+	//init piles
+	pstr(2, "Piles initialized:", '\n');
+	put_piles(&env);
+	//index pile
+	index_pile(&env);
+	pstr(2, "Piles rebased:", '\n');
 	put_piles(&env);
 	//go sort
 	sort_pile(&env);
-	//print sorted pile
-	pstr(2, "After sort:", '\n');
+	pstr(2, "Piles sorted:", '\n');
 	put_piles(&env);
 	//deinit piles
 	deinit_env(&env);

@@ -40,7 +40,7 @@ void	del_move(t_move *mv)
 
 void	put_move(t_move *mv, char end)
 {
-	(mv && mv->id) ? pstr(1, mv->id, end) : 0;
+	mv ? pstr(1, mv->id, end) : 0;
 }
 
 int		put_moves(t_move *start, int dir, char sep)

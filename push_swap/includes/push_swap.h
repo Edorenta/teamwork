@@ -129,6 +129,7 @@ long			*rotate(t_env *env, char which);
 long    		*reverse_rotate(t_env *env, char which);
 int				swap_last(t_env *env, char which);
 void			combine(long *(*move)(t_env *, char), t_env *env);
+int				mass_push(t_env *env, char to, int start, int end);
 
 /*
  * MOVE CHAINED LIST

@@ -26,10 +26,7 @@ inline	static void put_pile(long *pile, int start, int end, const char *title)
 	pile[start] == NONE ? pstr(2, "empty", '\n') : 0;
 	if (pile[start] != NONE)
 		while (++i <= end && pile[i] != NONE)
-			if (i == end)
-				plong(2, pile[i], '\n');
-			else
-				plong(2, pile[i], ' ');
+			i == end ? plong(2, pile[i], '\n') : plong(2, pile[i], ' ');
 }
 
 void	put_piles(t_env *env)

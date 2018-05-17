@@ -6,7 +6,7 @@
 #    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
-#    Updated: 2018/05/15 12:14:23 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/17 20:15:14 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,17 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
 CFLAGS_DBG = -g -fsanitize=address
 
-OBJ_PATH = ./objs/
-SRC_PATH = ./srcs/
-INC_PATH = ./includes
+OBJ_PATH = objs/
+SRC_PATH = srcs/
+INC_PATH = includes
 
 NAME1 = push_swap
 NAME2 = checker
 
-SRC1_NAME = checker.c
-SRC2_NAME = push_swap.c
+SRC1_NAME = srcs/main.c #push_swap
+SRC2_NAME = srcs/checker.c
 
-SRC_NAME = main.c \
-   		   move_utils.c \
+SRC_NAME = move_utils.c \
 		   parser_utils.c \
 		   str_utils.c \
 		   basics.c \
@@ -33,7 +32,10 @@ SRC_NAME = main.c \
 		   ext_sort.c \
 		   move.c \
 		   parser.c \
-		   piles_utils.c
+		   piles_utils.c \
+		   piles_utils2.c \
+		   quick_sort.c \
+		   rebase.c
 		   #algo.c \
 		   #checker.c \
 
@@ -43,14 +45,12 @@ OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 INC = $(addprefix -I,$(INC_PATH))
 
-.PHONY : all clean fclean re
-
-all : $(OBJ) $(NAME1) $(NAME2)
+all : $(OBJ) $(NAME1) #$(NAME2)
 
 $(OBJ) : | $(OBJ_PATH)
 
 $(OBJ_PATH) :
-	@ mkdir ./objs
+	@ mkdir -p objs
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
@@ -71,3 +71,5 @@ dbg :
 	@ $(CC) $(CFLAGS) $(INC) ../tests/test.c -o $(NAME1)
 
 re : fclean all
+
+.PHONY : all push_swap checker clean fclean re dbg
