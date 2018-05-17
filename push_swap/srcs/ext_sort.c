@@ -140,11 +140,11 @@ int		ext_sort(t_env *env)
 	{
 		mean[0] = mean_value(env->a, env->a1, (env->size - 1) / 2);
 		mean[1] = mean_value(env->a, 1 + (env->size - 1) / 2, env->size - 1);
-		dprintf(1, "mean[0]: %d mean[1]: %d\n", mean[0], mean[1]);
+		dprintf(2, "mean[0]: %d mean[1]: %d\n", mean[0], mean[1]);
 		//put small half on stack 2
 		mean[0] < mean[1] ? mass_push(env, 'b', env->a1, (env->size - 1) / 2)
 		: mass_push(env, 'b', (env->size - (env->a1)) / 2, (env->size - 1));
-		pstr(1, "after split:",'\n');
+		pstr(2, "after split:",'\n');
 		put_piles(env);
 		//mass_smart_insert(env, 'a', (mean[1] > mean[0] ? mean[1] : mean[0]));
 	}
