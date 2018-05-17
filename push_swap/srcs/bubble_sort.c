@@ -37,5 +37,5 @@ int		bb_sort(long *pile, int start, int end)
 		pile[tmp] = pile[i];
 		pile[i] = min;
 	}
-	return (all_sort(env) ? 1 : 0);
+	return (is_sort(pile, start, end) ? 1 : 0);
 }

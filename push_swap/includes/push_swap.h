@@ -133,7 +133,8 @@ int				put_moves(t_move *start, int dir, char sep);
  * LOGIC (ALL)
  */
 int				sort_pile(t_env *env);
-int				bb_sort(t_env *env);
 int				ext_sort(t_env *env);
+int				bb_sort(long *pile, int start, int end);
+int				mean_value(long *pile, int start, int stop);
 
 #endif

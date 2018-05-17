@@ -30,8 +30,7 @@ void	index_pile(t_env *env)
 	j = 0;
 	duplicate_pile(env->a, env->c, env->a1, env->size - 1);
 	put_piles(env);
-	bb_sort(env);
-	put_piles(env);
+	bb_sort(env->c, env->a1, env->size - 1);
 	while (i < env->size)
 	{
 		j = 0;

@@ -60,7 +60,7 @@ long	*rotate(t_env *env, char which)
 
 	pile = (which == 'a' ? env->a : env->b);
 	i = (which == 'a' ? env->a1 : env->b1);
-	if (i < env->size)
+	if (i < env->size && pile[i] != NONE)
 	{
 		tmp = pile[i];
 		while (i < env->size - 1)
@@ -78,21 +78,21 @@ long	*reverse_rotate(t_env *env, char which)
 {
 	long	*pile;
 	int		tmp;
-	int		felem;
+	int		start;
 	int		i;
 
 	pile = (which == 'a' ? env->a : env->b);
-	felem = (which == 'a' ? env->a1 : env->b1);
+	start = (which == 'a' ? env->a1 : env->b1);
 	i = env->size - 1;
 	if (pile[env->size - 1] != NONE)
 	{
 		tmp = pile[env->size - 1];
-		while (i >= felem)
+		while (i >= start)
 		{
 			pile[i] = pile[i - 1];
 			i--;
 		}
-		pile[felem] = tmp;
+		pile[start] = tmp;
 	}
 	archive_move(env, "rr", which, env->this_move);
 	return (pile);
