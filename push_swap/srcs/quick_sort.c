@@ -14,10 +14,11 @@
 
 int 	quick_fix_a(t_env *env)
 {
-	pstr(2, "before A fix:",'\n');
-	put_piles(env);
+	//pstr(2, "before A fix:",'\n');
+	//put_piles(env);
 
-	if (A1 > A2 && A1 < MEAN_A)
+	//if (A1 > A2 && A1 < MEAN_A)
+	if (A1 > A2)
 		SA;
 	if (A1 > MEAN_A)
 		RA;
@@ -30,15 +31,15 @@ int 	quick_fix_a(t_env *env)
 		}
 		RA;
 	}
-	pstr(2, "after A fix:",'\n');
-	put_piles(env);
+	//pstr(2, "after A fix:",'\n');
+	//put_piles(env);
 	return (1);
 }
 
 int 	quick_fix_b(t_env *env)
 {
-	pstr(2, "before B fix:",'\n');
-	put_piles(env);
+	//pstr(2, "before B fix:",'\n');
+	//put_piles(env);
 	if (B1 < B2 && B1 > MEAN_B)
 		SB;
 	if (B1 < MEAN_B)
@@ -52,8 +53,8 @@ int 	quick_fix_b(t_env *env)
 		}
 		RB;
 	}
-	pstr(2, "after B fix:",'\n');
-	put_piles(env);
+	//pstr(2, "after B fix:",'\n');
+	//put_piles(env);
 	return (1);
 }
 
@@ -64,7 +65,9 @@ int 	insert_b(t_env *env)
 
 	while (B1 != NONE)
 	{
+		quick_fix_a(env);
 		PA;
+		quick_fix_a(env);
 		quick_fix_b(env);
 		if (A1 > A2)
 			SA;
@@ -77,38 +80,41 @@ int 	insert_b(t_env *env)
 int		quick_sort(t_env *env)
 {
 	//step 1: compare mean values of first and second half:
-	int mean;
+	double mean;
 
 	//reinsert smartly on stack 1
 	//while (!all_sort(env))
 	for (int i = 0; i < 1; i++)
 	{
 		mean = mean_value(env->a, env->a1, (env->size - 1));
-		dprintf(2, "mean: %d\n", mean);
+		dprintf(2, "mean: %f\n", mean);
 		//put small half on stack 2
-		median_split(env, 'b', mean);
-		pstr(2, "after split:",'\n');
-		put_piles(env);
+		median_split(env, 'b', mean, 1);
+		//median_split(env, 'b', mean, 0.5);
+		//pstr(2, "after split:",'\n');
+		//put_piles(env);
 		//mass_smart_insert(env, 'a', (mean[1] > mean[0] ? mean[1] : mean[0]));
 	}
 	return (1);
 }
 
-int		median_split(t_env *env, char to, int mean)
+int		median_split(t_env *env, char to, double mean, double coef)
 {
 	int		*i;
-	int		*j;
+	//int		*j;
 	long	*pilefrom;
 	//long	*pileto;
 
+	mean *= coef;
 	pilefrom = (to == 'b' ? env->a : env->b);
 	//pileto = (to == 'b' ? env->b : env->a);
 	i = (to == 'b' ? &env->a1 : &env->b1);
-	j = (to == 'b' ? &env->b1 : &env->a1);
+	//j = (to == 'b' ? &env->b1 : &env->a1);
 	//while (++i <= start)
 	//	rotate(env, (to == 'b' ? 'a' : 'b'));
-	while (*i <= *j)
+	while (*i <= ((env->size - 1) / 2 * coef))
 	{
+		//*i ? dprintf(2, "coef: %f j/i: %f\n", coef, (double)(*j / *i)) : 0;
 		//quick_fix_a(env);
 		if (pilefrom[*i] <= mean)
 		{
@@ -121,7 +127,7 @@ int		median_split(t_env *env, char to, int mean)
 		is_sort(env->a, env->a1, env->size - 1) ? 0 : rotate(env, (to == 'b' ? 'a' : 'b'));
 		//printf("i: %d j: %d\n", *i, *j);
 	}
-	quick_fix_a(env);
+	//quick_fix_a(env);
 	insert_b(env);
 	return (1);
 }

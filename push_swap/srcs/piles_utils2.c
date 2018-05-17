@@ -31,7 +31,7 @@ int		all_sort(t_env *env)
 	return (1);
 }
 
-int		mean_value(long *pile, int start, int end)
+double		mean_value(long *pile, int start, int end)
 {
 	int		i;
 	int		sum;
@@ -41,7 +41,7 @@ int		mean_value(long *pile, int start, int end)
 	while (++i <= end)
 		sum += pile[i];
 //	dprintf(1, "sum: %d\n", sum);
-	return (sum / (i - start));
+	return ((double)sum / (double)(i - start));
 }
 
 int		mass_push(t_env *env, char to, int start, int end)
