@@ -24,3 +24,8 @@ int			slen(char *s)
 {
 	return (*s ? slen(++s) + 1 : 0);
 }
+
+long		labs(long n)
+{
+	return (n > 0 ? n : -n);
+}

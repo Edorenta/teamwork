@@ -51,7 +51,7 @@ void	put_piles(t_env *env)
 	//dprintf(2, "env->b[b1]: %ld\n", env->b[env->b1]);
 	put_pile(env->a, env->a1, env->size - 1, "Pile A:");
 	put_pile(env->b, env->b1, env->size - 1, "Pile B:");
-	put_pile(env->c, env->a1, env->size - 1, "Pile C:");
+	//put_pile(env->c, env->a1, env->size - 1, "Pile C:");
 	write(2, "\n", 1);
 }
 
