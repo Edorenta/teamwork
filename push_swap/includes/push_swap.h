@@ -34,11 +34,20 @@
 # define RRA		reverse_rotate(env, 'a')
 # define RRB		reverse_rotate(env, 'b')
 # define RRR		combine(reverse_rotate, env)
+# define RSA		swap_last(env, 'a')
+# define RSB		swap_last(env, 'b')
 
-# define A_TOP		env->a[env->a1]
-# define A_BOT		env->a[env->size]
-# define B_TOP		env->b[env->b1]
-# define B_BOT		env->b[env->size]
+# define A1			env->a[env->a1]
+# define A2			env->a[env->a1 + 1]
+# define A3			env->a[env->size - 2]
+# define A4			env->a[env->size - 1]
+# define B1			env->b[env->b1]
+# define B2			env->b[env->b1 + 1]
+# define B3			env->b[env->size - 2]
+# define B4			env->b[env->size - 1]
+
+# define MEAN_A		mean_value(env->a, env->a1, (env->size - 1))
+# define MEAN_B		mean_value(env->b, env->b1, (env->size - 1))
 
 /*
  * SRUCTS
@@ -118,6 +127,7 @@ t_env	 		*push(t_env *env, char to);
 long			*swap(t_env *env, char which);
 long			*rotate(t_env *env, char which);
 long    		*reverse_rotate(t_env *env, char which);
+int				swap_last(t_env *env, char which);
 void			combine(long *(*move)(t_env *, char), t_env *env);
 
 /*

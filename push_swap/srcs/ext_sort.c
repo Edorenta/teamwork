@@ -26,6 +26,7 @@ int		mean_value(long *pile, int start, int end)
 	sum = 0;
 	while (++i <= end)
 		sum += pile[i];
+//	dprintf(1, "sum: %d\n", sum);
 	return (sum / (i - start));
 }
 
@@ -42,6 +43,27 @@ int		mass_push(t_env *env, char to, int start, int end)
 	return (1);
 }
 
+int		swap_last(t_env *env, char which)
+{
+	if (which == 'a')
+	{
+		RRA;
+		RRA;
+		SA;
+		RA;
+		RA;
+	}
+	else
+	{
+		RRB;
+		RRB;
+		SB;
+		RB;
+		RB;
+	}
+	return (1);
+}
+
 int		mass_smart_insert(t_env *env, char to, int mean)
 {
 	int		*i;	
@@ -49,7 +71,7 @@ int		mass_smart_insert(t_env *env, char to, int mean)
 
 	i = to == 'b' ? &env->a1 : &env->b1;
 	pilefrom = (to == 'b' ? env->a : env->b);
-	while (pilefrom[*i] != NONE && dprintf(1, "i: %d\n", *i))
+	while (pilefrom[*i] != NONE)
 		smart_insert(env, to, mean);			
 	//put_piles(env);
 	//dprintf(1, "ok\n");
@@ -58,26 +80,43 @@ int		mass_smart_insert(t_env *env, char to, int mean)
 
 int 	quick_fix(t_env *env)
 {
+		pstr(1, "before fix:",'\n');
+		put_piles(env);
+
+		while (1)
+			if (A_LAST < MEAN_A)
+				if (A_FIRST > MEAN_A)
+					RRA; SA; RA;
+			if ()
+			RRA;
+		while ()
+/*
 	while ((env->a[env->a1] != NONE)
-		&& (env->a[env->a1] > env->a[env->size - 1]
-		|| env->a[env->a1] > env->a[env->a1 + 1]
-		|| env->a[env->size - 2] > env->a[env->size - 1]))
+		&& (env->a1 != (env->size - 1) && (env->a[env->a1] > env->a[env->size - 1]
+		|| (env->a[env->a1 + 1] != NONE && env->a[env->a1] > env->a[env->a1 + 1])
+		|| (env->a[env->size - 2] != NONE && env->a[env->size - 2] > env->a[env->size - 1])
+		|| (env->a[env->a1] > mean_value(env->a, env->a1, (env->size - 1))))))
 	{
 		//RRA;
 		(env->a1 != (env->size - 1) && env->a[env->a1] > env->a[env->size - 1]) ? RA : 0;
 		(env->a[env->a1 + 1] != NONE && env->a[env->a1] > env->a[env->a1 + 1]) ? SA : 0;
-		(env->a[env->size - 2] != NONE && env->a[env->size - 2] > env->a[env->size - 1]) ? RRA : 0;
+		//(env->a[env->size - 2] != NONE && env->a[env->size - 2] > env->a[env->size - 1]) ? RSA : 0;
+		(env->a[env->a1] > mean_value(env->a, env->a1, (env->size - 1))) ? RA : 0;
 	}
 	while ((env->b[env->b1] != NONE)
-		&& (env->b[env->b1] > env->b[env->size - 1] ||
-		env->b[env->b1] > env->b[env->b1 + 1]))
+		&& (env->b1 != (env->size - 1) && (env->b[env->b1] > env->b[env->size - 1]
+		|| (env->b[env->b1 + 1] != NONE && env->b[env->b1] > env->b[env->b1 + 1])
+		|| (env->b[env->size - 2] != NONE && env->b[env->size - 2] > env->b[env->size - 1])
+		|| (env->b[env->b1] > mean_value(env->b, env->b1, (env->size - 1))))))
 	{
-		//RRB;
-		(env->b1 != (env->size - 1) && env->b[env->b1] > env->b[env->size - 1]) ? RB : RRB;
+		//RRb;
+		(env->b1 != (env->size - 1) && env->b[env->b1] > env->b[env->size - 1]) ? RB : 0;
 		(env->b[env->b1 + 1] != NONE && env->b[env->b1] > env->b[env->b1 + 1]) ? SB : 0;
-		(env->b[env->size - 2] != NONE && env->b[env->size - 2] > env->b[env->size - 1]) ? RRB : 0;
+		//(env->b[env->size - 2] != NONE && env->b[env->size - 2] > env->b[env->size - 1]) ? RSB : 0;
+		(env->b[env->b1] > mean_value(env->b, env->b1, (env->size - 1))) ? RB : 0;
 	}
-		pstr(1, "fixed:",'\n');
+*/
+		pstr(1, "after fix:",'\n');
 		put_piles(env);
 	return (1);
 }
@@ -102,7 +141,7 @@ int		smart_insert(t_env *env, char to, int mean)
 		&& (pilefrom[*i] < mean || pilefrom[env->size - 1] < mean))
 	{
 		//dprintf(1, "second loop\n");
-		pilefrom[*i] < pilefrom[env->size - 1] ? reverse_rotate(env, to == 'b' ? 'a' : 'b') : 0;
+		//pilefrom[*i] < pilefrom[env->size - 1] ? reverse_rotate(env, to == 'b' ? 'a' : 'b') : 0;
 		push(env, to);
 		pstr(1, "pushed:",'\n');
 		put_piles(env);	
@@ -133,7 +172,7 @@ int		ext_sort(t_env *env)
 
 	//reinsert smartly on stack 1
 	//while (!all_sort(env))
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 10 ; i++)
 	{
 		mean[0] = mean_value(env->a, env->a1, (env->size - 1) / 2);
 		mean[1] = mean_value(env->a, 1 + (env->size - 1) / 2, env->size - 1);
