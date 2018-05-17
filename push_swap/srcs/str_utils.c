@@ -29,10 +29,15 @@ int			plong(int fd, long n, char end)
 	n < 0 ? write(fd, "-", 1) : 0;
 	n = (n < 0 ? -n : n);
 	i = 15;
+	str[i--] = '\0';
 	n == 0 ? str[--i] = '0' : 0;
 	while (n != 0 && (str[--i] = '0' + (n % 10)))
 		n /= 10;
-	return (pstr(fd, &str[i], end));
+	while (i >= 0)
+		str[--i] = '\0';
+	write(fd, &str, 15);
+	write(fd, &end, 1);
+	return (1);
 }
 
 int			scat(char *dest, const char *src, const char c)
