@@ -3,73 +3,100 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
-#    Updated: 2018/05/17 20:15:14 by pde-rent         ###   ########.fr        #
+#    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
+#    Updated: 2018/03/03 00:07:21 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra 
-CFLAGS_DBG = -g -fsanitize=address
+NAME_1    	= push_swap
+NAME_2    	= checker
+SRC_PATH	= srcs/
+OBJ_PATH	= objs/
+FLAGS		= -Wall -Werror -Wextra
+CC			= gcc $(FLAGS)
+NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
+SRC_SUFFIX	= .c
+#SRC_PREFIX	= 
+COMMON =	move_utils.c \
+			parser_utils.c \
+			str_utils.c \
+			basics.c \
+			bubble_sort.c \
+			ext_sort.c \
+			move.c \
+			parser.c \
+			piles_utils.c \
+			piles_utils2.c \
+			quick_sort.c \
+			rebase.c
+			#algo.c \
+			#checker.c
+SRC1_RAW =	$(COMMON) + main.c
+SRC2_RAW =	$(COMMON) + checker.c
 
-OBJ_PATH = objs/
-SRC_PATH = srcs/
-INC_PATH = includes
+#SRC_RAW2	= $(addprefix ${SRC_PREFIX},${COMMON})
+SRC_FILES	= $(addsuffix $(SRC_SUFFIX),$(COMMON))
+SRC_FILES	= $(addsuffix $(SRC_SUFFIX),$(COMMON))
 
-NAME1 = push_swap
-NAME2 = checker
+OBJ_FILES	= $(SRC_FILES:.c=.o)
+SRC1		= $(addprefix $(SRC_PATH),$(SRC_FILES))
+SRC2		= $(addprefix $(SRC_PATH),$(SRC_FILES))
+OBJ1		= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
+OBJ2		= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
 
-SRC1_NAME = srcs/main.c #push_swap
-SRC2_NAME = srcs/checker.c
+#color
+YELLOW		= "\\033[33m"
+BLUE		= "\\033[34m"
+RED			= "\\033[31m"
+WHITE		= "\\033[0m"
+CYAN		= "\\033[36m"
+GREEN		= "\\033[32m"
+BOLD		= "\\033[1m"
+PINK		= "\\033[95m"
 
-SRC_NAME = move_utils.c \
-		   parser_utils.c \
-		   str_utils.c \
-		   basics.c \
-		   bubble_sort.c \
-		   ext_sort.c \
-		   move.c \
-		   parser.c \
-		   piles_utils.c \
-		   piles_utils2.c \
-		   quick_sort.c \
-		   rebase.c
-		   #algo.c \
-		   #checker.c \
+#command
+EOLCLR		= "\\033[0K"
+#unicode
+CHECK		= "\\xE2\\x9C\\x94"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+all : $(NAME)
 
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
-INC = $(addprefix -I,$(INC_PATH))
+$(NAME) : obj_folder $(OBJ)
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"all binaries compiled\t"$(OK)'\n'
+	@printf "[$(NAME_P)] running\t$(WHITE)ar rc $@$(WHITE)"
+	@ar rc $(NAME) $(OBJ)
+	@printf '\t\t'$(OK)'\n'
+	@printf "[$(NAME_P)] running\t$(WHITE)ranlib $@$(WHITE)"
+	@ranlib	$(NAME)
+	@printf '\t\t'$(OK)'\n'
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
+	"build successful\t"$(OK)'\n'
 
-all : $(OBJ) $(NAME1) #$(NAME2)
-
-$(OBJ) : | $(OBJ_PATH)
-
-$(OBJ_PATH) :
-	@ mkdir -p objs
+obj_folder :
+	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
-
-$(NAME1) :
-	@ $(CC) $(CFLAGS) $(INC) -c $(SRC1) $(OBJ)
-
-$(NAME2) :
-	@ $(CC) $(CFLAGS) $(INC) -c $(SRC2) $(OBJ)
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)"
+	@$(CC) -I./include -o $@ -c $<
+	@printf '\t'$(OK)
 
 clean :
-	@ rm -rf $(OBJ)
+	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
+	@rm -rf $(OBJ_PATH)
+	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
-	@ rm -rf $(NAME1) $(NAME2)
-
-dbg :
-	@ $(CC) $(CFLAGS) $(INC) ../tests/test.c -o $(NAME1)
+	@printf "[$(NAME_P)] erasing\t$(PINK)$(NAME)$(WHITE)"
+	@rm -f $(NAME)
+	@printf '\t\t'$(OK)'\n'
 
 re : fclean all
 
-.PHONY : all push_swap checker clean fclean re dbg
+norm :
+	@norminette srcs/ include/
+
+.PHONY: all clean fclean re norm

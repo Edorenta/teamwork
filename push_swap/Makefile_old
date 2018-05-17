@@ -1,0 +1,75 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/11/10 18:34:12 by jyildiz-          #+#    #+#              #
+#    Updated: 2018/05/17 20:15:14 by pde-rent         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra 
+CFLAGS_DBG = -g -fsanitize=address
+
+OBJ_PATH = objs/
+SRC_PATH = srcs/
+INC_PATH = includes
+
+NAME1 = push_swap
+NAME2 = checker
+
+MAIN = srcs/main.c #push_swap
+CHECKER = srcs/checker.c
+
+COMMON =	move_utils.c \
+			parser_utils.c \
+			str_utils.c \
+			basics.c \
+			bubble_sort.c \
+			ext_sort.c \
+			move.c \
+			parser.c \
+			piles_utils.c \
+			piles_utils2.c \
+			quick_sort.c \
+			rebase.c
+			#algo.c \
+			#checker.c \
+
+OBJ_NAME = $(COMMON:.c=.o)
+
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+SRC = $(addprefix $(SRC_PATH), $(COMMON))
+INC = $(addprefix -I,$(INC_PATH))
+
+all : $(NAME1) #$(NAME2)
+
+$(OBJ) : | $(OBJ_PATH)
+
+$(OBJ_PATH) :
+	@ mkdir -p objs
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
+
+$(NAME1) : $(OBJ)
+	@ $(CC) $(CFLAGS) $(INC) -c $(SRC) $(MAIN) $(OBJ)
+
+$(NAME2) : $(OBJ)
+	@ $(CC) $(CFLAGS) $(INC) -c $(SRC2) $(OBJ)
+
+clean :
+	@ rm -rf $(OBJ)
+
+fclean : clean
+	@ rm -rf $(NAME1) $(NAME2)
+
+dbg :
+	@ $(CC) $(CFLAGS) $(INC) ../tests/test.c -o $(NAME1)
+
+re : fclean all
+
+.PHONY : all push_swap checker clean fclean re dbg
