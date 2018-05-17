@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/03 00:07:21 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/05/18 01:22:13 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,21 +66,24 @@ OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
 all : $(NAME_1) $(NAME_2)
 
-$(NAME_1) : obj_folder $(OBJ1)
+$(NAME_1) : $(OBJ1)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"push_swap compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ1) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
-$(NAME_2) : obj_folder $(OBJ2)
+$(NAME_2) : $(OBJ2)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"checker binaries compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ2) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
-obj_folder :
+$(OBJ1) : | $(OBJ_PATH)
+$(OBJ2) : | $(OBJ_PATH)
+
+$(OBJ_PATH) : 
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
