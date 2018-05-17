@@ -40,4 +40,6 @@ void	index_pile(t_env *env)
 		env->a[j] = i;
 		i++;
 	}
+	pstr(1, "A rebased:", '\n');
+	put_piles(env);
 }

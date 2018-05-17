@@ -38,7 +38,7 @@ inline	static void put_pile(long *pile, int start, int end, const char *title)
 	pstr(2, title, '\n');
 	pile[start] == NONE ? pstr(2, "empty", '\n') : 0;
 	if (pile[start] != NONE)
-		while (++i <= end && pile[i] && pile[i] != NONE)
+		while (++i <= end && pile[i] != NONE)
 			if (i == end)
 				plong(2, pile[i], '\n');
 			else
