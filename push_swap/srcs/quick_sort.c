@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/15 17:59:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 09:39:14 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ int 	quick_fix_a(t_env *env)
 	//if (A1 > A2 && A1 < MEAN_A)
 	if (A1 > A2)
 		SA;
-	if (A1 > MEAN_A)
+	if (A1 > MEAN_A && A4 >= MEAN_A)
 		RA;
 	if (A4 < MEAN_A)
 	{
-		if (A1 > MEAN_A)
-		{
-			RRA;
-			SA;
-		}
-		RA;
+		RRA;
+		SA;
 	}
 	//pstr(2, "after A fix:",'\n');
 	//put_piles(env);
@@ -92,8 +88,6 @@ int		quick_sort(t_env *env)
 		median_split(env, 'b', mean, 1);
 		//median_split(env, 'b', mean, 0.5);
 		//pstr(2, "after split:",'\n');
-		//put_piles(env);
-		//mass_smart_insert(env, 'a', (mean[1] > mean[0] ? mean[1] : mean[0]));
 	}
 	return (1);
 }
