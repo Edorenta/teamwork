@@ -78,20 +78,20 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 	while (++i < ac && av[i] && av[i][0] == '-'){
 		opt += get_option(env, av[i]);
 		--env->size;
-		//printf("with options\n");
+		printf("with options\n");
 	}
 	i--;
 	while (++i < ac && av[i]){
 		env->size += spaces_in(av[i]);
-		//printf("long: %s\n", av[i]);
+		printf("long: %s\n", av[i]);
 	}
-	//printf("nb opt: %d\n", opt);
+	printf("nb opt: %d\n", opt);
 	alloc_piles(env);
 	i = opt - 1;
 	while (++i < ac && av[i])
 		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i]) + 1)
 		: push_to_pile(env, av[i]);
 	env->b1 = env->size - 1;
-	//printf("env->size: %d\n", env->size);
+	printf("env->size: %d\n", env->size);
 	return (1);
 }
