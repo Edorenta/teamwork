@@ -20,20 +20,22 @@ int				main(int ac, char **av)
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
 	//init piles
-	pstr(2, "Piles initialized:", '\n');
-	put_piles(&env);
+	IS_SET_S ? pstr(2, "Piles initialized:", '\n') : 0;
+	IS_SET_S ? put_piles(&env) : 0;
 	//index pile
 	index_pile(&env);
 	//pstr(2, "Piles rebased:", '\n');
 	//put_piles(&env);
 	//go sort
 	sort_pile(&env);
-	pstr(2, "Piles sorted:", '\n');
-	put_piles(&env);
+	IS_SET_S ? pstr(2, "Piles sorted:", '\n') : 0;
+	IS_SET_S ? put_piles(&env) : 0;
 	//deinit piles
 	deinit_env(&env);
 	//optimize commands
 	//optimize(&env);
+	IS_SET_O ? pstr(2, "# operations: ", '\0') : 0;
+	IS_SET_O ? plong(2, count_moves(&env), '\n') : 0;
 	//print commands
 	pstr(2, "Commands:", '\n');
 	put_moves(env.first_move, 1, ' ');

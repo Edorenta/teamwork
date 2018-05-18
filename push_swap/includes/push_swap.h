@@ -154,6 +154,7 @@ void			del_move(t_move *mv);
 void			put_move(t_move *mv, char end);
 int				put_moves(t_move *start, int dir, char sep);
 int				optimize(t_env *env);
+int				count_moves(t_env *env);
 
 /*
  * LOGIC (ALL)
