@@ -170,7 +170,7 @@ int				bb_sort(long *pile, int start, int end);
 double			mean_value(long *pile, int start, int stop);
 //int				smart_insert(t_env *env, char to, int mean);
 //int				mass_smart_insert(t_env *env, char to, int mean);
-int				median_split(t_env *env, char to, double mean, double coef);
+//int				median_split(t_env *env, char to, double mean, double coef);
 //int 			quick_fix_a(t_env *env);
 //int 			quick_fix_b(t_env *env);
 int				quick_sort(t_env *env);

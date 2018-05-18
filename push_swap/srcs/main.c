@@ -17,8 +17,13 @@ static int			put_unindexed_piles(t_env *env)
 	int		i;
 
 	i = env->a1 - 1;
+	dprintf(2, "env_size: %d env[i]: %d\n", env->size, (int)env->a[i]);
 	while (++i < env->size)
+	{
+		dprintf(2, "a1: %d env->a[1]: %ld\n", env->a1, env->c[(int)env->a[i]]);
 		env->a[i] = env->c[(int)env->a[i]];
+		pstr(2, "OK", '\n');
+	}
 	put_piles(env);
 	return (1);
 }
