@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/18 09:24:50 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 10:36:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		interpret_moves(t_env *env, char *p)
 	while (p[++i])
 	{
 		while (p[i] && is_space(p[i]))
-			++i;
+			++i;	
 		if ((p[i] == 'p' || p[i] == 'P')
 				&& (!p[i + 2] || is_space(p[i + 2])))
 		{

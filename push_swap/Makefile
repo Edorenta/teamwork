@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/18 01:22:13 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/18 10:31:20 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ COMMON =	move_utils \
 			piles_utils2 \
 			quick_sort \
 			rebase \
+			interpret \
 			optimizer
 
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))

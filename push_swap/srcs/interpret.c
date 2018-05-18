@@ -6,52 +6,35 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:22:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/18 09:29:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 10:35:59 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		is_push(char *p, int i)
+#include "push_swap.h"
+
+void	move_push(t_env *env, char *p, int i)
 {
-	if ((p[i] == 'p' || p[i] == 'P') && (!p[i + 2] || is_space(p[i + 2])))
-	{
-		(p[i + 1] == 'a' || p[i + 1] == 'A') ? PA : 0;
-		(p[i + 1] == 'b' || p[i + 1] == 'B') ? PB : 0;
-		return (1);
-	}
-	return (0);
+	(p[i + 1] == 'a' || p[i + 1] == 'A') ? PA : 0;
+	(p[i + 1] == 'b' || p[i + 1] == 'B') ? PB : 0;
 }
 
-int		is_switch(char *p, int i)
+void	move_swap(t_env *env, char *p, int i)
 {
-	if ((p[i] == 's' || p[i] == 'S') && (!p[i + 2] || is_space(p[i + 2])))
-	{
-		(p[i + 1] == 'a' || p[i + 1] == 'A') ? SA : 0;
-		(p[i + 1] == 'b' || p[i + 1] == 'B') ? SB : 0;
-		(p[i + 1] == 's' || p[i + 1] == 'S') ? SS : 0;
-		return (1);
-	}
-	return (0);
+	(p[i + 1] == 'a' || p[i + 1] == 'A') ? SA : 0;
+	(p[i + 1] == 'b' || p[i + 1] == 'B') ? SB : 0;
+	(p[i + 1] == 's' || p[i + 1] == 'S') ? SS : 0;
 }
 
-int		is_rotate(char *p, int i)
+void	move_drot(t_env *env, char *p, int i)
 {
-	if ((p[i] == 'r' || p[i] == 'R')
-		&& (p[i + 1] == 'r' || p[i + 1] == 'R')
-		&& (!p[i + 3] || is_space(p[i + 3])))
-	{
-		(p[i + 2] == 'a' || p[i + 2] == 'A') ? RRA : 0;
-		(p[i + 2] == 'b' || p[i + 2] == 'B') ? RRB : 0;
-		(p[i + 2] == 'r' || p[i + 2] == 'R') ? RRR : 0;
-		++i;
-		return (1);
-	}
-
+	(p[i + 2] == 'a' || p[i + 2] == 'A') ? RRA : 0;
+	(p[i + 2] == 'b' || p[i + 2] == 'B') ? RRB : 0;
+	(p[i + 2] == 'r' || p[i + 2] == 'R') ? RRR : 0;
 }
-else if ((p[i] == 'r' || p[i] == 'R')
-		&& (!p[i + 2] || is_space(p[i + 2])))
+
+void	move_rota(t_env *env, char *p, int i)
 {
 	(p[i + 1] == 'a' || p[i + 1] == 'A') ? RA : 0;
 	(p[i + 1] == 'b' || p[i + 1] == 'B') ? RB : 0;
 	(p[i + 1] == 'r' || p[i + 1] == 'R') ? RR : 0;
 }
-

@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 19:57:23 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/18 10:32:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ long    		*reverse_rotate(t_env *env, char which);
 int				swap_last(t_env *env, char which);
 void			combine(long *(*move)(t_env *, char), t_env *env);
 int				mass_push(t_env *env, char to, int start, int end);
+void			move_push(t_env *env, char *p, int i);
+void			move_swap(t_env *env, char *p, int i);
+void			move_drot(t_env *env, char *p, int i);
+void			move_rota(t_env *env, char *p, int i);
 
 /*
  * MOVE CHAINED LIST
