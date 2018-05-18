@@ -54,7 +54,7 @@ static int		get_option(t_env *env, char *av)
 	i = 0;
 	while (av[++i])
 	{
-		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o'))
+		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o'&& av[i] != 'r'))
 			put_error(env, "Error: invalid option");
 		else if ((av[i] == 'v' && IS_SET_V) || (av[i] == 's' && IS_SET_S)
 			|| (av[i] == 'o' && IS_SET_O) || (av[i] == 'r' && IS_SET_R))
@@ -72,8 +72,10 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 	int			i;
 
 	i = 0;
-	while (++i < ac && av[i] && av[i][0] == '-')
+	while (++i < ac && av[i] && av[i][0] == '-'){
 		env->size -= get_option(env, av[i]);
+		printf("with options\n");
+	}
 	while (++i < ac && av[i])
 		env->size += spaces_in(av[i]);
 	alloc_piles(env);

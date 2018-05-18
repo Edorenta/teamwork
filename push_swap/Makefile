@@ -99,7 +99,8 @@ clean :
 
 fclean : clean
 	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME_1)$(WHITE)"
-	@rm -f $(NAME)
+	@rm -f $(NAME_1)
+	@rm -f $(NAME_2)
 	@printf '\t\t'$(OK)'\n'
 
 re : fclean all

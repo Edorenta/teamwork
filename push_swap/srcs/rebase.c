@@ -43,6 +43,6 @@ void	index_pile(t_env *env)
 		i++;
 	}
 	//duplicate_pile(tmp[0], env->c, env->a1, env->size - 1);
-	pstr(2, "A rebased:", '\n');
-	put_piles(env);
+	//pstr(2, "A rebased:", '\n');
+	//put_piles(env);
 }
