@@ -37,9 +37,12 @@ double	mean_value(long *pile, int start, int end)
 
 	i = start - 1;
 	sum = 0;
-	while (++i <= end)
-		sum += pile[i];
-	return ((double)sum / (double)(i - start));
+	if (end - start > 2)
+	{
+		while (++i <= end)
+			sum += pile[i];
+	}
+	return ((end - start > 2) ? (double)sum / (double)(i - start) : 0);
 }
 
 int		mass_push(t_env *env, char to, int start, int end)
