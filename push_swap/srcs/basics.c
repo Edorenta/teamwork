@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   basics.c                                           :+:      :+:    :+:   */
+/*   basics2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:03:34 by fmadura          ###   ########.fr       */
+/*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
+/*   Updated: 2018/05/18 09:14:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int			is_space(const char c)
+int		is_space(const char c)
 {
 	return ((c < 14 && c > 7) || c == 32);
 }
 
-int			is_digit(const char c)
+int		is_digit(const char c)
 {
 	return ((c >= '0' && c <= '9') ? 1 : 0);
 }
 
-int			slen(char *s)
+int		slen(char *s)
 {
 	return (*s ? slen(++s) + 1 : 0);
 }
 
-long		labs(long n)
+long	labs(long n)
 {
 	return (n > 0 ? n : -n);
 }
