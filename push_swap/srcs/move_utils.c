@@ -66,6 +66,18 @@ int		put_moves(t_move *start, int dir, char sep)
 	return (0);
 }
 
+int		count_moves(t_env *env)
+{
+	int		i;
+	t_move	*mv;
+
+	mv = env->first_move;
+	i = mv ? 1 : 0;
+	while (mv->next && ++i)
+		mv = mv->next;
+	return (i);
+}
+
 int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 {
 	char c;

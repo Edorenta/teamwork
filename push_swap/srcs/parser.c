@@ -64,7 +64,7 @@ static int		get_option(t_env *env, char *av)
 		(av[i] == 's') ? SET_S : 0; //pile state
 		(av[i] == 'r') ? SET_R : 0; //display A as rebased
 	}
-	return (1);
+	return (-1);
 }
 
 int				arg_to_piles(t_env *env, int ac, char **av)
@@ -73,7 +73,7 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 
 	i = 0;
 	while (++i < ac && av[i] && av[i][0] == '-')
-		env->size += get_option(env, av[i]);
+		env->size -= get_option(env, av[i]);
 	while (++i < ac && av[i])
 		env->size += spaces_in(av[i]);
 	alloc_piles(env);
