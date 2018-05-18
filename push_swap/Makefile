@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/18 01:22:13 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/18 05:14:43 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME_1    	= push_swap
 NAME_2    	= checker
 SRC_PATH	= srcs/
 OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra -g
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
@@ -30,7 +30,8 @@ COMMON =	move_utils \
 			piles_utils \
 			piles_utils2 \
 			quick_sort \
-			rebase
+			rebase \
+			debt
 			#algo.c \
 			#checker.c
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))

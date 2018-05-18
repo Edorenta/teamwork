@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 19:57:23 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/18 07:18:25 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@
 # define MEAN_A		mean_value(env->a, env->a1, (env->size - 1))
 # define MEAN_B		mean_value(env->b, env->b1, (env->size - 1))
 
+# define ABS(x) (x < 0 ? -x : x)
+
 /*
- * SRUCTS
+ * STRUCTS
  */
 
 typedef struct	s_move	t_move;
 typedef struct	s_env	t_env;
+typedef struct	s_debt	t_debt;
 
 struct			s_move
 {
@@ -75,8 +78,16 @@ struct			s_env
 	int			size;
 	int			pivot;
 	int			opt;
-	
 };
+
+struct			s_debt
+{
+	long		*a;
+	int			*da;
+	int			mindebt;
+	int			inxdebt;
+	int			iter;
+}
 
 /*
  * BASICS

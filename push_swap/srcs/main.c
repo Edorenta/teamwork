@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:05:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 05:08:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int				main(int ac, char **av)
 	index_pile(&env);
 	pstr(2, "Piles rebased:", '\n');
 	put_piles(&env);
+	//go debt
+	init_debt(&env);
 	//go sort
 	sort_pile(&env);
 	pstr(2, "Piles sorted:", '\n');
