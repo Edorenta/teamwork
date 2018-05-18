@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ext_sort.c                                         :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -64,13 +64,11 @@ static int		get_moves(t_env *env)
 
 	p = (char *)input;
 	while (1)
-	//while(!all_sort(env))
 	{
 		i = -1;
 		while ((read(0, &c, 1) > 0) && (c != 13 && c != 10))
 			p[++i] = c;
 		p[++i] = '\0';
-		//pstr(2, p, '\n');
 		interpret_moves(env, p);
 		put_piles(env);
 		g_sorted = all_sort(env);
@@ -86,20 +84,15 @@ int				main(int ac, char **av)
 	init_env(&env, ac);
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
 		put_error(&env, "Error: wrong input");
-		//init piles
 	pstr(2, "Piles initialized:", '\n');
 	put_piles(&env);
-	//index pile
 	//index_pile(&env);
 	//pstr(2, "Piles rebased:", '\n');
 	//put_piles(&env);
-	//manual sort
 	get_moves(&env);
 	pstr(2, "Piles sorted:", '\n');
 	put_piles(&env);
-	//deinit piles
 	deinit_env(&env);
-	//print commands
 	pstr(2, "Commands:", '\n');
 	put_moves(env.first_move, 1, ' ');
 	return (1);
