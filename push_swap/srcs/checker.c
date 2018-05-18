@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/18 10:36:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 10:47:33 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ static void		sig_handler(int sig)
 	exit(0);
 }
 
+static int		interpret_bool(char *p, int i, int diff, char c)
+{
+	return ((p[i] == c || p[i] == c + 32) &&
+			(!p[i + diff] || is_space(p[i + diff])));
+}
+
 static int		interpret_moves(t_env *env, char *p)
 {
 	int i;
@@ -29,36 +35,19 @@ static int		interpret_moves(t_env *env, char *p)
 	while (p[++i])
 	{
 		while (p[i] && is_space(p[i]))
-			++i;	
-		if ((p[i] == 'p' || p[i] == 'P')
-				&& (!p[i + 2] || is_space(p[i + 2])))
+			++i;
+		if (interpret_bool(p, i, 2, 'P'))
+			move_push(env, p, i);
+		else if (interpret_bool(p, i, 2, 'S'))
+			move_swap(env, p, i);
+		else if (interpret_bool(p, i, 3, 'R') &&
+				(p[i + 1] == 'r' || p[i + 1] == 'R'))
 		{
-			(p[i + 1] == 'a' || p[i + 1] == 'A') ? PA : 0;
-			(p[i + 1] == 'b' || p[i + 1] == 'B') ? PB : 0;
-		}
-		else if ((p[i] == 's' || p[i] == 'S')
-				&& (!p[i + 2] || is_space(p[i + 2])))
-		{
-			(p[i + 1] == 'a' || p[i + 1] == 'A') ? SA : 0;
-			(p[i + 1] == 'b' || p[i + 1] == 'B') ? SB : 0;
-			(p[i + 1] == 's' || p[i + 1] == 'S') ? SS : 0;
-		}
-		else if ((p[i] == 'r' || p[i] == 'R')
-				&& (p[i + 1] == 'r' || p[i + 1] == 'R')
-				&& (!p[i + 3] || is_space(p[i + 3])))
-		{
-			(p[i + 2] == 'a' || p[i + 2] == 'A') ? RRA : 0;
-			(p[i + 2] == 'b' || p[i + 2] == 'B') ? RRB : 0;
-			(p[i + 2] == 'r' || p[i + 2] == 'R') ? RRR : 0;
+			move_drot(env, p, i);
 			++i;
 		}
-		else if ((p[i] == 'r' || p[i] == 'R')
-				&& (!p[i + 2] || is_space(p[i + 2])))
-		{
-			(p[i + 1] == 'a' || p[i + 1] == 'A') ? RA : 0;
-			(p[i + 1] == 'b' || p[i + 1] == 'B') ? RB : 0;
-			(p[i + 1] == 'r' || p[i + 1] == 'R') ? RR : 0;
-		}
+		else if (interpret_bool(p, i, 2, 'R'))
+			move_rota(env, p, i);
 		else
 			put_error(env, "Error: wrong instruction");
 		++i;
