@@ -6,20 +6,20 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:03:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/18 11:00:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		sort_pile(t_env *env)
+int					sort_pile(t_env *env)
 {
 	return (((quick_sort(env) && all_sort(env)) ? 1 : 0));
 }
 
-inline	static void put_pile(long *pile, int start, int end, const char *title)
+inline static void	put_pile(long *pile, int start, int end, const char *title)
 {
-	int i;
+	int		i;
 
 	i = start - 1;
 	pstr(2, title, '\n');
@@ -29,19 +29,16 @@ inline	static void put_pile(long *pile, int start, int end, const char *title)
 			i == end ? plong(2, pile[i], '\n') : plong(2, pile[i], ' ');
 }
 
-void	put_piles(t_env *env)
+void				put_piles(t_env *env)
 {
-	//IS_SET_R ? put_pile(env->a, env->a1, env->size - 1, "Pile A:")
-	//: put_pile(env->c, env->a1, env->size - 1, "Pile A:");
 	put_pile(env->a, env->a1, env->size - 1, "Pile A:");
 	put_pile(env->b, env->b1, env->size - 1, "Pile B:");
-	//put_pile(env->c, env->a1, env->size - 1, "Pile C:");
 	write(2, "\n", 1);
 }
 
-int		alloc_piles(t_env *env)
+int					alloc_piles(t_env *env)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	if (!(env->a = (long *)malloc(sizeof(long) * env->size))
@@ -57,7 +54,7 @@ int		alloc_piles(t_env *env)
 	return (1);
 }
 
-void	free_piles(t_env *env)
+void				free_piles(t_env *env)
 {
 	env->a ? free(env->a) : 0;
 	env->b ? free(env->b) : 0;

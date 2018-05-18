@@ -6,12 +6,11 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:36:26 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/05/18 10:58:04 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 int		is_sort(long *pile, int start, int end)
 {
@@ -31,7 +30,7 @@ int		all_sort(t_env *env)
 	return (1);
 }
 
-double		mean_value(long *pile, int start, int end)
+double	mean_value(long *pile, int start, int end)
 {
 	int		i;
 	int		sum;
@@ -40,13 +39,12 @@ double		mean_value(long *pile, int start, int end)
 	sum = 0;
 	while (++i <= end)
 		sum += pile[i];
-//	dprintf(1, "sum: %d\n", sum);
 	return ((double)sum / (double)(i - start));
 }
 
 int		mass_push(t_env *env, char to, int start, int end)
 {
-	int i;
+	int		i;
 
 	i = to == 'b' ? env->a1 : env->b1;
 	while (++i <= start)
