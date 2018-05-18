@@ -74,7 +74,7 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 
 	opt = 0;
 	i = 0;
-	printf("env->size: %d\n", env->size);
+	//printf("env->size: %d\n", env->size);
 	while (++i < ac && av[i] && av[i][0] == '-'){
 		opt += get_option(env, av[i]);
 		--env->size;
