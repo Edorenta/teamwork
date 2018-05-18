@@ -14,5 +14,5 @@
 
 int		optimize(t_env *env)
 {
-	return (0);
+	return (count_moves(env));
 }

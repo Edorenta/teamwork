@@ -25,7 +25,7 @@ void	index_pile(t_env *env)
 {
 	int		i;
 	int		j;
-	long	tmp[2][env->size];
+	//long	tmp[env->size];
 
 	i = 0;
 	j = 0;
