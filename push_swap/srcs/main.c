@@ -23,7 +23,7 @@ static int			put_unindexed_piles(t_env *env)
 	return (1);
 }
 
-inline static int	make_magic_happen(t_env *env)
+static int			make_magic_happen(t_env *env)
 {
 	IS_SET_S ? pstr(2, "Piles before sort:", '\n') : 0;
 	IS_SET_S ? put_piles(env) : 0;
@@ -50,12 +50,9 @@ int					main(int ac, char **av)
 	t_env	env;
 
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
+	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
+		|| env.a[env.a1] == NONE || env.size == 0)
 		put_error(&env, "Error: wrong input");
-	pstr(2, "Piles before sort:", '\n');
-	//put_piles(&env);
-	for (int i = 0; i < env.size; i++)
-		printf("a[%d]: %ld\n", i, env.a[i]);
 	make_magic_happen(&env);
 	return (1);
 }

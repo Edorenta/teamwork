@@ -70,7 +70,7 @@ static int		get_moves(t_env *env)
 			p[++i] = c;
 		p[++i] = '\0';
 		interpret_moves(env, p);
-		put_piles(env);
+		IS_SET_S ? put_piles(env) : 0;
 		g_sorted = all_sort(env);
 	}
 	return (1);
@@ -82,10 +82,11 @@ int				main(int ac, char **av)
 
 	signal(SIGINT, sig_handler);
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
+	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
+		|| env.a[env.a1] == NONE || env.size == 0)
 		put_error(&env, "Error: wrong input");
-	pstr(2, "Piles initialized:", '\n');
-	put_piles(&env);
+	(env.option & (1 << 2)) ? pstr(2, "Piles initialized:", '\n') : 0;
+	(env.option & (1 << 2)) ? put_piles(&env) : 0;
 	//index_pile(&env);
 	//pstr(2, "Piles rebased:", '\n');
 	//put_piles(&env);
