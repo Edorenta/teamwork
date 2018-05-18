@@ -56,8 +56,8 @@ int 	quick_fix_b(t_env *env)
 
 int 	insert_b(t_env *env)
 {
-	pstr(2, "before insertion:",'\n');
-	put_piles(env);
+	//pstr(2, "before insertion:",'\n');
+	//put_piles(env);
 
 	while (B1 != NONE)
 	{
@@ -67,8 +67,8 @@ int 	insert_b(t_env *env)
 		quick_fix_b(env);
 		if (A1 > A2)
 			SA;
-		pstr(2, "after insertion:",'\n');
-		put_piles(env);
+		//pstr(2, "after insertion:",'\n');
+		//put_piles(env);
 	}
 	return (1);
 }
@@ -83,7 +83,7 @@ int		quick_sort(t_env *env)
 	for (int i = 0; i < 1; i++)
 	{
 		mean = mean_value(env->a, env->a1, (env->size - 1));
-		dprintf(2, "mean: %f\n", mean);
+		//dprintf(2, "mean: %f\n", mean);
 		//put small half on stack 2
 		median_split(env, 'b', mean, 1);
 		//median_split(env, 'b', mean, 0.5);
