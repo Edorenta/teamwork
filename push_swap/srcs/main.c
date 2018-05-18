@@ -23,8 +23,8 @@ inline static int make_magic_happen(t_env *env)
 	IS_SET_R ? put_piles(env) : 0;
 	//go sort
 	sort_pile(env);
-	IS_SET_S ? pstr(2, "Piles sorted:", '\n') : 0;
-	IS_SET_S ? put_piles(env) : 0;
+	IS_SET_R ? pstr(2, "Piles sorted:", '\n') : 0;
+	IS_SET_R ? put_piles(env) : 0;
 	//deinit piles
 	deinit_env(env);
 	//optimize commands
