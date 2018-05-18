@@ -20,6 +20,7 @@ NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n'
 SRC_SUFFIX	= .c
 #SRC_PREFIX	= 
 COMMON =	move_utils \
+			env_utils \
 			parser_utils \
 			str_utils \
 			basics \
@@ -30,9 +31,9 @@ COMMON =	move_utils \
 			piles_utils \
 			piles_utils2 \
 			quick_sort \
-			rebase
-			#algo.c \
-			#checker.c
+			rebase \
+			optimizer
+
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 SRC1_FILES = $(COMMON_FILES)
 SRC1_FILES += main.c
@@ -75,7 +76,7 @@ $(NAME_1) : $(OBJ1)
 
 $(NAME_2) : $(OBJ2)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"checker binaries compiled\t"$(OK)'\n'
+	"checker compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ2) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
@@ -87,17 +88,17 @@ $(OBJ_PATH) :
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)"
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
 	@$(CC) -I./includes -o $@ -c $<
 	@printf '\t'$(OK)
 
 clean :
-	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
+	@printf "[$(NAME_P)] cleaning\t\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
-	@printf "[$(NAME_P)] erasing\t$(PINK)$(NAME)$(WHITE)"
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME_1)$(WHITE)"
 	@rm -f $(NAME)
 	@printf '\t\t'$(OK)'\n'
 

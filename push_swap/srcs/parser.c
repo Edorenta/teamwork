@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-inline static int	push_to_pile(t_env *env, char *av)
+static int		push_to_pile(t_env *env, char *av)
 {
 	static int	i = -1;
 
@@ -22,7 +22,7 @@ inline static int	push_to_pile(t_env *env, char *av)
 	return (1);
 }
 
-inline static int	split_to_pile(t_env *env, char *str, int spaces)
+static int		split_to_pile(t_env *env, char *str, int spaces)
 {
 	char		av[spaces][16];
 	char		*p;
@@ -47,11 +47,33 @@ inline static int	split_to_pile(t_env *env, char *str, int spaces)
 	return (spaces);
 }
 
-int					arg_to_piles(t_env *env, int ac, char **av)
+static int		get_option(t_env *env, char *av)
+{
+	int i;
+
+	i = 0;
+	while (av[++i])
+	{
+		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o'))
+			put_error(env, "Error: invalid option");
+		else if ((av[i] == 'v' && IS_SET_V) || (av[i] == 's' && IS_SET_S)
+			|| (av[i] == 'o' && IS_SET_O) || (av[i] == 'r' && IS_SET_R))
+			put_error(env, "Error: duplicate option");
+		(av[i] == 'v') ? SET_V : 0; //verbose breakpoints
+		(av[i] == 'o') ? SET_O : 0; //move counter
+		(av[i] == 's') ? SET_S : 0; //pile state
+		(av[i] == 'r') ? SET_R : 0; //display A as rebased
+	}
+	return (1);
+}
+
+int				arg_to_piles(t_env *env, int ac, char **av)
 {
 	int			i;
 
 	i = 0;
+	while (++i < ac && av[i] && av[i][0] == '-')
+		env->size += get_option(env, av[i]);
 	while (++i < ac && av[i])
 		env->size += spaces_in(av[i]);
 	alloc_piles(env);

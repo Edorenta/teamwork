@@ -16,38 +16,48 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <signal.h>
 
 /*
  * DEFINITIONS
  */
 
-# define NONE		200000000
+# define NONE			200000000
 
-# define SA			swap(env, 'a')
-# define SB			swap(env, 'b')
-# define SS			combine(swap, env)
-# define PA			push(env, 'a')
-# define PB			push(env, 'b')
-# define RA			rotate(env, 'a')
-# define RB			rotate(env, 'b')
-# define RR			combine(rotate, env)
-# define RRA		reverse_rotate(env, 'a')
-# define RRB		reverse_rotate(env, 'b')
-# define RRR		combine(reverse_rotate, env)
-# define RSA		swap_last(env, 'a')
-# define RSB		swap_last(env, 'b')
+# define SA				swap(env, 'a')
+# define SB				swap(env, 'b')
+# define SS				combine(swap, env)
+# define PA				push(env, 'a')
+# define PB				push(env, 'b')
+# define RA				rotate(env, 'a')
+# define RB				rotate(env, 'b')
+# define RR				combine(rotate, env)
+# define RRA			reverse_rotate(env, 'a')
+# define RRB			reverse_rotate(env, 'b')
+# define RRR			combine(reverse_rotate, env)
+# define RSA			swap_last(env, 'a')
+# define RSB			swap_last(env, 'b')
 
-# define A1			env->a[env->a1]
-# define A2			env->a[env->a1 + 1]
-# define A3			env->a[env->size - 2]
-# define A4			env->a[env->size - 1]
-# define B1			env->b[env->b1]
-# define B2			env->b[env->b1 + 1]
-# define B3			env->b[env->size - 2]
-# define B4			env->b[env->size - 1]
+# define A1				env->a[env->a1]
+# define A2				env->a[env->a1 + 1]
+# define A3				env->a[env->size - 2]
+# define A4				env->a[env->size - 1]
+# define B1				env->b[env->b1]
+# define B2				env->b[env->b1 + 1]
+# define B3				env->b[env->size - 2]
+# define B4				env->b[env->size - 1]
 
-# define MEAN_A		mean_value(env->a, env->a1, (env->size - 1))
-# define MEAN_B		mean_value(env->b, env->b1, (env->size - 1))
+# define MEAN_A			mean_value(env->a, env->a1, (env->size - 1))
+# define MEAN_B			mean_value(env->b, env->b1, (env->size - 1))
+
+# define IS_SET_V		(env->option & (1 << 0))
+# define IS_SET_O		(env->option & (1 << 1))
+# define IS_SET_S		(env->option & (1 << 2))
+# define IS_SET_R		(env->option & (1 << 3))
+# define SET_V			(env->option |= (1 << 0))
+# define SET_O			(env->option |= (1 << 1))
+# define SET_S			(env->option |= (1 << 2))
+# define SET_R			(env->option |= (1 << 3))
 
 /*
  * SRUCTS
@@ -67,6 +77,7 @@ struct			s_env
 {
 	t_move		*first_move;
 	t_move		*this_move;
+	char		option;
 	long		*a;
 	long		*b;
 	long		*c;
@@ -89,6 +100,8 @@ int				is_digit(const char c);
 int				plong(int fd, long n, char end);
 int				pstr(int fd, const char *s, char end);
 int				scat(char *dest, const char *src, char c);
+void			init_env(t_env *env, int ac);
+void			deinit_env(t_env *env);
 
 /*
  * PARSER
@@ -140,6 +153,7 @@ t_move			*new_move(const char *id, char which, t_move *prev);
 void			del_move(t_move *mv);
 void			put_move(t_move *mv, char end);
 int				put_moves(t_move *start, int dir, char sep);
+int				optimize(t_env *env);
 
 /*
  * LOGIC (ALL)

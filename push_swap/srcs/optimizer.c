@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   optimizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,26 @@
 
 #include "push_swap.h"
 
-int				main(int ac, char **av)
-{
-	t_env	env;
 
-	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av))
-		put_error(&env, "Error: wrong input");
-	//init piles
-	pstr(2, "Piles initialized:", '\n');
-	put_piles(&env);
-	//index pile
-	index_pile(&env);
-	//pstr(2, "Piles rebased:", '\n');
-	//put_piles(&env);
-	//go sort
-	sort_pile(&env);
-	pstr(2, "Piles sorted:", '\n');
-	put_piles(&env);
-	//deinit piles
-	deinit_env(&env);
-	//optimize commands
-	//optimize(&env);
-	//print commands
-	pstr(2, "Commands:", '\n');
-	put_moves(env.first_move, 1, ' ');
-	return (1);
+int		optimize(t_env *env)
+{
+	if (dir == 1)
+		while (1)
+		{
+			start->next ? put_move(start, sep) : put_move(start, '\n');
+			if (start->next)
+				start = start->next;
+			else
+				return (1);
+		}
+	else if (dir == 2)
+		while (1)
+		{
+			start->prev ? put_move(start, sep) : put_move(start, '\n');
+			if (start->prev)
+				start = start->prev;
+			else
+				return (1);
+		}
+	return (0);
 }

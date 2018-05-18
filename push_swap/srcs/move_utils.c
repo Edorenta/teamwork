@@ -68,9 +68,19 @@ int		put_moves(t_move *start, int dir, char sep)
 
 int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 {
+	char c;
+
 	if ((env->this_move = new_move(id, which, prev)))
 		env->first_move = (env->first_move ? env->first_move : env->this_move);
 	else
 		put_error(env, "Error: this.move is not historized");
+	if (IS_SET_V)
+	{
+		put_move(env->this_move, '\n');
+		put_piles(env);
+		while(1)
+			if ((read(0, &c, 1) > 0) && (c == 13 && c == 10))
+				break ;
+	}
 	return (1);
 }

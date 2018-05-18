@@ -25,10 +25,12 @@ void	index_pile(t_env *env)
 {
 	int		i;
 	int		j;
+	long	tmp[2][env->size];
 
 	i = 0;
 	j = 0;
 	duplicate_pile(env->a, env->c, env->a1, env->size - 1);
+	//duplicate_pile(env->a, tmp, env->a1, env->size - 1);
 	//pstr(1, "Duplicated A to C:", '\n');
 	//put_piles(env);
 	bb_sort(env->c, env->a1, env->size - 1);
@@ -40,6 +42,7 @@ void	index_pile(t_env *env)
 		env->a[j] = i;
 		i++;
 	}
+	//duplicate_pile(tmp[0], env->c, env->a1, env->size - 1);
 	pstr(2, "A rebased:", '\n');
 	put_piles(env);
 }
