@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:05:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/21 19:06:26 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		init_env(t_env *env, int ac)
 	env->c = NULL;
 	env->a1 = 0;
 	env->b1 = env->size - 1;
+	env->min = 0;
 }
 
 void		deinit_env(t_env *env)

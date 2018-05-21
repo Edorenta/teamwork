@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/18 09:39:14 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/21 20:16:12 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,9 @@ static int 	quick_fix_a(t_env *env, double mean)
 
 	//if (A1 > A2 && A1 < MEAN_A)
 	if (A1 > mean)
-	{
-		if (A1 > MEAN_A)
-		{
-			if (A2 > A1)
-				RA;
-			RA;
-		}
-	}
+		RA;
+	if (A1 > A2)
+		SA;
 	//pstr(2, "after A fix:",'\n');
 	//put_piles(env);
 	return (1);
@@ -36,7 +31,7 @@ static int 	quick_fix_b(t_env *env, double mean)
 {
 	//pstr(2, "before B fix:",'\n');
 	//put_piles(env);
-	if (B1 < mean)
+	/*if (B1 < mean)
 	{
 		if (B1 < MEAN_B)
 		{
@@ -44,7 +39,12 @@ static int 	quick_fix_b(t_env *env, double mean)
 				RB;
 			RB;
 		}
-	}
+	}*/
+	(void)mean;
+	if (B1 > MEAN_B)
+		RB;
+	if (B2 < B1)
+		SB;
 	//pstr(2, "aft
 	//pstr(2, "after B fix:",'\n');
 	//put_piles(env);
@@ -58,11 +58,29 @@ static int 	insert_b(t_env *env, double mean)
 
 	while (B1 != NONE)
 	{
-		quick_fix_a(env, mean);
-		quick_fix_b(env, mean);
-		PA;
-		quick_fix_a(env, mean);
-		quick_fix_b(env, mean);
+		//printf("B1:%ld, env->min:%d\n", B1, env->min);
+		if (B1 == env->min)
+		{
+			PA;
+			RA;
+			env->min++;
+			while (A1 < mean)
+			{
+				if (A1 == env->min)
+				{
+					RA;
+					env->min++;
+				}
+				PB;
+			}
+		}
+		else
+			PA;
+	//	quick_fix_a(env, mean);
+//		quick_fix_b(env, mean);
+		//PA;
+		//quick_fix_a(env, mean);
+		//quick_fix_b(env, mean);
 		//pstr(2, "after insertion:",'\n');
 		//put_piles(env);
 	}
@@ -75,13 +93,12 @@ static int		median_split(t_env *env, double mean, double coef)
 	while (env->b1 == NONE || env->a1 < env->b1)
 	{
 		if (A1 <= mean)
-		{
 			PB;
-			quick_fix_a(env, mean);
-			quick_fix_b(env, mean);
-		}
-		all_sort(env) ? 0 : RA;
-		//printf("i: %d j: %d\n", *i, *j);
+		//	quick_fix_a(env, mean);
+		//	quick_fix_b(env, mean);
+		//all_sort(env) ? 0 : RA;
+		quick_fix_a(env, mean);
+		quick_fix_b(env, mean);		//printf("i: %d j: %d\n", *i, *j);
 	}
 	//quick_fix_a(env);
 	insert_b(env, mean);
