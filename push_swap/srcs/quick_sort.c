@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/22 13:33:40 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:42:51 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ static int 	insert_b(t_env *env)
 			PA;
 			RA;
 			env->min++;
-			while (A1 < env->mean)
+			while (A1 <= env->mean)
 			{
 				if (A1 == env->min)
 				{
 					RA;
 					env->min++;
 				}
-				if (A1 < env->mean)
+				if (A1 <= env->mean)
 					PB;
 			}
 		}
@@ -94,7 +94,7 @@ static int 	insert_b(t_env *env)
 		{
 			RA;
 			env->min++;
-			while (A1 < env->mean)
+			while (A1 <= env->mean)
 				PB;
 		}
 	//	quick_fix_a(env, env->mean);
