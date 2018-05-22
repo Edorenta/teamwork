@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/22 13:42:51 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/22 14:34:59 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ static int 	quick_fix_b(t_env *env)
 	return (1);
 }
 
+static int	a_or_b(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (i < env->size)
+	{
+		if (env->a[i] == env->min)
+			return (1);
+		if (env->b[i] == env->min)
+			return (0);
+		i++;
+	}
+	return (-1);
+}
+
 static int 	insert_b(t_env *env)
 {
 	//pstr(2, "before insertion:",'\n');
@@ -73,29 +89,43 @@ static int 	insert_b(t_env *env)
 			PA;
 			RA;
 			env->min++;
-			while (A1 <= env->mean)
+			if (a_or_b(env) == 1)
 			{
-				if (A1 == env->min)
+				while (A1 <= env->mean)
 				{
-					RA;
-					env->min++;
+					if (A1 == env->min)
+					{
+						RA;
+						env->min++;
+					}
+					else
+						PB;
 				}
-				if (A1 <= env->mean)
-					PB;
 			}
 		}
 		else
 		{
 			PA;
-			if (A1 > A2)
-				SA;
+			//if (A1 > A2)
+			//	SA;
 		}
 		if (A1 == env->min)
 		{
 			RA;
 			env->min++;
-			while (A1 <= env->mean)
-				PB;
+			if (a_or_b(env) == 1)
+			{
+				while (A1 <= env->mean)
+				{
+					if (A1 == env->min)
+					{
+						RA;
+						env->min++;
+					}
+					else
+						PB;
+				}
+			}
 		}
 	//	quick_fix_a(env, env->mean);
 //		quick_fix_b(env, env->mean);
@@ -116,15 +146,18 @@ void			finish_sort(t_env *env)
 		{
 			RA;
 			env->min++;
-			while (B1 != NONE)
+			while (B1 != NONE && A1 != env->min && a_or_b(env) == 0)
 				PA;
 		}
-		else
+		else if (a_or_b(env) == 1)
 		{
 			PB;
 			if (B1 > MEAN_B)
 				RB;
 		}
+		else if (a_or_b(env) == 0)
+			PA;
+
 	}
 }
 
