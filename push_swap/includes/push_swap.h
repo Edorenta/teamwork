@@ -85,6 +85,7 @@ struct			s_env
 	int			b1;
 	int			size;
 	int			pivot;
+	int			mean;
 	int			min;
 	int			opt;
 	

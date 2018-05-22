@@ -31,6 +31,7 @@ void		init_env(t_env *env, int ac)
 	env->a1 = 0;
 	env->b1 = env->size - 1;
 	env->min = 0;
+	env->mean = 0;
 }
 
 void		deinit_env(t_env *env)
