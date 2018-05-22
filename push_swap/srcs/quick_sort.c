@@ -45,11 +45,15 @@ static int 	quick_fix_b(t_env *env)
 			RB;
 		}
 	}*/
-	(void)env->mean;
+	if (B1 < MEAN_B && B1 > B2)
+		SB;
+	else if (B1 > MEAN_B && B4 < B1)
+	{
+		RRB;
+		SB;
+	}
 	if (B1 > MEAN_B)
 		RB;
-	if (B2 < B1)
-		SB;
 	//pstr(2, "aft
 	//pstr(2, "after B fix:",'\n');
 	//put_piles(env);
