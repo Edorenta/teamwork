@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/21 20:16:12 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:33:40 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static int 	quick_fix_a(t_env *env)
 	//if (A1 > A2 && A1 < MEAN_A)
 	if (A1 > env->mean && A1 > A2)
 		SA;
-	else if (A1 > MEAN_A && A4 < A1)
+	/*else if (A1 > MEAN_A && A4 < A1)
 	{
 		RRA;
 		SA;
-	}
+	}*/
 	if (A1 > env->mean)
 		RA;	
 	//pstr(2, "after A fix:",'\n');
@@ -47,11 +47,11 @@ static int 	quick_fix_b(t_env *env)
 	}*/
 	if (B1 < MEAN_B && B1 > B2)
 		SB;
-	else if (B1 > MEAN_B && B4 < B1)
+	/*else if (B1 > MEAN_B && B4 < B1)
 	{
 		RRB;
 		SB;
-	}
+	}*/
 	if (B1 > MEAN_B)
 		RB;
 	//pstr(2, "aft
@@ -80,11 +80,23 @@ static int 	insert_b(t_env *env)
 					RA;
 					env->min++;
 				}
-				PB;
+				if (A1 < env->mean)
+					PB;
 			}
 		}
 		else
+		{
 			PA;
+			if (A1 > A2)
+				SA;
+		}
+		if (A1 == env->min)
+		{
+			RA;
+			env->min++;
+			while (A1 < env->mean)
+				PB;
+		}
 	//	quick_fix_a(env, env->mean);
 //		quick_fix_b(env, env->mean);
 		//PA;
@@ -95,6 +107,27 @@ static int 	insert_b(t_env *env)
 	}
 	return (1);
 }
+
+void			finish_sort(t_env *env)
+{
+	while (A1 >= env->mean)
+	{
+		if (A1 == env->min)
+		{
+			RA;
+			env->min++;
+			while (B1 != NONE)
+				PA;
+		}
+		else
+		{
+			PB;
+			if (B1 > MEAN_B)
+				RB;
+		}
+	}
+}
+
 
 static int		median_split(t_env *env, double min, double max)
 {
@@ -110,6 +143,7 @@ static int		median_split(t_env *env, double min, double max)
 	}
 	//quick_fix_a(env);
 	insert_b(env);
+	finish_sort(env);
 	return (1);
 }
 
