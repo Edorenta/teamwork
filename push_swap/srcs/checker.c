@@ -82,7 +82,9 @@ int				main(int ac, char **av)
 
 	signal(SIGINT, sig_handler);
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
+	if (ac < 2)
+		exit(0);
+	if (!av[1] || !arg_to_piles(&env, ac, av)
 		|| env.a[env.a1] == NONE || env.size == 0)
 		put_error(&env, "Error: wrong input");
 	(env.option & (1 << 2)) ? pstr(2, "Piles initialized:", '\n') : 0;
