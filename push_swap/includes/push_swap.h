@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/21 19:06:38 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/23 11:55:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ struct			s_env
  */
 
 int				slen(char *s);
+int				scmp(const char *s1, const char *s2);
 long			labs(long n);
 int				is_space(const char c);
 int				is_digit(const char c);
