@@ -6,11 +6,23 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:03:34 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/22 14:59:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int			scmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		++s1;
+		++s2;
+	}
+	return (*s1 - *s2);
+}
 
 int			pstr(int fd, const char *s, char end)
 {

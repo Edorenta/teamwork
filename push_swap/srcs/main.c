@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/18 09:24:03 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/23 11:02:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int			make_magic_happen(t_env *env)
 	IS_SET_S ? pstr(2, "Piles after sort:", '\n') : 0;
 	IS_SET_S ? put_unindexed_piles(env) : 0;
 	//optimize commands
-	//optimize(&env);
+	optimize(env);
 	IS_SET_O ? pstr(2, "# operations: ", '\0') : 0;
 	IS_SET_O ? plong(2, count_moves(env), '\n') : 0;
 	pstr(2, "Commands:", '\n');
