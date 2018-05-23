@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/22 17:13:12 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/23 17:13:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,22 @@ t_move	*new_move(const char *id, char which, t_move *prev)
 
 void	del_move(t_move *mv)
 {
+	t_move	*prev;
+	t_move	*next;
+	
 	if (mv)
 	{
-		mv->prev->next = mv->next ? mv->next : NULL;
-		mv->next->prev = mv->prev ? mv->prev : NULL;
+		prev = mv->prev;
+		next = mv->next;
+		if (prev && next)
+		{
+			prev->next = next;
+			next->prev = prev;
+		}
+		else if (prev)
+			prev->next = NULL;
+		else if (next)
+			next->prev = NULL;
 		free(mv);
 	}
 }
