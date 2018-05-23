@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/23 14:09:19 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/05/23 18:01:22 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME_1    	= push_swap
 NAME_2    	= checker
 SRC_PATH	= srcs/
 OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -fsanitize=address -g
+FLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c

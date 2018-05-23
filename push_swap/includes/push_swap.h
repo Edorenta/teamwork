@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 11:55:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/23 18:01:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 # define RSB			swap_last(env, 'b')
 
 # define A1				env->a[env->a1]
-# define A2				env->a[env->a1 + 1]
+# define A2				env->b[env->a1 == env->size ? env->a1 + 1 : env->a1]
 # define A3				env->a[env->size - 2]
 # define A4				env->a[env->size - 1]
 # define B1				env->b[env->b1]
-# define B2				env->b[env->b1 + 1]
+# define B2				env->b[env->b1 == env->size ? env->b1 + 1 : env->b1]
 # define B3				env->b[env->size - 2]
 # define B4				env->b[env->size - 1]
 

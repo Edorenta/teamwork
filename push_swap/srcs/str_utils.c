@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 11:55:10 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/23 18:03:08 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			plong(int fd, long n, char end)
 	n == 0 ? str[--i] = '0' : 0;
 	while (n != 0 && (str[--i] = '0' + (n % 10)))
 		n /= 10;
-	while (i >= 0)
+	while (i > 0)
 		str[--i] = '\0';
 	write(fd, &str, 15);
 	write(fd, &end, 1);

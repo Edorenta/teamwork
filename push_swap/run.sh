@@ -5,7 +5,7 @@ echo "<!> compiling random unique number generator"
 gcc rnd_int.c -o rnd_int.exe
 echo "<!> compiling json list generator"
 gcc list_jsonifier.c -o list_jsonifier.exe
-./rnd_int.exe ${1:-150} ${2:-0} ${3:-149} > ../unsorted_list.txt
+./rnd_int.exe ${1:-20} ${2:-0} ${3:-149} > ../unsorted_list.txt
 ./list_jsonifier.exe "unsorted_list" "$(cat ../unsorted_list.txt)" "0" > ../unsorted_list.json 
 cd ../..
 echo "<!> running push_swap on generated list ..."
