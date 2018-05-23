@@ -150,28 +150,28 @@ class Bars {
                 moved_b[0] = 0;
                 break;
             case 'ra':
-                op_details = 'RA >> rotates a >> pushs a[last] to top of a[0] and removes a[last]'
+                op_details = 'RA >> rotates forward stack a >> a[0] becomes a[last]'
                 moved_a[0] = this.na - 1;
                 break;
             case 'rb':
-                op_details = 'RB >> rotates b >> pushs b[last] to top of b[0] and removes b[last]'
+                op_details = 'RB >> rotates forward stack b >> b[0] becomes b[last]'
                 moved_b[0] = this.nb - 1;
                 break;
             case 'rr':
-                op_details = 'RR >> rotates a and b: >> pushs a[last] to top of a[0] and removes a[last] >> pushs b[last] to front of b[0] >> removes b[last]'
+                op_details = 'RR >> rotates forward stacks a and b >> a[0] becomes a[last] and b[0] becomes b[last]'
                 moved_a[0] = this.na - 1;
                 moved_b[0] = this.nb - 1;
                 break;
             case 'rra':
-                op_details = 'RRA >> reverse rotates a >> pushs a[0] after a[last] and pops a[0]'
+                op_details = 'RRA >> rotates backward stack a >> a[last] becomes a[0]'
                 moved_a[0] = 0;
                 break;
             case 'rrb':
-                op_details = 'RRB >> reverse rotates b >> pushs b[0] after b[last] and pops b[0]'
+                op_details = 'RRB >> rotates backward stack a >> a[last] becomes a[0]'
                 moved_b[0] = 0;
                 break;
             case 'rrr':
-                op_details = 'RRA >> reverse rotates a and b'
+                op_details = 'RRA >> rotates backward stacks a and b >> a[last] becomes a[0] and b[last] becomes b[0]'
                 moved_a[0] = 0;
                 moved_b[0] = 0;
                 break;

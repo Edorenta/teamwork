@@ -42,7 +42,7 @@ label {
 
 .intro_button {
     font-family: 'Tahoma';
-    font-size: 2vh;
+    font-size: 2vw;
     font-style: normal;
     font-weight: 400;
     height: 3vw;
@@ -179,7 +179,7 @@ label {
     position: absolute;
     color: white;
     font-family: 'Courier New';
-    font-size: 2.4vh;
+    font-size: 1.5vw;
     font-style: normal;
     font-weight: normal;
     left: 0vw;
