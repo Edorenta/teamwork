@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/23 17:53:34 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/23 19:06:08 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 static int 	quick_fix_a(t_env *env)
 {
-	if (A1 > env->mean && A1 > A2)
-		SA;
 	if (A1 > env->mean)
-		RA;	
+		RA;
 	return (1);
 }
 
 static int 	quick_fix_b(t_env *env)
 {
-	put_piles(env);
-	printf("env->a1  : %d \n", env->a1);
-	printf("env->b1  : %d \n", env->b1);
 	if (B1 < MEAN_B && B1 > B2)
 		SB;
 	if (B1 > MEAN_B && B1 > B2)
-		RB;
-	if (B1 > MEAN_B && B1 > B4)
-		RRB;
+		RB;	
 	return (1);
 }
 
