@@ -58,6 +58,11 @@ int					main(int ac, char **av)
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
 		|| env.a[env.a1] == NONE || env.size == 0)
 		put_error(&env, "Error: wrong input");
+	if (ac == 2 || all_sort(&env))
+	{
+		deinit_env(&env);
+		exit(0);
+	}
 	make_magic_happen(&env);
 	return (1);
 }
