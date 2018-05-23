@@ -52,6 +52,7 @@ static int		interpret_moves(t_env *env, char *p)
 			put_error(env, "Error: wrong instruction");
 		++i;
 	}
+	IS_SET_S ? put_piles(env) : 0;
 	return (1);
 }
 
@@ -61,17 +62,18 @@ static int		get_moves(t_env *env)
 	char		*p;
 	char		c;
 	int			i;
+	int			handler;
 
 	p = (char *)input;
 	while (1)
 	{
 		i = -1;
-		while ((read(0, &c, 1) > 0) && (c != 13 && c != 10))
+		while ((handler = read(0, &c, 1)) > 0 && (c != 13 && c != 10))
 			p[++i] = c;
 		p[++i] = '\0';
-		interpret_moves(env, p);
-		IS_SET_S ? put_piles(env) : 0;
+		*p ? interpret_moves(env, p) : 0;
 		g_sorted = all_sort(env);
+		!handler ? sig_handler(SIGINT) : 0;
 	}
 	return (1);
 }
@@ -92,6 +94,7 @@ int				main(int ac, char **av)
 	//index_pile(&env);
 	//pstr(2, "Piles rebased:", '\n');
 	//put_piles(&env);
+	g_sorted = all_sort(&env);
 	get_moves(&env);
 	pstr(2, "Piles sorted:", '\n');
 	put_piles(&env);
