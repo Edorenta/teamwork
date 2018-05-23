@@ -15,14 +15,14 @@ int main (int ac, char **av)
     unsigned int 	max = ac > 3 ? atoi(av[3]) : 1000;
 	if ((max - min + 1) < n)
 	{
-		dprintf(2, "impossible to generate %d unique integers in [%d;%d]\n", n, min, max);
+		dprintf(2, "<!> impossible to generate %d unique integers in [%d;%d]\n", n, min, max);
 		max = min + n - 1;
-		dprintf(2, "interval reset to [%d;%d]\n", min, max);
+		dprintf(2, "<!> interval reset to [%d;%d]\n", min, max);
 	}
     unsigned int 	range = 1 + max - min;
     unsigned int 	buckets = RAND_MAX / range;
     unsigned int 	limit = buckets * range;
-	dprintf(2, "generating %d random integers in [%d;%d] in list.txt\n", n, min, max);
+	dprintf(2, "<!> generating %d random integers in [%d;%d] in unsorted_list.txt\n", n, min, max);
 	srand((unsigned) time(&t));
 	for(int i = 0; i < n; i++)
 	{	

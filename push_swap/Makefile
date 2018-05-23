@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/18 11:04:24 by jyildiz-         ###   ########.fr        #
+#    Updated: 2018/05/23 14:06:25 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@printf '\t'$(OK)
 
 clean :
-	@printf "[$(NAME_P)] cleaning\t\t$(PINK)all obj file$(WHITE)"
+	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
 	@printf '\t\t'$(OK)'\n'
 
@@ -102,6 +102,17 @@ fclean : clean
 	@rm -f $(NAME_1)
 	@rm -f $(NAME_2)
 	@printf '\t\t'$(OK)'\n'
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)visualizer binaries$(WHITE)"
+	@rm -f _visualizer/c/list_jsonifier.exe
+	@rm -f _visualizer/c/rnd_int.exe
+	@printf '\t'$(OK)'\n'
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)visualizer cache$(WHITE)"
+	@rm -f _visualizer/html/index.html
+	@rm -f _visualizer/commands.json
+	@rm -f _visualizer/commands.txt
+	@rm -f _visualizer/unsorted_list.json
+	@rm -f _visualizer/unsorted_list.txt
+	@printf '\t'$(OK)'\n'
 
 re : fclean all
 
