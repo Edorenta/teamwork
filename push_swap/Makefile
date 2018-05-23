@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/23 14:06:25 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/05/23 14:09:19 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ fclean : clean
 	@rm -f _visualizer/c/rnd_int.exe
 	@printf '\t'$(OK)'\n'
 	@printf "[$(NAME_P)] erasing\t\t$(PINK)visualizer cache$(WHITE)"
+	@rm -f _visualizer/html/tmp.html
 	@rm -f _visualizer/html/index.html
 	@rm -f _visualizer/commands.json
 	@rm -f _visualizer/commands.txt
