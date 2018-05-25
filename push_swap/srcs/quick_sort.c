@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/23 19:06:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/22 17:14:34 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static int 	quick_fix_a(t_env *env)
 {
+	if (A1 > env->mean && A1 > A2)
+		SA;
 	if (A1 > env->mean)
-		RA;
+		RA;	
 	return (1);
 }
 
@@ -23,9 +25,35 @@ static int 	quick_fix_b(t_env *env)
 {
 	if (B1 < MEAN_B && B1 > B2)
 		SB;
-	if (B1 > MEAN_B && B1 > B2)
-		RB;	
+	if (B1 > MEAN_B && MEAN_B > 0)
+		RB;
 	return (1);
+}
+
+static int	rot_or_revrot(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (i < env->size)
+	{
+		if (env->a[i] == env->min)
+		{
+			if (i - env->a1 > env->size - 1 - i)
+				return (-1);
+			else
+				return (1);
+		}
+		if (env->b[i] == env->min)
+		{
+			if (i - env->b1 > env->size - 1 - i)
+				return (-1);
+			else
+				return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 static int	a_or_b(t_env *env)
@@ -68,7 +96,12 @@ static int 	insert_b(t_env *env)
 			}
 		}
 		else
-			PA;
+		{
+			if (rot_or_revrot(env) == 1)
+				PA;
+			else
+				RRB;
+		}
 		if (A1 == env->min)
 		{
 			RA;
@@ -105,11 +138,12 @@ void			finish_sort(t_env *env)
 		else if (a_or_b(env) == 1)
 		{
 			PB;
-			if (B1 > MEAN_B && B1 > B2)
+			if (B1 > MEAN_B)
 				RB;
 		}
 		else if (a_or_b(env) == 0)
 			PA;
+
 	}
 }
 
@@ -121,7 +155,7 @@ static int		median_split(t_env *env, double min, double max)
 		if (A1 <= max && A1 >= min)
 			PB;
 		quick_fix_a(env);
-		quick_fix_b(env);		
+		quick_fix_b(env);
 	}
 	insert_b(env);
 	finish_sort(env);
@@ -130,10 +164,7 @@ static int		median_split(t_env *env, double min, double max)
 
 int		quick_sort(t_env *env)
 {
-
-	//step 1: compare env->mean values of first and second half:
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
-	//put small half on stack 2
 	median_split(env, 0, env->mean);
 	return (1);
 }
