@@ -12,67 +12,7 @@
 
 #include "push_swap.h"
 
-static int 	quick_fix_a(t_env *env)
-{
-	if (A1 > env->mean && A1 > A2)
-		SA;
-	if (A1 > env->mean)
-		RA;	
-	return (1);
-}
-
-static int 	quick_fix_b(t_env *env)
-{
-	if (B1 < MEAN_B && B1 > B2)
-		SB;
-	if (B1 > MEAN_B && MEAN_B > 0)
-		RB;
-	return (1);
-}
-
-static int	rot_or_revrot(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (i < env->size)
-	{
-		if (env->a[i] == env->min)
-		{
-			if (i - env->a1 > env->size - 1 - i)
-				return (-1);
-			else
-				return (1);
-		}
-		if (env->b[i] == env->min)
-		{
-			if (i - env->b1 > env->size - 1 - i)
-				return (-1);
-			else
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	a_or_b(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (i < env->size)
-	{
-		if (env->a[i] == env->min)
-			return (1);
-		if (env->b[i] == env->min)
-			return (0);
-		i++;
-	}
-	return (-1);
-}
-
-static int 	insert_b(t_env *env)
+static int 		insert_b(t_env *env)
 {
 	while (B1 != NONE)
 	{
@@ -129,7 +69,7 @@ static int 	insert_b(t_env *env)
 	return (1);
 }
 
-void			finish_sort(t_env *env)
+static void		finish_sort(t_env *env)
 {
 	while (A1 >= env->mean)
 	{
@@ -152,24 +92,11 @@ void			finish_sort(t_env *env)
 	}
 }
 
-
-static int		median_split(t_env *env, double min, double max)
-{
-	while (env->b1 == NONE || env->a1 < env->b1)
-	{
-		if (A1 <= max && A1 >= min)
-			PB;
-		quick_fix_a(env);
-		quick_fix_b(env);
-	}
-	insert_b(env);
-	finish_sort(env);
-	return (1);
-}
-
-int		quick_sort(t_env *env)
+int				quick_sort(t_env *env)
 {
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
 	median_split(env, 0, env->mean);
-	return (1);
+	insert_b(env);
+	finish_sort(env);
+	return (all_sort(env) ? 1 : 0);
 }

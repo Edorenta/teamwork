@@ -29,7 +29,9 @@ COMMON =	move_utils \
 			parser \
 			piles_utils \
 			piles_utils2 \
+			sort_utils \
 			quick_sort \
+			dumb_sort \
 			rebase \
 			interpret \
 			optimizer

@@ -167,16 +167,18 @@ int				count_moves(t_env *env);
 /*
  * LOGIC (ALL)
  */
+
 int				sort_pile(t_env *env);
 int				ext_sort(t_env *env);
 int				bb_sort(long *pile, int start, int end);
-double			mean_value(long *pile, int start, int stop);
-//int				smart_insert(t_env *env, char to, int mean);
-//int				mass_smart_insert(t_env *env, char to, int mean);
-//int				median_split(t_env *env, char to, double mean, double coef);
-//int 			quick_fix_a(t_env *env);
-//int 			quick_fix_b(t_env *env);
 int				quick_sort(t_env *env);
-//int 			insert_b(t_env *env);
+int				dumb_sort(t_env *env);
+double			mean_value(long *pile, int start, int stop);
+int 			quick_fix_a(t_env *env);
+int 			quick_fix_b(t_env *env);
+int				rot_or_revrot(t_env *env);
+int				a_or_b(t_env *env);
+int				median_split(t_env *env, double min, double max);
+int				ladder_split(t_env *env, int steps);
 
 #endif
