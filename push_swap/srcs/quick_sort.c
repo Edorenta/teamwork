@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/22 17:14:34 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/25 12:53:17 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,12 @@ static int 	insert_b(t_env *env)
 		else
 		{
 			if (rot_or_revrot(env) == 1)
-				PA;
+			{
+				if (B1 > env->mean / 4)
+					RB;
+				else
+					PA;
+			}
 			else
 				RRB;
 		}
