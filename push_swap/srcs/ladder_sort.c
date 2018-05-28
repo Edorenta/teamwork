@@ -126,7 +126,7 @@ static int		optimize_step(t_env *env, int min, int max)
 int				ladder_sort(t_env *env)
 {
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
-	ladder_split(env, optimize_step(env, 4, 120));
+	ladder_split(env, optimize_step(env, 2, 120));
 	smooth_push(env);
 	return (all_sort(env) ? 1 : 0);
 }
