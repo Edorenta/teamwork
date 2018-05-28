@@ -71,15 +71,3 @@ int		a_or_b(t_env *env)
 	}
 	return (-1);
 }
-
-int		median_split(t_env *env, double min, double max)
-{
-	while (env->b1 == NONE || env->a1 < env->b1)
-	{
-		if (A1 <= max && A1 >= min)
-			PB;
-		quick_fix_a(env);
-		quick_fix_b(env);
-	}
-	return (1);
-}

@@ -127,6 +127,9 @@ void			index_pile(t_env *env);
 void			put_piles(t_env *env);
 int				alloc_piles(t_env *env);
 void			free_piles(t_env *env);
+double			mean_value(long *pile, int start, int stop);
+int				pile_contains(long i, long *pile, int size);
+void			pile_init(long *pile, int size);
 
 /*
  * CHECKS & ERRORS
@@ -159,6 +162,7 @@ void			move_rota(t_env *env, char *p, int i);
 int				archive_move(t_env *env, const char *id, char which, t_move *prev);
 t_move			*new_move(const char *id, char which, t_move *prev);
 void			del_move(t_move *mv);
+void			del_moves(t_env *env);
 void			put_move(t_move *mv, char end);
 int				put_moves(t_move *start, int dir, char sep);
 int				optimize(t_env *env);
@@ -169,16 +173,13 @@ int				count_moves(t_env *env);
  */
 
 int				sort_pile(t_env *env);
-int				ext_sort(t_env *env);
 int				bb_sort(long *pile, int start, int end);
 int				quick_sort(t_env *env);
-int				dumb_sort(t_env *env);
-double			mean_value(long *pile, int start, int stop);
+int				ladder_sort(t_env *env);
 int 			quick_fix_a(t_env *env);
 int 			quick_fix_b(t_env *env);
 int				rot_or_revrot(t_env *env);
 int				a_or_b(t_env *env);
-int				median_split(t_env *env, double min, double max);
-int				ladder_split(t_env *env, int steps);
+int				rb_or_rrb(t_env *env, long n);
 
 #endif

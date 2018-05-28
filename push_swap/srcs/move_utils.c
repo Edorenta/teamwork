@@ -28,6 +28,19 @@ t_move	*new_move(const char *id, char which, t_move *prev)
 	return (mv);
 }
 
+void	del_moves(t_env *env)
+{
+	t_move *mv;
+
+	mv = env->first_move;
+	while (mv->next)
+	{
+		mv = mv->next;
+		free(mv->prev);
+	}
+	mv ? free(mv) : 0;
+}
+
 void	del_move(t_move *mv)
 {
 	t_move	*prev;

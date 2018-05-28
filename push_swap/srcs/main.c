@@ -38,15 +38,14 @@ static int			make_magic_happen(t_env *env)
 	sort_pile(env);
 	IS_SET_R ? pstr(2, "Piles rebased after sort:", '\n') : 0;
 	IS_SET_R ? put_piles(env) : 0;
-	deinit_env(env);
 	IS_SET_S ? pstr(2, "Piles after sort:", '\n') : 0;
 	IS_SET_S ? put_unindexed_piles(env) : 0;
-	//optimize commands
 	optimize(env);
 	IS_SET_O ? pstr(2, "# operations: ", '\0') : 0;
 	IS_SET_O ? plong(2, count_moves(env), '\n') : 0;
 	pstr(2, "Commands:", '\n');
 	put_moves(env->first_move, 1, ' ');
+	deinit_env(env);
 	return (1);
 }
 

@@ -14,7 +14,7 @@
 
 int					sort_pile(t_env *env)
 {
-	return ((dumb_sort(env)));
+	return ((ladder_sort(env)));
 }
 
 inline static void	put_pile(long *pile, int start, int end, const char *title)

@@ -92,6 +92,18 @@ static void		finish_sort(t_env *env)
 	}
 }
 
+static int		median_split(t_env *env, double min, double max)
+{
+	while (env->b1 == NONE || env->a1 < env->b1)
+	{
+		if (A1 <= max && A1 >= min)
+			PB;
+		quick_fix_a(env);
+		quick_fix_b(env);
+	}
+	return (1);
+}
+
 int				quick_sort(t_env *env)
 {
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));

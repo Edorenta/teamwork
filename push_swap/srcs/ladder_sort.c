@@ -1,42 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ext_sort.c                                         :+:      :+:    :+:   */
+/*   ladder_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/25 12:53:17 by jyildiz-         ###   ########.fr       */
+/*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/05/25 12:53:17 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-
-static int	pile_contains(long i, long *pile, int size)
-{
-	while (--size >= 0)
-		if (i == pile[size])
-			return (1);
-	return (0);
-}
-
-static void	pile_init(long *pile, int size)
-{
-	while (--size >= 0)
-		pile[size] = NONE;
-}
-
-static int		rb_or_rrb(t_env *env, long n)
-{
-	int i;
-
-	i = -1;
-	while (++i < env->size)
-		if (env->b[i] == n)
-			return((i - env->b1 > env->size - 1 - i) ? -1 : 1);
-	return (0);
-}
 
 static void		smooth_push(t_env *env)
 {
@@ -61,7 +35,7 @@ static void		smooth_push(t_env *env)
 	}
 }
 
-int		ladder_split(t_env *env, int steps)
+static int				ladder_split(t_env *env, int steps)
 {
 	int		i;
 	int		j;
@@ -118,11 +92,41 @@ int		ladder_split(t_env *env, int steps)
 	return (1);
 }
 
-int				dumb_sort(t_env *env)
+static int		optimize_step(t_env *env, int min, int max)
+{
+	int		step;
+	int		best_step;
+	long	tmp_cnt;
+	long	mv_cnt;
+	long	tmp_pile[env->size];
+
+	step = min - 1;
+	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
+	mv_cnt = (long)env->size * 1000;
+	while (++step <= max)
+	{
+		ladder_split(env, step);
+		smooth_push(env);
+		tmp_cnt = count_moves(env);
+		if (tmp_cnt < mv_cnt)
+		{
+			mv_cnt = tmp_cnt;
+			best_step = step;
+		}
+		dprintf(2, "step: %d moves: %ld\n", step, tmp_cnt);
+		del_moves(env);
+		env->first_move = NULL;
+		env->this_move = NULL;
+		duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
+	}
+	dprintf(2, "best step: %d\n", best_step);
+	return (best_step);
+}
+
+int				ladder_sort(t_env *env)
 {
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
-	ladder_split(env, env->size / 25);
-	//insert_b(env);
+	ladder_split(env, optimize_step(env, 4, 120));
 	smooth_push(env);
 	return (all_sort(env) ? 1 : 0);
 }
