@@ -7,28 +7,11 @@ static void		sig_handler(int sig)
 	exit(0);
 }
 
-static int		interpret_line(t_env *env, char *p)
+static void		make_magic_happen(t_env *env)
 {
-	return (1);
-}
-
-static int		get_lines(t_env *env)
-{
-	static char input[1024] = {0};
-	char		*p;
-	char		c;
-	int			i;
-
-	p = (char *)input;
-	while (1)
-	{
-		i = -1;
-		while ((read(0, &c, 1) > 0) && (c != 13 && c != 10))
-			p[++i] = c;
-		p[++i] = '\0';
-		interpret_line(env, p);
-	}
-	return (1);
+	solve(env);
+	put_anthill(env);
+	put_paths(env);
 }
 
 int				main(int ac, char **av)
@@ -39,7 +22,6 @@ int				main(int ac, char **av)
 	init_env(&env, ac);
 	get_lines(&env);
 	!anthill_compliant(&env) ? put_error(&env, "Error: anthill not compliant") : 0;
-	put_anthill(&env);
-	put_paths(&env);
+	make_magic_happen(&env);
 	return (1);
 }
