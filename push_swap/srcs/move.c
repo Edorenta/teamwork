@@ -88,7 +88,7 @@ long	*reverse_rotate(t_env *env, char which)
 	if (pile[env->size - 1] != NONE)
 	{
 		tmp = pile[env->size - 1];
-		while (i >= start)
+		while (i > start)
 		{
 			pile[i] = pile[i - 1];
 			i--;
