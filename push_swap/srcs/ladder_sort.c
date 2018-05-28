@@ -46,15 +46,15 @@ static int				ladder_split(t_env *env, int steps)
 	if (steps > 1)
 	{
 		j = -1;
-		i = steps;
+		i = 0;
 		//simplistic but the data is rebased >> OK
 		//dprintf(1, "max: %ld\n", max);
-		while ((i -= 2) > 1)
+		while ((i += 2) < steps)
 		{
 			//dprintf(1, "5\n");
 			j = -1;
-			max = (env->size / steps) * i;
-			min = (env->size / steps) * (i - 1);
+			max = (env->size / steps) * (i + 1);
+			min = (env->size / steps) * i;
 			pile_init(passed, env->size);
 			//ladder scale A
 			while (!pile_contains(A1, passed, env->size))
@@ -62,19 +62,15 @@ static int				ladder_split(t_env *env, int steps)
 				//dprintf(1, "%ld\n", B1);
 				passed[++j] = A1;
 				//dprintf(2, "a1: %ld, min: %ld max: %ld\n", A1, min, max);
-				if (A1 <= min)
-				{
-					RA;
-				}
-				else if (A1 > max)			//non-selective push
+				if (A1 < min)
+					PB;
+				else if (A1 < max)			//non-selective push
 				{
 					PB;
 					RB;
 				}
-				else if (A1 > min)
-				{
-					PB;
-				}
+				else
+					RA;
 			}
 			//get back the A part onto stack B
 			j++;
