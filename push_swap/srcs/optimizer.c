@@ -6,39 +6,48 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 11:06:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 14:25:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	reduce_list(t_env *env)
+static t_move	*reduce_del(t_move *iter)
+{
+	t_move *del;
+
+	del = iter;
+	iter = iter->next;
+	del_move(del);
+	return (iter);
+}
+
+static int		reduce_check(t_move *iter, char *s1, char *s2)
+{
+	return ((scmp(iter->id, s1) == 0 && scmp(iter->next->id, s2) == 0)
+		|| (scmp(iter->id, s2) == 0 && scmp(iter->next->id, s1) == 0));
+}
+
+static void		reduce_list(t_env *env)
 {
 	t_move	*iter;
-	t_move	*del;
 
 	iter = env->first_move;
 	while (iter != NULL)
 	{
 		if (iter->next != NULL)
 		{
-			if ((scmp(iter->id, "ra") == 0 && scmp(iter->next->id, "rb") == 0)
-			|| (scmp(iter->id, "rb") == 0 && scmp(iter->next->id, "ra") == 0))
+			if (reduce_check(iter, "ra", "rb") == 1)
 			{
-				del = iter;
-				iter = iter->next;
-				del_move(del);
+				iter = reduce_del(iter);
 				iter->id[1] = 'r';
 			}
-			if ((scmp(iter->id, "pa") == 0 && scmp(iter->next->id, "pb") == 0)
-			|| (scmp(iter->id, "pb") == 0 && scmp(iter->next->id, "pa") == 0))
+			if (reduce_check(iter, "pa", "pb") == 1)
+				iter = reduce_del(reduce_del(iter));
+			if (reduce_check(iter, "rra", "rrb") == 1)
 			{
-				del = iter;
-				iter = iter->next;
-				del_move(del);
-				del = iter;
-				iter = iter->next;
-				del_move(del);
+				iter = reduce_del(iter);
+				iter->id[2] = 'r';
 			}
 			if (env->first_move == NULL)
 				env->first_move = iter;
@@ -47,7 +56,7 @@ void	reduce_list(t_env *env)
 	}
 }
 
-int		optimize(t_env *env)
+int				optimize(t_env *env)
 {
 	reduce_list(env);
 	return (count_moves(env));

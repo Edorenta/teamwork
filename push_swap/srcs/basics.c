@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/18 09:14:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 14:08:26 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int		active_bits(char c)
 	int bits;
 
 	bits = 0;
-	while(c > 0)
+	while (c > 0)
 	{
-	    if ((c & 1) == 1) 
-	        bits++;
-	    c >>= 1;
+		if ((c & 1) == 1)
+			bits++;
+		c >>= 1;
 	}
 	return (bits);
 }

@@ -6,22 +6,22 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/25 12:53:17 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/05/29 15:38:35 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int 	quick_fix_a(t_env *env)
+int		quick_fix_a(t_env *env)
 {
 	if (A1 > env->mean && A1 > A2)
 		SA;
 	if (A1 > env->mean)
-		RA;	
+		RA;
 	return (1);
 }
 
-int 	quick_fix_b(t_env *env)
+int		quick_fix_b(t_env *env)
 {
 	if (B1 < MEAN_B && B1 > B2)
 		SB;

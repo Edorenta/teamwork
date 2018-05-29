@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/18 10:50:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 14:10:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,7 @@ int				main(int ac, char **av)
 		put_error(&env, "Error: wrong input");
 	(env.option & (1 << 2)) ? pstr(2, "Piles initialized:", '\n') : 0;
 	(env.option & (1 << 2)) ? put_piles(&env) : 0;
-	//index_pile(&env);
-	//pstr(2, "Piles rebased:", '\n');
-	//put_piles(&env);
+	put_piles(&env);
 	g_sorted = all_sort(&env);
 	get_moves(&env);
 	pstr(2, "Piles sorted:", '\n');
