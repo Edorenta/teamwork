@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 15:18:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 15:40:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ long	*rotate(t_env *env, char which)
 		{
 			pile[i] = pile[i + 1];
 			i++;
-			//dprintf(1, "pile[%d] = %ld\n", i, pile[i]);
 		}
 		pile[i] = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 17:13:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 15:56:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ void	del_moves(t_env *env)
 	mv ? free(mv) : 0;
 	env->first_move = NULL;
 	env->this_move = NULL;
-	//put_moves(env->first_move, 1, ' ');
 }
 
 void	del_move(t_move *mv)
 {
 	t_move	*prev;
 	t_move	*next;
-	
+
 	if (mv)
 	{
 		prev = mv->prev;
@@ -119,7 +118,7 @@ int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 	{
 		put_move(env->this_move, '\n');
 		put_piles(env);
-		while(1)
+		while (1)
 			if ((read(0, &c, 1) > 0) && (c == 13 || c == 10))
 				break ;
 	}

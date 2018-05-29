@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 14:26:04 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 15:33:14 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 15:53:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int 		insert_b(t_env *env)
+static int	insert_b(t_env *env)
 {
 	while (B1 != NONE)
 	{
@@ -69,7 +69,7 @@ static int 		insert_b(t_env *env)
 	return (1);
 }
 
-static void		finish_sort(t_env *env)
+static void	finish_sort(t_env *env)
 {
 	while (A1 >= env->mean)
 	{
@@ -88,11 +88,10 @@ static void		finish_sort(t_env *env)
 		}
 		else if (a_or_b(env) == 0)
 			PA;
-
 	}
 }
 
-static int		median_split(t_env *env, double min, double max)
+static int	median_split(t_env *env, double min, double max)
 {
 	while (env->b1 == NONE || env->a1 < env->b1)
 	{
@@ -104,7 +103,7 @@ static int		median_split(t_env *env, double min, double max)
 	return (1);
 }
 
-int				quick_sort(t_env *env)
+int			quick_sort(t_env *env)
 {
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
 	median_split(env, 0, env->mean);

@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/15 18:01:54 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 15:52:57 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static int		get_option(t_env *env, char *av)
 	i = 0;
 	while (av[++i])
 	{
-		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o'&& av[i] != 'r'))
+		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o' && av[i] != 'r'))
 			put_error(env, "Error: invalid option");
 		else if ((av[i] == 'v' && IS_SET_V) || (av[i] == 's' && IS_SET_S)
 			|| (av[i] == 'o' && IS_SET_O) || (av[i] == 'r' && IS_SET_R))
 			put_error(env, "Error: duplicate option");
-		(av[i] == 'v') ? SET_V : 0; //verbose breakpoints
-		(av[i] == 'o') ? SET_O : 0; //move counter
-		(av[i] == 's') ? SET_S : 0; //pile state
-		(av[i] == 'r') ? SET_R : 0; //display A as rebased
+		(av[i] == 'v') ? SET_V : 0;
+		(av[i] == 'o') ? SET_O : 0;
+		(av[i] == 's') ? SET_S : 0;
+		(av[i] == 'r') ? SET_R : 0;
 	}
 	return (active_bits(env->option));
 }
@@ -74,7 +74,8 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 
 	opt = 0;
 	i = 0;
-	while (++i < ac && av[i] && av[i][0] == '-'){
+	while (++i < ac && av[i] && av[i][0] == '-')
+	{
 		opt += get_option(env, av[i]);
 		--env->size;
 	}
