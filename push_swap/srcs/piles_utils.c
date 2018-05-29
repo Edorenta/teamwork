@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/18 11:00:52 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 18:30:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int					sort_pile(t_env *env)
 {
-	return ((ladder_sort(env)));
+	int step;
+
+	step = optimize_step(env, 2, 50);
+	env->mean = mean_value(env->a, env->a1, (env->size - 1));
+	ladder_split(env, step);
+	insert_b(env, step);
+	return (all_sort(env) ? 1 : 0);
 }
 
 inline static void	put_pile(long *pile, int start, int end, const char *title)

@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/29 16:47:13 by fmadura          ###   ########.fr        #
+#    Updated: 2018/05/29 17:22:22 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n'
 SRC_SUFFIX	= .c
 #SRC_PREFIX	= 
 COMMON =	move_utils \
+			move_utils2 \
 			env_utils \
 			parser_utils \
 			str_utils \
