@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 18:01:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/29 16:47:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ int				count_moves(t_env *env);
 
 int				sort_pile(t_env *env);
 int				bb_sort(long *pile, int start, int end);
-int				quick_sort(t_env *env);
 int				ladder_sort(t_env *env);
 int 			quick_fix_a(t_env *env);
 int 			quick_fix_b(t_env *env);
