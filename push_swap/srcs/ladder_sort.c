@@ -21,18 +21,16 @@ static void		insert_b_if(t_env *env, long nx_mv, long nx_l, long nx_h)
 			RRA;
 	}
 	else if ((nx_mv == 1 || nx_mv == -1) && A4 != nx_h)
-	{
-		while (B1 != NONE && B1 != (nx_h) && nx_h >= nx_l)
+		while (B1 != NONE && B1 != MAX_B)
 			nx_mv == 1 ? RB : RRB;
-	}
 	else if ((nx_mv == 2 || nx_mv == -2) && A1 != nx_l)
-	{
 		while (B1 != NONE && B1 != (nx_l) && nx_h >= nx_l)
 			nx_mv == 2 ? RB : RRB;
-	}
+	(nx_mv) ? PA : 0;
+	(nx_mv == 2 || nx_mv == -2) ? RA : 0;
 }
 
-void			insert_b(t_env *env, int step)
+void			insert_b(t_env *env, int step, double fract)
 {
 	long	next_high;
 	long	next_low;
@@ -40,13 +38,13 @@ void			insert_b(t_env *env, int step)
 
 	while (B1 != NONE)
 	{
-		next_high = A1 == NONE ? (env->size - 1) : MAX_B;
-		next_low = A1 > A4 ? (MIN_A + 1) : (MIN_A - ((env->size / step) / 3));
+		next_high = MAX_B;
+		next_low = A1 > A4 ? (MIN_A + 1) : (MIN_A - ((env->size / step) / fract));
 		next_low = next_low < 0 ? 0 : next_low;
 		next_mv = rb_or_rrb(env, next_high, next_low);
 		insert_b_if(env, next_mv, next_low, next_high);
-		next_mv ? PA : 0;
-		(next_mv == 2 || next_mv == -2) ? RA : 0;
+		//next_mv && ? PA : 0;
+		//(next_mv == 2 || next_mv == -2) ? RA : 0;
 	}
 	while (A4 == (A1 - 1))
 		RRA;
@@ -88,37 +86,8 @@ void			ladder_split(t_env *env, int steps)
 				passed[++j] = A1;
 				ladder_split_action(env, min, max);
 			}
-			j++;
 		}
-		while (env->b1 != 0)
+		while (A1 != NONE)
 			PB;
 	}
-}
-
-int				optimize_step(t_env *env, int min, int max)
-{
-	int		step;
-	int		best_step;
-	long	tmp_cnt;
-	long	mv_cnt;
-	long	tmp_pile[env->size];
-
-	step = min - 1;
-	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
-	mv_cnt = (long)env->size * 1000;
-	while (++step <= max)
-	{
-		ladder_split(env, step);
-		insert_b(env, step);
-		optimize(env);
-		tmp_cnt = count_moves(env);
-		if (tmp_cnt < mv_cnt)
-		{
-			mv_cnt = tmp_cnt;
-			best_step = step;
-		}
-		del_moves(env);
-		duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
-	}
-	return (best_step);
 }

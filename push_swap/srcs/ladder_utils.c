@@ -20,12 +20,6 @@ int		pile_contains(long i, long *pile, int size)
 	return (0);
 }
 
-void	pile_init(long *pile, int size)
-{
-	while (--size >= 0)
-		pile[size] = NONE;
-}
-
 int		ra_or_rra(t_env *env, long max)
 {
 	int i;
@@ -63,4 +57,60 @@ int		rb_or_rrb(t_env *env, long higher, long lower)
 			return (-2);
 	}
 	return (0);
+}
+
+int				optimize_step(t_env *env, int min, int max, double fract)
+{
+	int		step;
+	int		best_step;
+	long	tmp_cnt;
+	long	mv_cnt;
+	long	tmp_pile[env->size];
+
+	step = min - 1;
+	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
+	mv_cnt = (long)env->size * 1000;
+	while (++step <= max)
+	{
+		ladder_split(env, step);
+		insert_b(env, step, fract);
+		optimize(env);
+		tmp_cnt = count_moves(env);
+		if (tmp_cnt < mv_cnt)
+		{
+			mv_cnt = tmp_cnt;
+			best_step = step;
+		}
+		del_moves(env);
+		duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
+	}
+	return (best_step);
+}
+
+double				optimize_fract(t_env *env, double min, double max, int step)
+{
+	double	fract;
+	double	best_fract;
+	long	tmp_cnt;
+	long	mv_cnt;
+	long	tmp_pile[env->size];
+
+	fract = min - 1;
+	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
+	mv_cnt = (long)env->size * 1000;
+	while ((fract += 0.25) <= max)
+	{
+		ladder_split(env, step);
+		insert_b(env, step, fract);
+		optimize(env);
+		tmp_cnt = count_moves(env);
+		if (tmp_cnt < mv_cnt)
+		{
+			mv_cnt = tmp_cnt;
+			best_fract = fract;
+		}
+		del_moves(env);
+		duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
+	}
+	return (best_fract);
 }

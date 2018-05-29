@@ -28,7 +28,7 @@ static int		reduce_check(t_move *iter, char *s1, char *s2)
 		|| (scmp(iter->id, s2) == 0 && scmp(iter->next->id, s1) == 0));
 }
 
-static void		reduce_list(t_env *env)
+int				optimize(t_env *env)
 {
 	t_move	*iter;
 
@@ -54,10 +54,5 @@ static void		reduce_list(t_env *env)
 		}
 		iter = iter->next;
 	}
-}
-
-int				optimize(t_env *env)
-{
-	reduce_list(env);
 	return (count_moves(env));
 }

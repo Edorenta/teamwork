@@ -182,9 +182,10 @@ int				count_moves(t_env *env);
 
 int				sort_pile(t_env *env);
 int				bb_sort(long *pile, int start, int end);
-int				optimize_step(t_env *env, int min, int max);
+int				optimize_step(t_env *env, int min, int max, double fract);
+double			optimize_fract(t_env *env, double min, double max, int step);
 void			ladder_split(t_env *env, int steps);
-void			insert_b(t_env *env, int step);
+void			insert_b(t_env *env, int step, double fract);
 int 			quick_fix_a(t_env *env);
 int 			quick_fix_b(t_env *env);
 int				rot_or_revrot(t_env *env);

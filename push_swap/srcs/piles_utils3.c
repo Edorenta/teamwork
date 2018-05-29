@@ -12,6 +12,12 @@
 
 #include "push_swap.h"
 
+void	pile_init(long *pile, int size)
+{
+	while (--size >= 0)
+		pile[size] = NONE;
+}
+
 long	pile_max(long *pile, int start, int end)
 {
 	long max;

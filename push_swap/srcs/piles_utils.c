@@ -15,11 +15,13 @@
 int					sort_pile(t_env *env)
 {
 	int step;
+	double fract;
 
-	step = optimize_step(env, 2, 50);
+	step = optimize_step(env, 2, 42, 10.0);
+	fract = optimize_fract(env, 5.0, 42.0, step);
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
 	ladder_split(env, step);
-	insert_b(env, step);
+	insert_b(env, step, fract);
 	return (all_sort(env) ? 1 : 0);
 }
 
