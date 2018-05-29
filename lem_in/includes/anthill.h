@@ -28,7 +28,7 @@ struct			s_room
 
 struct			s_links
 {
-	t_room		*link;
+	t_room		*linked_room;
 	t_links		*prev;
 	t_links		*next;
 };
