@@ -32,23 +32,16 @@ void	del_moves(t_env *env)
 {
 	t_move *mv;
 	t_move *mv_next;
-	int i = 0;
+
 	mv = env->first_move;
 	while (mv->next && (mv_next = mv->next))
 	{
-		i++;
 		free(mv);
 		mv = mv_next;
 	}
-	//mv ? free(mv) : 0;
-	if (mv)
-	{
-		i++;
-		free(mv);
-	}
+	mv ? free(mv) : 0;
 	env->first_move = NULL;
 	env->this_move = NULL;
-	dprintf(2, "freed: %d\n", i);
 	//put_moves(env->first_move, 1, ' ');
 }
 

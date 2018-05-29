@@ -49,6 +49,12 @@
 
 # define MEAN_A			mean_value(env->a, env->a1, (env->size - 1))
 # define MEAN_B			mean_value(env->b, env->b1, (env->size - 1))
+# define MAX_A			pile_max(env->a, env->a1, env->size - 1)
+# define MAX_B			pile_max(env->b, env->b1, env->size - 1)
+# define MIN_A			pile_min(env->a, env->a1, env->size - 1)
+# define MIN_B			pile_min(env->b, env->b1, env->size - 1)
+# define LEN_A			(env->size - 1 - env->a1)
+# define LEN_B			(env->size - 1 - env->b1)
 
 # define IS_SET_V		(env->option & (1 << 0))
 # define IS_SET_O		(env->option & (1 << 1))
@@ -130,6 +136,8 @@ void			free_piles(t_env *env);
 double			mean_value(long *pile, int start, int stop);
 int				pile_contains(long i, long *pile, int size);
 void			pile_init(long *pile, int size);
+long			pile_max(long *pile, int start, int end);
+long			pile_min(long *pile, int start, int end);
 
 /*
  * CHECKS & ERRORS
@@ -180,6 +188,7 @@ int 			quick_fix_a(t_env *env);
 int 			quick_fix_b(t_env *env);
 int				rot_or_revrot(t_env *env);
 int				a_or_b(t_env *env);
-int				rb_or_rrb(t_env *env, long n);
+int				rb_or_rrb(t_env *env, long higher, long lower);
+int				ra_or_rra(t_env *env, long max);
 
 #endif

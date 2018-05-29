@@ -12,27 +12,59 @@
 
 #include "push_swap.h"
 
-static void		smooth_push(t_env *env)
+static void		insert_b(t_env *env, int step)
 {
-	long get_next;
+	long	next_high;
+	long	next_low;
+	int		next_mv;
 
-	get_next = (long)(env->size - 1);
-	while (get_next >= (long)env->min)
+	next_high = (long)(env->size - 1);
+	next_low = (long)(env->size - 1) - (env->size / step);
+	//while (next_high >= (long)env->min)
+	while (B1 != NONE)
 	{
-		if (rb_or_rrb(env, get_next) == 1)
-			while (B1 != NONE && B1 != get_next){
-				//dprintf(2, "next: %ld B1: %ld >>RB\n", get_next, B1);
+		//put_piles(env);
+		//dprintf(2, "A1: %ld B1: %ld env->b1: %d env->size: %d\n", A1, B1, env->b1, env->size);
+		next_high = A1 == NONE ? (env->size - 1) : MAX_B;
+		next_low = A1 > A4 ? (MIN_A + 1) : (MIN_A - ((env->size / step) / 3));
+		next_low = next_low < 0 ? 0 : next_low;
+		next_mv = rb_or_rrb(env, next_high, next_low);
+		//dprintf(2, "next_mv: %d, next high: %ld next low: %ld\n", next_mv, next_high, next_low);
+		if (!next_mv)
+		{
+			//dprintf(2, "check for end of stack a to be pushed\n");
+			//put_piles(env);
+			B1 == (A1 - 1) ? PA : 0;
+			while (A4 == (A1 - 1))
+				RRA;
+		}
+		else if (next_mv == 1 && A4 != next_high){//dprintf(2, "target high\n");
+			while (B1 != NONE && B1 != (next_high) && next_high >= next_low)
 				RB;
-			}
-		else if (rb_or_rrb(env, get_next) == -1){
-			while (B1 != NONE && B1 != get_next)
-				//dprintf(2, "next: %ld B1: %ld >>RRB\n", get_next, B1);
+			//dprintf(2, "1, next high: %ld next low: %ld\n", next_high, next_low);
+		}
+		else if (next_mv == -1 && A4 != next_high){//dprintf(2, "target high\n");
+			while (B1 != NONE && B1 != (next_high) && next_high >= next_low)
 				RRB;
-			}
-		PA;
-		--get_next;
+			//dprintf(2, "2, next high: %ld next low: %ld\n", next_high, next_low);
+		}
+		else if (next_mv == 2 && A1 != next_low){//dprintf(2, "target low\n");
+			while (B1 != NONE && B1 != (next_low) && next_high >= next_low)
+				RB;
+				//dprintf(2, "3, next high: %ld next low: %ld\n", next_high, next_low);
+				//put_piles(env);
+		}
+		else if (next_mv == -2 && A1 != next_low){//dprintf(2, "target low\n");
+			while (B1 != NONE && B1 != (next_low) && next_high >= next_low)
+				RRB;
+			//dprintf(2, "4, next high: %ld next low: %ld\n", next_high, next_low);
+		}
+		next_mv ? PA : 0;
+		(next_mv == 2 || next_mv == -2) ? RA : 0;
 		//dprintf(2, "next: %d min: %d\n", get_next, env->min);
 	}
+	while (A4 == (A1 - 1))
+		RRA;
 }
 
 static int				ladder_split(t_env *env, int steps)
@@ -46,31 +78,27 @@ static int				ladder_split(t_env *env, int steps)
 	if (steps > 1)
 	{
 		j = -1;
-		i = 0;
-		//simplistic but the data is rebased >> OK
-		//dprintf(1, "max: %ld\n", max);
+		i = -1;
 		while ((i += 2) < steps)
 		{
-			//dprintf(1, "5\n");
 			j = -1;
 			max = (env->size / steps) * (i + 1);
 			min = (env->size / steps) * i;
 			pile_init(passed, env->size);
-			//ladder scale A
-			while (!pile_contains(A1, passed, env->size))
+			while (A1 != NONE && !pile_contains(A1, passed, env->size))
 			{
-				//dprintf(1, "%ld\n", B1);
+				//dprintf(2,"1");
 				passed[++j] = A1;
-				//dprintf(2, "a1: %ld, min: %ld max: %ld\n", A1, min, max);
-				if (A1 && A1 != NONE && A1 < min)
+				//dprintf(2, "A1: %ld\n", A1);
+				if (A1 != NONE && A1 < min)
 					PB;
-				else if (A1 && A1 != NONE && A1 < max)			//non-selective push
+				else if (A1 != NONE && A1 < max)
 				{
 					PB;
 					RB;
 				}
 				else
-					RA;
+					ra_or_rra(env, max) == 1 ? RA : RRA;
 			}
 			j++;
 		}
@@ -95,7 +123,8 @@ static int		optimize_step(t_env *env, int min, int max)
 	{
 		//dprintf(2, "n mv: %d\n", count_moves(env));
 		ladder_split(env, step);
-		smooth_push(env);
+		insert_b(env, step);
+		optimize(env);
 		tmp_cnt = count_moves(env);
 		if (tmp_cnt < mv_cnt)
 		{
@@ -112,8 +141,13 @@ static int		optimize_step(t_env *env, int min, int max)
 
 int				ladder_sort(t_env *env)
 {
+	int step;
+
+//	step = 6;
+	step = optimize_step(env, 2, 50);
 	env->mean = mean_value(env->a, env->a1, (env->size - 1));
-	ladder_split(env, optimize_step(env, 2, 120));
-	smooth_push(env);
+	ladder_split(env, step);
+	dprintf(2, "insert!!\n");
+	insert_b(env, step);
 	return (all_sort(env) ? 1 : 0);
 }

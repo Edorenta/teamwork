@@ -29,11 +29,11 @@ COMMON =	move_utils \
 			parser \
 			piles_utils \
 			piles_utils2 \
+			piles_utils3 \
 			quick_utils \
 			quick_sort \
 			ladder_sort \
 			ladder_utils \
-			rebase \
 			interpret \
 			optimizer
 
