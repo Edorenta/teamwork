@@ -62,9 +62,9 @@ static int				ladder_split(t_env *env, int steps)
 				//dprintf(1, "%ld\n", B1);
 				passed[++j] = A1;
 				//dprintf(2, "a1: %ld, min: %ld max: %ld\n", A1, min, max);
-				if (A1 < min)
+				if (A1 && A1 != NONE && A1 < min)
 					PB;
-				else if (A1 < max)			//non-selective push
+				else if (A1 && A1 != NONE && A1 < max)			//non-selective push
 				{
 					PB;
 					RB;
@@ -72,15 +72,7 @@ static int				ladder_split(t_env *env, int steps)
 				else
 					RA;
 			}
-			//get back the A part onto stack B
 			j++;
-			/*
-			while (A4 <= max)
-			{
-				PB;
-				RB;
-			}
-			*/
 		}
 		while (env->b1 != 0)
 			PB;
@@ -111,8 +103,6 @@ static int		optimize_step(t_env *env, int min, int max)
 		}
 		dprintf(2, "step: %d moves: %ld\n", step, tmp_cnt);
 		del_moves(env);
-		env->first_move = NULL;
-		env->this_move = NULL;
 		duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
 	}
 	dprintf(2, "best step: %d\n", best_step);

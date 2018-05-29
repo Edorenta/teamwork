@@ -31,14 +31,18 @@ t_move	*new_move(const char *id, char which, t_move *prev)
 void	del_moves(t_env *env)
 {
 	t_move *mv;
+	t_move *mv_next;
 
 	mv = env->first_move;
-	while (mv->next)
+	while (mv->next && (mv_next = mv->next))
 	{
-		mv = mv->next;
-		free(mv->prev);
+		free(mv);
+		mv = mv_next;
 	}
 	mv ? free(mv) : 0;
+	env->first_move = NULL;
+	env->this_move = NULL;
+	put_moves(env->first_move, 1, ' ');
 }
 
 void	del_move(t_move *mv)
@@ -71,7 +75,7 @@ void	put_move(t_move *mv, char end)
 int		put_moves(t_move *start, int dir, char sep)
 {
 	if (dir == 1)
-		while (1)
+		while (start)
 		{
 			start->next ? put_move(start, sep) : put_move(start, '\n');
 			if (start->next)
@@ -80,7 +84,7 @@ int		put_moves(t_move *start, int dir, char sep)
 				return (1);
 		}
 	else if (dir == 2)
-		while (1)
+		while (start)
 		{
 			start->prev ? put_move(start, sep) : put_move(start, '\n');
 			if (start->prev)
