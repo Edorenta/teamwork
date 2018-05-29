@@ -32,17 +32,24 @@ void	del_moves(t_env *env)
 {
 	t_move *mv;
 	t_move *mv_next;
-
+	int i = 0;
 	mv = env->first_move;
 	while (mv->next && (mv_next = mv->next))
 	{
+		i++;
 		free(mv);
 		mv = mv_next;
 	}
-	mv ? free(mv) : 0;
+	//mv ? free(mv) : 0;
+	if (mv)
+	{
+		i++;
+		free(mv);
+	}
 	env->first_move = NULL;
 	env->this_move = NULL;
-	put_moves(env->first_move, 1, ' ');
+	dprintf(2, "freed: %d\n", i);
+	//put_moves(env->first_move, 1, ' ');
 }
 
 void	del_move(t_move *mv)
@@ -101,8 +108,8 @@ int		count_moves(t_env *env)
 	t_move	*mv;
 
 	mv = env->first_move;
-	i = mv ? 1 : 0;
-	while (mv->next && ++i)
+	i = mv ? 0 : -1;
+	while (++i && mv->next)
 		mv = mv->next;
 	return (i);
 }

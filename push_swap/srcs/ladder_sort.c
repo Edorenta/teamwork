@@ -93,6 +93,7 @@ static int		optimize_step(t_env *env, int min, int max)
 	mv_cnt = (long)env->size * 1000;
 	while (++step <= max)
 	{
+		//dprintf(2, "n mv: %d\n", count_moves(env));
 		ladder_split(env, step);
 		smooth_push(env);
 		tmp_cnt = count_moves(env);
