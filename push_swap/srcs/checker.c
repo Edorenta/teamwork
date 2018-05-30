@@ -40,8 +40,9 @@ static int		interpret_moves(t_env *env, char *p)
 			move_push(env, p, i);
 		else if (interpret_bool(p, i, 2, 'S'))
 			move_swap(env, p, i);
-		else if (interpret_bool(p, i, 3, 'R') &&
-				(p[i + 1] == 'r' || p[i + 1] == 'R'))
+		else if (p[i + 2] && !is_space(p[i + 2])
+			&& interpret_bool(p, i, 3, 'R') &&
+			(p[i + 1] == 'r' || p[i + 1] == 'R'))
 		{
 			move_drot(env, p, i);
 			++i;
@@ -58,7 +59,7 @@ static int		interpret_moves(t_env *env, char *p)
 
 static int		get_moves(t_env *env)
 {
-	static char input[1024] = {0};
+	static char input[10240] = {0};
 	char		*p;
 	char		c;
 	int			i;
@@ -68,12 +69,20 @@ static int		get_moves(t_env *env)
 	while (1)
 	{
 		i = -1;
-		while ((handler = read(0, &c, 1)) > 0 && (c != 13 && c != 10))
+		while ((handler = read(0, &c, 1)) >= 0)
+		{
 			p[++i] = c;
-		p[++i] = '\0';
-		*p ? interpret_moves(env, p) : 0;
-		g_sorted = all_sort(env);
-		!handler ? sig_handler(SIGINT) : 0;
+			!handler ? sig_handler(SIGINT) : 0;
+			if (c == 10)
+			{
+				p[i] = '\0';
+				//dprintf(2, "entry: %s read: %d\n", p, handler);
+				*p ? interpret_moves(env, p) : 0;
+				g_sorted = all_sort(env);
+					//dprintf(2, "c: %d\n",(int)c);
+				i = -1;
+			}
+		}
 	}
 	return (1);
 }

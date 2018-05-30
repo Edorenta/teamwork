@@ -23,6 +23,7 @@ static void	integrity_check(t_env *env, const char *s, char c, char end)
 		while (++i < slen(p))
 			if (s[i] == c)
 				return ;
+	
 	put_error(env, "Error: wrong instruction");
 }
 
