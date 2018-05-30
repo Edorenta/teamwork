@@ -12,20 +12,6 @@
 
 #include "push_swap.h"
 
-static int			put_unindexed_piles(t_env *env)
-{
-	int		i;
-
-	i = env->a1 - 1;
-	while (++i < env->size)
-	{
-		env->a[i] = env->c[(int)env->a[i]];
-		pstr(2, "OK", '\n');
-	}
-	put_piles(env);
-	return (1);
-}
-
 static int			make_magic_happen(t_env *env)
 {
 	IS_SET_S ? pstr(2, "Piles before sort:", '\n') : 0;

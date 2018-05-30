@@ -58,23 +58,17 @@ int		mass_push(t_env *env, char to, int start, int end)
 	return (1);
 }
 
-int		swap_last(t_env *env, char which)
+
+int		put_unindexed_piles(t_env *env)
 {
-	if (which == 'a')
+	int		i;
+
+	i = env->a1 - 1;
+	while (++i < env->size)
 	{
-		RRA;
-		RRA;
-		SA;
-		RA;
-		RA;
+		env->a[i] = env->c[(int)env->a[i]];
+		pstr(2, "OK", '\n');
 	}
-	else
-	{
-		RRB;
-		RRB;
-		SB;
-		RB;
-		RB;
-	}
+	put_piles(env);
 	return (1);
 }

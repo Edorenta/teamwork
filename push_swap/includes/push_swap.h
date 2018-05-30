@@ -35,8 +35,6 @@
 # define RRA			reverse_rotate(env, 'a')
 # define RRB			reverse_rotate(env, 'b')
 # define RRR			combine(reverse_rotate, env)
-# define RSA			swap_last(env, 'a')
-# define RSB			swap_last(env, 'b')
 
 # define A1				env->a[env->a1]
 # define A2				env->b[env->a1 == env->size ? env->a1 + 1 : env->a1]
@@ -143,6 +141,8 @@ int				pile_contains(long i, long *pile, int size);
 void			pile_init(long *pile, int size);
 long			pile_max(long *pile, int start, int end);
 long			pile_min(long *pile, int start, int end);
+int				put_unindexed_piles(t_env *env);
+int				sort_pile(t_env *env);
 
 /*
  * CHECKS & ERRORS
@@ -160,7 +160,6 @@ t_env	 		*push(t_env *env, char to);
 long			*swap(t_env *env, char which);
 long			*rotate(t_env *env, char which);
 long    		*reverse_rotate(t_env *env, char which);
-int				swap_last(t_env *env, char which);
 void			combine(long *(*move)(t_env *, char), t_env *env);
 int				mass_push(t_env *env, char to, int start, int end);
 void			move_push(t_env *env, char *p, int i);
@@ -185,7 +184,6 @@ int				count_moves(t_env *env);
  * LOGIC (ALL)
  */
 
-int				sort_pile(t_env *env);
 int				bb_sort(long *pile, int start, int end);
 int				optimize_step(t_env *env, int min, int max, double fract);
 double			optimize_fract(t_env *env, double min, double max, int step);
