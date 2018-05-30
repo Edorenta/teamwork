@@ -121,6 +121,7 @@ void			deinit_env(t_env *env);
  * PARSER
  */
 
+int				get_moves(t_env *env);
 int 			arg_to_piles(t_env *env, int ac, char **av);
 int				no_duplicates(long *pile, int size);
 int				full_digits(const char *str);

@@ -40,7 +40,7 @@ COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 SRC1_FILES = $(COMMON_FILES)
 SRC1_FILES += main.c
 SRC2_FILES = $(COMMON_FILES)
-SRC2_FILES += checker.c
+SRC2_FILES += checker.c checker_utils.c
 
 #SRC_RAW2	= $(addprefix ${SRC_PREFIX},${COMMON})
 
