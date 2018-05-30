@@ -6,7 +6,7 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/29 15:51:18 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:03:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		rb_or_rrb(t_env *env, long higher, long lower)
 	return (0);
 }
 
-int				optimize_step(t_env *env, int min, int max, double fract)
+int		optimize_step(t_env *env, int min, int max, double fract)
 {
 	int		step;
 	int		best_step;
@@ -87,7 +87,7 @@ int				optimize_step(t_env *env, int min, int max, double fract)
 	return (best_step);
 }
 
-double				optimize_fract(t_env *env, double min, double max, int step)
+double	optimize_fract(t_env *env, double min, double max, int step)
 {
 	double	fract;
 	double	best_fract;

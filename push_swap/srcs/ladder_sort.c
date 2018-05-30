@@ -6,7 +6,7 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/29 18:34:03 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:02:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		insert_b_if(t_env *env, long nx_mv, long nx_l, long nx_h)
 	(nx_mv == 2 || nx_mv == -2) ? RA : 0;
 }
 
-void			insert_b(t_env *env, int step, double fract)
+void			insert_b(t_env *env, int step, double fct)
 {
 	long	next_high;
 	long	next_low;
@@ -39,12 +39,10 @@ void			insert_b(t_env *env, int step, double fract)
 	while (B1 != NONE)
 	{
 		next_high = MAX_B;
-		next_low = A1 > A4 ? (MIN_A + 1) : (MIN_A - ((env->size / step) / fract));
+		next_low = A1 > A4 ? (MIN_A + 1) : (MIN_A - ((env->size / step) / fct));
 		next_low = next_low < 0 ? 0 : next_low;
 		next_mv = rb_or_rrb(env, next_high, next_low);
 		insert_b_if(env, next_mv, next_low, next_high);
-		//next_mv && ? PA : 0;
-		//(next_mv == 2 || next_mv == -2) ? RA : 0;
 	}
 	while (A4 == (A1 - 1))
 		RRA;

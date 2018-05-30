@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/29 18:30:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:03:50 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int					sort_pile(t_env *env)
 {
-	int step;
-	double fract;
+	int		step;
+	double	fract;
 
 	step = optimize_step(env, 2, 42, 10.0);
 	fract = optimize_fract(env, 5.0, 42.0, step);
