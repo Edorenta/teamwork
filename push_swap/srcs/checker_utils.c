@@ -14,7 +14,7 @@
 
 static int		g_sorted = 0;
 
-static void		sig_handler(int sig)
+void		sig_handler(int sig)
 {
 	signal(sig, SIG_IGN);
 	pstr(2, (g_sorted ? "\rOK\n" : "\rKO\n"), '\0');

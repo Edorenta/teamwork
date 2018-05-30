@@ -148,6 +148,7 @@ int				sort_pile(t_env *env);
  * CHECKS & ERRORS
  */
 
+void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
 int				is_sort(long *pile, int start, int end);
 int				all_sort(t_env *env);
@@ -184,6 +185,7 @@ int				count_moves(t_env *env);
  * LOGIC (ALL)
  */
 
+void			sort_3(t_env *env);
 int				bb_sort(long *pile, int start, int end);
 int				optimize_step(t_env *env, int min, int max, double fract);
 double			optimize_fract(t_env *env, double min, double max, int step);
