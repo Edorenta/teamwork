@@ -52,7 +52,7 @@ int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 	{
 		put_move(env->this_move, '\n');
 		put_piles(env);
-		while (1)
+		while (!IS_CHECKER && 1)
 			if ((read(0, &c, 1) > 0) && (c == 13 || c == 10))
 				break ;
 	}

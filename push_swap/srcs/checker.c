@@ -84,6 +84,7 @@ int				main(int ac, char **av)
 
 	signal(SIGINT, sig_handler);
 	init_env(&env, ac);
+	SET_CHECKER;
 	if (ac < 2)
 		exit(0);
 	if (!av[1] || !arg_to_piles(&env, ac, av)

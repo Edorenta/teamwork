@@ -21,7 +21,7 @@ int			plong(int fd, long n, char end)
 	n == 0 ? str[--i] = '0' : 0;
 	while (n != 0 && (str[--i] = '0' + (n % 10)))
 		n /= 10;
-	while (i >= 0)
+	while (i > 0)
 		str[--i] = '\0';
 	write(fd, &str, 15);
 	write(fd, &end, 1);
