@@ -152,6 +152,7 @@ int				sort_pile(t_env *env);
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
 int				is_sort(long *pile, int start, int end);
+int				is_rev_sort(long *pile, int start, int end);
 int				all_sort(t_env *env);
 
 /*
@@ -163,7 +164,6 @@ void			swap(t_env *env, char which);
 void			rotate(t_env *env, char which);
 void			reverse_rotate(t_env *env, char which);
 void			combine(void (*move)(t_env *, char), t_env *env);
-int				mass_push(t_env *env, char to, int start, int end);
 void			move_push(t_env *env, char *p, int i);
 void			move_swap(t_env *env, char *p, int i);
 void			move_drot(t_env *env, char *p, int i);
@@ -197,6 +197,7 @@ void			get_cache(t_env *env, t_move *cache);
  */
 
 void			bruteforce(t_env *env, char which);
+void			median_bruteforce(t_env *env, char which);
 int				bb_sort(long *pile, int start, int end);
 int				optimize_step(t_env *env, int min, int max, double fract);
 double			optimize_fract(t_env *env, double min, double max, int step);

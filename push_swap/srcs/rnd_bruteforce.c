@@ -27,7 +27,7 @@ static int		ipow(int a, int power)
 	return (ret);
 }
 
-static int		mv_lst(t_env *env, char which, long *pile, int max_depth)
+static int		jack(t_env *env, char which, long *pile, int max_depth)
 {
 	long	tmp_pile[env->size];
 	int		rnd_mv;
@@ -35,9 +35,11 @@ static int		mv_lst(t_env *env, char which, long *pile, int max_depth)
 	int		moved;
 	int		nb_mv;
 	int		shuffle;
+	int		start;
 
+	start = which == 'a' ? env->a1 : env->b1;
 	srand(time(NULL));
-	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
+	duplicate_pile(pile, tmp_pile, start, env->size - 1);
 	nb_mv = 0;
 	while (++nb_mv <= max_depth)
 	{
@@ -55,16 +57,42 @@ static int		mv_lst(t_env *env, char which, long *pile, int max_depth)
 				prev_mv = rnd_mv;
 			}
 			//put_moves(env->first_move, 1, ' ');
-			if (is_sort(pile, 0, env->size - 1)){
+			if ((which == 'a' && is_sort(pile, start, env->size - 1))
+				|| (which == 'b' && is_rev_sort(pile, start, env->size - 1))){
 				//dprintf(2, "\r>> SUCCESS!! <<\n");	
 				return (1);
 			}
 			//dprintf(2, "\rfail #%d!", shuffle);
 			del_moves(env);
-			duplicate_pile(tmp_pile, env->a, env->a1, env->size - 1);
+			duplicate_pile(tmp_pile, pile, start, env->size - 1);
 		}
 	}
 	return (0);
+}
+
+void			median_bruteforce(t_env *env, char which)
+{
+	int		max_mv;
+	long	pivot;
+	long	*pile;
+	
+	pile = env->b;
+	(which == 'a') ? pile = env->a : 0;
+	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3) / 2;
+
+	pivot = (LEN_A % 2) ? env->mean : (env->mean - 1);
+	while (MIN_A <= pivot)
+	{
+		while (A1 > pivot)
+			ra_or_rra(env, pivot) == 1 ? RA : RRA;
+		PB;
+	}
+	dprintf(2, "after median sort:\n");
+	put_piles(env);
+	jack(env, 'a', env->a, max_mv);
+	jack(env, 'b', env->b, max_mv);
+	dprintf(2, "after bruteforce:\n");
+	put_piles(env);
 }
 
 void			bruteforce(t_env *env, char which)
@@ -72,8 +100,8 @@ void			bruteforce(t_env *env, char which)
 	int		max_mv;
 	long	*pile;
 
-	pile = env->a;
+	pile = env->b;
 	(which == 'a') ? pile = env->a : 0;
 	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3);
-	mv_lst(env, which, pile, max_mv);
+	jack(env, which, pile, max_mv);
 }

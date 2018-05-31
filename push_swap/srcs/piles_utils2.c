@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+s/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   piles_utils2.c                                     :+:      :+:    :+:   */
@@ -19,6 +19,17 @@ int		is_sort(long *pile, int start, int end)
 	i = start - 1;
 	while (++i < end)
 		if (pile[i] >= pile[i + 1])
+			return (0);
+	return (1);
+}
+
+int		is_rev_sort(long *pile, int start, int end)
+{
+	int		i;
+
+	i = end + 1;
+	while (--i > start)
+		if (pile[i] >= pile[i - 1])
 			return (0);
 	return (1);
 }
@@ -44,20 +55,6 @@ double	mean_value(long *pile, int start, int end)
 	}
 	return ((end - start > 2) ? (double)sum / (double)(i - start) : 0);
 }
-
-int		mass_push(t_env *env, char to, int start, int end)
-{
-	int		i;
-
-	i = to == 'b' ? env->a1 : env->b1;
-	while (++i <= start)
-		rotate(env, (to == 'b' ? 'a' : 'b'));
-	i = to == 'b' ? env->a1 : env->b1;
-	while (++i <= (end - start + 1))
-		push(env, to);
-	return (1);
-}
-
 
 int		put_unindexed_piles(t_env *env)
 {
