@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tiny_bruteforce.c                                  :+:      :+:    :+:   */
+/*   bt_bruteforce.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,7 +24,7 @@ static void		mv_lst(t_env *env, char which,
 	//if (!is_sort(pile, 0, env->size - 1))
 	if (max_depth > 0)
 	{
-		dprintf(2, "which: %c max_depth: %d nb_mv: %d\n", which, max_depth, nb_mv);
+		//dprintf(2, "which: %c max_depth: %d nb_mv: %d\n", which, max_depth, nb_mv);
 		if (nb_mv == 0)
 		{
 			//dprintf(2, "which: %c max_depth: %d\n", which, max_depth);
@@ -32,11 +32,11 @@ static void		mv_lst(t_env *env, char which,
 			mv = ((mv + 1) > 3 ? (mv - 2) : (mv + 1));
 			(!(mv % 3) ? --max_depth : 0);
 			while (++i <= max_depth){
-				dprintf(2, "i: %d max_depth: %d\n", i, max_depth);
+				//dprintf(2, "i: %d max_depth: %d\n", i, max_depth);
 				undo_move(env, env->this_move);
 				//put_moves(env->first_move, 1, ' ');
 			}
-			dprintf(2, "mv: %d\n", mv);
+			//dprintf(2, "mv: %d\n", mv);
 			//if (mv == 2 && !(env->this_move->id[1] == 'r'))
 			if (mv == 2)
 				rotate(env, which);

@@ -80,9 +80,9 @@ void	undo_move(t_env *env, t_move *mv)
 	? del_move(env, env->this_move) : 0;
 	del_move(env, env->this_move);
 	del_move(env, env->this_move);
-	dprintf(2, "after move redo:\n");
-	put_moves(env->first_move, 1, ' ');
-	dprintf(2, "\n");
+	//dprintf(2, "after move redo:\n");
+	//put_moves(env->first_move, 1, ' ');
+	//dprintf(2, "\n");
 }
 
 void	put_move(t_move *mv, char end)

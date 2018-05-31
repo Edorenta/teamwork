@@ -1,5 +1,5 @@
-make fclean
-make push_swap
+#make fclean
+#make push_swap
 cd _visualizer/c
 echo "<!> compiling random unique number generator"
 gcc rnd_int.c -o rnd_int.exe
@@ -21,6 +21,6 @@ echo "<!> injecting json data to html hidden container"
 sed '/<p id="commands">/ r commands.json' html/index_tpl.html > html/tmp.html
 sed '/<p id="int_list">/ r unsorted_list.json' html/tmp.html > html/index.html
 
-open html/index.html
+#open html/index.html
 #xdg-open html/index.html
 #awk 'FNR==NR{n=n ORS $0; next} /<integers>/{$0=$0 n} 1' output.txt index.html

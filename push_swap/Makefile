@@ -14,7 +14,7 @@ NAME_1    	= push_swap
 NAME_2    	= checker
 SRC_PATH	= srcs/
 OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS		= -Wall -Werror -Wextra
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
@@ -34,9 +34,10 @@ COMMON =	move_utils \
 			piles_utils3 \
 			ladder_sort \
 			ladder_utils \
-			tiny_bruteforce \
 			interpret \
-			optimizer
+			optimizer \
+			rnd_bruteforce \
+			#backtrack_bruteforce
 
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 SRC1_FILES = $(COMMON_FILES)

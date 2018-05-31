@@ -41,7 +41,7 @@ void		cache_moves(t_env *env, t_move *cache)
 	tmp_cnt = count_moves(env);
 	if (tmp_cnt < mv_cnt)
 	{
-		dprintf(1, "cached\n");
+		dprintf(2, "cached\n");
 		mv_cnt = tmp_cnt;
 		src = env->first_move;
 		dest = cache;
@@ -54,10 +54,10 @@ void		cache_moves(t_env *env, t_move *cache)
 			src = src->next;
 			dest = dest->next;
 		}
-		put_moves(cache, 1, ' ');
+		//put_moves(cache, 1, ' ');
 	}
 	else
-		dprintf(1, "did not cache\n");
+		dprintf(2, "did not cache\n");
 }
 
 void		get_cache(t_env *env, t_move *cache)
