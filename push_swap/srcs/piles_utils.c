@@ -14,11 +14,10 @@
 
 int					sort_pile(t_env *env)
 {
-	/*
 	int		step;
 	double	fract;
 
-	if (env->size > 12)
+	if (env->size >= 8)
 	{
 		step = optimize_step(env, 2, 42, 10.0);
 		fract = optimize_fract(env, 5.0, 42.0, step);
@@ -27,8 +26,6 @@ int					sort_pile(t_env *env)
 		insert_b(env, step, fract);
 	}
 	else
-	{
-	*/
 		bruteforce(env, 'a');
 	return (all_sort(env) ? 1 : 0);
 }
