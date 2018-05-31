@@ -65,10 +65,7 @@ int		put_unindexed_piles(t_env *env)
 
 	i = env->a1 - 1;
 	while (++i < env->size)
-	{
 		env->a[i] = env->c[(int)env->a[i]];
-		pstr(2, "OK", '\n');
-	}
 	put_piles(env);
 	return (1);
 }

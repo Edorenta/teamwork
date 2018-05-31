@@ -28,6 +28,18 @@ t_move	*new_move(const char *id, char which, t_move *prev)
 	return (mv);
 }
 
+t_move	*move_dup(t_move *src, t_move *prev)
+{
+	t_move	*mv;
+
+	if (!(mv = (t_move *)malloc(sizeof(t_move))))
+		return (NULL);
+	scat(mv->id, src->id, '\0');
+	mv->prev = prev;
+	mv->next = NULL;
+	return (mv);
+}
+
 int		count_moves(t_env *env)
 {
 	int		i;

@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-static t_move	*reduce_del(t_move *iter)
+static t_move	*reduce_del(t_env *env, t_move *iter)
 {
 	t_move *del;
 
 	del = iter;
 	iter = iter->next;
-	del_move(del);
+	del_move(env, del);
 	return (iter);
 }
 
@@ -39,14 +39,14 @@ int				optimize(t_env *env)
 		{
 			if (reduce_check(iter, "ra", "rb") == 1)
 			{
-				iter = reduce_del(iter);
+				iter = reduce_del(env, iter);
 				iter->id[1] = 'r';
 			}
 			if (reduce_check(iter, "pa", "pb") == 1)
-				iter = reduce_del(reduce_del(iter));
+				iter = reduce_del(env, reduce_del(env, iter));
 			if (reduce_check(iter, "rra", "rrb") == 1)
 			{
-				iter = reduce_del(iter);
+				iter = reduce_del(env, iter);
 				iter->id[2] = 'r';
 			}
 			if (env->first_move == NULL)

@@ -14,6 +14,7 @@
 
 static int			make_magic_happen(t_env *env)
 {
+	SET_CHECKER;
 	get_moves(env);
 	IS_SET_S ? pstr(2, "Piles before sort:", '\n') : 0;
 	IS_SET_S ? put_piles(env) : 0;
@@ -40,7 +41,6 @@ int				main(int ac, char **av)
 
 	signal(SIGINT, sig_handler);
 	init_env(&env, ac);
-	SET_CHECKER;
 	if (ac < 2)
 		exit(0);
 	if (!av[1] || !arg_to_piles(&env, ac, av)

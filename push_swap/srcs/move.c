@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-long	*swap(t_env *env, char which)
+void	swap(t_env *env, char which)
 {
 	long	*pile;
 	int		tmp;
@@ -27,10 +27,9 @@ long	*swap(t_env *env, char which)
 		pile[i + 1] = tmp;
 	}
 	archive_move(env, "s", which, env->this_move);
-	return (pile);
 }
 
-t_env	*push(t_env *env, char to)
+void	push(t_env *env, char to)
 {
 	int		*i;
 	int		*j;
@@ -49,10 +48,9 @@ t_env	*push(t_env *env, char to)
 		*i == env->size - 1 ? 0 : ++*i;
 	}
 	archive_move(env, "p", to, env->this_move);
-	return (env);
 }
 
-long	*rotate(t_env *env, char which)
+void	rotate(t_env *env, char which)
 {
 	long	*pile;
 	int		tmp;
@@ -71,10 +69,9 @@ long	*rotate(t_env *env, char which)
 		pile[i] = tmp;
 	}
 	archive_move(env, "r", which, env->this_move);
-	return (pile);
 }
 
-long	*reverse_rotate(t_env *env, char which)
+void	reverse_rotate(t_env *env, char which)
 {
 	long	*pile;
 	int		tmp;
@@ -95,10 +92,9 @@ long	*reverse_rotate(t_env *env, char which)
 		pile[start] = tmp;
 	}
 	archive_move(env, "rr", which, env->this_move);
-	return (pile);
 }
 
-void	combine(long *(*move)(t_env *, char), t_env *env)
+void	combine(void (*move)(t_env *, char), t_env *env)
 {
 	move(env, 'a');
 	move(env, 'b');

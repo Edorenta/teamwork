@@ -37,11 +37,11 @@
 # define RRR			combine(reverse_rotate, env)
 
 # define A1				env->a[env->a1]
-# define A2				env->b[env->a1 == env->size ? env->a1 + 1 : env->a1]
+# define A2				env->a[env->a1 == env->size ? env->a1 : env->a1 + 1]
 # define A3				env->a[env->size - 2]
 # define A4				env->a[env->size - 1]
 # define B1				env->b[env->b1]
-# define B2				env->b[env->b1 == env->size ? env->b1 + 1 : env->b1]
+# define B2				env->b[env->b1 == env->size ? env->b1 : env->b1 + 1]
 # define B3				env->b[env->size - 2]
 # define B4				env->b[env->size - 1]
 
@@ -65,7 +65,7 @@
 # define SET_S			(env->option |= (1 << 2))
 # define SET_R			(env->option |= (1 << 3))
 # define SET_M			(env->option |= (1 << 4))
-# define SET_CHECKER	(env.option |= (1 << 5))
+# define SET_CHECKER	(env->option |= (1 << 5))
 
 /*
  * SRUCTS
@@ -157,11 +157,11 @@ int				all_sort(t_env *env);
  * MOVE OPERATIONS
  */
 
-t_env	 		*push(t_env *env, char to);
-long			*swap(t_env *env, char which);
-long			*rotate(t_env *env, char which);
-long    		*reverse_rotate(t_env *env, char which);
-void			combine(long *(*move)(t_env *, char), t_env *env);
+void			push(t_env *env, char to);
+void			swap(t_env *env, char which);
+void			rotate(t_env *env, char which);
+void			reverse_rotate(t_env *env, char which);
+void			combine(void (*move)(t_env *, char), t_env *env);
 int				mass_push(t_env *env, char to, int start, int end);
 void			move_push(t_env *env, char *p, int i);
 void			move_swap(t_env *env, char *p, int i);
@@ -169,23 +169,33 @@ void			move_drot(t_env *env, char *p, int i);
 void			move_rota(t_env *env, char *p, int i);
 
 /*
- * MOVE CHAINED LIST
+ * MOVE CHAINED LIST MANAGEMENT
  */
 
-int				archive_move(t_env *env, const char *id, char which, t_move *prev);
 t_move			*new_move(const char *id, char which, t_move *prev);
-void			del_move(t_move *mv);
+t_move			*move_dup(t_move *src, t_move *prev);
+int				archive_move(t_env *env, const char *id, char which, t_move *prev);
+void			del_move(t_env *env, t_move *mv);
 void			del_moves(t_env *env);
+void			undo_move(t_env *env, t_move *mv);
 void			put_move(t_move *mv, char end);
 int				put_moves(t_move *start, int dir, char sep);
 int				optimize(t_env *env);
 int				count_moves(t_env *env);
 
 /*
+ * BRUTEFORCE CACHE MANAGEMENT
+ */
+
+void			free_cache(t_move *cache);
+void			cache_moves(t_env *env, t_move *cache);
+void			get_cache(t_env *env, t_move *cache);
+
+/*
  * LOGIC (ALL)
  */
 
-void			sort_3(t_env *env);
+void			bruteforce(t_env *env, char which);
 int				bb_sort(long *pile, int start, int end);
 int				optimize_step(t_env *env, int min, int max, double fract);
 double			optimize_fract(t_env *env, double min, double max, int step);

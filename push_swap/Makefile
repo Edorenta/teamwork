@@ -27,12 +27,14 @@ COMMON =	move_utils \
 			basics \
 			bubble_sort \
 			move \
+			cache \
 			parser \
 			piles_utils \
 			piles_utils2 \
 			piles_utils3 \
 			ladder_sort \
 			ladder_utils \
+			tiny_bruteforce \
 			interpret \
 			optimizer
 
