@@ -91,6 +91,9 @@ void			median_bruteforce(t_env *env, char which)
 	put_piles(env);
 	jack(env, 'a', env->a, max_mv);
 	jack(env, 'b', env->b, max_mv);
+	while (B1 != NONE)
+		PA;
+	optimize(env);
 	dprintf(2, "after bruteforce:\n");
 	put_piles(env);
 }
