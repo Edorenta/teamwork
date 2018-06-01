@@ -54,5 +54,5 @@ int				optimize(t_env *env)
 		}
 		iter = iter->next;
 	}
-	return (count_moves(env));
+	return (count_moves(env->first_move));
 }

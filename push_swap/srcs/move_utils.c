@@ -40,12 +40,36 @@ t_move	*move_dup(t_move *src, t_move *prev)
 	return (mv);
 }
 
-int		count_moves(t_env *env)
+void	insert_move(t_move *mv, t_move *to, int where)
+{
+	t_move *prev;
+	t_move *next;
+	
+	if (mv && to)
+	{
+		prev = to->prev;
+		next = to->next;
+		if (where == 1)
+		{
+			to->next = mv;
+			mv->next = next;
+			mv->prev = to;
+		}
+		else if (where == -1)
+		{
+			to->prev = mv;
+			mv->prev = prev;
+			mv->next = to;
+		}
+	}
+}
+
+int		count_moves(t_move *start)
 {
 	int		i;
 	t_move	*mv;
 
-	mv = env->first_move;
+	mv = start;
 	i = mv ? 0 : -1;
 	while (++i && mv->next)
 		mv = mv->next;

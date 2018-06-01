@@ -175,6 +175,7 @@ void			move_rota(t_env *env, char *p, int i);
 
 t_move			*new_move(const char *id, char which, t_move *prev);
 t_move			*move_dup(t_move *src, t_move *prev);
+void			insert_move(t_move *src, t_move *dest, int where);
 int				archive_move(t_env *env, const char *id, char which, t_move *prev);
 void			del_move(t_env *env, t_move *mv);
 void			del_moves(t_env *env);
@@ -182,15 +183,18 @@ void			undo_move(t_env *env, t_move *mv);
 void			put_move(t_move *mv, char end);
 int				put_moves(t_move *start, int dir, char sep);
 int				optimize(t_env *env);
-int				count_moves(t_env *env);
+int				count_moves(t_move *start);
 
 /*
  * BRUTEFORCE CACHE MANAGEMENT
  */
 
+t_move			*cache_moves(t_env *env);
+void			parallel_caches_merge(t_env *env, t_move *cache1, t_move *cache2);
+void			queue_caches_merge(t_env *env, t_move **cache, int size);
 void			free_cache(t_move *cache);
-void			cache_moves(t_env *env, t_move *cache);
 void			get_cache(t_env *env, t_move *cache);
+void			cache_init(t_move **cache, int size);
 
 /*
  * LOGIC (ALL)

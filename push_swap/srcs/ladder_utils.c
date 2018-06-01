@@ -75,7 +75,7 @@ int		optimize_step(t_env *env, int min, int max, double fract)
 		ladder_split(env, step);
 		insert_b(env, step, fract);
 		optimize(env);
-		tmp_cnt = count_moves(env);
+		tmp_cnt = count_moves(env->first_move);
 		if (tmp_cnt < mv_cnt)
 		{
 			mv_cnt = tmp_cnt;
@@ -103,7 +103,7 @@ double	optimize_fract(t_env *env, double min, double max, int step)
 		ladder_split(env, step);
 		insert_b(env, step, fract);
 		optimize(env);
-		tmp_cnt = count_moves(env);
+		tmp_cnt = count_moves(env->first_move);
 		if (tmp_cnt < mv_cnt)
 		{
 			mv_cnt = tmp_cnt;

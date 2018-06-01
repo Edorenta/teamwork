@@ -17,15 +17,18 @@ void	del_moves(t_env *env)
 	t_move *mv;
 	t_move *mv_next;
 
-	mv = env->first_move;
-	while (mv->next && (mv_next = mv->next))
+	if (env->first_move)
 	{
-		free(mv);
-		mv = mv_next;
+		mv = env->first_move;
+		while (mv->next && (mv_next = mv->next))
+		{
+			free(mv);
+			mv = mv_next;
+		}
+		mv ? free(mv) : 0;
+		env->first_move = NULL;
+		env->this_move = NULL;
 	}
-	mv ? free(mv) : 0;
-	env->first_move = NULL;
-	env->this_move = NULL;
 }
 
 void	del_move(t_env *env, t_move *mv)

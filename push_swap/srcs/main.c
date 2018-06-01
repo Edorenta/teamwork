@@ -26,7 +26,7 @@ static int			make_magic_happen(t_env *env)
 	IS_SET_S ? put_unindexed_piles(env) : 0;
 	optimize(env);
 	IS_SET_O ? pstr(2, "# operations: ", '\0') : 0;
-	IS_SET_O ? plong(2, count_moves(env), '\n') : 0;
+	IS_SET_O ? plong(2, count_moves(env->first_move), '\n') : 0;
 	!IS_SET_M ? pstr(2, "Commands:", '\n') : 0;
 	!IS_SET_M ? put_moves(env->first_move, 1, ' ') : 0;
 	deinit_env(env);

@@ -37,6 +37,7 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 	int		shuffle;
 	int		start;
 
+	pile_init(tmp_pile, env->size);
 	start = which == 'a' ? env->a1 : env->b1;
 	srand(time(NULL));
 	duplicate_pile(pile, tmp_pile, start, env->size - 1);
@@ -44,7 +45,7 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 	while (++nb_mv <= max_depth)
 	{
 		shuffle = 0;
-		while (++shuffle <= ipow(3, nb_mv))
+		while (++shuffle <= (ipow(3, nb_mv) * 2))
 		{
 			prev_mv = 0;
 			moved = 0;
@@ -70,32 +71,51 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 	return (0);
 }
 
+void			cache_init(t_move **cache, int size)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		cache[i] = NULL;
+}
+
 void			median_bruteforce(t_env *env, char which)
 {
 	int		max_mv;
 	long	pivot;
 	long	*pile;
-	
+	t_move	*cache[3];
+
+	cache_init(cache, 3);
 	pile = env->b;
 	(which == 'a') ? pile = env->a : 0;
 	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3) / 2;
-
 	pivot = (LEN_A % 2) ? env->mean : (env->mean - 1);
-	while (MIN_A <= pivot)
+	while (MIN_A <= pivot && !is_sort(env->a, env->a1, env->size -1))
 	{
 		while (A1 > pivot)
 			ra_or_rra(env, pivot) == 1 ? RA : RRA;
 		PB;
 	}
-	dprintf(2, "after median sort:\n");
-	put_piles(env);
-	jack(env, 'a', env->a, max_mv);
-	jack(env, 'b', env->b, max_mv);
+	cache[0] = cache_moves(env);
+	//put_moves(cache[0], 1, ' ');
+	!is_sort(env->a, env->a1, env->size -1) ? jack(env, 'a', env->a, max_mv) : 0;
+	cache[1] = cache_moves(env);
+	//put_moves(cache[1], 1, ' ');
+	!is_rev_sort(env->b, env->b1, env->size -1) ? jack(env, 'b', env->b, max_mv) : 0;
+	dprintf(2, "1\n");
+	cache[2] = cache_moves(env);
+	dprintf(2, "2\n");
+	//put_moves(cache[2], 1, ' ');
+	//PARALLEL MERGE BETWEEN C1 AND C2 BEFORE QUEUE MERGE >> BEST RESULT EVA <<
+	queue_caches_merge(env, cache, 3);
+//	pstr(2, "merged:", '\n');
+	//put_moves(env->first_move, 1, ' ');
 	while (B1 != NONE)
 		PA;
-	optimize(env);
-	dprintf(2, "after bruteforce:\n");
-	put_piles(env);
+	//pstr(2, "after bruteforce:", '\n');
+	//put_piles(env);
 }
 
 void			bruteforce(t_env *env, char which)

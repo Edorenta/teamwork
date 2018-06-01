@@ -1,4 +1,4 @@
-s/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   piles_utils2.c                                     :+:      :+:    :+:   */
@@ -49,10 +49,8 @@ double	mean_value(long *pile, int start, int end)
 	i = start - 1;
 	sum = 0;
 	if (end - start > 2)
-	{
 		while (++i <= end)
 			sum += pile[i];
-	}
 	return ((end - start > 2) ? (double)sum / (double)(i - start) : 0);
 }
 
