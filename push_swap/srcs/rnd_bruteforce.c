@@ -71,15 +71,6 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 	return (0);
 }
 
-void			cache_init(t_move **cache, int size)
-{
-	int i;
-
-	i = -1;
-	while (++i < size)
-		cache[i] = NULL;
-}
-
 void			median_bruteforce(t_env *env, char which)
 {
 	int		max_mv;

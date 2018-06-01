@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+void			cache_init(t_move **cache, int size)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		cache[i] = NULL;
+}
+
 t_move			*queue_caches_merge(t_move **cache, int size)
 {
 	t_move *merge;
