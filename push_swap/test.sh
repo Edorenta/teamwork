@@ -23,7 +23,12 @@ run()
 	cd ../..
 	./push_swap -mto $(cat _visualizer/unsorted_list.txt) > tmp.txt
 	#typeset -i CNT=$(cat tmp.txt)
-	let "CNT=$(cat tmp.txt)"
+	if [ -s tmp.txt ]
+	then
+		let "CNT=$(cat tmp.txt)"
+	else	
+		let "CNT = 0"
+	fi
 	#$SUM=$(( SUM + CNT ))
 	let "SUM+=$CNT"
 	if [ "$CNT" -lt "$MIN" ]
