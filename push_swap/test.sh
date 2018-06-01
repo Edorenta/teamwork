@@ -17,13 +17,14 @@ run()
 }
 
 START=1
-END=20
+END=${2:-20}
 
-echo "Sorting ${1} integers $END times:" 
+echo "Sorting ${1:-5} integers $END times:" 
 for (( c=$START; c<=$END; c++ ))
 do
-	run ${1}
-	#echo $CNT
+	printf "### test %d ###\n" $c
+	run ${1:-5}
+	echo
 done
 
 : <<'EOC'
