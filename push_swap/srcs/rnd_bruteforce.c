@@ -39,7 +39,7 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 
 	pile_init(tmp_pile, env->size);
 	start = which == 'a' ? env->a1 : env->b1;
-	srand(time(NULL));
+	seed();
 	duplicate_pile(pile, tmp_pile, start, env->size - 1);
 	nb_mv = 0;
 	while (++nb_mv <= max_depth)

@@ -106,6 +106,7 @@ struct			s_env
 
 int				rnd(void);
 void			srnd(unsigned int seed);
+void			seed(void);
 int				slen(char *s);
 int				scmp(const char *s1, const char *s2);
 long			labs(long n);

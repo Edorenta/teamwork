@@ -4,7 +4,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main (int ac, char **av)
+void	seed(void)
+{
+	size_t epoch_seed = (size_t)time(NULL);
+	size_t *x;
+	size_t a_seed = (size_t)&x;
+	size_t seed = epoch_seed / (a_seed %= 1111);
+	srand(seed);
+}
+
+int		main (int ac, char **av)
 {
 	time_t			t;
     int 			r;
@@ -22,8 +31,8 @@ int main (int ac, char **av)
     unsigned int 	range = 1 + max - min;
     unsigned int 	buckets = RAND_MAX / range;
     unsigned int 	limit = buckets * range;
-	dprintf(2, "<!> generating %d random integers in [%d;%d] in unsorted_list.txt\n", n, min, max);
-	srand((unsigned) time(&t));
+	//dprintf(2, "<!> generating %d random integers in [%d;%d] in unsorted_list.txt\n", n, min, max);
+	seed();
 	for(int i = 0; i < n; i++)
 	{	
 		unique = 1;
