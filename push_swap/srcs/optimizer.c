@@ -33,9 +33,9 @@ int				optimize(t_env *env)
 	t_move	*iter;
 
 	iter = env->first_move;
-	while (iter != NULL)
+	while (iter)
 	{
-		if (iter->next != NULL)
+		if (iter->next)
 		{
 			if (reduce_check(iter, "ra", "rb") == 1)
 			{

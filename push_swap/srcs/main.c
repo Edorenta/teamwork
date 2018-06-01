@@ -20,11 +20,13 @@ static int			make_magic_happen(t_env *env)
 	IS_SET_R ? pstr(2, "Piles rebased before sort:", '\n') : 0;
 	IS_SET_R ? put_piles(env) : 0;
 	sort_pile(env);
+	optimize(env);
+	//pstr(2, "moves:\n", '\0');
+	//put_moves(env->first_move, 1, ' ');
 	IS_SET_R ? pstr(2, "Piles rebased after sort:", '\n') : 0;
 	IS_SET_R ? put_piles(env) : 0;
 	IS_SET_S ? pstr(2, "Piles after sort:", '\n') : 0;
 	IS_SET_S ? put_unindexed_piles(env) : 0;
-	optimize(env);
 	IS_SET_O ? pstr(2, "# operations: ", '\0') : 0;
 	IS_SET_O ? plong(2, count_moves(env->first_move), '\n') : 0;
 	!IS_SET_M ? pstr(2, "Commands:", '\n') : 0;

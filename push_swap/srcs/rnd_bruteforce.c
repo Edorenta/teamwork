@@ -104,18 +104,16 @@ void			median_bruteforce(t_env *env, char which)
 	cache[1] = cache_moves(env);
 	//put_moves(cache[1], 1, ' ');
 	!is_rev_sort(env->b, env->b1, env->size -1) ? jack(env, 'b', env->b, max_mv) : 0;
-	dprintf(2, "1\n");
 	cache[2] = cache_moves(env);
-	dprintf(2, "2\n");
 	//put_moves(cache[2], 1, ' ');
 	//PARALLEL MERGE BETWEEN C1 AND C2 BEFORE QUEUE MERGE >> BEST RESULT EVA <<
-	queue_caches_merge(env, cache, 3);
-//	pstr(2, "merged:", '\n');
-	//put_moves(env->first_move, 1, ' ');
+	env->first_move = queue_caches_merge(cache, 3);
+	env->this_move = env->first_move;
+	if (env->this_move)
+		while (env->this_move->next)
+			env->this_move = env->this_move->next;
 	while (B1 != NONE)
 		PA;
-	//pstr(2, "after bruteforce:", '\n');
-	//put_piles(env);
 }
 
 void			bruteforce(t_env *env, char which)
@@ -126,5 +124,6 @@ void			bruteforce(t_env *env, char which)
 	pile = env->b;
 	(which == 'a') ? pile = env->a : 0;
 	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3);
-	jack(env, which, pile, max_mv);
+	max_mv > 15 ? (max_mv = 12) : 0;
+	!jack(env, which, pile, max_mv) ? median_bruteforce(env, which) : 0;
 }

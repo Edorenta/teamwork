@@ -25,8 +25,6 @@ int					sort_pile(t_env *env)
 		ladder_split(env, step);
 		insert_b(env, step, fract);
 	}
-	else if (env->size > 6)
-		median_bruteforce(env, 'a');
 	else
 		bruteforce(env, 'a');
 	return (all_sort(env) ? 1 : 0);

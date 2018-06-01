@@ -38,30 +38,28 @@ void	del_move(t_env *env, t_move *mv)
 
 	if (mv && env->first_move)
 	{
-		//dprintf(2, "1\n");
 		prev = mv->prev;
 		next = mv->next;
 		if (mv == env->this_move && mv == env->first_move){
 			env->this_move = NULL;
 			env->first_move = NULL;
-			//dprintf(2, "2\n");
 		}
 
 		else if (mv == env->this_move){
-			env->this_move = (prev ? prev : NULL);
-			prev->next = NULL;
+			prev ? (env->this_move = prev) : (env->this_move = NULL);
+			env->this_move ? env->this_move->next = NULL : 0;
 		}
-		//dprintf(2, "3\n");
-		//dprintf(2, "4\n");
-		if (env->this_move != NULL && prev && next)
+		if (env->this_move && prev && next)
 		{
 			prev->next = next;
 			next->prev = prev;
 		}
-		else if (prev && env->this_move != env->first_move)
+		else if (prev && env->this_move != env->first_move){
 			prev->next = NULL;
-		else if (next && env->this_move != env->first_move)
+		}
+		else if (next && env->this_move != env->first_move){
 			next->prev = NULL;
+		}
 		free(mv);
 	}
 }

@@ -12,34 +12,40 @@
 
 #include "push_swap.h"
 
-void		queue_caches_merge(t_env *env, t_move **cache, int size)
+t_move			*queue_caches_merge(t_move **cache, int size)
 {
-	int	i;
+	t_move *merge;
+	t_move *start;
+	int		i;
 
-	del_moves(env);
+	merge = NULL;
+	start = NULL;
 	i = -1;
 	while (++i < size)
 	{
 		if (cache[i])
 		{
+			//pstr(2, "to merge:\n", '\0');
 			//put_moves(cache[i], 1, ' ');
-			env->first_move ? 0 : (env->first_move = cache[i]);
-			if (env->this_move)
+			//put_moves(cache[i], 1, ' ');
+			!merge ? (merge = cache[i]) : 0;
+			!start ? (start = merge) : 0;
+			if (merge != cache[i])
 			{
-				env->this_move->next = cache[i];
-				env->this_move = env->this_move->next;
+				merge->next = cache[i];
+				merge = merge->next;
 			}
-			else
-				env->this_move = cache[i];
 			while (cache[i]->next)
 			{
 				cache[i] = cache[i]->next;
-				env->this_move->next = cache[i];
-				env->this_move = env->this_move->next;
+				merge->next = cache[i];
+				merge = merge->next;
 			}
 		}
 	}
-	optimize(env);
+	//pstr(2, "merged:\n", '\0');
+	//put_moves(start, 1, ' ');
+	return (start);
 	//put_moves(env->first_move, 1, ' ');
 }
 
@@ -118,20 +124,4 @@ t_move *cache_moves(t_env *env)
 	//	dprintf(2, "did not cache\n");
 	del_moves(env);
 	return (cache);
-}
-
-void		get_cache(t_env *env, t_move *cache)
-{
-	t_move *tmp;
-
-	if (cache)
-	{
-		tmp = cache;
-		del_moves(env);
-		env->first_move = tmp;
-		while (tmp->next)
-			tmp = tmp->next;
-		env->this_move = tmp;
-	}
-	free_cache(cache);
 }

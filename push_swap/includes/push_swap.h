@@ -104,6 +104,8 @@ struct			s_env
  * BASICS
  */
 
+int				rnd(void);
+void			srnd(unsigned int seed);
 int				slen(char *s);
 int				scmp(const char *s1, const char *s2);
 long			labs(long n);
@@ -190,10 +192,9 @@ int				count_moves(t_move *start);
  */
 
 t_move			*cache_moves(t_env *env);
-void			parallel_caches_merge(t_env *env, t_move *cache1, t_move *cache2);
-void			queue_caches_merge(t_env *env, t_move **cache, int size);
+t_move			*parallel_caches_merge(t_move *cache1, t_move *cache2);
+t_move			*queue_caches_merge(t_move **cache, int size);
 void			free_cache(t_move *cache);
-void			get_cache(t_env *env, t_move *cache);
 void			cache_init(t_move **cache, int size);
 
 /*

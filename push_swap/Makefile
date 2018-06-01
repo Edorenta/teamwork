@@ -37,6 +37,7 @@ COMMON =	move_utils \
 			interpret \
 			optimizer \
 			rnd_bruteforce \
+			random
 			#backtrack_bruteforce
 
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))

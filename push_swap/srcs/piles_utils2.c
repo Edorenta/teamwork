@@ -18,7 +18,7 @@ int		is_sort(long *pile, int start, int end)
 
 	i = start - 1;
 	while (++i < end)
-		if (pile[i] >= pile[i + 1])
+		if (pile[i] != pile[i + 1] - 1)
 			return (0);
 	return (1);
 }
@@ -29,7 +29,7 @@ int		is_rev_sort(long *pile, int start, int end)
 
 	i = end + 1;
 	while (--i > start)
-		if (pile[i] >= pile[i - 1])
+		if (pile[i] != pile[i - 1] - 1)
 			return (0);
 	return (1);
 }
