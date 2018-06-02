@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/29 15:52:57 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 18:51:47 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 		spaces_in(av[i]) ? split_to_pile(env, av[i], spaces_in(av[i]) + 1)
 		: push_to_pile(env, av[i]);
 	env->b1 = env->size - 1;
+	env->b1 <= 0 ? put_error(env, "Error: wrong input") : 0;
 	return (1);
 }

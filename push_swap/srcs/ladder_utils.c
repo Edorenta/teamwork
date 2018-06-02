@@ -95,7 +95,7 @@ double	optimize_fract(t_env *env, double min, double max, int step)
 	long	mv_cnt;
 	long	tmp_pile[env->size];
 
-	fract = min - 1;
+	fract = min - 0.25;
 	duplicate_pile(env->a, tmp_pile, env->a1, env->size - 1);
 	mv_cnt = (long)env->size * 1000;
 	while ((fract += 0.25) <= max)
