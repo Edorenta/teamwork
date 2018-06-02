@@ -25,12 +25,12 @@ run()
 	#typeset -i CNT=$(cat tmp.txt)
 	if [ -s tmp.txt ]
 	then
-		let "CNT=$(cat tmp.txt)"
+		let "CNT=$(tr -d '\0' < tmp.txt)"
 	else	
-		let "CNT = 0"
+		let "CNT=0"
 	fi
 	#$SUM=$(( SUM + CNT ))
-	let "SUM+=$CNT"
+		let "SUM+=$CNT"
 	if [ "$CNT" -lt "$MIN" ]
 	then
 		let "MIN=$CNT"
