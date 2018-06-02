@@ -29,7 +29,7 @@ static int		get_room(t_env *env, const char *p, int state)
 		else
 			tmp[2][++y] = p[i];
 	tmp[2][++y] = '\0';
-	return ((new_room(env, tmp)) ? 1 : 0);
+	return ((new_room(env, tmp[0], ft_atol(tmp[1]), ft_atol(tmp[2])) ? 1 : 0));
 }
 
 static int		get_link(t_env *env, const char *p)
@@ -46,14 +46,14 @@ static int		get_link(t_env *env, const char *p)
 		else
 			tmp[i] = p[i];
 	tmp[i + 1] = '\0';
-	str_to_room(env, tmp, room1);
+	room1 = str_to_room(env, tmp);
 	while (p[++i])
 		if (is_space(p[i]))
 			return (0);
 		else
 			tmp[i] = p[i];
 	tmp[i + 1] = '\0';
-	str_to_room(env, tmp, room2);
+	room2 = str_to_room(env, tmp);
 	room1->links->next->linked_room = room2;
 	room2->links->next->linked_room = room1;
 	return (1);

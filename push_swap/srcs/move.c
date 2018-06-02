@@ -71,7 +71,7 @@ void	rotate(t_env *env, char which)
 	archive_move(env, "r", which, env->this_move);
 }
 
-void	reverse_rotate(t_env *env, char which)
+void	rev_rotate(t_env *env, char which)
 {
 	long	*pile;
 	int		tmp;

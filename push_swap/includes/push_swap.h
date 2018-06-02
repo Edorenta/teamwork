@@ -33,9 +33,9 @@
 # define RA				rotate(env, 'a')
 # define RB				rotate(env, 'b')
 # define RR				combine(rotate, env)
-# define RRA			reverse_rotate(env, 'a')
-# define RRB			reverse_rotate(env, 'b')
-# define RRR			combine(reverse_rotate, env)
+# define RRA			rev_rotate(env, 'a')
+# define RRB			rev_rotate(env, 'b')
+# define RRR			combine(rev_rotate, env)
 
 # define A1				env->a[env->a1]
 # define A2				env->a[env->a1 == env->size ? env->a1 : env->a1 + 1]
@@ -107,6 +107,7 @@ struct			s_env
  */
 
 int				rnd(void);
+int				ipow(int a, int power);
 void			srnd(unsigned int seed);
 void			seed(void);
 int				slen(char *s);
@@ -167,7 +168,7 @@ int				all_sort(t_env *env);
 void			push(t_env *env, char to);
 void			swap(t_env *env, char which);
 void			rotate(t_env *env, char which);
-void			reverse_rotate(t_env *env, char which);
+void			rev_rotate(t_env *env, char which);
 void			combine(void (*move)(t_env *, char), t_env *env);
 void			move_push(t_env *env, char *p, int i);
 void			move_swap(t_env *env, char *p, int i);

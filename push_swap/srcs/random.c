@@ -20,10 +20,14 @@ static unsigned long int next = 1;
 
 void	seed(void)
 {
-	size_t epoch_seed = (size_t)time(NULL);
+	size_t epoch_seed;
 	size_t *x;
-	size_t a_seed = (size_t)&x;
-	size_t seed = epoch_seed / (a_seed %= 1111);
+	size_t a_seed;
+	size_t seed;
+
+	epoch_seed = (size_t)time(NULL);
+	a_seed = (size_t)&x;
+	seed = epoch_seed / (a_seed %= 1111);
 	srand(seed);
 }
 

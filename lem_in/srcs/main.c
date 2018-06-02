@@ -1,12 +1,5 @@
 #include "lem_in.h"
 
-static void		sig_handler(int sig)
-{
-	signal(sig, SIG_IGN);
-	pstr(2, ("\rLem-in Force Quit\n"), '\0');
-	exit(0);
-}
-
 static void		make_magic_happen(t_env *env)
 {
 	solve(env);

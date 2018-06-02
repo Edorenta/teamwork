@@ -1,4 +1,28 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
+/*   Updated: 2018/05/23 18:03:08 by fmadura          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int			scmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		++s1;
+		++s2;
+	}
+	return (*s1 - *s2);
+}
 
 int			pstr(int fd, const char *s, char end)
 {
@@ -26,16 +50,6 @@ int			plong(int fd, long n, char end)
 	write(fd, &str, 15);
 	write(fd, &end, 1);
 	return (1);
-}
-
-int			scmp(const char *s1, const char *s2)
-{
-	while (*s1 == *s2 && *s1 && *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 int			scat(char *dest, const char *src, const char c)

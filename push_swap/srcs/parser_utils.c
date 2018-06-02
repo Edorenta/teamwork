@@ -12,6 +12,21 @@
 
 #include "push_swap.h"
 
+int			ipow(int a, int power)
+{
+	int ret;
+
+	ret = 1;
+	while (power > 0)
+	{
+		if (power & 1)
+			ret *= a;
+		a *= a;
+		power >>= 1;
+	}
+	return (ret);
+}
+
 int			no_duplicates(long *pile, int size)
 {
 	long *i;
@@ -57,23 +72,4 @@ int			full_digits(const char *str)
 int			is_int(char *av)
 {
 	return (av && (ft_atol(av) >= -2147483648 && ft_atol(av) <= 2147483647));
-}
-
-long		ft_atol(const char *str)
-{
-	long		nb;
-	long		sign;
-
-	nb = NONE;
-	while (is_space(*str))
-		++str;
-	if (!(*str))
-		return (NONE);
-	sign = *str == '-' ? -1 : 1;
-	if (*str == '+' || *str == '-')
-		++str;
-	nb = 0;
-	while (*str && is_digit(*str))
-		nb = 10 * nb + (*(str++) - '0');
-	return (*str == '\0' ? nb * sign : NONE);
 }

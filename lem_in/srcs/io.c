@@ -1,18 +1,26 @@
-int		get_lines(t_env *env)
+int				get_lines(t_env *env)
 {
-	static char input[1024] = {0};
+	static char input[10240] = {0};
 	char		*p;
 	char		c;
 	int			i;
+	int			handler;
 
 	p = (char *)input;
 	while (1)
 	{
 		i = -1;
-		while ((read(0, &c, 1) > 0) && (c != 13 && c != 10))
+		while ((handler = read(0, &c, 1)) >= 0)
+		{
 			p[++i] = c;
-		p[++i] = '\0';
-		interpret_line(env, p);
+			!handler ? sig_handler(SIGINT) : 0;
+			if (c == 10)
+			{
+				p[i] = '\0';
+				*p ? interpret_moves(env, p) : 0;
+				i = -1;
+			}
+		}
 	}
 	return (1);
 }

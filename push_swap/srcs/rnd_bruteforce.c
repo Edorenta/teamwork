@@ -12,30 +12,30 @@
 
 #include "push_swap.h"
 
-static int		ipow(int a, int power)
+static void		generate_rnd_moves(t_env *env, char which, int nb_mv)
 {
-	int ret;
+	static int		prev_mv;
+	int				rnd_mv;
+	int				moved;
 
-	ret = 1;
-	while (power > 0)
+	prev_mv = 0;
+	moved = 0;
+	while(moved < nb_mv)
 	{
-		if (power & 1)
-			ret *= a;
-		a *= a;
-		power >>= 1;
+		rnd_mv = (1 + (rand() / (RAND_MAX / 3)));
+		(rnd_mv == 1 && prev_mv != 1 && ++moved) ? swap(env, which) : 0;
+		(rnd_mv == 2 && prev_mv != 3 && ++moved) ? rotate(env, which) : 0;
+		(rnd_mv == 3 && prev_mv != 2 && ++moved) ? rev_rotate(env, which) : 0;
+		prev_mv = rnd_mv;
 	}
-	return (ret);
 }
 
 static int		jack(t_env *env, char which, long *pile, int max_depth)
 {
 	long	tmp_pile[env->size];
-	int		rnd_mv;
-	int		prev_mv;
-	int		moved;
+	int		start;
 	int		nb_mv;
 	int		shuffle;
-	int		start;
 
 	pile_init(tmp_pile, env->size);
 	start = which == 'a' ? env->a1 : env->b1;
@@ -45,30 +45,27 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 	while (++nb_mv <= max_depth)
 	{
 		shuffle = 0;
-		while (++shuffle <= (ipow(3, nb_mv) * 2))
+		while (++shuffle <= (ipow(3, nb_mv) * 3))
 		{
-			prev_mv = 0;
-			moved = 0;
-			while(moved < nb_mv)
-			{
-				rnd_mv = (1 + (rand() / (RAND_MAX / 3)));
-				(rnd_mv == 1 && prev_mv != 1 && ++moved) ? swap(env, which) : 0;
-				(rnd_mv == 2 && prev_mv != 3 && ++moved) ? rotate(env, which) : 0;
-				(rnd_mv == 3 && prev_mv != 2 && ++moved) ? reverse_rotate(env, which) : 0;
-				prev_mv = rnd_mv;
-			}
-			//put_moves(env->first_move, 1, ' ');
+			generate_rnd_moves(env, which, nb_mv);
 			if ((which == 'a' && is_sort(pile, start, env->size - 1))
-				|| (which == 'b' && is_rev_sort(pile, start, env->size - 1))){
-				//dprintf(2, "\r>> SUCCESS!! <<\n");	
+				|| (which == 'b' && is_rev_sort(pile, start, env->size - 1)))
 				return (1);
-			}
-			//dprintf(2, "\rfail #%d!", shuffle);
 			del_moves(env);
 			duplicate_pile(tmp_pile, pile, start, env->size - 1);
 		}
 	}
 	return (0);
+}
+
+static void		merge_afterwork(t_env *env)
+{
+	env->this_move = env->first_move;
+	if (env->this_move)
+		while (env->this_move->next)
+			env->this_move = env->this_move->next;
+	while (B1 != NONE)
+		PA;
 }
 
 void			median_bruteforce(t_env *env, char which)
@@ -82,7 +79,7 @@ void			median_bruteforce(t_env *env, char which)
 	pile = env->b;
 	(which == 'a') ? pile = env->a : 0;
 	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3) / 2;
-	pivot = (LEN_A % 2) ? env->mean : (env->mean - 1);
+	pivot = ((which == 'a' ? LEN_A : LEN_B) % 2) ? env->mean : (env->mean - 1);
 	while (MIN_A <= pivot && !is_sort(env->a, env->a1, env->size -1))
 	{
 		while (A1 > pivot)
@@ -90,21 +87,14 @@ void			median_bruteforce(t_env *env, char which)
 		PB;
 	}
 	cache[0] = cache_moves(env);
-	//put_moves(cache[0], 1, ' ');
-	!is_sort(env->a, env->a1, env->size -1) ? jack(env, 'a', env->a, max_mv) : 0;
+	!is_sort(env->a, env->a1, env->size -1)
+	? jack(env, 'a', env->a, max_mv) : 0;
 	cache[1] = cache_moves(env);
-	//put_moves(cache[1], 1, ' ');
-	!is_rev_sort(env->b, env->b1, env->size -1) ? jack(env, 'b', env->b, max_mv) : 0;
+	!is_rev_sort(env->b, env->b1, env->size -1)
+	? jack(env, 'b', env->b, max_mv) : 0;
 	cache[2] = cache_moves(env);
-	//put_moves(cache[2], 1, ' ');
-	//PARALLEL MERGE BETWEEN C1 AND C2 BEFORE QUEUE MERGE >> BEST RESULT EVA <<
 	env->first_move = queue_caches_merge(cache, 3);
-	env->this_move = env->first_move;
-	if (env->this_move)
-		while (env->this_move->next)
-			env->this_move = env->this_move->next;
-	while (B1 != NONE)
-		PA;
+	merge_afterwork(env);
 }
 
 void			bruteforce(t_env *env, char which)
