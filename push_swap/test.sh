@@ -5,6 +5,7 @@ echo "<!> compiling random unique number generator"
 gcc rnd_int.c -o rnd_int.exe
 cd ../../
 touch tmp.txt
+mkdir -p logs
 
 START=1
 END=${2:-20}
@@ -45,8 +46,8 @@ printf "\n | TEST\t| MOVES\t| STATE\t|\n"
 for (( c=$START; c<=$END; c++ ))
 do
 	run ${1:-5}
-	printf " | %d\t| %d\t| %s\t|" $c $CNT $STATUS
-	echo
+	printf " | %d\t| %d\t| %s\t|\n" $c $CNT $STATUS
+	mv _visualizer/unsorted_list.txt logs/test_$c.txt
 done
 
 rm tmp.txt
