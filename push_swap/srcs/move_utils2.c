@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:17:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 17:18:39 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 21:36:17 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	del_move(t_env *env, t_move *mv)
 	{
 		prev = mv->prev;
 		next = mv->next;
-		if (mv == env->this_move && mv == env->first_move){
+		if (mv == env->this_move && mv == env->first_move)
+		{
 			env->this_move = NULL;
 			env->first_move = NULL;
 		}
-
-		else if (mv == env->this_move){
+		else if (mv == env->this_move)
+		{
 			prev ? (env->this_move = prev) : (env->this_move = NULL);
 			env->this_move ? env->this_move->next = NULL : 0;
 		}
@@ -54,21 +55,16 @@ void	del_move(t_env *env, t_move *mv)
 			prev->next = next;
 			next->prev = prev;
 		}
-		else if (prev && env->this_move != env->first_move){
+		else if (prev && env->this_move != env->first_move)
 			prev->next = NULL;
-		}
-		else if (next && env->this_move != env->first_move){
+		else if (next && env->this_move != env->first_move)
 			next->prev = NULL;
-		}
 		free(mv);
 	}
 }
 
 void	undo_move(t_env *env, t_move *mv)
 {
-	//dprintf(2, "before move undo:\n");
-	//put_moves(env->first_move, 1, ' ');
-	//dprintf(2, "\n");
 	(!scmp(mv->id, "pa")) ? PB : 0;
 	(!scmp(mv->id, "pb")) ? PA : 0;
 	(!scmp(mv->id, "ra") || !scmp(mv->id, "rr")) ? RRA : 0;
@@ -81,9 +77,6 @@ void	undo_move(t_env *env, t_move *mv)
 	? del_move(env, env->this_move) : 0;
 	del_move(env, env->this_move);
 	del_move(env, env->this_move);
-	//dprintf(2, "after move redo:\n");
-	//put_moves(env->first_move, 1, ' ');
-	//dprintf(2, "\n");
 }
 
 void	put_move(t_move *mv, char end)

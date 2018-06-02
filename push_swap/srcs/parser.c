@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/02 19:34:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 21:29:19 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 	i = 0;
 	while (++i < ac && av[i] && av[i][0] == '-')
 	{
-		get_option(env, av[i]);		
+		get_option(env, av[i]);
 		opt++;
 		--env->size;
 	}

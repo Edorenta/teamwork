@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 18:03:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 20:16:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ long		ft_atol(const char *str)
 	long		sign;
 
 	nb = NONE;
-	while (is_space(*str))
+	while (*str && is_space(*str))
 		++str;
 	if (!(*str))
 		return (NONE);
@@ -80,5 +80,7 @@ long		ft_atol(const char *str)
 	nb = 0;
 	while (*str && is_digit(*str))
 		nb = 10 * nb + (*(str++) - '0');
+	while (*str && is_space(*str))
+		++str;
 	return (*str == '\0' ? nb * sign : NONE);
 }

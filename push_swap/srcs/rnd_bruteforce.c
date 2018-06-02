@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 14:08:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 21:29:04 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		generate_rnd_moves(t_env *env, char which, int nb_mv)
 
 	prev_mv = 0;
 	moved = 0;
-	while(moved < nb_mv)
+	while (moved < nb_mv)
 	{
 		rnd_mv = (1 + (rand() / (RAND_MAX / 3)));
 		(rnd_mv == 1 && prev_mv != 1 && ++moved) ? swap(env, which) : 0;
@@ -79,19 +79,18 @@ void			median_bruteforce(t_env *env, char which)
 	pile = env->b;
 	(which == 'a') ? pile = env->a : 0;
 	max_mv = ((which == 'a' ? LEN_A : LEN_B) * 3) / 2;
-	pivot = ((which == 'a' ? LEN_A : LEN_B) % 2) ? env->mean : (env->mean - 1);
-	while (MIN_A <= pivot && !is_sort(env->a, env->a1, env->size -1))
+	pivot = which == 'a' ? LEN_A : LEN_B;
+	pivot = pivot % 2 ? env->mean : env->mean - 1;
+	while (MIN_A <= pivot && !(SORT_A))
 	{
 		while (A1 > pivot)
 			ra_or_rra(env, pivot) == 1 ? RA : RRA;
 		PB;
 	}
 	cache[0] = cache_moves(env);
-	!is_sort(env->a, env->a1, env->size -1)
-	? jack(env, 'a', env->a, max_mv) : 0;
+	!(SORT_A) ? jack(env, 'a', env->a, max_mv) : 0;
 	cache[1] = cache_moves(env);
-	!is_rev_sort(env->b, env->b1, env->size -1)
-	? jack(env, 'b', env->b, max_mv) : 0;
+	!(RSORT_B) ? jack(env, 'b', env->b, max_mv) : 0;
 	cache[2] = cache_moves(env);
 	env->first_move = queue_caches_merge(cache, 3);
 	merge_afterwork(env);

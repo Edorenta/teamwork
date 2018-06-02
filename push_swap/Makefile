@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/02 18:35:28 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/06/02 20:06:27 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ COMMON =	move_utils \
 			piles_utils \
 			piles_utils2 \
 			piles_utils3 \
+			piles_utils4 \
 			ladder_sort \
 			ladder_utils \
 			interpret \

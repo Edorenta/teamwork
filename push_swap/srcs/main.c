@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/29 16:51:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 20:08:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int					main(int ac, char **av)
 	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
 		|| env.a[env.a1] == NONE || env.size == 0)
 		put_error(&env, "Error: wrong input");
-	if (ac == 2 || all_sort(&env))
+	if (ac == 2 || is_sort_precheck(env.a, 0, env.size - 1))
 	{
 		deinit_env(&env);
 		exit(0);

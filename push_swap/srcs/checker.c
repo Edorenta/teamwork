@@ -6,13 +6,13 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/29 14:10:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 21:17:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int			make_magic_happen(t_env *env)
+static int	make_magic_happen(t_env *env)
 {
 	SET_CHECKER;
 	get_moves(env);
@@ -35,7 +35,7 @@ static int			make_magic_happen(t_env *env)
 	return (1);
 }
 
-int				main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_env		env;
 

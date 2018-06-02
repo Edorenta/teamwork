@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/29 18:31:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/02 21:26:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 
 # define MEAN_A			mean_value(env->a, env->a1, (env->size - 1))
 # define MEAN_B			mean_value(env->b, env->b1, (env->size - 1))
+# define SORT_A			is_sort(env->a, env->a1, (env->size - 1))
+# define SORT_B			is_sort(env->b, env->b1, (env->size - 1))
+# define RSORT_A		is_rev_sort(env->a, env->a1, (env->size - 1))
+# define RSORT_B		is_rev_sort(env->b, env->b1, (env->size - 1))
 # define MAX_A			pile_max(env->a, env->a1, env->size - 1)
 # define MAX_B			pile_max(env->b, env->b1, env->size - 1)
 # define MIN_A			pile_min(env->a, env->a1, env->size - 1)
@@ -158,6 +162,7 @@ int				sort_pile(t_env *env);
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
 int				is_sort(long *pile, int start, int end);
+int				is_sort_precheck(long *pile, int start, int end);
 int				is_rev_sort(long *pile, int start, int end);
 int				all_sort(t_env *env);
 
