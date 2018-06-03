@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:17:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/02 21:32:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 18:00:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	seed(void)
 
 int		rnd(void)
 {
-	next = next * 1103515245 + 12345;
-	return (unsigned int)(next / 65536) % 32768;
+	g_next = g_next * 1103515245 + 12345;
+	return (unsigned int)(g_next / 65536) % 32768;
 }
 
 void	srnd(unsigned int seed)
 {
-	next = seed;
+	g_next = seed;
 }

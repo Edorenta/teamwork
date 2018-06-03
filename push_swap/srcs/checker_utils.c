@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 17:59:42 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/05/29 14:10:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 18:25:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ static int		interpret_moves(t_env *env, char *p)
 			move_push(env, p, i);
 		else if (interpret_bool(p, i, 2, 'S'))
 			move_swap(env, p, i);
-		else if (p[i + 2] && !is_space(p[i + 2])
-			&& interpret_bool(p, i, 3, 'R') &&
-			(p[i + 1] == 'r' || p[i + 1] == 'R'))
+		else if (p[i + 2] && !is_space(p[i + 2]) && interpret_bool(p, i, 3, 'R')
+				&& (p[i + 1] == 'r' || p[i + 1] == 'R'))
 		{
 			move_drot(env, p, i);
 			++i;
@@ -77,10 +76,8 @@ int				get_moves(t_env *env)
 			if (c == 10)
 			{
 				p[i] = '\0';
-				//dprintf(2, "entry: %s read: %d\n", p, handler);
 				*p ? interpret_moves(env, p) : 0;
 				g_sorted = all_sort(env);
-					//dprintf(2, "c: %d\n",(int)c);
 				i = -1;
 			}
 		}

@@ -6,62 +6,11 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:17:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/02 21:36:17 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 18:20:35 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	del_moves(t_env *env)
-{
-	t_move *mv;
-	t_move *mv_next;
-
-	if (env->first_move)
-	{
-		mv = env->first_move;
-		while (mv->next && (mv_next = mv->next))
-		{
-			free(mv);
-			mv = mv_next;
-		}
-		mv ? free(mv) : 0;
-		env->first_move = NULL;
-		env->this_move = NULL;
-	}
-}
-
-void	del_move(t_env *env, t_move *mv)
-{
-	t_move	*prev;
-	t_move	*next;
-
-	if (mv && env->first_move)
-	{
-		prev = mv->prev;
-		next = mv->next;
-		if (mv == env->this_move && mv == env->first_move)
-		{
-			env->this_move = NULL;
-			env->first_move = NULL;
-		}
-		else if (mv == env->this_move)
-		{
-			prev ? (env->this_move = prev) : (env->this_move = NULL);
-			env->this_move ? env->this_move->next = NULL : 0;
-		}
-		if (env->this_move && prev && next)
-		{
-			prev->next = next;
-			next->prev = prev;
-		}
-		else if (prev && env->this_move != env->first_move)
-			prev->next = NULL;
-		else if (next && env->this_move != env->first_move)
-			next->prev = NULL;
-		free(mv);
-	}
-}
 
 void	undo_move(t_env *env, t_move *mv)
 {
@@ -96,7 +45,7 @@ int		put_moves(t_move *start, int dir, char sep)
 				return (1);
 		}
 	else if (dir == 2)
-		while (start  != NULL)
+		while (start != NULL)
 		{
 			start->prev ? put_move(start, sep) : put_move(start, '\n');
 			if (start->prev)

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:22:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 14:09:19 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 18:23:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	integrity_check(t_env *env, const char *s, char c, char end)
 		while (++i < slen(p))
 			if (s[i] == c)
 				return ;
-	
 	put_error(env, "Error: wrong instruction");
 }
 
