@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/02 21:26:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/04 19:51:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <signal.h>
 
 /*
- * DEFINITIONS
- */
+** DEFINITIONS
+*/
 
 # define NONE			200000000
 
@@ -75,11 +75,11 @@
 # define SET_CHECKER	(env->option |= (1 << 6))
 
 /*
- * SRUCTS
- */
+** STRUCTS
+*/
 
-typedef struct	s_move	t_move;
-typedef struct	s_env	t_env;
+typedef struct s_move	t_move;
+typedef struct s_env	t_env;
 
 struct			s_move
 {
@@ -103,12 +103,11 @@ struct			s_env
 	int			mean;
 	int			min;
 	int			opt;
-	
 };
 
 /*
- * BASICS
- */
+** BASICS
+*/
 
 int				rnd(void);
 int				ipow(int a, int power);
@@ -127,11 +126,11 @@ void			init_env(t_env *env, int ac);
 void			deinit_env(t_env *env);
 
 /*
- * PARSER
- */
+** PARSER
+*/
 
 int				get_moves(t_env *env);
-int 			arg_to_piles(t_env *env, int ac, char **av);
+int				arg_to_piles(t_env *env, int ac, char **av);
 int				no_duplicates(long *pile, int size);
 int				full_digits(const char *str);
 int				spaces_in(const char *str);
@@ -139,8 +138,8 @@ long			ft_atol(const char *str);
 int				is_int(char *av);
 
 /*
- * PILES MANAGEMENT
- */
+** PILES MANAGEMENT
+*/
 
 void			duplicate_pile(long *src, long *dest, int start, int end);
 void			index_pile(t_env *env);
@@ -156,8 +155,8 @@ int				put_unindexed_piles(t_env *env);
 int				sort_pile(t_env *env);
 
 /*
- * CHECKS & ERRORS
- */
+** CHECKS & ERRORS
+*/
 
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
@@ -167,8 +166,8 @@ int				is_rev_sort(long *pile, int start, int end);
 int				all_sort(t_env *env);
 
 /*
- * MOVE OPERATIONS
- */
+** MOVE OPERATIONS
+*/
 
 void			push(t_env *env, char to);
 void			swap(t_env *env, char which);
@@ -181,13 +180,13 @@ void			move_drot(t_env *env, char *p, int i);
 void			move_rota(t_env *env, char *p, int i);
 
 /*
- * MOVE CHAINED LIST MANAGEMENT
- */
+** MOVE CHAINED LIST MANAGEMENT
+*/
 
 t_move			*new_move(const char *id, char which, t_move *prev);
 t_move			*move_dup(t_move *src, t_move *prev);
 void			insert_move(t_move *src, t_move *dest, int where);
-int				archive_move(t_env *env, const char *id, char which, t_move *prev);
+int				archive_move(t_env *e, const char *id, char w, t_move *p);
 void			del_move(t_env *env, t_move *mv);
 void			del_moves(t_env *env);
 void			undo_move(t_env *env, t_move *mv);
@@ -197,8 +196,8 @@ int				optimize(t_env *env);
 int				count_moves(t_move *start);
 
 /*
- * BRUTEFORCE CACHE MANAGEMENT
- */
+** BRUTEFORCE CACHE MANAGEMENT
+*/
 
 t_move			*cache_moves(t_env *env);
 t_move			*parallel_caches_merge(t_move *cache1, t_move *cache2);
@@ -207,8 +206,8 @@ void			free_cache(t_move *cache);
 void			cache_init(t_move **cache, int size);
 
 /*
- * LOGIC (ALL)
- */
+** LOGIC (ALL)
+*/
 
 void			bruteforce(t_env *env, char which);
 void			median_bruteforce(t_env *env, char which);
@@ -217,8 +216,8 @@ int				optimize_step(t_env *env, int min, int max, double fract);
 double			optimize_fract(t_env *env, double min, double max, int step);
 void			ladder_split(t_env *env, int steps);
 void			insert_b(t_env *env, int step, double fract);
-int 			quick_fix_a(t_env *env);
-int 			quick_fix_b(t_env *env);
+int				quick_fix_a(t_env *env);
+int				quick_fix_b(t_env *env);
 int				rot_or_revrot(t_env *env);
 int				a_or_b(t_env *env);
 int				rb_or_rrb(t_env *env, long higher, long lower);

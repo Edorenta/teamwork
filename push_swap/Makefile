@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/03 18:11:22 by fmadura          ###   ########.fr        #
+#    Updated: 2018/06/04 19:43:35 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC_SUFFIX	= .c
 #SRC_PREFIX	= 
 COMMON =	move_utils \
 			move_utils2 \
-			move_utils3 \
 			env_utils \
 			parser_utils \
 			str_utils \
