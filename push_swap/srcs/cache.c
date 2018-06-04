@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tiny_bruteforce.c                                  :+:      :+:    :+:   */
+/*   cache.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/03 18:21:37 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/04 19:41:41 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/04 19:42:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,22 @@ t_move		*queue_caches_merge(t_move **cache, int size)
 	start = NULL;
 	i = -1;
 	while (++i < size)
-		merge_if(cache, merge, start, i);
+		if (cache[i])
+		{
+			!merge ? (merge = cache[i]) : 0;
+			!start ? (start = merge) : 0;
+			if (merge != cache[i])
+			{
+				merge->next = cache[i];
+				merge = merge->next;
+			}
+			while (cache[i]->next)
+			{
+				cache[i] = cache[i]->next;
+				merge->next = cache[i];
+				merge = merge->next;
+			}
+		}
 	return (start);
 }
 
