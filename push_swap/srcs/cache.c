@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 14:08:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/04 19:29:24 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_move		*queue_caches_merge(t_move **cache, int size)
 	start = NULL;
 	i = -1;
 	while (++i < size)
-	{
 		if (cache[i])
 		{
 			!merge ? (merge = cache[i]) : 0;
@@ -48,7 +47,6 @@ t_move		*queue_caches_merge(t_move **cache, int size)
 				merge = merge->next;
 			}
 		}
-	}
 	return (start);
 }
 
