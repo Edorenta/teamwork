@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 18:26:08 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/02 20:08:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/04 19:17:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ static int			make_magic_happen(t_env *env)
 	IS_SET_R ? put_piles(env) : 0;
 	sort_pile(env);
 	optimize(env);
-	//pstr(2, "moves:\n", '\0');
-	//put_moves(env->first_move, 1, ' ');
 	IS_SET_R ? pstr(2, "Piles rebased after sort:", '\n') : 0;
 	IS_SET_R ? put_piles(env) : 0;
 	IS_SET_S ? pstr(2, "Piles after sort:", '\n') : 0;
 	IS_SET_S ? put_unindexed_piles(env) : 0;
 	(IS_SET_O && !IS_SET_T) ? pstr(2, "# operations: ", '\0') : 0;
-	(IS_SET_O || IS_SET_T) ? plong((IS_SET_T ? 1 : 2),
-		count_moves(env->first_move), '\n') : 0;
+	if (IS_SET_O || IS_SET_T)
+		plong((IS_SET_T ? 1 : 2), count_moves(env->first_move), '\n');
 	!IS_SET_M ? pstr(2, "Commands:", '\n') : 0;
 	!IS_SET_M ? put_moves(env->first_move, 1, ' ') : 0;
 	deinit_env(env);

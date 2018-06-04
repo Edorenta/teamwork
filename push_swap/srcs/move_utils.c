@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 20:01:50 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/29 17:18:25 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/04 19:16:17 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	insert_move(t_move *mv, t_move *to, int where)
 {
 	t_move *prev;
 	t_move *next;
-	
+
 	if (mv && to)
 	{
 		prev = to->prev;
