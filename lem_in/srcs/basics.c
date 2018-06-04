@@ -1,3 +1,5 @@
+#include "lem-in.h"
+
 int		is_space(const char c)
 {
 	return ((c < 14 && c > 7) || c == 32);

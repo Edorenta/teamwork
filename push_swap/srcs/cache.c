@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/29 14:08:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 18:21:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,26 @@ void		cache_init(t_move **cache, int size)
 		cache[i] = NULL;
 }
 
+static void	merge_if(t_move **cache, t_move *merge, t_move *start, int i)
+{
+	if (cache[i])
+	{
+		!merge ? (merge = cache[i]) : 0;
+		!start ? (start = merge) : 0;
+		if (merge != cache[i])
+		{
+			merge->next = cache[i];
+			merge = merge->next;
+		}
+		while (cache[i]->next)
+		{
+			cache[i] = cache[i]->next;
+			merge->next = cache[i];
+			merge = merge->next;
+		}
+	}
+}
+
 t_move		*queue_caches_merge(t_move **cache, int size)
 {
 	t_move	*merge;
@@ -31,24 +51,7 @@ t_move		*queue_caches_merge(t_move **cache, int size)
 	start = NULL;
 	i = -1;
 	while (++i < size)
-	{
-		if (cache[i])
-		{
-			!merge ? (merge = cache[i]) : 0;
-			!start ? (start = merge) : 0;
-			if (merge != cache[i])
-			{
-				merge->next = cache[i];
-				merge = merge->next;
-			}
-			while (cache[i]->next)
-			{
-				cache[i] = cache[i]->next;
-				merge->next = cache[i];
-				merge = merge->next;
-			}
-		}
-	}
+		merge_if(cache, merge, start, i);
 	return (start);
 }
 

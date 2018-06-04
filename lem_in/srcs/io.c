@@ -1,3 +1,5 @@
+#include "lem-in.h"
+
 int				get_lines(t_env *env)
 {
 	static char input[10240] = {0};
@@ -17,7 +19,7 @@ int				get_lines(t_env *env)
 			if (c == 10)
 			{
 				p[i] = '\0';
-				*p ? interpret_moves(env, p) : 0;
+				*p ? interpret_line(env, p) : 0;
 				i = -1;
 			}
 		}

@@ -3,14 +3,17 @@
 
 typedef struct s_path	t_path;
 typedef struct s_room	t_room;
+typedef struct s_rooms	t_rooms;
 typedef struct s_ant	t_ant;
 typedef struct s_env	t_env;
 typedef struct s_links	t_links;
 
 struct 			s_env
 {
+
 	t_room		*start;
 	t_room		*end;
+	t_room		*parsed_room;
 	int			nb_rooms;
 	int			nb_ants;
 	t_ant		**colony;
@@ -18,12 +21,13 @@ struct 			s_env
 
 struct			s_room
 {
-	char		*id;
+	char		id[256];
 	int			x;
 	int			y;
 	t_ant		*ant;
 	t_links		*links;
-
+	t_room		*prev;
+	t_room		*next;
 };
 
 struct			s_links
