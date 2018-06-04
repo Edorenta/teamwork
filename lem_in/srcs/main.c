@@ -2,9 +2,9 @@
 
 static void		make_magic_happen(t_env *env)
 {
-	solve(env);
-	put_anthill(env);
-	put_paths(env);
+	//solve(env);
+	//put_anthill(env);
+	//put_paths(env);
 }
 
 int				main(int ac, char **av)

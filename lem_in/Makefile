@@ -18,13 +18,16 @@ CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
 #SRC_PREFIX	= 
-COMMON =	env_utils \
-			parser_utils \
+COMMON =	main \
+			io \
+			error \
+			env_utils \
 			str_utils \
 			basics \
 			parser \
+			parser_utils \
 			interpret \
-			main \
+			anthill_builder
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
 OBJ_FILES	= $(SRC_FILES:.c=.o)

@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/23 18:03:08 by fmadura          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "push_swap.h"
+#include "lem-in.h"
 
 int			scmp(const char *s1, const char *s2)
 {
@@ -62,4 +50,25 @@ int			scat(char *dest, const char *src, const char c)
 	dest[i] = c;
 	dest[++i] = '\0';
 	return (1);
+}
+
+long		ft_atol(const char *str)
+{
+	long		nb;
+	long		sign;
+
+	nb = NONE;
+	while (*str && is_space(*str))
+		++str;
+	if (!(*str))
+		return (NONE);
+	sign = *str == '-' ? -1 : 1;
+	if (*str == '+' || *str == '-')
+		++str;
+	nb = 0;
+	while (*str && is_digit(*str))
+		nb = 10 * nb + (*(str++) - '0');
+	while (*str && is_space(*str))
+		++str;
+	return (*str == '\0' ? nb * sign : NONE);
 }

@@ -7,6 +7,7 @@ void		init_env(t_env *env, int ac)
 	env->nb_rooms = 0;
 	env->nb_ants = 0;
 	env->colony = NULL;
+	env->room = NULL;
 }
 
 void		deinit_env(t_env *env)
