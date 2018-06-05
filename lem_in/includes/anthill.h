@@ -64,3 +64,5 @@ struct			s_path
 	t_room			*current;
 	t_room			*next;
 };
+
+#endif
