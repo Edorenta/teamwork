@@ -16,7 +16,7 @@ void	print_all(t_env *env)
 {
 	plong(1, env->nb_ants, '\n');
 	print_rooms(env);
-	print_links(env);
+	print_link(env);
 }
 
 void	print_room(t_env *env)
@@ -39,7 +39,7 @@ void	print_room(t_env *env)
 	}
 }
 
-void	print_links(t_env *env)
+void	print_link(t_env *env)
 {
 	t_link *l;
 

@@ -41,15 +41,16 @@ void			put_error(t_env *env, const char *err_msg);
  * LINKS
  */
 
-t_links		*new_link(t_room *new_linked_room, t_links *prev_link);
-void		link_rooms(t_env *env, t_room *room1, t_room *room2);
+t_link			*add_link(t_room *new_linked_room, t_link *prev_link);
+void			new_link(t_env *env, t_room *room1, t_room *room2);
+void			link_rooms(t_env *env, t_room *room1, t_room *room2);
 
 /*
  * ROOMS
  */
 
-t_room		*new_room(t_env *env, char *name, long x, long y);
-t_room		*str_to_room(t_env *env, const char *s);
+t_room			*new_room(t_env *env, char *name, long x, long y);
+t_room			*str_to_room(t_env *env, const char *s);
 
 /*
  * ANTS
@@ -59,6 +60,6 @@ t_room		*str_to_room(t_env *env, const char *s);
  * PRINT
  */
 
-void	print_all(t_env *env);
-void	print_rooms(t_env *env);
-void	print_links(t_env *env);
+void			print_all(t_env *env);
+void			print_rooms(t_env *env);
+void			print_link(t_env *env);

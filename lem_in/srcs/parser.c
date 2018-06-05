@@ -37,7 +37,8 @@ static int		get_room(t_env *env, const char *p, int state)
 		else
 			tmp[2][++y] = p[i];
 	tmp[2][++y] = '\0';
-	return ((new_room(env, tmp[0], ft_atol(tmp[1]), ft_atol(tmp[2])) ? 1 : 0));
+	new_room(env, tmp[0], ft_atol(tmp[1]), ft_atol(tmp[2]));
+	return (1);
 }
 
 static int		get_link(t_env *env, const char *p)
@@ -65,14 +66,14 @@ static int		get_link(t_env *env, const char *p)
 			tmp[++j] = p[i];
 	tmp[++j] = '\0';
 	room2 = str_to_room(env, tmp);
-	link_rooms(env, room1, room2);
+	new_link(env, room1, room2);
 	return (1);
 }
 
 //here comes the manual entry interpreter
 int				interpret_line(t_env *env, const char *p)
 {
-	static char state = 0; //0 = #ants, 1 = room, 2 = start, 3 = end, 4 = links
+	static char state = 0; //0 = #ants, 1 = room, 2 = start, 3 = end, 4 = link
 
 	if (!p || (p[0] && p[0] == '#'))
 		if ((p[1] && p[1] != '#') || (p[2] && p[2] == '#'))

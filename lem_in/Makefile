@@ -21,13 +21,16 @@ SRC_SUFFIX	= .c
 COMMON =	main \
 			io \
 			error \
+			ants \
+			links \
+			rooms \
 			env_utils \
 			str_utils \
 			basics \
 			parser \
 			parser_utils \
-			interpret \
-			anthill_builder
+			anthill_builder \
+			print_anthill
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
 OBJ_FILES	= $(SRC_FILES:.c=.o)
