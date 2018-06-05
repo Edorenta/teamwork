@@ -6,11 +6,11 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 16:49:05 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/05 17:40:16 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/05 17:43:17 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		move_ant(s_env *env, int i)
+void		move_ant(t_env *env, int i)
 {
 	if (env->colony[i]->path->len > 0 && env->colony[i]->path->next_room->ant == NULL)
 	{
@@ -25,7 +25,7 @@ void		move_ant(s_env *env, int i)
 }
 
 
-void		move_colony(s_env *env)
+void		move_colony(t_env *env)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ void		move_colony(s_env *env)
 	}
 }
 
-void		print_move(s_env *env)
+void		print_move(t_env *env)
 {
 	int		i;
 
