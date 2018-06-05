@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void		move_ant(t_env *env, int i)
+void		move_ant(t_env *env, t_ant *ant)
 {
-	if (env->colony[i]->path->len > 0 && env->colony[i]->path->next_room->ant == NULL)
+	if (ant->path->len > 0 && ant->path->next_room->ant == NULL)
 	{
-		env->colony[i]->path->current->ant = NULL;
-		env->colony[i]->path->current = env->colony[i]->path->next;
-		env->colony[i]->path->current->ant = env->colony[i];
+		ant->path->current->ant = NULL;
+		ant->path->current = ant->path->next;
+		ant->path->current->ant = ant;
 		pstr(1, "L", '\0');
 		plong(1, i, '\0');
 		pstr(1, "-", '\0');
-		pstr(1, &(env->colony[i]->path->current->id[0]), '\0');
+		pstr(1, &(ant->path->current->id[0]), '\0');
 	}
 }
 
@@ -29,37 +29,11 @@ void		move_colony(t_env *env)
 {
 	int		i;
 
-	i = 0;
-	while (i < s_env)
+	while (env->colony[nb_ants - 1]->path->current != env->end)
 	{
-		move_ant(env, i);
-		i++;
-	}
-}
-
-void		print_move(t_env *env)
-{
-	int		i;
-
-	i = 0;
-	while (env->colony[env->nb_ants - 1]->path->current != env->end)
-	{
-		move_colony(env);
+		i = -1;
+		while (++i < nb_ants)
+			move_ant(env, env->colony[i]);
 		pstr(1, "\n", '\0');
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
