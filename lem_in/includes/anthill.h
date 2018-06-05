@@ -1,12 +1,13 @@
 #ifndef ANTHILL_H
 # define ANTHILL_H
 
-typedef struct s_path	t_path;
-typedef struct s_room	t_room;
-typedef struct s_rooms	t_rooms;
-typedef struct s_ant	t_ant;
-typedef struct s_env	t_env;
-typedef struct s_link	t_link;
+typedef struct s_path			t_path;
+typedef struct s_room			t_room;
+typedef struct s_ant			t_ant;
+typedef struct s_env			t_env;
+typedef struct s_link			t_link;
+typedef struct s_parsed_room	t_room;
+typedef struct s_parsed_link	t_link;
 
 struct 			s_env
 {
