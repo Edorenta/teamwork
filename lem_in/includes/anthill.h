@@ -14,6 +14,7 @@ struct 			s_env
 	t_room		*start;
 	t_room		*end;
 	t_room		*parsed_room;
+	t_links		*parsed_link;
 	t_path		*fastway;
 	int			nb_rooms;
 	int			nb_ants;
