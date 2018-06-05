@@ -2,7 +2,7 @@
 make
 cd _visualizer/c
 echo "<!> compiling random unique number generator"
-gcc rnd_int.c -o rnd_int.exe
+gcc rnd_int.o -o rnd_int.exe
 cd ../../
 touch tmp.txt
 mkdir -p logs

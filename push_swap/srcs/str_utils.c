@@ -82,5 +82,5 @@ long		ft_atol(const char *str)
 		nb = 10 * nb + (*(str++) - '0');
 	while (*str && is_space(*str))
 		++str;
-	return (*str == '\0' ? nb * sign : NONE);
+	return (nb * sign);
 }

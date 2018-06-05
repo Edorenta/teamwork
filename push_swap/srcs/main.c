@@ -39,11 +39,14 @@ int					main(int ac, char **av)
 	t_env	env;
 
 	init_env(&env, ac);
-	if (ac < 2 || !av[1] || !arg_to_piles(&env, ac, av)
-		|| env.a[env.a1] == NONE || env.size == 0)
+	if ((ac > 2 && (!av[1] || !arg_to_piles(&env, ac, av)
+		|| env.a[env.a1] == NONE || env.size == 0)))
 		put_error(&env, "Error: wrong input");
-	if (ac == 2 || is_sort_precheck(env.a, 0, env.size - 1))
+	if (ac < 2 || (ac == 2 && is_int(av[1]))
+		|| is_sort_precheck(env.a, 0, env.size - 1))
 	{
+		(ac == 2 && !is_int(av[1]))
+		? put_error(&env, "Error: arg does not fit in integer") : 0;
 		deinit_env(&env);
 		exit(0);
 	}

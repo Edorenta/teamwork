@@ -2,9 +2,9 @@
 #make push_swap
 cd _visualizer/c
 echo "<!> compiling random unique number generator"
-gcc rnd_int.c -o rnd_int.exe
+gcc rnd_int.o -o rnd_int.exe
 echo "<!> compiling json list generator"
-gcc list_jsonifier.c -o list_jsonifier.exe
+gcc list_jsonifier.o -o list_jsonifier.exe
 ./rnd_int.exe ${1:-150} ${2:-0} ${3:-149} > ../unsorted_list.txt
 ./list_jsonifier.exe "unsorted_list" "$(cat ../unsorted_list.txt)" "0" > ../unsorted_list.json 
 cd ../..
