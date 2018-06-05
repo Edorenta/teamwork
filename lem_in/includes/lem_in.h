@@ -41,10 +41,24 @@ void			put_error(t_env *env, const char *err_msg);
  * LINKS
  */
 
+t_links		*new_link(t_room *new_linked_room, t_links *prev_link);
+void		link_rooms(t_env *env, t_room *room1, t_room *room2);
+
 /*
  * ROOMS
  */
 
+t_room		*new_room(t_env *env, char *name, long x, long y);
+t_room		*str_to_room(t_env *env, const char *s);
+
 /*
  * ANTS
  */
+
+/*
+ * PRINT
+ */
+
+void	print_all(t_env *env);
+void	print_rooms(t_env *env);
+void	print_links(t_env *env);

@@ -44,15 +44,15 @@ void	print_links(t_env *env)
 	t_link *l;
 
 	l = env->parsed_link;
-	if (l)
+	if (l & l->next)
 	{
-		//print first link
-		...
-		//print others
-		while(l->next)
+		pstr(1, &(l->linked_room->id), '-');
+		pstr(1, &(l->next->linked_room->id), '\n');
+		while(l->next->next && l->next->next->next)
 		{
-			l = l->next;
-			...
+			l = l->next->next;
+			pstr(1, &(l->linked_room->id), '-');
+			pstr(1, &(l->next->linked_room->id), '\n');
 		}
 	}
 }
