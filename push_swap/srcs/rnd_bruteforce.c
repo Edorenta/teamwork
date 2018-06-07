@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 09:13:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/02 21:29:04 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/07 17:20:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		generate_rnd_moves(t_env *env, char which, int nb_mv)
 	moved = 0;
 	while (moved < nb_mv)
 	{
-		rnd_mv = (1 + (rand() / (RAND_MAX / 3)));
+		rnd_mv = (1 + (rnd() / (RAND_MAX / 3)));
 		(rnd_mv == 1 && prev_mv != 1 && ++moved) ? swap(env, which) : 0;
 		(rnd_mv == 2 && prev_mv != 3 && ++moved) ? rotate(env, which) : 0;
 		(rnd_mv == 3 && prev_mv != 2 && ++moved) ? rev_rotate(env, which) : 0;
@@ -39,7 +39,7 @@ static int		jack(t_env *env, char which, long *pile, int max_depth)
 
 	pile_init(tmp_pile, env->size);
 	start = which == 'a' ? env->a1 : env->b1;
-	seed();
+	rnd();
 	duplicate_pile(pile, tmp_pile, start, env->size - 1);
 	nb_mv = 0;
 	while (++nb_mv <= max_depth)

@@ -6,36 +6,33 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 19:40:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/04 19:40:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/07 17:19:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static unsigned long int g_next = 1;
+static long int g_next = -1;
 
 /*
 ** RAND_MAX assumed to be 32767, as with rand() srand()
 */
 
-void	seed(void)
+static int	rnd_calc(int seed, int increment, int modulus, int multiplier)
 {
-	size_t *x;
-	size_t a_seed;
-	size_t seed;
+	return ((multiplier * seed + increment) % modulus);
+}
 
-	a_seed = (size_t)&x;
-	seed = (a_seed %= 1111);
-	srand(seed);
+static int	rnd_(int seed)
+{
+	return (rnd_calc(seed, 1013904223, INT_MAX, 1664525));
 }
 
 int		rnd(void)
 {
-	g_next = g_next * 1103515245 + 12345;
-	return (unsigned int)(g_next / 65536) % 32768;
-}
-
-void	srnd(unsigned int seed)
-{
-	g_next = seed;
+	if (g_next == -1)
+		g_next = rnd_((int)&g_next);
+	g_next = rnd_(g_next);
+	printf("%ld \n", g_next);
+	return (g_next);	
 }
