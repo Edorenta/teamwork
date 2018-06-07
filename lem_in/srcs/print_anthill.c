@@ -26,9 +26,7 @@ void	put_rooms(t_env *env)
 	parsed = env->parsed_room;
 	if (parsed && parsed->room)
 	{
-		parsed->room->id ? pstr(1, parsed->room->id, ' ') : put_error(env, "Error: no room name to print");
-		parsed->room->x > 0 ? plong(1, parsed->room->x, ' ') : put_error(env, "Error: no room x to print");
-		parsed->room->y > 0 ? plong(1, parsed->room->y, '\n') : put_error(env, "Error: no room y to print");
+		put_room(parsed->room);
 		while(parsed->next && (parsed = parsed->next))
 		{
 			parsed->room->id ? pstr(1, parsed->room->id, ' ') : put_error(env, "Error: no room name to print");

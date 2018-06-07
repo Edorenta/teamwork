@@ -48,7 +48,7 @@ t_room		*str_to_room(t_env *env, const char *s)
 
 void		put_room(t_env *env, t_room *r)
 {
-	r->id ? pstr(1, r->id, ' ') : put_error(env, "Error: no room name to print");
+	&(r->id[0]) ? pstr(1, r->id, ' ') : put_error(env, "Error: no room name to print");
 	r->x > 0 ? plong(1, r->x, ' ') : put_error(env, "Error: no room x to print");
 	r->y > 0 ? plong(1, r->y, '\n') : put_error(env, "Error: no room y to print");
 }

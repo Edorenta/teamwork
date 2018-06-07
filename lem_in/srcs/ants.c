@@ -23,4 +23,3 @@ void		move_ant_forward(t_env *env, t_ant *ant)
 		put_ant(ant);
 	}
 }
-
