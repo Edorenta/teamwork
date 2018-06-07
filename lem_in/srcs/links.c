@@ -32,12 +32,12 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 	else
 	{
 		parsed_link->prev = NULL;
-		env->parsed_room = parsed;
+		env->parsed_link = parsed_link;
 	}
-	link_rooms(env, room1, room2);
+	link_rooms(room1, room2);
 }
 
-void		link_rooms(t_env *env, t_room *room1, t_room *room2)
+void		link_rooms(t_room *room1, t_room *room2)
 {
 	if (room1->link)
 		room1->link->next = add_link(room2, room1->link);
@@ -47,4 +47,11 @@ void		link_rooms(t_env *env, t_room *room1, t_room *room2)
 		room2->link->next = add_link(room1, room2->link);
 	else
 		room2->link = add_link(room1, NULL);
+}
+
+void		put_link(t_env *env, t_room *r)
+{
+	r->id ? pstr(1, r->id, ' ') : put_error(env, "Error: no room name to print");
+	r->x > 0 ? plong(1, r->x, ' ') : put_error(env, "Error: no room x to print");
+	r->y > 0 ? plong(1, r->y, '\n') : put_error(env, "Error: no room y to print");
 }

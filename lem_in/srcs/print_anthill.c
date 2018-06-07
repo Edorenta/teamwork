@@ -12,47 +12,45 @@
 
 #include "lem_in.h"
 
-void	print_all(t_env *env)
+void	put_anthill(t_env *env)
 {
 	plong(1, env->nb_ants, '\n');
 	print_rooms(env);
 	print_link(env);
 }
 
-void	print_room(t_env *env)
+void	put_rooms(t_env *env)
 {
-	t_room *r;
+	t_parsed_room *parsed;
 
-	r = env->parsed_room;
-	if (r)
+	parsed = env->parsed_room;
+	if (parsed && parsed->room)
 	{
-		pstr(1, &(r->id), ' ');
-		plong(1, r->x, ' ');
-		plong(1, r->y, '\n');
-		while(r->next)
+		parsed->room->id ? pstr(1, parsed->room->id, ' ') : put_error(env, "Error: no room name to print");
+		parsed->room->x > 0 ? plong(1, parsed->room->x, ' ') : put_error(env, "Error: no room x to print");
+		parsed->room->y > 0 ? plong(1, parsed->room->y, '\n') : put_error(env, "Error: no room y to print");
+		while(parsed->next && (parsed = parsed->next))
 		{
-			r = r->next;
-			pstr(1, &(r->id), ' ');
-			plong(1, r->x, ' ');
-			plong(1, r->y, '\n');
+			parsed->room->id ? pstr(1, parsed->room->id, ' ') : put_error(env, "Error: no room name to print");
+			parsed->room->x > 0 ? plong(1, parsed->room->x, ' ') : put_error(env, "Error: no room x to print");
+			parsed->room->y > 0 ? plong(1, parsed->room->y, '\n') : put_error(env, "Error: no room y to print");
 		}
 	}
 }
 
-void	print_link(t_env *env)
+void	put_links(t_env *env)
 {
-	t_link *l;
+	t_parsed_link *parsed;
 
-	l = env->parsed_link;
-	if (l & l->next)
+	parsed = env->parsed_link;
+	if (parsed->room1 && parsed->room2)
 	{
-		pstr(1, &(l->linked_room->id), '-');
-		pstr(1, &(l->next->linked_room->id), '\n');
-		while(l->next->next && l->next->next->next)
+		pstr(1, parsed->room1->id, '-');
+		pstr(1, parsed->room2->id, '\n');
+		while(parsed->next && (parsed = parsed->next))
 		{
-			l = l->next->next;
-			pstr(1, &(l->linked_room->id), '-');
-			pstr(1, &(l->next->linked_room->id), '\n');
+			pstr(1, parsed->room1->id, '-');
+			pstr(1, parsed->room2->id, '\n');
 		}
 	}
 }
