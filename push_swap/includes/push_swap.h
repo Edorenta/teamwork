@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/07 17:16:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/07 17:36:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ struct			s_env
 
 int				rnd(void);
 int				ipow(int a, int power);
-void			srnd(unsigned int seed);
-int				seed(void);
 int				slen(char *s);
 int				scmp(const char *s1, const char *s2);
 long			labs(long n);
