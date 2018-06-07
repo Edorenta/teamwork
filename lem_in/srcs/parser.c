@@ -2,15 +2,17 @@
 
 static int		get_ants(t_env *env, const char *p)
 {
-	if (ft_atol(p) > 2147483647 || ft_atol(p) < -2147483647)
-		put_error(env, "Error: expected an integer colony size")
+	int nb_ants;
+
+	nb_ants = ft_atol(p);
+	if (nb_ants > 2147483647 || nb_ants < -2147483647 || !nb_ants)
+		put_error(env, "Error: expected a positive integer as colony size");
 	return (1);
-	return (0);
+	//return (0);
 }
 
-static int		get_room(t_env *env, const char *p, int state)
+static int		get_room(t_env *env, const char *p)
 {
-	t_room	*room;
 	int		i;
 	int		x;
 	int		y;
@@ -46,8 +48,7 @@ static int		get_link(t_env *env, const char *p)
 	t_room	*room1;
 	t_room	*room2;
 	int		i;
-	char	*p;
-	char	*start;
+	int		j;
 	char	tmp[256];
 
 	i = -1;
@@ -58,14 +59,14 @@ static int		get_link(t_env *env, const char *p)
 		else
 			tmp[i] = p[i];
 	tmp[i + 1] = '\0';
-	room1 = str_to_room(env, tmp);
+	room1 = str_to_room(env, &tmp[0]);
 	while (p[++i])
 		if (is_space(p[i]))
 			return (0);
 		else
 			tmp[++j] = p[i];
 	tmp[++j] = '\0';
-	room2 = str_to_room(env, tmp);
+	room2 = str_to_room(env, &tmp[i - j]);
 	new_link(env, room1, room2);
 	return (1);
 }
@@ -81,7 +82,7 @@ int				interpret_line(t_env *env, const char *p)
 	if (scmp(p, "##start"))	//next room is the anthill entry
 		return (state = 2);
 	if (scmp(p, "##end"))	//next room is the last room (queen)
-		rrturn (state = 3);
+		return (state = 3);
 	if (state == 0)
 	{
 		if (!(get_ants(env, p)))
@@ -90,7 +91,7 @@ int				interpret_line(t_env *env, const char *p)
 	}
 	if (state > 0 && state < 4)
 	{
-		if (!(get_rooms(env, p)))
+		if (!(get_room(env, p)))
 		{
 			if (!env->start || !env->end)
 	 			put_error(env, "Error: incomplete room list");
@@ -99,8 +100,8 @@ int				interpret_line(t_env *env, const char *p)
 	 		else
 	 			put_error(env, "Error: wrong input");
 		}
-	 	state == 2 ? env->start = env->rooms->current : 0;
-	 	state == 3 ? env->end = env->rooms->current : 0;
+	 	state == 2 ? env->start = env->parsed_room->room : 0;
+	 	state == 3 ? env->end = env->parsed_room->room : 0;
 	 	return ((state = 1));
 	}
 	if (state == 4)

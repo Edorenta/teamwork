@@ -6,8 +6,8 @@ typedef struct s_room			t_room;
 typedef struct s_ant			t_ant;
 typedef struct s_env			t_env;
 typedef struct s_link			t_link;
-typedef struct s_parsed_room	t_room;
-typedef struct s_parsed_link	t_link;
+typedef struct s_parsed_room	t_parsed_room;
+typedef struct s_parsed_link	t_parsed_link;
 
 struct 			s_env
 {
@@ -16,6 +16,7 @@ struct 			s_env
 	t_path			*fastway;
 	t_parsed_room	*parsed_room;
 	t_parsed_link	*parsed_link;
+	char			opt;
 	int				nb_rooms;
 	int				nb_ants;
 	t_ant			**colony;

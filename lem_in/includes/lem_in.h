@@ -20,7 +20,7 @@ int				pstr(int fd, const char *s, char end);
 int				scat(char *dest, const char *src, char c);
 long			ft_atol(const char *str);
 int				scmp(const char *s1, const char *s2);
-void			init_env(t_env *env, int ac);
+void			init_env(t_env *env);
 void			deinit_env(t_env *env);
 
 /*
@@ -43,18 +43,21 @@ void			put_error(t_env *env, const char *err_msg);
 
 t_link			*add_link(t_room *new_linked_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
-void			link_rooms(t_env *env, t_room *room1, t_room *room2);
+void			link_rooms(t_room *room1, t_room *room2);
 
 /*
  * ROOMS
  */
 
-t_room			*new_room(t_env *env, char *name, long x, long y);
+void			new_room(t_env *env, char *name, long x, long y);
 t_room			*str_to_room(t_env *env, const char *s);
 
 /*
  * ANTS
  */
+
+void			put_ant(t_ant *ant);
+void			move_ant_forward(t_env *env, t_ant *ant);
 
 /*
  * PRINT
@@ -63,3 +66,5 @@ t_room			*str_to_room(t_env *env, const char *s);
 void			print_all(t_env *env);
 void			print_rooms(t_env *env);
 void			print_link(t_env *env);
+
+#endif

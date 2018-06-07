@@ -1,4 +1,4 @@
-#include "lem-in.h"
+#include "lem_in.h"
 
 int			scmp(const char *s1, const char *s2)
 {
@@ -57,11 +57,11 @@ long		ft_atol(const char *str)
 	long		nb;
 	long		sign;
 
-	nb = NONE;
+	nb = 0;
 	while (*str && is_space(*str))
 		++str;
 	if (!(*str))
-		return (NONE);
+		return (0);
 	sign = *str == '-' ? -1 : 1;
 	if (*str == '+' || *str == '-')
 		++str;
