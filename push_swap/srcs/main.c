@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 20:07:31 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/04 20:07:32 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/07 19:18:49 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/07 19:18:53 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,36 @@ static int			make_magic_happen(t_env *env)
 	return (1);
 }
 
+static int			only_space(char *s)
+{
+	while (*s && is_space(*s))
+		s++;
+	return (*s == '\0');
+}
+
 int					main(int ac, char **av)
 {
 	t_env	env;
 
+	(ac < 2) ? exit(0) : 0;
 	init_env(&env, ac);
-	if ((ac > 2 && (!av[1] || !arg_to_piles(&env, ac, av)
-		|| env.a[env.a1] == NONE || env.size == 0)))
-		put_error(&env, "Error: wrong input");
-	if (ac < 2 || (ac == 2 && is_int(av[1]))
-		|| is_sort_precheck(env.a, 0, env.size - 1))
+	(!av[1] || (ac == 2 && only_space(av[1])))
+	? put_error(&env, "Error: wrong input") : 0;
+	if (ac == 2 && (spaces_in(av[1]) <= 0))
 	{
-		(ac == 2 && !is_int(av[1]))
-		? put_error(&env, "Error: arg does not fit in integer") : 0;
-		deinit_env(&env);
+		fatol(&env, av[1]);
 		exit(0);
+	}
+	if (ac > 2 || (ac == 2 && (spaces_in(av[1]) > 0)))
+	{
+		if (!arg_to_piles(&env, ac, av)
+			|| env.a[env.a1] == NONE || env.size == 0)
+			put_error(&env, "Error: wrong input");
+		if (is_sort_precheck(env.a, 0, env.size - 1))
+		{
+			deinit_env(&env);
+			exit(0);
+		}
 	}
 	make_magic_happen(&env);
 	return (1);

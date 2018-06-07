@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/12 05:11:42 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/02 20:16:37 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/07 19:20:39 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/07 19:20:58 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ int			scat(char *dest, const char *src, const char c)
 	return (1);
 }
 
-long		ft_atol(const char *str)
+long		fatol(t_env *env, const char *str)
 {
 	long		nb;
 	long		sign;
 
-	nb = NONE;
 	while (*str && is_space(*str))
 		++str;
 	if (!(*str))
@@ -82,5 +81,8 @@ long		ft_atol(const char *str)
 		nb = 10 * nb + (*(str++) - '0');
 	while (*str && is_space(*str))
 		++str;
+	(*str && nb == 0) ? put_error(env, "Error: entry is not a number") : 0;
+	(nb > 2147483647 || nb < -2147483647)
+	? put_error(env, "Error: number does not fit in an integer") : 0;
 	return (nb * sign);
 }

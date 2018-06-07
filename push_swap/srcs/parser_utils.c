@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/10 18:25:31 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/05/14 14:36:26 by pde-rent         ###   ########.fr       */
+/*   Created: 2018/06/07 19:19:46 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/07 19:19:48 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,4 @@ int			spaces_in(const char *str)
 		p++;
 	}
 	return (prev ? (i - 1) : i);
-}
-
-int			full_digits(const char *str)
-{
-	return (ft_atol(str) != NONE ? 1 : 0);
-}
-
-int			is_int(char *av)
-{
-	return (av && (ft_atol(av) >= -2147483648 && ft_atol(av) <= 2147483647));
 }

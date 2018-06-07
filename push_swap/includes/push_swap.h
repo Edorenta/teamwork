@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/10 19:05:32 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/06/07 17:36:18 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/07 19:21:24 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/07 19:21:26 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,8 @@ void			deinit_env(t_env *env);
 
 int				get_moves(t_env *env);
 int				arg_to_piles(t_env *env, int ac, char **av);
-int				no_duplicates(long *pile, int size);
-int				full_digits(const char *str);
 int				spaces_in(const char *str);
-long			ft_atol(const char *str);
+long			fatol(t_env *env, const char *str);
 int				is_int(char *av);
 
 /*
@@ -156,7 +154,7 @@ int				sort_pile(t_env *env);
 /*
 ** CHECKS & ERRORS
 */
-
+int				no_duplicates(long *pile, int size);
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
 int				is_sort(long *pile, int start, int end);

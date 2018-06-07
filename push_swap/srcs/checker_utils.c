@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 19:41:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/04 19:41:35 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/07 19:17:33 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/07 20:00:41 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ int				get_moves(t_env *env)
 
 	g_sorted = all_sort(env);
 	p = (char *)input;
-	while (1)
-	{
-		i = -1;
+	while (1 && (i = -1))
 		while ((handler = read(0, &c, 1)) >= 0)
 		{
 			p[++i] = c;
@@ -77,10 +75,11 @@ int				get_moves(t_env *env)
 			{
 				p[i] = '\0';
 				*p ? interpret_moves(env, p) : 0;
-				g_sorted = all_sort(env);
+				g_sorted = ((is_sort_precheck(env->a, env->a1, env->size - 1)
+				&& B1 == NONE) ? 1 : 0);
+				dprintf(2, "sorted: %d\n", g_sorted);
 				i = -1;
 			}
 		}
-	}
 	return (1);
 }
