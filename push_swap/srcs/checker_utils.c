@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:17:33 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/07 20:00:41 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/07 22:45:32 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int				get_moves(t_env *env)
 				*p ? interpret_moves(env, p) : 0;
 				g_sorted = ((is_sort_precheck(env->a, env->a1, env->size - 1)
 				&& B1 == NONE) ? 1 : 0);
-				dprintf(2, "sorted: %d\n", g_sorted);
 				i = -1;
 			}
 		}
