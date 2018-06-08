@@ -37,6 +37,7 @@ int				get_lines(t_env *env);
 
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
+int				anthill_complete(t_env *env);
 
 /*
  * LINKS
