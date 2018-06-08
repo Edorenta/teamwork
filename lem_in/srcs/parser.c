@@ -5,6 +5,7 @@ static int		get_ants(t_env *env, const char *p)
 	int nb_ants;
 
 	nb_ants = ft_atol(p);
+	dprintf(2, "nb_ants: %d\n", nb_ants);
 	if (nb_ants > 2147483647 || nb_ants < -2147483647 || !nb_ants)
 		put_error(env, "Error: expected a positive integer as colony size");
 	return (1);

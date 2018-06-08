@@ -19,6 +19,7 @@ int				get_lines(t_env *env)
 			if (c == 10)
 			{
 				p[i] = '\0';
+				dprintf(2, "line: %s\n", p);
 				*p ? interpret_line(env, p) : 0;
 				i = -1;
 			}
