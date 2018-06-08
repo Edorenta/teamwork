@@ -22,7 +22,7 @@ static void	free_rooms(t_env *env)
 		parsed->prev->room ? free(parsed->prev->room) : 0;
 		parsed->prev ? free(parsed->prev) : 0;
 	}
-	parsed->room ? free(parsed->room) : 0;
+	(parsed && parsed->room) ? free(parsed->room) : 0;
 	parsed ? free(parsed) : 0;
 }
 

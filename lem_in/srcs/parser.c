@@ -5,7 +5,6 @@ static int		get_ants(t_env *env, const char *p)
 	int nb_ants;
 
 	nb_ants = ft_atol(p);
-	dprintf(2, "nb_ants: %d\n", nb_ants);
 	if (nb_ants > 2147483647 || nb_ants < -2147483647 || !nb_ants)
 		put_error(env, "Error: expected a positive integer as colony size");
 	return (1);
@@ -75,14 +74,14 @@ static int		get_link(t_env *env, const char *p)
 //here comes the manual entry interpreter
 int				interpret_line(t_env *env, const char *p)
 {
-	static char state = 0; //0 = #ants, 1 = room, 2 = start, 3 = end, 4 = link
+	static int state = 0; //0 = #ants, 1 = room, 2 = start, 3 = end, 4 = link
 
 	if (!p || (p[0] && p[0] == '#'))
 		if ((p[1] && p[1] != '#') || (p[2] && p[2] == '#'))
-			return (0); //jump comment
-	if (scmp(p, "##start"))	//next room is the anthill entry
+			return (0); //jump comment	
+	if (scmp(p, "##start") == 0)	//next room is the anthill entry
 		return (state = 2);
-	if (scmp(p, "##end"))	//next room is the last room (queen)
+	if (scmp(p, "##end") == 0 )	//next room is the last room (queen)
 		return (state = 3);
 	if (state == 0)
 	{
