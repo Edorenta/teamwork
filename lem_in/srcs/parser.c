@@ -4,8 +4,8 @@ static int		get_ants(t_env *env, const char *p)
 {
 	int nb_ants;
 
-	nb_ants = ft_atol(p);
-	if (nb_ants > 2147483647 || nb_ants < -2147483647 || !nb_ants)
+	nb_ants = fatol(env, p);
+	if (nb_ants > 2147483647 || nb_ants <= 0)
 		put_error(env, "Error: expected a positive integer as colony size");
 	return (1);
 	//return (0);
@@ -39,7 +39,7 @@ static int		get_room(t_env *env, const char *p)
 		else
 			tmp[2][++y] = p[i];
 	tmp[2][++y] = '\0';
-	new_room(env, tmp[0], ft_atol(tmp[1]), ft_atol(tmp[2]));
+	new_room(env, tmp[0], fatol(env, tmp[1]), fatol(env, tmp[2]));
 	return (1);
 }
 

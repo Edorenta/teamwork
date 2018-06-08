@@ -52,16 +52,14 @@ int			scat(char *dest, const char *src, const char c)
 	return (1);
 }
 
-long		ft_atol(const char *str)
+long		fatol(t_env *env, const char *str)
 {
 	long		nb;
 	long		sign;
 
-	nb = 0;
 	while (*str && is_space(*str))
 		++str;
-	if (!(*str))
-		return (0);
+	(*str) ? 0 : put_error(env, "Error: fatol: no number");
 	sign = *str == '-' ? -1 : 1;
 	if (*str == '+' || *str == '-')
 		++str;
@@ -70,5 +68,8 @@ long		ft_atol(const char *str)
 		nb = 10 * nb + (*(str++) - '0');
 	while (*str && is_space(*str))
 		++str;
+	(*str && nb == 0) ? put_error(env, "Error: entry is not a number") : 0;
+	(nb > 2147483647 || nb < -2147483647)
+	? put_error(env, "Error: number does not fit in an integer") : 0;
 	return (nb * sign);
 }

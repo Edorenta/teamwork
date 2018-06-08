@@ -19,7 +19,7 @@ int				is_digit(const char c);
 int				plong(int fd, long n, char end);
 int				pstr(int fd, const char *s, char end);
 int				scat(char *dest, const char *src, char c);
-long			ft_atol(const char *str);
+long			fatol(t_env *env, const char *str);
 int				scmp(const char *s1, const char *s2);
 void			init_env(t_env *env);
 void			deinit_env(t_env *env);

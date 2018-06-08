@@ -16,8 +16,3 @@ int			spaces_in(const char *str)
 	}
 	return (prev ? (i - 1) : i);
 }
-
-int			is_int(char *av)
-{
-	return (av && (ft_atol(av) >= -2147483648 && ft_atol(av) <= 2147483647));
-}
