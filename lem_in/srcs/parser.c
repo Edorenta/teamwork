@@ -66,7 +66,7 @@ static int		get_link(t_env *env, const char *p)
 		else
 			tmp[++j] = p[i];
 	tmp[++j] = '\0';
-	room2 = str_to_room(env, &tmp[i - j]);
+	room2 = str_to_room(env, tmp);
 	new_link(env, room1, room2);
 	return (1);
 }
@@ -83,7 +83,6 @@ int				interpret_line(t_env *env, const char *p)
 		return (state = 2);
 	if (scmp(p, "##end") == 0 )	//next room is the last room (queen)
 		return (state = 3);
-	dprintf(2, "line: %s, state: %d\n", p, state);
 	if (state == 0)
 	{
 		if (!(get_ants(env, p)))
@@ -96,7 +95,7 @@ int				interpret_line(t_env *env, const char *p)
 		{
 			if (!env->start || !env->end)
 	 			put_error(env, "Error: incomplete room list");
-	 		(!get_link(env, p)) ? 0 : put_error(env, "Error: wrong input");
+	 		(!get_link(env, p)) ? put_error(env, "Error: wrong input") : 0;
 	 		return ((state = 4));
 		}
 	 	state == 2 ? env->start = env->last_parsed_room->room : 0;
