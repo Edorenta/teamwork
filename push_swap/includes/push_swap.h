@@ -154,6 +154,8 @@ int				sort_pile(t_env *env);
 /*
 ** CHECKS & ERRORS
 */
+
+void			soft_exit(t_env *env);
 int				no_duplicates(long *pile, int size);
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);

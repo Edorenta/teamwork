@@ -14,9 +14,8 @@
 
 void		put_error(t_env *env, const char *err_msg)
 {
-	free_piles(env);
 	pstr(2, err_msg, '\n');
-	exit(1);
+	soft_exit(env);
 }
 
 void		init_env(t_env *env, int ac)
@@ -37,4 +36,10 @@ void		init_env(t_env *env, int ac)
 void		deinit_env(t_env *env)
 {
 	free_piles(env);
+}
+
+void		soft_exit(t_env *env)
+{
+	deinit_env(env);
+	exit(0);
 }
