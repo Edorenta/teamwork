@@ -24,7 +24,7 @@ static int		get_room(t_env *env, const char *p)
 			return (0);
 		else
 			tmp[0][i] = p[i];
-	tmp[0][i + 1] = '\0';
+	tmp[0][i] = '\0';
 	x = -1;
 	while (!p[++i] || !is_space(p[i]))
 		if (!p[i] || !is_digit(p[i]))
@@ -78,11 +78,12 @@ int				interpret_line(t_env *env, const char *p)
 
 	if (!p || (p[0] && p[0] == '#'))
 		if ((p[1] && p[1] != '#') || (p[2] && p[2] == '#'))
-			return (0); //jump comment	
+			return (0); //jump comment
 	if (scmp(p, "##start") == 0)	//next room is the anthill entry
 		return (state = 2);
 	if (scmp(p, "##end") == 0 )	//next room is the last room (queen)
 		return (state = 3);
+	dprintf(2, "line: %s, state: %d\n", p, state);
 	if (state == 0)
 	{
 		if (!(get_ants(env, p)))
@@ -95,13 +96,11 @@ int				interpret_line(t_env *env, const char *p)
 		{
 			if (!env->start || !env->end)
 	 			put_error(env, "Error: incomplete room list");
-	 		else if (get_link(env, p))
-	 			return ((state = 4));
-	 		else
-	 			put_error(env, "Error: wrong input");
+	 		(!get_link(env, p)) ? 0 : put_error(env, "Error: wrong input");
+	 		return ((state = 4));
 		}
-	 	state == 2 ? env->start = env->parsed_room->room : 0;
-	 	state == 3 ? env->end = env->parsed_room->room : 0;
+	 	state == 2 ? env->start = env->last_parsed_room->room : 0;
+	 	state == 3 ? env->end = env->last_parsed_room->room : 0;
 	 	return ((state = 1));
 	}
 	if (state == 4)

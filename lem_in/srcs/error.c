@@ -13,3 +13,21 @@ void		sig_handler(int sig)
 	pstr(2, ("\rLem-in Force Quit\n"), '\0');
 	exit(0);
 }
+
+int			anthill_complete(t_env *env)
+{
+	t_parsed_room *parsed;
+
+	if (env->nb_ants <= 0 || !env->start || !env->end)
+		return (0);
+	parsed = R1;
+	if (!(parsed && parsed->room && parsed->room->link))
+		return (0);
+	while (parsed->next && parsed->next->room)
+	{
+		parsed = parsed->next;
+		if (!(parsed->room->link))
+			return (0);
+	}
+	return (1);
+}

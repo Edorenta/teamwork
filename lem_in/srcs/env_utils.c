@@ -14,12 +14,12 @@ static void	free_rooms(t_env *env)
 {
 	t_parsed_room *parsed;
 
-	parsed = env->parsed_room;
+	parsed = env->first_parsed_room;
 	while (parsed && parsed->next)
 	{
 		parsed = parsed->next;
-		parsed->prev->room->link ? free(parsed->prev->room->link) : 0;
-		parsed->prev->room ? free(parsed->prev->room) : 0;
+		(parsed->prev && parsed->prev->room && parsed->prev->room->link) ? free(parsed->prev->room->link) : 0;
+		(parsed->prev && parsed->prev->room) ? free(parsed->prev->room) : 0;
 		parsed->prev ? free(parsed->prev) : 0;
 	}
 	(parsed && parsed->room) ? free(parsed->room) : 0;
@@ -46,8 +46,10 @@ void		init_env(t_env *env)
 	env->nb_rooms = 0;
 	env->nb_ants = 0;
 	env->colony = NULL;
-	env->parsed_room = NULL;
-	env->parsed_link = NULL;
+	R1 = NULL;
+	R2 = NULL;
+	L1 = NULL;
+	L2 = NULL;
 }
 
 void		deinit_env(t_env *env)

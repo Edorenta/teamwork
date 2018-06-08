@@ -17,16 +17,19 @@ void		new_room(t_env *env, char *name, long x, long y)
 	room->ant = NULL;
 	room->link = NULL;
 	parsed_room->room = room;
-	if (env->parsed_room)
+	parsed_room->next = NULL;
+	if (R2)
 	{
-		parsed_room->prev = env->parsed_room;
-		env->parsed_room->next = parsed_room;
-		env->parsed_room = env->parsed_room->next;
+		parsed_room->prev = R2;
+		R2->next = parsed_room;
+		R2 = R2->next;
 	}
 	else
 	{
 		parsed_room->prev = NULL;
-		env->parsed_room = parsed_room;
+		R1 ? put_error(env, "Error: no last room but at least one was parsed") : 0;
+		R2 = parsed_room;
+		R1 = parsed_room;
 	}
 }
 
@@ -34,7 +37,7 @@ t_room		*str_to_room(t_env *env, const char *s)
 {
 	t_parsed_room *parsed;
 
-	parsed = env->parsed_room;
+	parsed = R1;
 	(parsed && parsed->room) ? 0 : put_error(env, "Error: no room to link to");
 	s ? 0 : put_error(env, "Error: no room name to link to");
 	if (!scmp(parsed->room->id, s))
@@ -57,7 +60,7 @@ void	put_rooms(t_env *env)
 {
 	t_parsed_room *parsed;
 
-	parsed = env->parsed_room;
+	parsed = R1;
 	if (parsed && parsed->room)
 	{
 		put_room(env, parsed->room);
