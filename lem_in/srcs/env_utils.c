@@ -30,7 +30,7 @@ static void	free_parsed_links(t_env *env)
 {
 	t_parsed_link *parsed;
 
-	parsed = env->parsed_link;
+	parsed = env->first_parsed_link;
 	while (parsed && parsed->next)
 	{
 		parsed = parsed->next;
