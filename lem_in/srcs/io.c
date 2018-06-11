@@ -34,7 +34,7 @@ void			free_lines(t_env *env)
 	l = env->first_line;
 	(l && l->txt) ? free(l->txt) : 0;
 	l ? free(l) : 0;
-	while (l->next && (l = l->next))
+	while (l && l->next && (l = l->next))
 	{
 		(l && l->txt) ? free(l->txt) : 0;
 		l ? free(l) : 0;
