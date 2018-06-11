@@ -18,3 +18,16 @@ void	put_anthill(t_env *env)
 	put_rooms(env);
 	put_links(env);
 }
+
+void	put_room_links(t_env *env, t_room *room)
+{
+	t_link *l;
+
+	l = room->link;
+	room ? 0 : put_error(env, "Error: No room to target");
+	l ? 0 : put_error(env, "Error: Room has no link");
+	pstr(2, "links:\n", '\0');
+	&(l->linked_room->id[0]) ? pstr(2, &(l->linked_room->id[0]), '\n') : 0;
+	while ((l->next && (l = l->next)))
+		&(l->linked_room->id[0]) ? pstr(2, &(l->linked_room->id[0]), '\n') : 0;
+}

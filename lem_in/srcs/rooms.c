@@ -56,7 +56,7 @@ void		put_room(t_env *env, t_room *r)
 	r->y > 0 ? plong(1, r->y, '\n') : put_error(env, "Error: no room y to print");
 }
 
-void	put_rooms(t_env *env)
+void		put_rooms(t_env *env)
 {
 	t_parsed_room *parsed;
 
