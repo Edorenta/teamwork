@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/11 14:26:51 by jyildiz-         ###   ########.fr        #
+#    Updated: 2018/06/11 19:35:44 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"lem_in compiled\t"$(OK)'\n'
+	"lem_in compiled\t\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
@@ -69,19 +69,19 @@ $(OBJ_PATH) :
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)"
 	@$(CC) -I./includes -o $@ -c $<
 	@printf '\t'$(OK)
 
 clean :
-	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
+	@printf "[$(NAME_P)] removing\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
-	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
+	@printf "[$(NAME_P)] erasing\t$(PINK)$(NAME)$(WHITE)"
 	@rm -f $(NAME)
-	@printf '\t\t'$(OK)'\n'
+	@printf '\t\t\t'$(OK)'\n'
 
 re : fclean all
 
