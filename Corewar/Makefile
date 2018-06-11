@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/11 15:09:35 by fmadura          ###   ########.fr        #
+#    Updated: 2018/06/11 16:36:49 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
 
-COMMON =	
+COMMON =	op
 		
 # Common Files
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))

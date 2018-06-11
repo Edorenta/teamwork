@@ -6,13 +6,14 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/11 14:10:33 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/11 18:44:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
-
-
+# include "ft_printf.h"
+# include "libft.h"
+# include "op.h"
 
 #endif
