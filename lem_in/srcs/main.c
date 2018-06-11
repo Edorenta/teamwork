@@ -4,7 +4,6 @@ static void		make_magic_happen(t_env *env)
 {
 	(anthill_complete(env)) ? 0 : put_error(env, "Error: incomplete anthill");
 	(void)env;
-	put_room_links(env, env->start);
 	solve(env);
 	//put_anthill(env);
 	//put_paths(env);

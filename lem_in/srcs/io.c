@@ -12,8 +12,9 @@ int				get_lines(t_env *env)
 	i = -1;
 	while ((handler = read(0, &c, 1)) >= 0)
 	{
+		if (!handler)
+			break;
 		p[++i] = c;
-		!handler ? sig_handler(SIGINT) : 0;
 		if (c == 10)
 		{
 			p[i] = '\0';

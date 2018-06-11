@@ -75,7 +75,7 @@ int				interpret_line(t_env *env, const char *p)
 
 	//(env->last_parsed_room && env->last_parsed_room->room) ? put_room(env, env->last_parsed_room->room) : 0;
 	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
-			return (1); //jump comment
+		return (1); //jump comment
 	if (!scmp(p, "##start") || !scmp(p, "##end"))	//next room is the anthill entry or exit
 		return ((state = (!scmp(p, "##start") ? 2 : 3)));
 	if (state == 0)
