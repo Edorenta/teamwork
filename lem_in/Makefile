@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/08 14:41:42 by jyildiz-         ###   ########.fr        #
+#    Updated: 2018/06/11 14:26:51 by jyildiz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ COMMON =	main \
 			parser \
 			parser_utils \
 			anthill_builder \
-			print_anthill
+			print_anthill \
+			solve
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
 OBJ_FILES	= $(SRC_FILES:.c=.o)
