@@ -46,7 +46,7 @@ int				anthill_complete(t_env *env);
 t_link			*add_link(t_room *new_linked_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
 void			link_rooms(t_room *room1, t_room *room2);
-//void			put_link(t_env *env, t_parsed_link *l);
+void			put_link(t_env *env, t_parsed_link *l);
 
 /*
  * ROOMS
@@ -54,7 +54,7 @@ void			link_rooms(t_room *room1, t_room *room2);
 
 void			new_room(t_env *env, char *name, long x, long y);
 t_room			*str_to_room(t_env *env, const char *s);
-//void			put_room(t_env *env, t_room *r);
+void			put_room(t_env *env, t_room *r);
 
 /*
  * ANTS

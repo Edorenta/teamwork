@@ -51,7 +51,7 @@ void		link_rooms(t_room *room1, t_room *room2)
 		room2->link = add_link(room1, NULL);
 }
 
-static void		put_link(t_env *env, t_parsed_link *l)
+void		put_link(t_env *env, t_parsed_link *l)
 {
 	(l->room1 && &(l->room1->id[0])) ? pstr(1, &(l->room1->id[0]), '-') : put_error(env, "Error: no room name to print");
 	(l->room2 && &(l->room2->id[0])) ? pstr(1, &(l->room2->id[0]), '-') : put_error(env, "Error: no room name to print");
