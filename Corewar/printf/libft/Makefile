@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/07 17:38:00 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/16 11:27:24 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/06/11 15:25:01 by fmadura          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -42,9 +42,6 @@ EOLCLR		= "\\033[0K"
 CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-TRACKER		= .project_built
-#MAKEFLAGS	+= -j #multitasking
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -55,6 +52,10 @@ $(NAME): $(OBJS)
 	@ranlib $(NAME)
 	@printf '\t\t'$(OK)'\n'
 
+$(OBJS) : | $(OBJS_PATH)
+
+$(OBJS_PATH) :
+	@mkdir -p $(OBJS_PATH)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)*/%.c | $(TRACKER)
 	@printf "$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)\r"

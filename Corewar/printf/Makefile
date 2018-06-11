@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/20 15:55:35 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/06/11 15:24:45 by fmadura          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,6 +18,7 @@ FILES		=	ft_vasprintf		ft_printf		ft_vprintf					\
 				fmt_aca				fmt_ocoxcx		fmt_cccscsr					\
 				fmt_bpn				fmt_customfb	fmt_customfns				\
 				fmt_converter2
+
 SRCS		= $(addprefix $(SRCS_PATH),$(addsuffix .c,$(FILES)))
 OBJS		= $(addprefix $(OBJS_PATH),$(addsuffix .o,$(FILES)))
 
@@ -49,8 +50,6 @@ EOC			= "\033[0;0m"
 #unicode
 CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
-OBJS_TRACKER		= .objs_exists
-LIB_OBJS_TRACKER	= libft/.objs_exists
 
 all: $(NAME)
 
@@ -66,19 +65,14 @@ $(NAME): $(OBJS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c | $(OBJS_TRACKER)
+$(OBJS) : | $(OBJS_PATH)
+
+$(OBJS_PATH) :
+	@mkdir -p $(OBJS_PATH)
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@printf "$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)\r"
 	@$(COMPILER) $(CFLAGS) -c $< -o $@
-
-%.c:
-	@echo $(RED)"Missing file : $@" $(EOC)$(WHITE)
-
-$(OBJS_TRACKER): $(LIB_OBJS_TRACKER)
-	@mkdir -p $(OBJS_PATH)
-	@touch $(OBJS_TRACKER)
-
-$(LIB_OBJS_TRACKER):
-	@$(MAKE) -C libft/
 
 clean:
 	@$(MAKE) -C $(LFTDIR) clean
