@@ -5,8 +5,9 @@ static void	free_colony(t_env *env)
 	int i;
 
 	i = env->nb_ants;
-	while (--i >= 0)
-		env->colony[i] ? free(env->colony[i]) : 0;
+	if (env->colony)
+		while (--i >= 0)
+			env->colony[i] ? free(env->colony[i]) : 0;
 	env->colony ? free(env->colony) : 0;
 }
 
