@@ -18,7 +18,7 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 
 	if (!room1 || !room2)
 		put_error(env, "Error: tried to link non-existing room");
-	to = env->parsed_link;
+	to = L2;
 	parsed_link = (t_parsed_link *)malloc(sizeof(t_parsed_link));
 	parsed_link->room1 = room1;
 	parsed_link->room2 = room2;
@@ -32,7 +32,9 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 	else
 	{
 		parsed_link->prev = NULL;
-		env->parsed_link = parsed_link;
+		L1 ? put_error(env, "Error: no last link but at least one was parsed") : 0;
+		L2 = parsed_link;
+		L1 = parsed_link;
 	}
 	link_rooms(room1, room2);
 }
@@ -60,7 +62,7 @@ void		put_links(t_env *env)
 {
 	t_parsed_link *parsed;
 
-	parsed = env->parsed_link;
+	parsed = env->first_parsed_link;
 	if (parsed->room1 && parsed->room2)
 	{
 		put_link(env, parsed);

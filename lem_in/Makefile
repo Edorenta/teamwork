@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/05/23 18:01:22 by fmadura          ###   ########.fr        #
+#    Updated: 2018/06/08 14:41:42 by jyildiz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"push_swap compiled\t"$(OK)'\n'
+	"lem_in compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'

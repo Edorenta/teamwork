@@ -51,21 +51,12 @@ int			main(int ac, char **av)
 	init_env(&env, ac);
 	(!av[1] || (ac == 2 && only_space(av[1])))
 	? put_error(&env, "Error: wrong input") : 0;
-	if (ac == 2 && (spaces_in(av[1]) <= 0))
-	{
-		fatol(&env, av[1]);
-		exit(0);
-	}
-	if (ac > 2 || (ac == 2 && (spaces_in(av[1]) > 0)))
+	if (ac >= 2)
 	{
 		if (!arg_to_piles(&env, ac, av)
 			|| env.a[env.a1] == NONE || env.size == 0)
 			put_error(&env, "Error: wrong input");
-		if (is_sort_precheck(env.a, 0, env.size - 1))
-		{
-			deinit_env(&env);
-			exit(0);
-		}
+		is_sort_precheck(env.a, 0, env.size - 1) ? soft_exit(&env) : 0;
 	}
 	make_magic_happen(&env);
 	return (1);
