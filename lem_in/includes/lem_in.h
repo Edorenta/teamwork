@@ -71,6 +71,6 @@ void			put_room(t_env *env, t_room *r);
 void			put_rooms(t_env *env);
 void			put_link(t_env *env, t_parsed_link *l);
 void			put_links(t_env *env);
-void			put_room_links(t_env *env, t_room *room)
+void			put_room_links(t_env *env, t_room *room);
 
 #endif

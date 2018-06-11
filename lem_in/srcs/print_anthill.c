@@ -23,7 +23,7 @@ void	put_room_links(t_env *env, t_room *room)
 {
 	t_link *l;
 
-	l = room->l;
+	l = room->link;
 	room ? 0 : put_error(env, "Error: No room to target");
 	l ? 0 : put_error(env, "Error: Room has no link");
 	pstr(2, "links:\n", '\0');
