@@ -59,7 +59,7 @@ long		fatol(t_env *env, const char *str)
 
 	while (*str && is_space(*str))
 		++str;
-	(*str) ? 0 : put_error(env, "Error: fatol: no number");
+	(*str) ? 0 : put_error(env, "Error: fatol: nothing to parse");
 	sign = *str == '-' ? -1 : 1;
 	if (*str == '+' || *str == '-')
 		++str;
@@ -68,8 +68,8 @@ long		fatol(t_env *env, const char *str)
 		nb = 10 * nb + (*(str++) - '0');
 	while (*str && is_space(*str))
 		++str;
-	(*str && nb == 0) ? put_error(env, "Error: entry is not a number") : 0;
+	(*str && nb == 0) ? put_error(env, "Error: expected a number") : 0;
 	(nb > 2147483647 || nb < -2147483647)
-	? put_error(env, "Error: number does not fit in an integer") : 0;
+	? put_error(env, "Error: expected an integer") : 0;
 	return (nb * sign);
 }

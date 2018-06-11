@@ -18,7 +18,8 @@ static void	free_rooms(t_env *env)
 	while (parsed && parsed->next)
 	{
 		parsed = parsed->next;
-		(parsed->prev && parsed->prev->room && parsed->prev->room->link) ? free(parsed->prev->room->link) : 0;
+		(parsed->prev && parsed->prev->room && parsed->prev->room->link)
+		? free(parsed->prev->room->link) : 0;
 		(parsed->prev && parsed->prev->room) ? free(parsed->prev->room) : 0;
 		parsed->prev ? free(parsed->prev) : 0;
 	}

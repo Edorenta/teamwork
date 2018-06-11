@@ -17,12 +17,7 @@ int				get_lines(t_env *env)
 		if (c == 10)
 		{
 			p[i] = '\0';
-			if (*p)
-			{
-				if (interpret_line(env,p) == 0)
-					break;
-			}
-			else
+			if (!*p || (*p && !interpret_line(env,p)))
 				break;
 			i = -1;
 		}

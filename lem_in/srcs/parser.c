@@ -6,7 +6,7 @@ static int		get_ants(t_env *env, const char *p)
 
 	nb_ants = fatol(env, p);
 	if (nb_ants > 2147483647 || nb_ants <= 0)
-		put_error(env, "Error: expected a positive integer as colony size");
+		put_error(env, "Error: expected a positive colony size");
 	return (1);
 	//return (0);
 }
@@ -79,34 +79,23 @@ int				interpret_line(t_env *env, const char *p)
 	if (!p || (p[0] && p[0] == '#'))
 		if ((p[1] && p[1] != '#') || (p[2] && p[2] == '#'))
 			return (0); //jump comment
-	if (scmp(p, "##start") == 0)	//next room is the anthill entry
-		return (state = 2);
-	if (scmp(p, "##end") == 0 )	//next room is the last room (queen)
-		return (state = 3);
+	if (!scmp(p, "##start") || !scmp(p, "##end"))	//next room is the anthill entry or exit
+		return ((state = (!scmp(p, "##start") ? 2 : 3)));
 	if (state == 0)
-	{
-		if (!(get_ants(env, p)))
-	 		put_error(env, "Error: expected a positive integer");
-	 	return ((state = 1));
-	}
-	if (state > 0 && state < 4)
-	{
-		if (!(get_room(env, p)))
-		{
-			if (!env->start || !env->end)
-	 			put_error(env, "Error: incomplete room list");
-	 		(!get_link(env, p)) ? put_error(env, "Error: wrong input") : 0;
-	 		return ((state = 4));
-		}
-	 	state == 2 ? env->start = env->last_parsed_room->room : 0;
-	 	state == 3 ? env->end = env->last_parsed_room->room : 0;
-	 	return ((state = 1));
-	}
+	 	return ((get_ants(env, p) ? (state = 1) : 0));
 	if (state == 4)
+		return ((get_link(env, p) ? 4 : 0));
+//	if (state > 0 && state < 4)
+//	{
+	if (!(get_room(env, p)))
 	{
-		if (get_link(env, p))
-			return (4);
-		return (0);
+		if (!env->start || !env->end)
+ 			put_error(env, "Error: incomplete room list");
+ 		(!get_link(env, p)) ? put_error(env, "Error: wrong input") : 0;
+ 		return ((state = 4));
 	}
-	return (1);
+ 	state == 2 ? env->start = env->last_parsed_room->room : 0;
+ 	state == 3 ? env->end = env->last_parsed_room->room : 0;
+ 	return ((state = 1));
+//	}
 }
