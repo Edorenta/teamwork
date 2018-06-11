@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/11 12:35:09 by fmadura          ###   ########.fr        #
+#    Updated: 2018/06/11 15:09:35 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 SRC1_FILES = $(COMMON_FILES)
 SRC2_FILES = $(COMMON_FILES)
 
-SRC2_FILES += checker.c checker_utils.c
-SRC1_FILES += main.c
+SRC2_FILES += corewar.c
+SRC1_FILES += asm.c
 
 
 OBJ1_FILES	= $(SRC1_FILES:.c=.o)
@@ -57,7 +57,7 @@ all : $(NAME_1) $(NAME_2)
 
 $(NAME_1) : $(OBJ1)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"push_swap compiled\t"$(OK)'\n'
+	"$(NAME_1) compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes $(OBJ1) -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
@@ -80,15 +80,20 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@$(CC) -I./includes -o $@ -c $<
 	@printf '\t'$(OK)
 
+libft : 
+	@make -C ./printf
+
 clean :
 	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
+	@make clean -C ./printf
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
 	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME_1)$(WHITE)"
 	@rm -f $(NAME_1)
 	@rm -f $(NAME_2)
+	@make fclean ./printf
 	@printf '\t\t'$(OK)'\n'
 
 re : fclean all
