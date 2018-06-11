@@ -34,9 +34,9 @@ static int		interpret_moves(t_env *env, char *p)
 	i = -1;
 	while (p[++i])
 	{
-		while (p[i] && is_space(p[i]))
+		if (p[i] && is_space(p[i]) && i && p[i + 1] && !is_space(p[i + 1]))
 			++i;
-		if (interpret_bool(p, i, 2, 'P'))
+		else if (interpret_bool(p, i, 2, 'P'))
 			move_push(env, p, i);
 		else if (interpret_bool(p, i, 2, 'S'))
 			move_swap(env, p, i);
