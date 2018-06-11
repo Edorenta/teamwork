@@ -60,6 +60,7 @@ t_room			*str_to_room(t_env *env, const char *s);
  * ANTS
  */
 
+void			solve(t_env *env);
 void			put_ant(t_ant *ant);
 void			move_ant_forward(t_env *env, t_ant *ant);
 

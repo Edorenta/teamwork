@@ -78,7 +78,7 @@ int				interpret_line(t_env *env, const char *p)
 
 	if (!p || (p[0] && p[0] == '#'))
 		if ((p[1] && p[1] != '#') || (p[2] && p[2] == '#'))
-			return (0); //jump comment
+			return (state); //jump comment
 	if (!scmp(p, "##start") || !scmp(p, "##end"))	//next room is the anthill entry or exit
 		return ((state = (!scmp(p, "##start") ? 2 : 3)));
 	if (state == 0)
