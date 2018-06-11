@@ -2,13 +2,10 @@
 
 static int		get_ants(t_env *env, const char *p)
 {
-	int nb_ants;
-
-	nb_ants = fatol(env, p);
-	if (nb_ants > 2147483647 || nb_ants <= 0)
-		put_error(env, "Error: expected a positive colony size");
+	env->nb_ants = fatol(env, p);
+	if (env->nb_ants > 2147483647 || env->nb_ants <= 0)
+		put_error(env, "Error: expected a positive ant colony size");
 	return (1);
-	//return (0);
 }
 
 static int		get_room(t_env *env, const char *p)
