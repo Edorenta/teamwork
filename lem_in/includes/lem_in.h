@@ -29,7 +29,9 @@ void			deinit_env(t_env *env);
  */
 
 int				interpret_line(t_env *env, const char *p);
+void			free_lines(t_env *env);
 int				get_lines(t_env *env);
+void			print_lines(t_env *env);
 
 /*
  * ERROR MANAGEMENT

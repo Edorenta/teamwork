@@ -48,6 +48,7 @@ void		init_env(t_env *env)
 	env->nb_rooms = 0;
 	env->nb_ants = 0;
 	env->colony = NULL;
+	env->first_line = NULL;
 	R1 = NULL;
 	R2 = NULL;
 	L1 = NULL;
@@ -59,4 +60,5 @@ void		deinit_env(t_env *env)
 	free_rooms(env);
 	free_parsed_links(env);
 	free_colony(env);
+	free_lines(env);
 }

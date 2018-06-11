@@ -11,14 +11,17 @@ typedef struct s_room			t_room;
 typedef struct s_ant			t_ant;
 typedef struct s_env			t_env;
 typedef struct s_link			t_link;
+typedef struct s_lines			t_lines;
 typedef struct s_parsed_room	t_parsed_room;
 typedef struct s_parsed_link	t_parsed_link;
+
 
 struct 			s_env
 {
 	t_room			*start;
 	t_room			*end;
 	t_path			*fastway;
+	t_lines			*first_line;
 	t_parsed_room	*first_parsed_room;
 	t_parsed_room	*last_parsed_room;
 	t_parsed_link	*first_parsed_link;
@@ -50,6 +53,12 @@ struct			s_link
 	t_room			*linked_room;
 	t_link			*prev;
 	t_link			*next;
+};
+
+struct			s_lines
+{
+	char			*txt;
+	t_lines			*next;
 };
 
 struct			s_parsed_link
