@@ -36,8 +36,7 @@ static int		split_to_pile(t_env *env, char *p, int spaces)
 			p++;
 		p[k] ? 0 : put_error(env, "Error: empty arg");
 		j = -1;
-		while (p[k] && (is_digit(p[k]) || ((p[k] == '-' || p[k] == '+')
-			&& k == 0 && is_digit(p[k + 1]))))
+		while (p[k] && (is_digit(p[k]) || ((p[k] == '-' || p[k] == '+'))))
 			(av[i][++j] = p[k++]);
 		(j > 0 || (j == 0 && is_digit(p[0]))) ? 0
 		: put_error(env, "Error: wrong arg");

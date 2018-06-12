@@ -31,7 +31,7 @@ static int		rnd_(int seed)
 int				rnd(void)
 {
 	if (g_next == -1)
-		g_next = (unsigned int)rnd_((int)&g_next);
+		g_next = (size_t)rnd_((size_t)&g_next);
 	g_next = rnd_(g_next);
 	return (g_next);
 }

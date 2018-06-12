@@ -69,6 +69,8 @@ long		fatol(t_env *env, const char *str)
 	long		nb;
 	long		sign;
 
+	(slen((char *)str) < 2 && !is_digit(str[0]))
+	? put_error(env, "Error: entry is not a number") : 0;
 	while (*str && is_space(*str))
 		++str;
 	if (!(*str))
