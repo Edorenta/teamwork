@@ -74,8 +74,7 @@ long		fatol(t_env *env, const char *str)
 	if (!(*str))
 		return (NONE);
 	sign = *str == '-' ? -1 : 1;
-	if (*str == '+' || *str == '-')
-		++str;
+	(*str == '+' || *str == '-') ? ++str : 0;
 	nb = 0;
 	while (*str && is_digit(*str))
 		nb = 10 * nb + (*(str++) - '0');

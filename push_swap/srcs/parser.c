@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:19:40 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/07 19:19:43 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/12 18:23:23 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,26 @@ static int		push_to_pile(t_env *env, char *av)
 	return (1);
 }
 
-static int		split_to_pile(t_env *env, char *str, int spaces)
+static int		split_to_pile(t_env *env, char *p, int spaces)
 {
 	char		av[spaces][32];
-	char		*p;
 	int			i;
 	int			j;
+	int			k;
 
 	i = 0;
-	p = str;
-	while (*p)
+	k = 0;
+	while (p[k])
 	{
-		while (*p && is_space(*p))
+		while (p[k] && is_space(p[k]))
 			p++;
-		*p ? 0 : put_error(env, "Error: empty arg");
+		p[k] ? 0 : put_error(env, "Error: empty arg");
 		j = -1;
-		while (*p && ((*p >= '0' && *p <= '9') || *p == '-' || *p == '+'))
-			(av[i][++j] = *p++);
-		j >= 0 ? 0 : put_error(env, "Error: wrong arg");
+		while (p[k] && (is_digit(p[k]) || ((p[k] == '-' || p[k] == '+')
+			&& k == 0 && is_digit(p[k + 1]))))
+			(av[i][++j] = p[k++]);
+		(j > 0 || (j == 0 && is_digit(p[0]))) ? 0
+		: put_error(env, "Error: wrong arg");
 		av[i][++j] = '\0';
 		i++;
 	}

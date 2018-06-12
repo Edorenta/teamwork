@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:17:24 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/07 19:18:14 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:51:54 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 static int	make_magic_happen(t_env *env)
 {
 	SET_CHECKER;
-	get_moves(env);
-	IS_SET_S ? pstr(2, "Piles before sort:", '\n') : 0;
-	IS_SET_S ? put_piles(env) : 0;
 	index_pile(env);
-	IS_SET_R ? pstr(2, "Piles rebased before sort:", '\n') : 0;
-	IS_SET_R ? put_piles(env) : 0;
+	get_moves(env);
+	(IS_SET_R || IS_SET_S) ? pstr(2, "Piles rebased before sort:", '\n') : 0;
+	(IS_SET_R || IS_SET_S) ? put_piles(env) : 0;
 	sort_pile(env);
 	IS_SET_R ? pstr(2, "Piles rebased after sort:", '\n') : 0;
 	IS_SET_R ? put_piles(env) : 0;
@@ -56,7 +54,6 @@ int			main(int ac, char **av)
 		if (!arg_to_piles(&env, ac, av)
 			|| env.a[env.a1] == NONE || env.size == 0)
 			put_error(&env, "Error: wrong input");
-		is_sort_precheck(env.a, 0, env.size - 1) ? soft_exit(&env) : 0;
 	}
 	make_magic_happen(&env);
 	return (1);
