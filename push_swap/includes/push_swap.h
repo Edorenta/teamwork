@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:21:24 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/07 19:21:26 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/13 12:28:18 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <time.h>
-# include <limits.h>
 # include <signal.h>
 
 /*
@@ -66,14 +63,16 @@
 # define IS_SET_R		(env->option & (1 << 3))
 # define IS_SET_M		(env->option & (1 << 4))
 # define IS_SET_T		(env->option & (1 << 5))
-# define IS_CHECKER		(env->option & (1 << 6))
+# define IS_SET_J		(env->option & (1 << 6))
+# define IS_CHECKER		(env->option & (1 << 7))
 # define SET_V			(env->option |= (1 << 0))
 # define SET_O			(env->option |= (1 << 1))
 # define SET_S			(env->option |= (1 << 2))
 # define SET_R			(env->option |= (1 << 3))
 # define SET_M			(env->option |= (1 << 4))
 # define SET_T			(env->option |= (1 << 5))
-# define SET_CHECKER	(env->option |= (1 << 6))
+# define SET_J			(env->option |= (1 << 6))
+# define SET_CHECKER	(env->option |= (1 << 7))
 
 /*
 ** STRUCTS

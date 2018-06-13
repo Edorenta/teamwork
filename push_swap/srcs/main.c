@@ -29,7 +29,8 @@ static int			make_magic_happen(t_env *env)
 	if (IS_SET_O || IS_SET_T)
 		plong((IS_SET_T ? 1 : 2), count_moves(env->first_move), '\n');
 	!IS_SET_M ? pstr(2, "Commands:", '\n') : 0;
-	!IS_SET_M ? put_moves(env->first_move, 1, ' ') : 0;
+	(!IS_SET_M && IS_SET_J) ? put_moves(env->first_move, 1, '\n') : 0;
+	(!IS_SET_M && !IS_SET_J) ? put_moves(env->first_move, 1, ' ') : 0;
 	deinit_env(env);
 	return (1);
 }

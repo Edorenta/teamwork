@@ -25,7 +25,7 @@ static int		rnd_calc(int seed, int increment, int modulus, int multiplier)
 
 static int		rnd_(int seed)
 {
-	return (rnd_calc(seed, 1013904223, INT_MAX, 1664525));
+	return (rnd_calc(seed, 1013904223, 2147483647, 1664525));
 }
 
 int				rnd(void)

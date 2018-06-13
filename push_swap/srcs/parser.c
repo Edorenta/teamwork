@@ -38,8 +38,7 @@ static int		split_to_pile(t_env *env, char *p, int spaces)
 		j = -1;
 		while (p[k] && (is_digit(p[k]) || ((p[k] == '-' || p[k] == '+'))))
 			(av[i][++j] = p[k++]);
-		(j > 0 || (j == 0 && is_digit(p[0]))) ? 0
-		: put_error(env, "Error: wrong arg");
+		(j >= 0) ? 0 : put_error(env, "Error: wrong arg");
 		av[i][++j] = '\0';
 		i++;
 	}
@@ -56,12 +55,13 @@ static int		get_option(t_env *env, char *av)
 	i = 0;
 	while (av[++i])
 	{
-		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o'
-			&& av[i] != 'r' && av[i] != 'm' && av[i] != 't'))
+		if ((av[i] != 'v' && av[i] != 's' && av[i] != 'o' && av[i] != 'r'
+			&& av[i] != 'm' && av[i] != 't' && av[i] != 'j'))
 			put_error(env, "Error: invalid option");
 		else if ((av[i] == 'v' && IS_SET_V) || (av[i] == 's' && IS_SET_S)
 			|| (av[i] == 'o' && IS_SET_O) || (av[i] == 'r' && IS_SET_R)
-			|| (av[i] == 'm' && IS_SET_M) || (av[i] == 't' && IS_SET_T))
+			|| (av[i] == 'm' && IS_SET_M) || (av[i] == 't' && IS_SET_T)
+			|| (av[i] == 'j' && IS_SET_J))
 			put_error(env, "Error: duplicate option");
 		(av[i] == 'v') ? SET_V : 0;
 		(av[i] == 'o') ? SET_O : 0;
@@ -69,6 +69,7 @@ static int		get_option(t_env *env, char *av)
 		(av[i] == 'r') ? SET_R : 0;
 		(av[i] == 'm') ? SET_M : 0;
 		(av[i] == 't') ? SET_T : 0;
+		(av[i] == 'j') ? SET_J : 0;
 	}
 	return (active_bits(env->option));
 }
@@ -80,7 +81,7 @@ int				arg_to_piles(t_env *env, int ac, char **av)
 
 	opt = 0;
 	i = 0;
-	while (++i < ac && av[i] && av[i][0] == '-')
+	while (++i < ac && av[i] && av[i][0] == '-' && !is_digit(av[i][1]))
 	{
 		get_option(env, av[i]);
 		opt++;

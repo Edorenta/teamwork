@@ -36,6 +36,7 @@ void		init_env(t_env *env, int ac)
 void		deinit_env(t_env *env)
 {
 	free_piles(env);
+	del_moves(env);
 }
 
 void		soft_exit(t_env *env)
