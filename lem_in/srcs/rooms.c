@@ -40,10 +40,13 @@ t_room		*str_to_room(t_env *env, const char *s)
 	parsed = R1;
 	(parsed && parsed->room) ? 0 : put_error(env, "Error: no room to link to");
 	s ? 0 : put_error(env, "Error: no room name to link to");
-	if (!scmp(parsed->room->id, s))
+	//dprintf(2, "trying to find %s\n", s);
+	if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
+		&& */!scmp(parsed->room->id, s))
 		return (parsed->room);
 	while (parsed->next && parsed->next->room && (parsed = parsed->next))
-		if (!scmp(parsed->room->id, s))
+		if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
+			&& */!scmp(parsed->room->id, s))
 			return (parsed->room);
 	put_error(env, "Error: name could not relate to any room.name");
 	return (NULL);

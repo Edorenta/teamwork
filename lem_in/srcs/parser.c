@@ -55,8 +55,9 @@ static int		get_link(t_env *env, const char *p)
 			return (0);
 		else
 			tmp[i] = p[i];
-	tmp[i + 1] = '\0';
-	room1 = str_to_room(env, &tmp[0]);
+	tmp[i] = '\0';
+	//dprintf(2, "i = %d tmp[0] = %c tmp[1] = %c\n", i, tmp[0], tmp[1]);
+	room1 = str_to_room(env, tmp);
 	while (p[++i])
 		if (is_space(p[i]))
 			return (0);

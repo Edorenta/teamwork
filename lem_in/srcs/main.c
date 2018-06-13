@@ -5,7 +5,7 @@ static void		make_magic_happen(t_env *env)
 	(anthill_complete(env)) ? 0 : put_error(env, "Error: incomplete anthill");
 	(void)env;
 	solve(env);
-	//put_anthill(env);
+	put_lines(env);
 	//put_paths(env);
 }
 /*

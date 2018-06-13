@@ -44,10 +44,12 @@ int			scat(char *dest, const char *src, const char c)
 {
 	int i;
 
+	//dprintf(2, "src: %s dest: %s\n", src, dest);
 	i = -1;
 	while (src[++i] != '\0')
 		dest[i] = src[i];
 	dest[i] = c;
+	//dprintf(2, "slen: %d i: %d\n", slen((char *)src), i);
 	dest[++i] = '\0';
 	return (1);
 }
