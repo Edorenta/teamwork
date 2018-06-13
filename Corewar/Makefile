@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/11 16:36:49 by fmadura          ###   ########.fr        #
+#    Updated: 2018/06/13 19:30:54 by jjourne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n'
 SRC_SUFFIX	= .c
 
 COMMON =	op
-		
+
 # Common Files
 COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 SRC1_FILES = $(COMMON_FILES)
@@ -72,7 +72,7 @@ $(NAME_2) : $(OBJ2)
 $(OBJ1) : | $(OBJ_PATH)
 $(OBJ2) : | $(OBJ_PATH)
 
-$(OBJ_PATH) : 
+$(OBJ_PATH) :
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
@@ -80,7 +80,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@$(CC) -I./includes -o $@ -c $<
 	@printf '\t'$(OK)
 
-libft : 
+libft :
 	@make -C ./printf
 
 clean :

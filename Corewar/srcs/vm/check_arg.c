@@ -6,10 +6,11 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:29:46 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/12 14:03:33 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/13 19:40:32 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "corewar.h"
 
 //check si toutes la chaine correspond bien a des chiffres
 int		ft_str_isdigit(char *str)
@@ -49,11 +50,11 @@ int		search_nb_dump(int argc, char **argv)
 	if ((ret = ft_strargv(argc, argv, "-d"))) //si l'option d existe dans argv
 	{
 		if (ft_strlen(argv[ret]) > 2) //si la longueur de l'argument est > a 2, error
-			error("Bad argument\n");
+			exit_error("Bad argument\n");
 		if ((ret + 1) < argc && ft_str_isdigit(argv[ret + 1])) //si on a bien un param apres -d ET si il ne contient que de chiffres
 			return (ft_atoi(argv[ret + 1])); //on retourne ce chiffre
 		else //sinon error
-			error("Dump bad number\n");
+			exit_error("Dump bad number\n");
 	}
 	return (-1); //si l'option -d n'existe pas
 }
@@ -61,7 +62,7 @@ int		search_nb_dump(int argc, char **argv)
 //recherche de l'option ncurses
 int		search_ncurses(int argc, char **argv)
 {
-	if(ft_strargv(argc, argv, "-n")) //check si l'option ncurses existe dans argv (-n / -ncurses)
+	if(ft_strargv(argc, argv, "-ncurses")) //check si l'option ncurses existe dans argv (-n / -ncurses)
 		return (1);
 	return (0);
 }
@@ -73,10 +74,10 @@ int		check_arg(t_vm *vm, int argc, char **argv)
 		usage();
 	vm->dump = search_nb_dump(argc, argv); //return la taille a mettre dans vm->dump si -d existe
 	if (!vm->dump) //si on a pas d'option dump, on la passe a zero
-	vm->dump++;
+		vm->dump++;
 	vm->ncurses = search_ncurses(argc, argv); //return 1 ou 0 si il y a l'option ncurses ou pas
-	//add F pour mode verbose?
-	if(search_player(vm, argc, argv))//check si il y a un/des player(s) ou pas
+	//add Fnct pour mode verbose?
+	if(search_players(vm, argc, argv))//check si il y a un/des player(s) ou pas
 		return (1);
 	return (0);
 }
