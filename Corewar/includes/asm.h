@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/12 21:04:52 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/13 17:24:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # include "ft_printf.h"
 # include "libft.h"
 # include "op.h"
-typedef struct s_op
+
+typedef struct	s_op
 {
 	char	*name;
 	int		nlen;
@@ -26,5 +27,13 @@ typedef struct s_op
 	char	*desc;
 	int		octal;
 	int		label;
-}			t_op;
+}				t_op;
+
+/*
+** TOKENS
+*/
+
+int			token_wsp(char *line);	
+int			token_lab(char *line);	
+int			token_ins(char *line);	
 #endif
