@@ -69,6 +69,8 @@ long		fatol(t_env *env, const char *str)
 	long		nb;
 	long		sign;
 
+	(slen((char *)str) < 2 && !is_digit(str[0]))
+	? put_error(env, "Error: entry is not a number") : 0;
 	while (*str && is_space(*str))
 		++str;
 	if (!(*str))
@@ -80,7 +82,7 @@ long		fatol(t_env *env, const char *str)
 		nb = 10 * nb + (*(str++) - '0');
 	while (*str && is_space(*str))
 		++str;
-	(*str && nb == 0) ? put_error(env, "Error: entry is not a number") : 0;
+	((*str && (nb == 0 || !is_digit(*str)))) ? put_error(env, "Error: entry is not a number") : 0;
 	(nb > 2147483647 || nb < -2147483647)
 	? put_error(env, "Error: number does not fit in an integer") : 0;
 	return (nb * sign);
