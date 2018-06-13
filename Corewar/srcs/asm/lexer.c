@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/13 10:56:12 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/13 11:31:20 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int		token_ins(char *line)
 {
 	int i;
 	int len;
+	int ret;
 
+	ret = -1;
 	i = 0;
 	while (*line && ft_isspace(*line))
 		++line;
@@ -66,10 +68,10 @@ int		token_ins(char *line)
 	{
 		len = ft_strlen(g_op_tab[i].name);
 		if (ft_strnequ(line, g_op_tab[i].name, len) == 1)
-			return (i);
+			ret = i;
 		i++;
 	}
-	return (-1);
+	return (ret);
 }
 
 void	lex(int fd)
@@ -135,8 +137,19 @@ void	lex(int fd)
 						break;
 					sep++;
 				}
+				while (*line && ft_isspace(*line))
+					++line;
+				if (*line == ';')
+				{
+					printf("\t[INS_COM] %c\n", *line);
+					printf("\t[INS_END] \n");
+				}
+				else if (!(*line))
+					printf("\t[INS_END] \n");
+				else
+					printf("\t[INS_ERR] %c\n", *line);
 			}
-			printf("\n");
+			printf("[TOKEN_END]\n\n");
 		}
 	}
 }
