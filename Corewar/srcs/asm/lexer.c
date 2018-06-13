@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/13 11:31:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/13 19:45:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,121 +35,123 @@
 
 t_op	g_op_tab[17];
 
-int		token_wspace(char *line)
-{
-	if (line)
-	{
-		while (ft_isspace(*line))
-			++line;
-		return (!(*line));
-	}
-	return (1);
-}
-int		token_lab(char *line)
-{
-	if (!(line))
-		return (0);
-	while (*line && (ft_isalpha(*line) || ft_isdigit(*line)))
-		++line;	
-	return (*line == ':');
-}
-
-int		token_ins(char *line)
-{
-	int i;
-	int len;
-	int ret;
-
-	ret = -1;
-	i = 0;
-	while (*line && ft_isspace(*line))
-		++line;
-	while (i < 16)
-	{
-		len = ft_strlen(g_op_tab[i].name);
-		if (ft_strnequ(line, g_op_tab[i].name, len) == 1)
-			ret = i;
-		i++;
-	}
-	return (ret);
-}
-
 void	lex(int fd)
 {
 	char	*line;
 	int		ret;
 	int		op;
 	int		len;
+	int		lnb;
 
+	lnb = 0;
 	line = NULL;
 	while ((ret = get_next_line(fd,&line)) > 0)
 	{
+		printf("\n%s\n", line);
+		int count = 0;
 		if (line && line[0] == COMMENT_CHAR)
-			printf("[TOKEN_COM] %s \n\n", line);
+			printf("[TOKEN_COM][%d]\n", lnb);
 		else if (line && token_lab(line))
-			printf("[TOKEN_LAB] %s \n\n", line);
+			printf("[TOKEN_LAB][%d]\n", lnb);
 		else if (line && line[0] == '.')
-			printf("[TOKEN_HEA] %s \n\n", line);
-		else if (line && token_wspace(line))
-			printf("[TOKEN_SPA] %s \n\n", line);
+		{
+			printf("[TOKEN_HEA][%d]", lnb);
+			if (ft_strnequ(line, NAME_CMD_STRING, 5))
+				printf("\t[HEAD_NAM]");
+			else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
+				printf("\t[HEAD_COM]");
+			else
+				printf("\t[HEAD_ERR]");
+			printf("[TOKEN_END]\n");
+		}
+		else if (line && token_wsp(line))
+			printf("[TOKEN_SPA][%d]\n\n",lnb);
 		else if (line)
 		{
-			printf("[TOKEN_INS] %s \n", line);
+			printf("[TOKEN_INS][%d]", lnb);
 			if ((op = token_ins(line)) > -1)
 			{
-				printf("\t[GOT_INS] %s\n", g_op_tab[op].name);
+				printf("[GOT_INS][%s]", g_op_tab[op].name);
 				len = g_op_tab[op].nlen;
-				while (--len > -1)
+				while (*line && ft_isspace(*line))
+				{
+					++count;
 					++line;
+				}
+				while (--len > -1)
+				{
+					++count;
+					++line;
+				}
 				int sep = 0;
 				while (*line && ft_isspace(*line))
+				{
+					++count;
 					++line;
+				}
 				while (sep < 3)
 				{
 					if (*line == '%')
 					{
+						++count;
 						++line;
 						if (*line == ':')
 						{
-							printf("\t\t[INS_IND] %%%s\n", line);
+							printf("[INS_IND][%d]", count);
+							++count;
 							++line;
 						}
-						else if (ft_isdigit(*line))
-							printf("\t\t[INS_DIR] %%%d\n", ft_atoi(line));
+						else if (ft_isdigit(*line) || *line == '-')
+							printf("[INS_IND][%d]", count);
 					}
 					else if (*line == 'r')
 					{
+						++count;
 						++line;
-						printf("\t\t[INS_REG] r%d\n", ft_atoi(line));
+						printf("[INS_REG][%d]", count);
 					}
-					while (*line && (ft_isdigit(*line) || ft_isalpha(*line)))
+					else if (ft_isdigit(*line) || *line == '-')
+					{	
+						printf("\t\t[INS_DIR][%d]", count);
+					}
+					else
+						break;
+					while (*line && (ft_isdigit(*line) || ft_isalpha(*line) || *line == '_' || *line == '-'))
+					{
+						++count;
 						++line;
+					}
 					if (*line && *line == ',')
 					{
-						printf("\t\t[GOT_SEP] %c\n", *line);
+						printf("\t\t[GOT_SEP][%d] %c", count, *line);
+						++count;
 						++line;
 					}
 					else
 						break;
-					if (*line == ' ')
+					while (*line && ft_isspace(*line))
+					{
+						++count;
 						++line;
-					else
-						break;
+					}
 					sep++;
 				}
 				while (*line && ft_isspace(*line))
 					++line;
 				if (*line == ';')
 				{
-					printf("\t[INS_COM] %c\n", *line);
-					printf("\t[INS_END] \n");
+					printf("\t[INS_COM] %c", *line);
+					printf("\t[INS_END] ");
 				}
 				else if (!(*line))
-					printf("\t[INS_END] \n");
+					printf("\t[INS_END] ");
+				else if (*line == '#')
+					printf("\t[INS_COM] %s", line);
 				else
-					printf("\t[INS_ERR] %c\n", *line);
+					printf("\t[INS_ERR] %c", *line);
 			}
-			printf("[TOKEN_END]\n\n");
+			printf("[TOKEN_END]\n");
 		}
+		++lnb;
 	}
 }

@@ -1,4 +1,4 @@
-SRC = asm.c lexer.c op.c
+SRC = asm.c lexer.c op.c token.c
 LIB = ../../printf/libftprintf.a
 INC = -I../../includes -I../../printf/includes -I../../printf/libft/includes
 LUB = -lftprintf
