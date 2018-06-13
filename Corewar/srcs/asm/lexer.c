@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/12 21:04:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/13 10:56:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,27 +102,41 @@ void	lex(int fd)
 				int sep = 0;
 				while (*line && ft_isspace(*line))
 					++line;
-				while (sep < 2)
+				while (sep < 3)
 				{
 					if (*line == '%')
 					{
 						++line;
 						if (*line == ':')
-							printf("\t\t[INS_IND] %%:%s\n", ++line);
+						{
+							printf("\t\t[INS_IND] %%%s\n", line);
+							++line;
+						}
 						else if (ft_isdigit(*line))
-							printf("\t\tINS_DIR] %%%s\n", ft_atoi(line));
+							printf("\t\t[INS_DIR] %%%d\n", ft_atoi(line));
 					}
 					else if (*line == 'r')
-						printf("\t\t[GOT_REG] r%d\n", ft_atoi(line));
-					while (*line && ft_strchr(*line, LABEL_CHAR))
+					{
 						++line;
-					if (*line && *line == SEPARATOR_CHAR)
+						printf("\t\t[INS_REG] r%d\n", ft_atoi(line));
+					}
+					while (*line && (ft_isdigit(*line) || ft_isalpha(*line)))
+						++line;
+					if (*line && *line == ',')
+					{
 						printf("\t\t[GOT_SEP] %c\n", *line);
+						++line;
+					}
+					else
+						break;
+					if (*line == ' ')
+						++line;
 					else
 						break;
 					sep++;
 				}
 			}
+			printf("\n");
 		}
 	}
 }
