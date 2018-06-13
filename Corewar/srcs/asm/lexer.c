@@ -95,13 +95,33 @@ void	lex(int fd)
 			printf("[TOKEN_INS] %s \n", line);
 			if ((op = token_ins(line)) > -1)
 			{
-				printf("[GOT_INS] %s\n", g_op_tab[op].name);
+				printf("\t[GOT_INS] %s\n", g_op_tab[op].name);
 				len = g_op_tab[op].nlen;
 				while (--len > -1)
 					++line;
+				int sep = 0;
 				while (*line && ft_isspace(*line))
 					++line;
-				printf("%s \n\n", line);
+				while (sep < 2)
+				{
+					if (*line == '%')
+					{
+						++line;
+						if (*line == ':')
+							printf("\t\t[INS_IND] %%:%s\n", ++line);
+						else if (ft_isdigit(*line))
+							printf("\t\tINS_DIR] %%%s\n", ft_atoi(line));
+					}
+					else if (*line == 'r')
+						printf("\t\t[GOT_REG] r%d\n", ft_atoi(line));
+					while (*line && ft_strchr(*line, LABEL_CHAR))
+						++line;
+					if (*line && *line == SEPARATOR_CHAR)
+						printf("\t\t[GOT_SEP] %c\n", *line);
+					else
+						break;
+					sep++;
+				}
 			}
 		}
 	}
