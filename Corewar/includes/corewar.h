@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/13 18:34:23 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/13 21:24:27 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_player
 {
 	int					active;
 	int					last_live;
+	int					read_ret; //retour de read
 	char				*file_name;
 	char				name[PROG_NAME];
 	char				comments[PROG_COMS];
@@ -45,25 +46,14 @@ typedef struct			s_mem //une case de la memoire
 	int					pc;
 }						t_mem;
 
-// typedef struct			s_op //pour les operations
-// {
-	// int					active;
-	// char				code;
-	// unsigned char		ocp;
-	// int					ar[3];
-	// int					ar_typ[3];
-// }						t_op;
-
-typedef struct	s_op
+typedef struct			s_op //pour les operations
 {
-	int				active;
-	char			code;
-	unsigned char	ocp;
-	int				ar[3];
-	int				ar_typ[3];
-	int				loadtime;
-	int				pos_opcode;
-}				t_op;
+	int					active;
+	char				code;
+	unsigned char		ocp;
+	int					ar[3];
+	int					ar_typ[3];
+}						t_op;
 
 typedef struct			s_vm
 {

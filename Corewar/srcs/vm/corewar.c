@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/13 19:33:12 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/13 21:37:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		main(int argc, char *argv[])
 	if(check_arg(&vm, argc, argv)) //si check_args return 1, error
 		exit_error("Error: arguments invalide");
 	//create_players()
+
+	//tester les infos recup, et l'option -n
 
 	//run()
 
