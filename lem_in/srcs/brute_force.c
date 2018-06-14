@@ -50,11 +50,15 @@ void		solve(t_env *env)
 	bullshit = new_ant(env, NULL);
 	path->room->ant = bullshit;
 	tmp = path->room->link;
-	while (&(path->room) != &(env->end))
+	while (path->room != env->end)
 	{
-		printf("room id: %s\n", path->room->id);
 		if (!alrdy_use(path, tmp->linked_room))
+		{
 			add_path(env, path, tmp->linked_room);
+			path = path->next;
+			printf("room id: %s\n", path->room->id);
+			tmp = path->room->link;
+		}
 		else
 		{
 			if (tmp->next)
