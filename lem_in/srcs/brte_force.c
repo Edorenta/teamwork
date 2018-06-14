@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-int		alrdy_use(t_path *path, t_room *next)
+static int		alrdy_use(t_path *path, t_room *next)
 {
 	t_path	*tmp;
 
@@ -18,7 +18,7 @@ int		alrdy_use(t_path *path, t_room *next)
 	return (0);
 }
 
-void		del_ant_next(t_path *path)
+static void		del_ant_next(t_path *path)
 {
 	t_link	*tmp;
 
@@ -30,7 +30,7 @@ void		del_ant_next(t_path *path)
 	}	
 }
 
-void		del_one_path(t_path *path)
+static void		del_one_path(t_path *path)
 {
 	t_path *tmp;
 
@@ -40,11 +40,13 @@ void		del_one_path(t_path *path)
 	path->next = NULL;
 }
 
-void		solve(t_env *env, t_path *path)
+void		solve(t_env *env)
 {
+	t_path	*path;
 	t_ant	*bullshit;
 	t_link	*tmp;
 
+	path = new_path(env);
 	bullshit = new_ant(env, NULL);
 	path->room->ant = bullshit;
 	tmp = path->room->link;
