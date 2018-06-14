@@ -8,6 +8,5 @@ NAME = asm
 all :
 	#rm -f exe.cor
 	#rm -f asm
-	clang -g $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm	
-	#hexdump -C exe.cor
+	clang  $(SRC) $(LIB) $(INC) -o $(NAME)
+	./asm ../../rsrc/examples/bee_gees.s
