@@ -8,6 +8,6 @@ NAME = asm
 all :
 	#rm -f exe.cor
 	#rm -f asm
-	gcc -g $(SRC) $(LIB) $(INC) -o $(NAME)
+	clang -g $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm	
 	#hexdump -C exe.cor

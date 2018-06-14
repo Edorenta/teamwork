@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "asm.h"
+
 t_op	g_op_tab[17];
 
 int		token_wsp(char *line)
@@ -34,9 +35,9 @@ int		token_lab(char *line)
 
 int		token_ins(char *line)
 {
-	int i;
-	int len;
-	int ret;
+	int	i;
+	int	len;
+	int	ret;
 
 	ret = -1;
 	i = 0;
