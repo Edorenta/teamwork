@@ -4,7 +4,7 @@
 # define R1 (env->first_parsed_room)
 # define R2 (env->last_parsed_room)
 # define L1 (env->first_parsed_link)
-# define L2 (env->first_parsed_link)
+# define L2 (env->last_parsed_link)
 
 typedef struct s_path			t_path;
 typedef struct s_room			t_room;
