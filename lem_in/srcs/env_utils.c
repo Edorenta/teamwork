@@ -7,7 +7,7 @@ static void	free_colony(t_env *env)
 	i = env->nb_ants;
 	if (env->colony)
 		while (--i >= 0)
-			env->colony[i] ? free(env->colony[i]) : 0;
+			env->colony[i] ? del_ant(env->colony[i]) : 0;
 	env->colony ? free(env->colony) : 0;
 }
 

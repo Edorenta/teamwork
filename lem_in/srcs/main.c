@@ -6,6 +6,8 @@ static void		make_magic_happen(t_env *env)
 	(void)env;
 	solve(env);
 	put_lines(env);
+	//put_rooms(env);
+	//put_links(env);
 	//put_paths(env);
 }
 /*
