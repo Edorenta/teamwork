@@ -1,47 +1,54 @@
 #include "lem_in.h"
 
-int		alrdy_use(t_parsed_room *path, t_room *next)
+int		alrdy_use(t_path *path, t_room *next)
 {
-	while (path->prev)
+	t_path	*tmp;
+
+	tmp = path;
+	if (next->ant != NULL)
+		return(1);
+	while (tmp->prev)
 	{
-		if (path->room == next)
+		if (tmp->room == next)
 			return (1);
-		path = path->prev;
+		tmp = tmp->prev;
 	}
+	if (tmp->room == next)
+		return (1);
 	return (0);
 }
 
-void	solve(t_env *env, t_parsed_room *path, t_link *link)
+void		del_ant_next(t_env *env, t_path *path)
 {
-	t_parsed_room *tmp;
+	t_link	*tmp;
 
-	tpm = path;
-	if (tmp->room = env->end)
-		return (tmp);
+	tmp = path->room->link;
 	while (tmp)
 	{
-		if (alrdy_use(tmp, link->linked_room))
-		{
-			if (link->next)
-				link = link->next;
-			else
-			{
-				link = tmp->room->link;
-				tmp = tmp->prev;
-				while (link != tmp->room->link->linked_room->link)
-					tmp->room->link = tmp->room->link->next;
-				solve(env, tmp,);
-				
+		tmp->linked_room->ant = NULL;
+		tmp = tmp->next;
+	}	
+}
+
+void		solve(t_env *env, t_path *path)
+{
+	t_ant	*bullshit;
+	t_link	*tmp;
+
+	bullshit = new_ant(env, NULL);
+	path->room->ant = bullshit;
+	tmp = path->room->link;
+	while (&(path->room) != &(env->end))
+	{
+		if (!alrdy_use(path, tmp->linked_room))
+			add_path(env, path, tmp->linked_room);
 		else
 		{
-			tmp->next = tmp->room->linked_room;
-			tmp = tmp->next;
-			solve(env, tmp);
-		}
+			if (tmp->next)
+				tmp = tmp->next;
+			else
 
 
 
 
-	put_room_links(env, env->start);
-	put_room_links(env, env->end);
-}
+
