@@ -50,3 +50,17 @@ void	del_path(t_path *path)
 	}
 	p ? free(p) : 0;
 }
+
+void	put_path(t_path *path)
+{
+	t_path *p;
+
+	p = path;
+	while (p && p->prev)
+		p = p->prev;
+	while (p && p->room && &(p->room->id[0]))
+	{
+		&(p->room->id[0]) ? pstr(1, p->room->id, ' ') : 0;
+		p = p->next;
+	}
+}

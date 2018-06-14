@@ -52,6 +52,7 @@ void		solve(t_env *env)
 	tmp = path->room->link;
 	while (&(path->room) != &(env->end))
 	{
+		printf("room id: %s\n", path->room->id);
 		if (!alrdy_use(path, tmp->linked_room))
 			add_path(env, path, tmp->linked_room);
 		else
@@ -68,4 +69,5 @@ void		solve(t_env *env)
 	}
 	if (&(path->room) != &(env->end))
 		env->fastway = path;
+	put_path(path);
 }

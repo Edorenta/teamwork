@@ -60,7 +60,6 @@ t_room			*str_to_room(t_env *env, const char *s);
  * ANTS
  */
 
-void			solve(t_env *env);
 void			put_ant(t_ant *ant);
 void			ant_add_path(t_env *env, t_ant *ant, t_room *room);
 void			move_ant_forward(t_env *env, t_ant *ant);
@@ -75,6 +74,7 @@ t_path			*new_path(t_env *env);
 t_path			*duplicate_path(t_env *env, t_path *path);
 void			add_path(t_env *env, t_path *path, t_room *room);
 void			del_path(t_path *path);
+void			put_path(t_path *path);
 
 /*
  * PRINT
@@ -86,5 +86,11 @@ void			put_rooms(t_env *env);
 void			put_link(t_env *env, t_parsed_link *l);
 void			put_links(t_env *env);
 void			put_room_links(t_env *env, t_room *room);
+
+/*
+ * SOLVE
+ */
+
+void			solve(t_env *env);
 
 #endif
