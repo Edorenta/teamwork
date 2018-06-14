@@ -35,6 +35,20 @@
 
 # define SRC_BEGIN MAGIC_NB + PROG_NAME + PROG_COMS + PROG_SIZE
 
+typedef struct			s_proc //liste chainee de process
+{
+	int					id;
+	int					active;
+	int					num;
+	int					last_pc;
+	int					pc;
+	char				carry;
+	int					reg[17];
+	int					last_live;
+	t_op				op;
+	struct s_proc		*next;
+}						t_proc;
+
 typedef struct			s_player
 {
 	int					active;
@@ -47,7 +61,7 @@ typedef struct			s_player
 
 typedef struct			s_mem //une case de la memoire
 {
-	char				mem;
+	char				mem; //contenu de cette case
 	int					num;//du joueur
 	int					live;
 	int					pc;

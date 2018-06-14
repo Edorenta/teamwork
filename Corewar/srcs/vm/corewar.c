@@ -33,6 +33,7 @@ void 	usage(void)
 void	init_vm(t_vm *vm)
 {
 	vm->ctd = CYCLE_TO_DIE;
+	vm->next_ctd = CYCLE_TO_DIE;
 	vm->dump = -1;//option dump de la memoire (option -d cycle) => inactive par defaut
 	ft_bzero(vm->player, sizeof(t_player) * 5);
 	ft_bzero(vm->ram, sizeof(t_mem) * MEM_SIZE);
@@ -47,9 +48,10 @@ int		main(int argc, char *argv[])
 	if(check_arg(&vm, argc, argv)) //si check_args return 1, error
 		exit_error("Error: arguments invalide");
 	create_players(&vm);
+
 	//init_ncurses et check ici
 
-	//run()
+	run()
 
 	//get_winner()
 	//affichage (ncurses)

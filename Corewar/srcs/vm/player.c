@@ -12,6 +12,19 @@
 
 #include "corewar.h"
 
+//
+void	reset_live(t_vm *vm)
+{
+	int				i;
+
+	i = 1;
+	while (i <= vm->nb_player) //pour tous les joueurs
+	{
+		vm->player[i].life_signal = 0; //pour plus tard
+		++i;
+	}
+}
+
 //F: init new player
 void	new_player(t_vm *vm, int nb, char *str)
 {
@@ -106,5 +119,5 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
-	//init_process(vm);//existe pas encore
+	init_process(vm);
 }
