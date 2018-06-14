@@ -62,7 +62,19 @@ t_room			*str_to_room(t_env *env, const char *s);
 
 void			solve(t_env *env);
 void			put_ant(t_ant *ant);
+void			ant_add_path(t_env *env, t_ant *ant, t_room *room);
 void			move_ant_forward(t_env *env, t_ant *ant);
+t_ant			*new_ant(t_env *env, t_path *path);
+void			del_ant(t_ant *ant);
+
+/*
+ * PATHS
+ */
+
+t_path			*new_path(t_env *env);
+t_path			*duplicate_path(t_env *env, t_path *path);
+void			add_path(t_env *env, t_path *path, t_room *room);
+void			del_path(t_path *path);
 
 /*
  * PRINT
