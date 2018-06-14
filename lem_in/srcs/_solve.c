@@ -18,7 +18,7 @@ int		alrdy_use(t_path *path, t_room *next)
 	return (0);
 }
 
-void		del_ant_next(t_env *env, t_path *path)
+void		del_ant_next(t_path *path)
 {
 	t_link	*tmp;
 
@@ -28,6 +28,16 @@ void		del_ant_next(t_env *env, t_path *path)
 		tmp->linked_room->ant = NULL;
 		tmp = tmp->next;
 	}	
+}
+
+void		del_one_path(t_path *path)
+{
+	t_path *tmp;
+
+	tmp = path;
+	path = path->prev;
+	free(tmp);
+	path->next = NULL;
 }
 
 void		solve(t_env *env, t_path *path)
@@ -47,8 +57,13 @@ void		solve(t_env *env, t_path *path)
 			if (tmp->next)
 				tmp = tmp->next;
 			else
-
-
-
-
-
+			{
+				del_ant_next(path);
+				del_one_path(path);
+				tmp = path->room->link;
+			}
+		}
+	}
+	if (&(path->room) != &(env->end))
+		env->fastway = path;
+}
