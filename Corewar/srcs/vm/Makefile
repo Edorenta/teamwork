@@ -1,4 +1,4 @@
-SRC = corewar.c check_arg.c parse_player.c
+SRC = corewar.c check_arg.c parse_player.c player.c
 LIB = ../../libft/libft.a
 INC = -I../../includes
 LUB = -llibft.a

@@ -18,6 +18,9 @@
 # include <stdint.h>
 # include <stdarg.h>
 # include <limits.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/fcntl.h>
 
 # include "../libft/include/libft.h"//
 # include "../libft/include/ft_printf.h"//
@@ -25,8 +28,12 @@
 
 #include <stdio.h>//
 
+# define MAGIC_NB 		4
 # define PROG_NAME 		128 + 4//
+# define PROG_SIZE 		4
 # define PROG_COMS 		2048 + 4//
+
+# define SRC_BEGIN MAGIC_NB + PROG_NAME + PROG_COMS + PROG_SIZE
 
 typedef struct			s_player
 {
@@ -73,16 +80,22 @@ typedef struct			s_vm
 void					exit_error(const char *s);
 void 					usage(void);
 void					init_vm(t_vm *vm);
+
 int						check_arg(t_vm *vm, int argc, char **argv);
 int						search_nb_dump(int argc, char **argv);
 int						search_ncurses(int argc, char **argv);
+int						search_players(t_vm *vm, int argc, char **argv);
+int						search_nb_player(char **argv, int arg_num);
 int						ft_strargv(int argc, char **argv, char *str);
 int						ft_str_isdigit(char *str);
-int						search_players(t_vm *vm, int argc, char **argv);
+void					new_player(t_vm *vm, int nb, char *str);
 int						get_nb_player(t_vm *vm, char **argv, int arg_num);
-int						search_nb_player(char **argv, int arg_num);
 int						is_free_nb_player(t_vm *vm, int nb);
 int						first_free_nb_player(t_vm *vm);
-void					new_player(t_vm *vm, int nb, char *str);
+
+void					create_players(t_vm *vm);
+void 					write_player(t_vm *vm, int nb, int num);
+int						get_prog_size(char *data);
+char					*get_data(t_player *player, char *buff);
 
 #endif

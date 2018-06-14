@@ -81,7 +81,7 @@ int		search_players(t_vm *vm, int argc, char **argv)
 		//si l'argument contient .cor (strstr dans tmp) ET si tmp != 4 || .cor en millieu de nom?
 		if ((tmp = ft_strstr(argv[i], ".cor")) && !tmp[4])
 		{
-			vm->nb_player++; //apres les errors?
+			vm->nb_player++; //apres les errors? (+ de check?)
 			//si vm->nb_player est superieur au max de champion possible, error
 			if (vm->nb_player > MAX_PLAYERS)
 				exit_error("trop de champions"); //message a mettre en anglais

@@ -46,9 +46,8 @@ int		main(int argc, char *argv[])
 	init_vm(&vm);
 	if(check_arg(&vm, argc, argv)) //si check_args return 1, error
 		exit_error("Error: arguments invalide");
-	//create_players()
-
-	//tester les infos recup, et l'option -n
+	create_players(&vm);
+	//init_ncurses et check ici
 
 	//run()
 
