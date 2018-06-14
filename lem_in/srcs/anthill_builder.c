@@ -16,7 +16,7 @@ void		move_colony(t_env *env)
 {
 	int		i;
 
-	while (env->colony[env->nb_ants - 1]->path->current != env->end)
+	while (env->colony[env->nb_ants - 1]->path->room != env->end)
 	{
 		i = -1;
 		while (++i < env->nb_ants)
