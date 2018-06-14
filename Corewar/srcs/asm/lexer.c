@@ -6,37 +6,11 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/13 19:45:28 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/14 18:38:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-# define LX_LIVE	0x01
-# define LX_LD		0x02
-# define LX_ST		0x03
-# define LX_ADD		0x04
-# define LX_SUB		0x05
-# define LX_AND		0x06
-# define LX_OR		0x07
-# define LX_XOR		0x08
-# define LX_ZJMP	0x09
-# define LX_LDI		0x0A
-# define LX_STI		0x0B
-# define LX_FORK	0x0C
-# define LX_LLD		0x0D
-# define LX_LLDI	0x0E
-# define LX_LFORK	0x0F
-# define LX_AFF		0x10
-
-# define TOKEN_COM	0b0001
-# define TOKEN_LAB	0b0010
-# define TOKEN_INS	0b0011
-# define TOKEN_NAM	0b0100
-
-# define INS_COM
-# define INS_IND
-# define INS_DIR
-# define INS_REG
 
 t_op	g_op_tab[17];
 
@@ -61,7 +35,7 @@ static void end_line(int count, char **line)
 
 }
 
-int	lexer_ins(int count, char **line)
+static int	lexer_ins(int count, char **line, unsigned int *token)
 {
 	int sep;
 
@@ -79,21 +53,33 @@ int	lexer_ins(int count, char **line)
 			++(*line);
 			if (**line == ':')
 			{
-				printf("[INS_IND][%d]", count);
+				*token <<= 4;
+				*token |= INS_DIR;
+				printf("[INS_DIR][%d]", count);
 				++count;
 				++(*line);
 			}
 			else if (ft_isdigit(**line) || **line == '-')
-				printf("[INS_IND][%d]", count);
+			{
+				*token <<= 4;
+				*token |= INS_DIR;
+				printf("[INS_DIR][%d]", count);
+			}
 		}
 		else if (**line == 'r')
 		{
 			++count;
 			++(*line);
+			*token <<= 4;
+			*token |= INS_REG;
 			printf("[INS_REG][%d]", count);
 		}
 		else if (ft_isdigit(**line) || **line == '-')
-			printf("[INS_DIR][%d]", count);
+		{
+			*token <<= 4;
+			*token |= INS_REG;	
+			printf("[INS_IND][%d]", count);
+		}
 		else
 			break;
 		while (**line && (ft_isdigit(**line) || ft_isalpha(**line) || **line == '_' || **line == '-'))
@@ -103,7 +89,9 @@ int	lexer_ins(int count, char **line)
 		}
 		if (**line && **line == ',')
 		{
-			printf("[GOT_SEP][%d]", count);
+			*token <<= 4;
+			*token |= INS_SEP;
+			printf("[INS_SEP][%d]", count);
 			++count;
 			++(*line);
 		}
@@ -119,46 +107,78 @@ int	lexer_ins(int count, char **line)
 	return (count);
 }
 
+void	lexer_basics(char *line, unsigned int *token, int lnb)
+{
+	if (line && *line == COMMENT_CHAR)
+	{
+		*token |= TOKEN_COM;
+		*token <<= 4; 
+		printf("[TOKEN_COM][%d]", lnb);
+	}
+	else if (line && token_lab(line))
+	{
+		*token |= TOKEN_LAB;
+		*token <<= 4; 
+		printf("[TOKEN_LAB][%d]", lnb);
+	}
+	else if (line && *line == '.')
+	{
+		*token |= TOKEN_HEA;
+		*token <<= 4; 
+		printf("[TOKEN_HEA][%d]", lnb);
+		if (ft_strnequ(line, NAME_CMD_STRING, 5))
+		{
+			*token |= HEAD_NAME;
+			printf("[HEAD_NAME]");
+		}
+		else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
+		{
+			*token |= HEAD_COMT;
+			printf("[HEAD_COMT]");
+		}
+		else
+		{
+			*token |= HEAD_ERRR;
+			*token <<= 4; 
+			printf("[HEAD_ERR]");
+		}
+	}
+	else if (line && token_wsp(line))
+	{
+		*token |= TOKEN_SPA;
+		*token <<= 4; 
+		printf("[TOKEN_SPA][%d]",lnb);
+	}
+}
+
 void	lex(int fd)
 {
-	char		*line;
-	int		ret;
-	int		op;
-	int		len;
-	int		lnb;
-	int		count;
+	char			*line;
+	int				ret;
+	int				op;
+	int				len;
+	int				lnb;
+	int				count;
 	unsigned int	token;
 
 	lnb = 0;
-	token = 0;
 	line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		token = 0;
 		printf("\nline :{%s}\n", line);
 		count = 0;
-		if (line && line[0] == COMMENT_CHAR)
-			printf("[TOKEN_COM][%d]\n", lnb);
-		else if (line && token_lab(line))
-			printf("[TOKEN_LAB][%d]\n", lnb);
-		else if (line && line[0] == '.')
+		lexer_basics(line, &token, lnb);
+		if (line && token == 0)
 		{
-			printf("[TOKEN_HEA][%d]\n", lnb);
-			if (ft_strnequ(line, NAME_CMD_STRING, 5))
-				printf("[HEAD_NAM]");
-			else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
-				printf("[HEAD_COM]");
-			else
-				printf("[HEAD_ERR]");
-			printf("[TOKEN_END]\n");
-		}
-		else if (line && token_wsp(line))
-			printf("[TOKEN_SPA][%d]\n",lnb);
-		else if (line)
-		{
+			token |= TOKEN_INS;
+			token <<= 4;
 			printf("[TOKEN_INS][%d]\n", lnb);
 			if ((op = token_ins(line)) > -1)
 			{
-				printf("[GOT_INS][%s]", g_op_tab[op].name);
+				token <<= 4;
+				token |= op + 1;
+				printf("[GOT_INS][%s]\n", g_op_tab[op].name);
 				len = g_op_tab[op].nlen;
 				while (*line && ft_isspace(*line))
 				{
@@ -170,11 +190,11 @@ void	lex(int fd)
 					++count;
 					++line;
 				}
-				count = lexer_ins(count, &line);
+				count = lexer_ins(count, &line, &token);
 				end_line(count, &line);
 			}
-			printf("[TOKEN_END]\n");
 		}
+		printf("\n[TOKEN][%#.2x]\n", token);
 		++lnb;
 	}
 }
