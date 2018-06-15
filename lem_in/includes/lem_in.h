@@ -48,6 +48,7 @@ int				anthill_complete(t_env *env);
 t_link			*add_link(t_room *new_linked_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
 void			link_rooms(t_room *room1, t_room *room2);
+int				count_linked_rooms(t_room *room);
 
 /*
  * ROOMS

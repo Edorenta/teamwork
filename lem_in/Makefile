@@ -25,6 +25,7 @@ COMMON =	main \
 			links \
 			rooms \
 			path \
+			count \
 			env_utils \
 			str_utils \
 			basics \
