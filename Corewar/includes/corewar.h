@@ -70,10 +70,12 @@ typedef struct			s_mem //une case de la memoire
 typedef struct			s_op //pour les operations
 {
 	int					active;
-	char				code;
+	char				code; //value
 	unsigned char		ocp;
 	int					ar[3];
 	int					ar_typ[3];
+	int					loadtime;//par rpport au cycle
+	int					pos_opcode;//par rapport au pc (voir parse_op.c)
 }						t_op;
 
 typedef struct			s_vm

@@ -33,7 +33,7 @@ t_proc	*create_process(t_vm *vm, int num)
 
 	if (!(tmp = (t_proc*)ft_memalloc(sizeof(t_proc)))) //malloc de la node
 		error("Malloc\n");
-	tmp->id = set_proc_id(vm); //
+	tmp->id = set_proc_id(vm);
 	tmp->num = num; //a quel joueur ca correspond
 	tmp->pc = (MEM_SIZE / vm->nb_player) * ((num * (-1) - 1)); //
 	tmp->last_pc = 0;
@@ -42,7 +42,7 @@ t_proc	*create_process(t_vm *vm, int num)
 	tmp->carry = 0;
 	tmp->last_live = 0;
 	tmp->active = 1;
-	tmp->op.active = 0;
+	tmp->op.active = 0;//pas sur une instruction par defaut (pour entrer dans le if)
 	tmp->next = NULL;
 	return (tmp);
 }
@@ -73,7 +73,7 @@ void	set_ctd(t_vm *vm)
 	}
 	else
 		vm->ctd_check++;
-	vm->lives_in_cycle = 0; //nbr de live dans un ctd
+	vm->lives_in_cycle = 0; //reset nbr de live dans un ctd
 }
 
 //
