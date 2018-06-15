@@ -25,7 +25,7 @@ static void		del_ant_next(t_path *path)
 	tmp = path->room->link;
 	while (tmp)
 	{
-		tmp->linked_room->ant = NULL;
+		tmp->room->ant = NULL;
 		tmp = tmp->next;
 	}	
 }
@@ -40,7 +40,7 @@ static void		del_one_path(t_path *path)
 	path->next = NULL;
 }
 
-void		solve(t_env *env)
+void		brute_solve(t_env *env)
 {
 	t_path	*path;
 	t_ant	*bullshit;
@@ -52,9 +52,9 @@ void		solve(t_env *env)
 	tmp = path->room->link;
 	while (path->room != env->end)
 	{
-		if (!alrdy_use(path, tmp->linked_room))
+		if (!alrdy_use(path, tmp->room))
 		{
-			path = add_path(env, path, tmp->linked_room);
+			path = add_path(env, path, tmp->room);
 			printf("room id: %s\n", path->room->id);
 			tmp = path->room->link;
 		}

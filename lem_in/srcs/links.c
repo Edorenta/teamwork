@@ -1,11 +1,11 @@
 #include "lem_in.h"
 
-t_link		*add_link(t_room *new_linked_room, t_link *prev_link)
+t_link		*add_link(t_room *new_room, t_link *prev_link)
 {
 	t_link *link;
 
 	link = (t_link *)malloc(sizeof(t_link));
-	link->linked_room = new_linked_room;
+	link->room = new_room;
 	link->prev = prev_link;
 	link->next = NULL;
 	return (link);

@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-int		count_linked_rooms(t_room *room)
+int		count_rooms(t_room *r)
 {
 	t_link	*l;
 	int		cnt;
