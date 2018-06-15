@@ -50,7 +50,7 @@ struct			s_parsed_room
 
 struct			s_link
 {
-	t_room			*linked_room;
+	t_room			*room;
 	t_link			*prev;
 	t_link			*next;
 };

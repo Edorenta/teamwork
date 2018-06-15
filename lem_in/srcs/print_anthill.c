@@ -20,7 +20,7 @@ void	put_room_links(t_env *env, t_room *room)
 	pstr(2, "linked to room ", '\0');
 	pstr(2, room->id, '\0');
 	pstr(2, ":\n", '\0');
-	&(l->linked_room->id[0]) ? pstr(2, &(l->linked_room->id[0]), '\n') : 0;
+	&(l->room->id[0]) ? pstr(2, &(l->room->id[0]), '\n') : 0;
 	while ((l->next && (l = l->next)))
-		&(l->linked_room->id[0]) ? pstr(2, &(l->linked_room->id[0]), '\n') : 0;
+		&(l->room->id[0]) ? pstr(2, &(l->room->id[0]), '\n') : 0;
 }

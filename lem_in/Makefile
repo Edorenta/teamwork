@@ -25,6 +25,7 @@ COMMON =	main \
 			links \
 			rooms \
 			path \
+			count \
 			env_utils \
 			str_utils \
 			basics \
@@ -32,7 +33,8 @@ COMMON =	main \
 			parser_utils \
 			anthill_builder \
 			print_anthill \
-			brute_force
+			brute_force \
+			genetic
 #			solve
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))

@@ -45,9 +45,10 @@ int				anthill_complete(t_env *env);
  * LINKS
  */
 
-t_link			*add_link(t_room *new_linked_room, t_link *prev_link);
+t_link			*add_link(t_room *new_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
 void			link_rooms(t_room *room1, t_room *room2);
+int				count_rooms(t_room *room);
 
 /*
  * ROOMS
@@ -72,7 +73,7 @@ void			del_ant(t_ant *ant);
 
 t_path			*new_path(t_env *env);
 t_path			*duplicate_path(t_env *env, t_path *path);
-void			add_path(t_env *env, t_path *path, t_room *room);
+t_path			*add_path(t_env *env, t_path *path, t_room *room);
 void			del_path(t_path *path);
 void			put_path(t_path *path);
 
@@ -91,6 +92,7 @@ void			put_room_links(t_env *env, t_room *room);
  * SOLVE
  */
 
-void			solve(t_env *env);
+void			brute_solve(t_env *env);
+void			genetic_solve(t_env *env);
 
 #endif
