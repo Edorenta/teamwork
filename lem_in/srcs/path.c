@@ -25,7 +25,7 @@ t_path	*duplicate_path(t_env *env, t_path *path)
 	return (new);
 }
 
-void	add_path(t_env *env, t_path *path, t_room *room)
+t_path	*add_path(t_env *env, t_path *path, t_room *room)
 {
 	t_path *p;
 
@@ -36,6 +36,7 @@ void	add_path(t_env *env, t_path *path, t_room *room)
 	p->room = room;
 	path->next = p;
 	path = path->next;
+	return (path);
 }
 
 void	del_path(t_path *path)

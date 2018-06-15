@@ -54,8 +54,7 @@ void		solve(t_env *env)
 	{
 		if (!alrdy_use(path, tmp->linked_room))
 		{
-			add_path(env, path, tmp->linked_room);
-			path = path->next;
+			path = add_path(env, path, tmp->linked_room);
 			printf("room id: %s\n", path->room->id);
 			tmp = path->room->link;
 		}

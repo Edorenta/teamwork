@@ -32,7 +32,8 @@ COMMON =	main \
 			parser_utils \
 			anthill_builder \
 			print_anthill \
-			brute_force
+			brute_force \
+			genetic
 #			solve
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))

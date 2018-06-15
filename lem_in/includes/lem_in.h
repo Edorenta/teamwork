@@ -72,7 +72,7 @@ void			del_ant(t_ant *ant);
 
 t_path			*new_path(t_env *env);
 t_path			*duplicate_path(t_env *env, t_path *path);
-void			add_path(t_env *env, t_path *path, t_room *room);
+t_path			*add_path(t_env *env, t_path *path, t_room *room);
 void			del_path(t_path *path);
 void			put_path(t_path *path);
 
