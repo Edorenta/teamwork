@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/14 18:38:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:04:50 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void	lex(int fd)
 			}
 		}
 		printf("\n[TOKEN][%#.2x]\n", token);
+		printf("token true : %d\n", check_op(token));
 		++lnb;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/14 18:39:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/16 17:14:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef struct	s_op
 ** TOKENS
 */
 
-int			token_wsp(char *line);	
-int			token_lab(char *line);	
-int			token_ins(char *line);	
+int			token_wsp(char *line);
+int			token_lab(char *line);
+int			token_ins(char *line);
+
+int			check_op(unsigned int value);
 #endif
