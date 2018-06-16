@@ -61,7 +61,7 @@ int			find_args(t_vm *vm, t_proc *proc, int num, int pos)//num = num arg
 	mask = 0xC0;//on part du premier
 	mask = mask >> (2 * num);//on decale de 2 a chaque fois, en fnct de arg 1, 2, ou 3
 	type = type & mask;
-	type = type >> (6 - 2 * num);// d'abord => 110000 puis 001100 puis 000011
+	type = type >> (6 - 2 * num);// d'abord => 110000 puis 001100 puis 000011, et la met au bon endroit
 	proc->op.ar_typ[num] = type;
 	if (type == REG_CODE)
 	{

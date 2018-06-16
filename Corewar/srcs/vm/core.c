@@ -11,8 +11,8 @@ void		dump(t_vm *vm)
 	}
 }
 
-//	tmp: create =>loadtime le calcul, signe, find_args
-void			exec_proc(t_vm *vm, t_proc *proc)
+//	tmp: create => loadtime le calcul, signe, pc ram
+void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 {
 	vm->ram[proc->pc % MEM_SIZE].pc = 0;//ram = l'espace memoire de l'arene, program counter a zero de la mem
 	if (!proc->op.active) //si le process n'est pas n'est  pas en train d'executer une instruction
@@ -42,26 +42,27 @@ void			exec_proc(t_vm *vm, t_proc *proc)
 //fonction principale du core: run tous les process
 //
 //	tmp pour moi: life_signal, 64, calcul, tot, last_one
-void			run(t_vm *vm)
+void			run(t_vm *vm) //reset_live
 {
 	t_proc			*proc;
 
 	while (process_living(vm))//tant qu'il y a des process en vie (check avec le ctd)
 	{
 		if (!((vm->cycle + 1) % vm->ctd)) //si le cycle arrive au cycle to die
-			reset_live(vm); //on reset les lives
+			//reset_live(vm); //on reset les lives
+			printf("\nappeler reset_live\n");
 
 		//verbosity pour les cycles
 		//call_ncurses ?
 
 		proc = vm->proc;
-		while (proc != NULL)//on parcours tous les process, (liste chainee)
-		{
+		//while (proc != NULL)//on parcours tous les process, (liste chainee)
+		//{
 			//if (proc->active)
 			//	exec_proc(vm, proc);//execute le process => pas encore cree
-			proc->last_pc = proc->pc; //la derniere operation est mise a jour
-			proc = proc->next;//et on next la current
-		}
+			//proc->last_pc = proc->pc; //la derniere operation est mise a jour
+			//proc = proc->next;//et on next la current
+		//}
 		vm->cycle++; //quand chaque process est terminé, on augmente le nb de cycle ecoulé
 		if (vm->dump != -1) //ne pas appeler dump si ncurses est activé
 			dump(vm);//si on a l'option -d => dump

@@ -51,7 +51,7 @@ int		main(int argc, char *argv[])
 
 	//init_ncurses et check ici
 
-	run()
+	run(&vm);
 
 	//get_winner()
 	//affichage (ncurses)

@@ -32,7 +32,7 @@ t_proc	*create_process(t_vm *vm, int num)
 	t_proc	*tmp;
 
 	if (!(tmp = (t_proc*)ft_memalloc(sizeof(t_proc)))) //malloc de la node
-		error("Malloc\n");
+		exit_error("Malloc");
 	tmp->id = set_proc_id(vm);
 	tmp->num = num; //a quel joueur ca correspond
 	tmp->pc = (MEM_SIZE / vm->nb_player) * ((num * (-1) - 1)); //
