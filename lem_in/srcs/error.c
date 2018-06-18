@@ -19,24 +19,15 @@ int			anthill_complete(t_env *env)
 	t_parsed_room *parsed;
 
 	if (env->nb_ants <= 0 || !env->start || !env->end)
-	{
-		//printf("%d, %s, %s\n", env->nb_ants, env->start->id, env->end->id);
 		return (0);
-	}
 	parsed = R1;
 	if (!(parsed && parsed->room && parsed->room->link))
-	{
-		//printf("test2\n");
 		return (0);
-	}
 	while (parsed->next && parsed->next->room)
 	{
 		parsed = parsed->next;
 		if (!(parsed->room->link))
-		{
-			//printf("test2\n");
 			return (0);
-		}
 	}
 	return (1);
 }
