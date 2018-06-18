@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/13 21:24:27 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/18 05:15:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdint.h>
-# include <stdarg.h>
 # include <limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/fcntl.h>
+# include <ncurses.h>
 
 # include "../libft/include/libft.h"//
-# include "../libft/include/ft_printf.h"//
+// # include "../libft/include/ft_printf.h" //error si j'inclus curses.h
 # include "op.h"
 
 #include <stdio.h>//
@@ -33,6 +32,7 @@
 # define PROG_SIZE 		4
 # define PROG_COMS 		2048 + 4//
 # define T_IND			4//0100
+# define T_WINDOW WINDOW //pour la norme (redifinition de WINDOW, pour ncurses)
 
 # define SRC_BEGIN MAGIC_NB + PROG_NAME + PROG_COMS + PROG_SIZE
 
@@ -85,6 +85,8 @@ typedef struct			s_vm
 	int					nb_player; //nombre de joueurs
 	int					ctd; //cycle to die
 	int					cycle; //cycle
+	int				verbosity;
+	int winner;
 	int					ctd_check;
 	int				next_ctd;
 	int					dump; //a quel cycle dump la memoire
@@ -115,6 +117,7 @@ extern t_optab g_op_tab[];
 void					exit_error(const char *s);
 void 					usage(void);
 void					init_vm(t_vm *vm);
+void					get_winner(t_vm *vm);
 
 int						check_arg(t_vm *vm, int argc, char **argv);
 int						search_nb_dump(int argc, char **argv);
@@ -129,6 +132,7 @@ int						is_free_nb_player(t_vm *vm, int nb);
 int						first_free_nb_player(t_vm *vm);
 
 void					create_players(t_vm *vm);
+void					reset_live(t_vm *vm);
 void 					write_player(t_vm *vm, int nb, int num);
 int						get_prog_size(char *data);
 char					*get_data(t_player *player, char *buff);
@@ -140,6 +144,7 @@ void					kill_proc(t_vm *vm);
 void					set_ctd(t_vm *vm);
 int						set_proc_id(t_vm *vm);
 void					add_process(t_vm *vm, t_proc *proc);
+int						move_pc(t_proc *proc);
 
 void					run(t_vm *vm);
 void					exec_proc(t_vm *vm, t_proc *proc);
@@ -158,8 +163,26 @@ void					get_ind(t_vm *vm, t_proc *proc, int num, int pos);
 void					get_reg(t_vm *vm, t_proc *proc, int num, int pos);
 void					get_dir(t_vm *vm, t_proc *proc, int num, int pos);
 
-void		show_mem(t_vm *vm);
+int						count_octet(int octet, t_optab *ref);
+void					show_mem(t_vm *vm);
+int						modulo(int a, int b);
+void					init_ncurses(WINDOW **w);
 
-void	live(t_vm *vm, t_proc *proc);
+void					live(t_vm *vm, t_proc *proc);
+void					ld(t_vm *vm, t_proc *proc);
+void					st(t_vm *vm, t_proc *proc);
+void					add(t_vm *vm, t_proc *proc);
+void					sub(t_vm *vm, t_proc *proc);
+void					and(t_vm *vm, t_proc *proc);
+void					or(t_vm *vm, t_proc *proc);
+void					xor(t_vm *vm, t_proc *proc);
+void					zjmp(t_vm *vm, t_proc *proc);
+void					ldi(t_vm *vm, t_proc *proc);
+void					sti(t_vm *vm, t_proc *proc);
+void					op_fork(t_vm *vm, t_proc *proc);
+void					lld(t_vm *vm, t_proc *proc);
+void					lldi(t_vm *vm, t_proc *proc);
+void					op_lfork(t_vm *vm, t_proc *proc);
+void					aff(t_vm *vm, t_proc *proc);
 
 #endif

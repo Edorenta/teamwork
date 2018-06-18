@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:29:46 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/13 19:40:32 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/18 03:41:53 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,24 @@ int		search_ncurses(int argc, char **argv)
 	return (0);
 }
 
+//search de l'option -v, meme principe
+int		srch_verbose(int argc, char **argv)
+{
+	int ret;
+	int nb;
+
+	ret = 0;
+	nb = 0;
+	if ((ret = ft_strargv(argc, argv, "-v")))
+	{
+		if ((ret + 1) < argc && ft_str_isdigit(argv[ret + 1]))
+			return (ft_atoi(argv[ret + 1]));
+		else
+			exit_error("Verbosity bad number\n");
+	}
+	return (0);
+}
+
 //check que les arguments soit valid ou pas, si il y a des options, et verifie qu'il y a des players (0 si pas de player)
 int		check_arg(t_vm *vm, int argc, char **argv)
 {
@@ -77,6 +95,7 @@ int		check_arg(t_vm *vm, int argc, char **argv)
 		vm->dump++;
 	vm->ncurses = search_ncurses(argc, argv); //return 1 ou 0 si il y a l'option ncurses ou pas
 	//add Fnct pour mode verbose?
+	vm->verbosity = srch_verbose(argc, argv); //en fonction du chiffre return, pas le meme mode de verbose
 	if(search_players(vm, argc, argv))//check si il y a un/des player(s) ou pas
 		return (1);
 	return (0);

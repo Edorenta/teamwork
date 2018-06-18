@@ -8,6 +8,18 @@ void	add_process(t_vm *vm, t_proc *proc)
 	vm->proc = proc; //sinon c'est le premier maillon
 }
 
+//
+int			count_octet(int octet, t_optab *ref)
+{
+	if (octet == 1)
+		return (REG_SIZE);
+	else if (octet == 2)
+		return ((ref->direct_size) ? 2 : 4);//info dans du tab global
+	else if (octet == 3)
+		return (IND_SIZE);
+	return (0);
+}
+
 int		set_proc_id(t_vm *vm)
 {
 	t_proc	*tmp;
@@ -24,6 +36,30 @@ int		set_proc_id(t_vm *vm)
 		tmp = tmp->next;
 	}
 	return (nb + 1);//les id commence a 1, on envoi toujours +1 au nouveau
+}
+
+//bah ouai j'avais zappé de move le program counter
+int		move_pc(t_proc *proc)
+{
+	int				i;
+	int				move;
+	t_optab			*ref;
+
+	i = 0;
+	move = 1;
+	ref = &g_op_tab[proc->op.code - 1]; //ref = opcode du process en cours
+	if (!ref->need_ocp)
+		return ((ref->direct_size) ? move + 2 : move + 4); //
+	else //sinon a bouge apres l'ocp
+		move++;
+	//pour chaques arguments de cet op, move le pc
+	if (ref->nb_arg >= 1)
+		move += count_octet((0xC0 & proc->op.ocp) >> 6, ref);
+	if (ref->nb_arg >= 2)
+		move += count_octet((0x30 & proc->op.ocp) >> 4, ref);
+	if (ref->nb_arg >= 3)
+		move += count_octet((0xC & proc->op.ocp) >> 2, ref);
+	return (move);
 }
 
 //initialise un maillon de la liste t_proc pour un joueur

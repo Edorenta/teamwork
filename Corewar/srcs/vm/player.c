@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/13 22:07:03 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/18 02:15:56 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void 	write_player(t_vm *vm, int nb, int num)
 	prog_size = get_prog_size(data); //recup la taille du prog
 	/**/if (!prog_size/*si pas de taille*/ || vm->player[nb].read_ret != prog_size + sizeof(t_header)) //si le retour du read ne correspond pas a la taille du prog
 		exit_error("Bad prog_size");
-	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
+	// ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
+		// nb, prog_size, vm->player[nb].name, vm->player[nb].comments);
+	/*ncurses.h*/printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
 		nb, prog_size, vm->player[nb].name, vm->player[nb].comments);
 	prog_size += i;//place prog_size a la valeur de fin du programme du champion
 	while (i < prog_size)//tant que i est < a la value de fin du prog, remplir la memory avec le champion
@@ -109,7 +111,8 @@ void	create_players(t_vm *vm)
 
 	i = 1;
 	j = 0;
-	ft_printf("Introducing contestants...\n");
+	// ft_printf("Introducing contestants...\n");
+	printf("Introducing contestants...\n"); //ncurses.h
 	while (i <= MAX_PLAYERS)
 	{
 		if (vm->player[i].active)

@@ -32,7 +32,7 @@ void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 				g_op_tab[proc->op.code - 1].func(vm, proc);//opcode.c => modif pour ptr sur fonction
 			if (proc->op.code != 9 || //l'instruction zjump modifie le pc, donc on ne le refait pas ici
 				(proc->op.code == 9 && !proc->carry))//zjump ne marche qu'avec le carry, sans carry pas de zjmp donc on move
-				// proc->pc += move_pc(proc);//on move le pc du process
+				proc->pc += move_pc(proc);//on move le pc du process
 			delete_op(proc);//remet a zero l'instruction en cours, avant la prochaine
 		}
 	}
@@ -41,7 +41,7 @@ void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 
 //fonction principale du core: run tous les process
 //
-//	tmp pour moi: life_signal, 64, calcul, tot, last_one
+//	tmp pour moi: life_signal, calcul, last_one
 void			run(t_vm *vm) //reset_live
 {
 	t_proc			*proc;
@@ -49,24 +49,25 @@ void			run(t_vm *vm) //reset_live
 	while (process_living(vm))//tant qu'il y a des process en vie (check avec le ctd)
 	{
 		if (!((vm->cycle + 1) % vm->ctd)) //si le cycle arrive au cycle to die
-			//reset_live(vm); //on reset les lives
-			printf("\nappeler reset_live\n");
+			reset_live(vm); //on reset les lives
 
 		//verbosity pour les cycles
-		//call_ncurses ?
-
+		if (2 & vm->verbosity)
+			printf("It is now cycle %d\n", vm->cycle + 1); //curses.h
+		//ncurses?
 		proc = vm->proc;
-		//while (proc != NULL)//on parcours tous les process, (liste chainee)
-		//{
-			//if (proc->active)
-			//	exec_proc(vm, proc);//execute le process => pas encore cree
-			//proc->last_pc = proc->pc; //la derniere operation est mise a jour
-			//proc = proc->next;//et on next la current
-		//}
+		while (proc != NULL)//on parcours tous les process, (liste chainee)
+		{
+			if (proc->active)
+				exec_proc(vm, proc);//execute le process => pas encore cree
+			proc->last_pc = proc->pc; //la derniere operation est mise a jour
+			proc = proc->next;//et on next la current
+		}
 		vm->cycle++; //quand chaque process est terminé, on augmente le nb de cycle ecoulé
 		if (vm->dump != -1) //ne pas appeler dump si ncurses est activé
 			dump(vm);//si on a l'option -d => dump
 	}
 	if (vm->last_one) //test avec la vm (le nom ou le fichier?)
-		ft_printf("Last_one => %s\n", vm->last_one->file_name);
+		printf("Last_one => %s\n", vm->last_one->file_name);
+		// ft_printf("Last_one => %s\n", vm->last_one->file_name); //ncurses.h issue
 }
