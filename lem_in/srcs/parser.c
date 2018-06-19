@@ -87,7 +87,7 @@ int				interpret_line(t_env *env, const char *p)
 //	{
 	if (!(get_room(env, p)))
 	{
-		if (!env->start || !env->end)
+		if ((!env->start || !env->end) && dprintf(2, "line: %s\n", p))
  			put_error(env, "Error: incomplete room list");
  		(!get_link(env, p)) ? put_error(env, "Error: wrong input") : 0;
  		return ((state = 4));
