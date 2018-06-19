@@ -48,32 +48,6 @@ static int		next_gen(t_env *env, t_path *parent, int gen_size)
 																				//dprintf(2, "%c\n", (char)(++dbg));
 	}
 	//free_gen(p, gen_size);
-/*																				//dbg = (char)('A' - 1);
-	l = parent->room->link;
-	i = -1;
-	while (l && l->room && (++i < gen_size))
-	{
-																				//dprintf(2, "%c\n", (char)(++dbg));
-		if (parent->prev && parent->prev->room && (l->room == parent->prev->room) && (l = l->next))
-			continue ;
-																				//dprintf(2, "%c\n", (char)(++dbg));
-		p[i] = add_path(env, p[i], l->room);
-																				//dprintf(2, "%c\n", (char)(++dbg));
-																				put_path(p[i]);
-		if (p[i]->room == env->end && (found = duplicate_path(env, p[i]))
-			&& (free_gen(p, gen_size)))
-			return (found);
-																				//dprintf(2, "%c\n", (char)(++dbg));
-		if ((found = next_gen(env, p[i], count_rooms(p[i]->room)))
-			&& (free_gen(p, gen_size)))
-			return (found);
-																				//dprintf(2, "%c\n", (char)(++dbg));
-		//if (!l->next)
-		//	break ;
-																				//dprintf(2, "%c\n", (char)(++dbg));
-		l = l->next;
-	}
-*/
 	return (env->fastway ? 1 : 0);
 }
 
@@ -86,6 +60,6 @@ void			genetic_solve(t_env *env)
 	? 0 : put_error(env, "Error: faulty path init");
 	if (!next_gen(env, init, count_rooms(init->room)))
 		put_error(env, "Error: no way out");
-	dprintf(2, "fastway:\n");
-	put_path(env->fastway);
+	//dprintf(2, "fastway:\n");
+	//put_path(env->fastway);
 }

@@ -18,25 +18,21 @@ int			pstr(int fd, const char *s, char end)
 
 	p = (char *)s;
 	*s ? write(fd, s, slen(p)) : 0;
-	return (write(fd, &end, 1) ? 1 : 0);
+	end != 0 ? write(fd, &end, 1) : 0;
+	return (1);
 }
 
-int			plong(int fd, long n, char end)
+int			plong(int fd, long nb, char end)
 {
-	char	str[16];
-	int		i;
+	char c;
 
-	n < 0 ? write(fd, "-", 1) : 0;
-	n = (n < 0 ? -n : n);
-	i = 15;
-	str[i--] = '\0';
-	n == 0 ? str[--i] = '0' : 0;
-	while (n != 0 && (str[--i] = '0' + (n % 10)))
-		n /= 10;
-	while (i > 0)
-		str[--i] = '\0';
-	write(fd, &str, 15);
-	write(fd, &end, 1);
+	if (nb < 0)
+		write(fd, "-", 1);
+	if ((nb = (nb < 0 ? -nb : nb)) >= 10)
+		plong(fd, nb / 10, '\0');
+	c = (nb % 10) + '0';
+	write(fd, &c, 1);
+	(end != 0) ? write(fd, &end, 1) : 0;
 	return (1);
 }
 

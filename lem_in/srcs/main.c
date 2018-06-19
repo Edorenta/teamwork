@@ -6,6 +6,7 @@ static void		make_magic_happen(t_env *env)
 	(void)env;
 	genetic_solve(env);
 	put_lines(env);
+	move_colony(env);
 	//put_rooms(env);
 	//put_links(env);
 	//put_paths(env);

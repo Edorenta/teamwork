@@ -31,7 +31,7 @@ COMMON =	main \
 			basics \
 			parser \
 			parser_utils \
-			anthill_builder \
+			move_colony \
 			print_anthill \
 			brute_force \
 			genetic

@@ -61,9 +61,8 @@ t_room			*str_to_room(t_env *env, const char *s);
  * ANTS
  */
 
-void			put_ant(t_ant *ant);
 void			ant_add_path(t_env *env, t_ant *ant, t_room *room);
-void			move_ant_forward(t_env *env, t_ant *ant);
+int				move_ant_forward(t_env *env, t_ant *ant);
 t_ant			*new_ant(t_env *env, t_path *path);
 void			del_ant(t_ant *ant);
 
@@ -84,6 +83,7 @@ void			put_path(t_path *path);
  */
 
 void			put_all(t_env *env);
+void			put_ant(t_env *env, t_ant *ant);
 void			put_room(t_env *env, t_room *r);
 void			put_rooms(t_env *env);
 void			put_link(t_env *env, t_parsed_link *l);
@@ -96,5 +96,6 @@ void			put_room_links(t_env *env, t_room *room);
 
 void			brute_solve(t_env *env);
 void			genetic_solve(t_env *env);
+void			move_colony(t_env *env);
 
 #endif
