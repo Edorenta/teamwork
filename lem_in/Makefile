@@ -13,7 +13,7 @@
 NAME    	= lem-in
 SRC_PATH	= srcs/
 OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS		= -Wall -Werror -Wextra #-g -fsanitize=address
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c

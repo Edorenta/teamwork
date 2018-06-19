@@ -38,7 +38,7 @@ void	move_ant_forward(t_env *env, t_ant *ant)
 {
 	ant ? 0 : put_error(env, "Error: tried to move non-existing ant");
 	ant->path ? 0 : put_error(env, "Error: ant has no path to follow");
-	ant->path->len > 0 ? 0 : put_error(env, "Error: ant path length <= 0");
+	path_len(ant->path) > 0 ? 0 : put_error(env, "Error: ant path length <= 0");
 	ant->path->next ? 0 : put_error(env, "Error: could not locate ant");	
 	ant->path->next ? 0 : put_error(env, "Error: ant has reached end of its path");
 	if (ant->path->next->room->ant == NULL)

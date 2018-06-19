@@ -77,7 +77,6 @@ struct			s_ant
 
 struct			s_path
 {
-	int				len;
 	t_path			*prev;
 	t_room			*room;
 	t_path			*next;
