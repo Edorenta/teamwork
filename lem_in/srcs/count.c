@@ -48,6 +48,8 @@ int		count_rooms(t_room *r)
 	if (!(r && r->link && r->link->room))
 		return (0);
 	l = r->link;
+	while (l && l->prev && l->prev->room)
+		l = l->prev;
 	while (l->next && l->next->room && (l = l->next))
 		++cnt;
 	return (cnt);

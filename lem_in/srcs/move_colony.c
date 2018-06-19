@@ -25,9 +25,9 @@ static void		assign_colony(t_env *env)
 
 void			put_ant(t_env *env, t_ant *ant)
 {
-	ant ? 0 : dprintf(2, "Error: tried to print non-existing ant");
-	ant->path ? 0 : dprintf(2, "Error: ant has no path to follow");
-	ant->path->room ? 0 : dprintf(2, "Error: no path->room on ant");
+	//ant ? 0 : dprintf(2, "Error: tried to print non-existing ant");
+	//ant->path ? 0 : dprintf(2, "Error: ant has no path to follow");
+	//ant->path->room ? 0 : dprintf(2, "Error: no path->room on ant");
 	if (ant && ant->path && ant->path->room)
 	{
 		((ant->path->room != env->end) && (ant != env->colony[0])) ? write(1, " ", 1) : 0;

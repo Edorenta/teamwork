@@ -4,8 +4,8 @@ static void		make_magic_happen(t_env *env)
 {
 	(anthill_complete(env)) ? 0 : put_error(env, "Error: incomplete anthill");
 	(void)env;
-	//put_rooms(env);
-	//put_links(env);
+	put_rooms(env);
+	put_links(env);
 	genetic_solve(env);
 	put_lines(env);
 	move_colony(env);

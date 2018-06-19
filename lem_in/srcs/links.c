@@ -39,12 +39,19 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 
 void		link_rooms(t_room *room1, t_room *room2)
 {
+	//dprintf(2, "linking %s to %s\n", room1->id, room2->id);
 	if (room1->link)
+	{
 		room1->link->next = add_link(room2, room1->link);
+		room1->link = room1->link->next;
+	}
 	else
 		room1->link = add_link(room2, NULL);
 	if (room2->link)
+	{
 		room2->link->next = add_link(room1, room2->link);
+		room2->link = room2->link->next;
+	}
 	else
 		room2->link = add_link(room1, NULL);
 }
