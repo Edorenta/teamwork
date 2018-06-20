@@ -1,0 +1,72 @@
+Test ./valid_map//valid_map02
+ not optimal
+Needed move optimum : [8]
+Needed move only took shortest path : [9]
+You did it in [9] moves
+
+Test ./valid_map//valid_map03
+ not optimal
+Needed move optimum : [5]
+Needed move only took shortest path : [5]
+You did it in [1] moves
+
+Test ./valid_map//valid_map04
+ not optimal
+Needed move optimum : [5]
+Needed move only took shortest path : [5]
+You did it in [1] moves
+
+Test ./valid_map//valid_map06
+ not optimal
+Needed move optimum : [3]
+Needed move only took shortest path : [3]
+You did it in [1] moves
+
+Test ./valid_map//valid_map07
+ not optimal
+Needed move optimum : [3]
+Needed move only took shortest path : [3]
+You did it in [1] moves
+
+Test ./valid_map//valid_map08
+ not optimal
+Needed move optimum : [3]
+Needed move only took shortest path : [3]
+You did it in [1] moves
+
+Test ./valid_map//valid_map11
+ not optimal
+Needed move optimum : [6]
+Needed move only took shortest path : [11]
+You did it in [11] moves
+
+Test ./valid_map//valid_map12
+ not optimal
+Needed move optimum : [21]
+Needed move only took shortest path : [40]
+You did it in [1] moves
+
+Test ./valid_map//valid_map14
+ not optimal
+Needed move optimum : [5]
+Needed move only took shortest path : [6]
+You did it in [6] moves
+
+Test ./valid_map//valid_map15
+ not optimal
+Needed move optimum : [11]
+Needed move only took shortest path : [17]
+You did it in [17] moves
+
+Test ./valid_map//valid_map_dead_way00
+ not optimal
+Needed move optimum : [4]
+Needed move only took shortest path : [4]
+You did it in [1] moves
+
+Test ./valid_map//valid_map_long_way01
+ not optimal
+Needed move optimum : [10]
+Needed move only took shortest path : [10]
+You did it in [7] moves
+
