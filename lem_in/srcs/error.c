@@ -4,6 +4,7 @@ void		put_error(t_env *env, const char *err_msg)
 {
 	pstr(2, err_msg, '\n');
 	deinit_env(env);
+	//sleep(50);
 	exit(EXIT_FAILURE);
 }
 

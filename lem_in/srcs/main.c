@@ -9,6 +9,7 @@ static void		make_magic_happen(t_env *env)
 	put_lines(env);
 	move_colony(env);
 	deinit_env(env);
+	//sleep(50);
 	exit(EXIT_SUCCESS);
 	//put_paths(env);
 }

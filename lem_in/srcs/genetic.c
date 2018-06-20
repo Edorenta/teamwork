@@ -36,7 +36,7 @@ static int		next_gen(t_env *env, t_path *parent, int gen_size)
 		//put_path(p[i]);
 		if (p[i]->room == env->end)
 		{
-			if (path_len(env->fastway) == -1 || path_len(p[i]) < path_len(env->fastway))
+			if (path_len(env->fastway) == -1 || (path_len(p[i]) < path_len(env->fastway)))
 			{
 				del_path(env->fastway);
 				env->fastway = duplicate_path(env, p[i]);
