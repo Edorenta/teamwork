@@ -28,8 +28,9 @@ int			anthill_complete(t_env *env)
 	while (parsed->next && parsed->next->room)
 	{
 		parsed = parsed->next;
+		//dprintf(2, "room: %s\n", parsed->room->id);
 		if (!(parsed->room->link))
-			return (0);
+			put_error(env, "Error: a room has no link");
 	}
 	return (1);
 }

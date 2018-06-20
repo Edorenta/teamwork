@@ -6,14 +6,14 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/20 04:54:38 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/06/20 17:03:00 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    	= lem-in
 SRC_PATH	= srcs/
 OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -g# -fsanitize=address
+FLAGS		= -Wall -Werror -Wextra -g #-fsanitize=address
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c

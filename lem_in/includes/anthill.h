@@ -58,6 +58,7 @@ struct			s_link
 struct			s_lines
 {
 	char			*txt;
+	t_lines			*prev;	
 	t_lines			*next;
 };
 

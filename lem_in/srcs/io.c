@@ -12,10 +12,16 @@ static void		store_line(t_env *env, char *s)
 	? 0 : put_error(env, "char* malloc failed");
 	l->txt[0] = '\0';
 	scat(&(l->txt[0]), s, '\0');
-	env->first_line ? 0 : (env->first_line = l);
-	last ? (last->next = l) : 0;
-	last = last ? last->next : l;
-	last->next = NULL;
+	env->first_line == NULL ? (env->first_line = l) : 0;
+	l->next = NULL;
+	if (last)
+	{
+		l->prev = last;
+		last->next = l;
+	}
+	else
+		l->prev = NULL;
+	last = l;
 }
 
 void			put_lines(t_env *env)
@@ -23,25 +29,29 @@ void			put_lines(t_env *env)
 	t_lines			*l;
 
 	l = env->first_line;
+	while (l && l->prev)
+		l = l->prev;
 	(l && l->txt) ? 0 : put_error(env, "Error: no anthill to print");
 	pstr(1, l->txt, '\n');
-	while (l->next && (l = l->next))
+	while (l->next)
+	{
+		l = l->next;
 		pstr(1, l->txt, '\n');
+	}
 }
 
 void			free_lines(t_env *env)
 {
 	t_lines			*l;
-	t_lines			*prev;
 
 	l = env->first_line;
-	prev = l;
+	while (l && l->prev)
+		l = l->prev;
 	while (l && l->next)
 	{
 		l = l->next;
-		(prev && prev->txt) ? free(prev->txt) : 0;
-		prev ? free(prev) : 0;
-		prev = l;
+		(l->prev && l->prev->txt) ? free(l->prev->txt) : 0;
+		l->prev ? free(l->prev) : 0;
 	}
 	(l && l->txt) ? free(l->txt) : 0;
 	l ? free(l) : 0;
@@ -49,7 +59,8 @@ void			free_lines(t_env *env)
 
 int				get_lines(t_env *env)
 {
-	static char input[10240] = {0};
+	//static char input[10240] = {0};
+	char		input[10240];
 	char		*p;
 	char		c;
 	int			i;

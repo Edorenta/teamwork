@@ -48,12 +48,12 @@ static void		get_options(t_env *env, int ac, char **av)
 			if ((!av[i] || av[i][0] != '-'))
 }
 */
-int				main(int ac, char **av)
+int				main(void)
 {
-	t_env		env;
+	t_env	env;
 
-	(void)av;
-	(void)ac;
+	//env = malloc(sizeof(env));
+	//exit(0);
 	signal(SIGINT, sig_handler);
 	init_env(&env);
 	//get_options(&env, ac, av);

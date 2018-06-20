@@ -62,10 +62,10 @@ long		fatol(t_env *env, const char *str)
 	if (*str == '+' || *str == '-')
 		++str;
 	nb = 0;
-	while (*str && is_digit(*str))
-		nb = 10 * nb + (*(str++) - '0');
-	while (*str && is_space(*str))
-		++str;
+	while (*str)
+		is_digit(*str) ? nb = 10 * nb + (*(str++) - '0') : put_error(env, "Error: not digit only");
+	//while (*str && is_space(*str))
+	//	++str;
 	(*str && nb == 0) ? put_error(env, "Error: expected a number") : 0;
 	(nb > 2147483647 || nb < -2147483647)
 	? put_error(env, "Error: expected an integer") : 0;
