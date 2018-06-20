@@ -12,12 +12,30 @@
 
 #include "lem_in.h"
 
+static void	set_parsed(t_env *env, t_parsed_room *parsed)
+{
+	if (R2)
+	{
+		parsed->prev = R2;
+		R2->next = parsed;
+		R2 = R2->next;
+	}
+	else
+	{
+		parsed->prev = NULL;
+		R1 ? put_error(env, "Error: no last room among parsed") : 0;
+		R2 = parsed;
+		R1 = parsed;
+	}
+}
+
 void		new_room(t_env *env, char *name, long x, long y)
 {
 	t_room			*room;
 	t_parsed_room	*parsed_room;
 
-	(room = (t_room *)malloc(sizeof(t_room))) ? 0 : put_error(env, "Error: could not allocate room");
+	(room = (t_room *)malloc(sizeof(t_room)))
+	? 0 : put_error(env, "Error: could not allocate room");
 	(parsed_room = (t_parsed_room *)malloc(sizeof(t_parsed_room))) ? 0
 	: put_error(env, "Error: could not allocate parsed_room");
 	(name && slen(name) < 256) ? scat(room->id, name, '\0')
@@ -30,19 +48,7 @@ void		new_room(t_env *env, char *name, long x, long y)
 	room->link = NULL;
 	parsed_room->room = room;
 	parsed_room->next = NULL;
-	if (R2)
-	{
-		parsed_room->prev = R2;
-		R2->next = parsed_room;
-		R2 = R2->next;
-	}
-	else
-	{
-		parsed_room->prev = NULL;
-		R1 ? put_error(env, "Error: no last room but at least one was parsed") : 0;
-		R2 = parsed_room;
-		R1 = parsed_room;
-	}
+	set_parsed(env, parsed_room);
 }
 
 t_room		*str_to_room(t_env *env, const char *s)
@@ -52,15 +58,12 @@ t_room		*str_to_room(t_env *env, const char *s)
 	parsed = R1;
 	(parsed && parsed->room) ? 0 : put_error(env, "Error: no room to link to");
 	s ? 0 : put_error(env, "Error: no room name to link to");
-	//dprintf(2, "trying to find %s\n", s);
-	if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
-		&& */!scmp(parsed->room->id, s))
+	if (!scmp(parsed->room->id, s))
 		return (parsed->room);
 	while (parsed->next && parsed->next->room)
 	{
 		parsed = parsed->next;
-		if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
-			&& */!scmp(parsed->room->id, s))
+		if (!scmp(parsed->room->id, s))
 			return (parsed->room);
 	}
 	put_error(env, "Error: name could not relate to any room.name");
@@ -69,9 +72,12 @@ t_room		*str_to_room(t_env *env, const char *s)
 
 void		put_room(t_env *env, t_room *r)
 {
-	&(r->id[0]) ? pstr(1, r->id, ' ') : put_error(env, "Error: no room name to print");
-	r->x >= 0 ? plong(1, r->x, ' ') : put_error(env, "Error: no room x to print");
-	r->y >= 0 ? plong(1, r->y, '\n') : put_error(env, "Error: no room y to print");
+	&(r->id[0]) ? pstr(1, r->id, ' ')
+	: put_error(env, "Error: no room name to print");
+	r->x >= 0 ? plong(1, r->x, ' ')
+	: put_error(env, "Error: no room x to print");
+	r->y >= 0 ? plong(1, r->y, '\n')
+	: put_error(env, "Error: no room y to print");
 }
 
 void		put_rooms(t_env *env)
@@ -82,7 +88,7 @@ void		put_rooms(t_env *env)
 	if (parsed && parsed->room)
 	{
 		put_room(env, parsed->room);
-		while(parsed->next)
+		while (parsed->next)
 		{
 			parsed = parsed->next;
 			put_room(env, parsed->room);

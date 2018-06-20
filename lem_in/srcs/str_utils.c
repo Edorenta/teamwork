@@ -52,12 +52,10 @@ int			scat(char *dest, const char *src, const char c)
 {
 	int i;
 
-	//dprintf(2, "src: %s dest: %s\n", src, dest);
 	i = -1;
 	while (src[++i] != '\0')
 		dest[i] = src[i];
 	dest[i] = c;
-	//dprintf(2, "slen: %d i: %d\n", slen((char *)src), i);
 	dest[++i] = '\0';
 	return (1);
 }
@@ -77,8 +75,6 @@ long		fatol(t_env *env, const char *str)
 	while (*str)
 		is_digit(*str) ? nb = 10 * nb + (*(str++) - '0')
 	: put_error(env, "Error: expected digit only");
-	//while (*str && is_space(*str))
-	//	++str;
 	(*str && nb == 0) ? put_error(env, "Error: expected a number") : 0;
 	(nb > 2147483647 || nb < -2147483647)
 	? put_error(env, "Error: expected an integer") : 0;

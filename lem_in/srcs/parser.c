@@ -72,6 +72,14 @@ static int		get_link(t_env *env, const char *p, int i, int j)
 	return (1);
 }
 
+static int		check_room(t_env *env, const char *p)
+{
+	if ((!env->start || !env->end))
+		put_error(env, "Error: incomplete room list or invalid room name");
+	(!get_link(env, p, -1, -1)) ? put_error(env, "Error: wrong input") : 0;
+	return (1);
+}
+
 int				interpret_line(t_env *env, const char *p)
 {
 	static int state = 0;
@@ -80,7 +88,7 @@ int				interpret_line(t_env *env, const char *p)
 	{
 		if (p[0] == '#' && scmp(p, "##start") && scmp(p, "##end"))
 			return ((1));
-	 	return ((get_ants(env, p) ? (state = 1) : 0));
+		return ((get_ants(env, p) ? (state = 1) : 0));
 	}
 	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
 		return (1);
@@ -92,14 +100,9 @@ int				interpret_line(t_env *env, const char *p)
 	}
 	if (state == 4)
 		return ((get_link(env, p, -1, -1) ? 4 : 0));
-	if (!(get_room(env, p, -1, -1)))
-	{
-		if ((!env->start || !env->end))
- 			put_error(env, "Error: incomplete room list or invalid room name");
- 		(!get_link(env, p, -1, -1)) ? put_error(env, "Error: wrong input") : 0;
- 		return ((state = 4));
-	}
- 	state == 2 ? (env->start = env->last_parsed_room->room) : 0;
- 	state == 3 ? (env->end = env->last_parsed_room->room) : 0;
- 	return ((state = 1));
+	if (!(get_room(env, p, -1, -1)) && check_room(env, p))
+		return ((state = 4));
+	state == 2 ? (env->start = env->last_parsed_room->room) : 0;
+	state == 3 ? (env->end = env->last_parsed_room->room) : 0;
+	return ((state = 1));
 }

@@ -36,11 +36,5 @@ int			anthill_complete(t_env *env)
 	parsed = R1;
 	if (!(parsed && parsed->room && parsed->room->link))
 		put_error(env, "Error: incomplete anthill");
-	while (parsed->next && parsed->next->room)
-	{
-		parsed = parsed->next;
-		if (!(parsed->room->link))
-			put_error(env, "Error: a room has no link");
-	}
 	return (1);
 }

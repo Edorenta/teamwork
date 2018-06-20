@@ -16,7 +16,8 @@ t_path	*new_path(t_env *env)
 {
 	t_path *p;
 
-	(p = (t_path *)malloc(sizeof(t_path))) ? 0 : put_error(env, "t_path malloc failed");
+	(p = (t_path *)malloc(sizeof(t_path)))
+	? 0 : put_error(env, "t_path malloc failed");
 	p->prev = NULL;
 	p->next = NULL;
 	p->room = env->start;
@@ -44,8 +45,10 @@ t_path	*add_path(t_env *env, t_path *path, t_room *room)
 {
 	t_path *p;
 
-	(path && path->room && room) ? 0 : put_error(env, "Error: faulty add_path element");
-	(p = (t_path *)malloc(sizeof(t_path))) ? 0 : put_error(env, "t_path malloc failed");
+	(path && path->room && room)
+	? 0 : put_error(env, "Error: faulty add_path element");
+	(p = (t_path *)malloc(sizeof(t_path)))
+	? 0 : put_error(env, "t_path malloc failed");
 	while (path && path->next && path->next->room)
 		path = path->next;
 	path->next = p;

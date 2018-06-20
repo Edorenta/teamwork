@@ -25,16 +25,17 @@ static void		assign_colony(t_env *env)
 
 void			put_ant(t_env *env, t_ant *ant)
 {
-	//ant ? 0 : dprintf(2, "Error: tried to print non-existing ant");
-	//ant->path ? 0 : dprintf(2, "Error: ant has no path to follow");
-	//ant->path->room ? 0 : dprintf(2, "Error: no path->room on ant");
 	if (ant && ant->path && ant->path->room)
 	{
-		((ant->path->room != env->end) && (ant != env->colony[0])) ? write(1, " ", 1) : 0;
+		((ant->path->room != env->end) && (ant != env->colony[0]))
+		? write(1, " ", 1) : 0;
+		(ant != env->colony[0] && path_len(env->fastway) == 2)
+		? write(1, " ", 1) : 0;
 		write(1, "L", 1);
 		plong(1, ant->n, '\0');
 		write(1, "-", 1);
-		&(ant->path->room->id[0]) ? pstr(1, &(ant->path->room->id[0]), '\0') : 0;
+		&(ant->path->room->id[0]) ? pstr(1, &(ant->path->room->id[0]), '\0')
+		: 0;
 	}
 }
 
@@ -43,11 +44,7 @@ int				move_ant_forward(t_env *env, t_ant *ant)
 	ant ? 0 : put_error(env, "Error: tried to move non-existing ant");
 	ant->path ? 0 : put_error(env, "Error: ant has no path to follow");
 	path_len(ant->path) > 0 ? 0 : put_error(env, "Error: ant path length <= 0");
-	ant->path->room ? 0 : put_error(env, "Error: could not locate ant");	
-	//ant->path->next ? 0 : put_error(env, "Error: ant has reached end of its path");
-	//ant->path->next->room ? 0 : put_error(env, "Error: no room in path->next");
-	//(ant->path->next->room->ant != NULL) ? 0 : put_error(env, "Error: ant inside path->next->room");
-	//dprintf(2, "ant: %d next room: %s\n", ant->n, ant->path->next->room->id);
+	ant->path->room ? 0 : put_error(env, "Error: could not locate ant");
 	if (ant->path->next && ant->path->next->room
 		&& ant->path->next->room->ant == NULL)
 	{
@@ -62,22 +59,21 @@ int				move_ant_forward(t_env *env, t_ant *ant)
 
 void			move_colony(t_env *env)
 {
-	//last ant will arrive in (nb_ants + len_path(env->fastway)
 	int		i;
 	int		j;
 	int		rounds;
 
-	//dprintf(2, "ok\n");
 	i = -1;
 	assign_colony(env);
 	rounds = (env->nb_ants + path_len(env->fastway));
-	//dprintf(2,"nb ants: %d, fastway len: %d\n", env->nb_ants, path_len(env->fastway));
 	write(1, "\n", 1);
 	while (++i < rounds)
 	{
 		j = -1;
 		while (++j < env->nb_ants)
 			move_ant_forward(env, env->colony[j]);
-		(i < (rounds - 1)) ? write(1, "\n", 1) : 0;
+		(i < (rounds - 1) && path_len(env->fastway) != 2)
+		? write(1, "\n", 1) : 0;
 	}
+	(path_len(env->fastway) == 2) ? write(1, "\n", 1) : 0;
 }

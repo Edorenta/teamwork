@@ -12,16 +12,6 @@
 
 #include "lem_in.h"
 
-/*
-void	put_anthill(t_env *env)
-{
-	plong(1, env->nb_ants, '\n');
-	put_rooms(env);
-	put_links(env);
-	put_lines(env);
-}
-*/
-
 void	put_room_links(t_env *env, t_room *room)
 {
 	t_link *l;
