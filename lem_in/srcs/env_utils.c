@@ -44,7 +44,7 @@ static void	free_parsed_links(t_env *env)
 
 void		init_env(t_env *env)
 {
-	env->start = NULL;
+	env->start = (void *)0;
 	env->end = NULL;
 	env->nb_rooms = 0;
 	env->nb_ants = 0;
