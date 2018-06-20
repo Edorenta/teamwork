@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:26:14 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:26:18 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 int			scmp(const char *s1, const char *s2)
@@ -63,7 +75,8 @@ long		fatol(t_env *env, const char *str)
 		++str;
 	nb = 0;
 	while (*str)
-		is_digit(*str) ? nb = 10 * nb + (*(str++) - '0') : put_error(env, "Error: not digit only");
+		is_digit(*str) ? nb = 10 * nb + (*(str++) - '0')
+	: put_error(env, "Error: expected digit only");
 	//while (*str && is_space(*str))
 	//	++str;
 	(*str && nb == 0) ? put_error(env, "Error: expected a number") : 0;

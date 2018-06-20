@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:25:41 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:25:43 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 static void		store_line(t_env *env, char *s)
@@ -59,7 +71,6 @@ void			free_lines(t_env *env)
 
 int				get_lines(t_env *env)
 {
-	//static char input[10240] = {0};
 	char		input[10240];
 	char		*p;
 	char		c;
@@ -71,13 +82,13 @@ int				get_lines(t_env *env)
 	while ((handler = read(0, &c, 1)) >= 0)
 	{
 		if (!handler)
-			break;
+			break ;
 		p[++i] = c;
 		if (c == 10)
 		{
 			p[i] = '\0';
-			if (!*p || (*p && !interpret_line(env,p)))
-				break;
+			if (!*p || (*p && !interpret_line(env, p)))
+				break ;
 			store_line(env, p);
 			i = -1;
 		}

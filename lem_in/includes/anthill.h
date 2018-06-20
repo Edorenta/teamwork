@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   anthill.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:19:51 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:19:53 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ANTHILL_H
 # define ANTHILL_H
 
@@ -15,8 +27,7 @@ typedef struct s_lines			t_lines;
 typedef struct s_parsed_room	t_parsed_room;
 typedef struct s_parsed_link	t_parsed_link;
 
-
-struct 			s_env
+struct			s_env
 {
 	t_room			*start;
 	t_room			*end;
@@ -58,7 +69,7 @@ struct			s_link
 struct			s_lines
 {
 	char			*txt;
-	t_lines			*prev;	
+	t_lines			*prev;
 	t_lines			*next;
 };
 

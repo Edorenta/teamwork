@@ -1,17 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:25:37 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:25:38 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 void		put_error(t_env *env, const char *err_msg)
 {
 	pstr(2, err_msg, '\n');
 	deinit_env(env);
-	//sleep(50);
 	exit(EXIT_FAILURE);
 }
 
 void		sig_handler(int sig)
 {
 	signal(sig, SIG_IGN);
-	pstr(2, ("\rLem-in Force Quit\n"), '\0');
+	pstr(2, ("Lem-in Force Quit\n"), '\0');
 	exit(EXIT_FAILURE);
 }
 
@@ -28,7 +39,6 @@ int			anthill_complete(t_env *env)
 	while (parsed->next && parsed->next->room)
 	{
 		parsed = parsed->next;
-		//dprintf(2, "room: %s\n", parsed->room->id);
 		if (!(parsed->room->link))
 			put_error(env, "Error: a room has no link");
 	}

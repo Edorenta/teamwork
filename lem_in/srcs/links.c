@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   links.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:25:44 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:25:45 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 t_link		*add_link(t_room *new_room, t_link *prev_link)
@@ -30,7 +42,7 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 	else
 	{
 		parsed_link->prev = NULL;
-		L1 ? put_error(env, "Error: no last link but at least one was parsed") : 0;
+		L1 ? put_error(env, "Error: no last link among parsed") : 0;
 		L2 = parsed_link;
 		L1 = parsed_link;
 	}
@@ -39,7 +51,6 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 
 void		link_rooms(t_room *room1, t_room *room2)
 {
-	//dprintf(2, "linking %s to %s\n", room1->id, room2->id);
 	if (room1->link)
 	{
 		room1->link->next = add_link(room2, room1->link);
@@ -58,8 +69,10 @@ void		link_rooms(t_room *room1, t_room *room2)
 
 void		put_link(t_env *env, t_parsed_link *l)
 {
-	(l->room1 && &(l->room1->id[0])) ? pstr(1, &(l->room1->id[0]), '-') : put_error(env, "Error: no room name to print");
-	(l->room2 && &(l->room2->id[0])) ? pstr(1, &(l->room2->id[0]), '\n') : put_error(env, "Error: no room name to print");
+	(l->room1 && &(l->room1->id[0])) ? pstr(1, &(l->room1->id[0]), '-')
+	: put_error(env, "Error: no room name to print");
+	(l->room2 && &(l->room2->id[0])) ? pstr(1, &(l->room2->id[0]), '\n')
+	: put_error(env, "Error: no room name to print");
 }
 
 

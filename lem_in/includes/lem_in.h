@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:19:58 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:20:00 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -8,8 +20,8 @@
 # include "anthill.h"
 
 /*
- * BASICS
- */
+** BASICS
+*/
 
 int				slen(char *s);
 long			labs(long n);
@@ -25,8 +37,8 @@ void			init_env(t_env *env);
 void			deinit_env(t_env *env);
 
 /*
- * IO
- */
+** IO
+*/
 
 int				interpret_line(t_env *env, const char *p);
 void			free_lines(t_env *env);
@@ -34,16 +46,16 @@ int				get_lines(t_env *env);
 void			put_lines(t_env *env);
 
 /*
- * ERROR MANAGEMENT
- */
+** ERROR MANAGEMENT
+*/
 
 void			sig_handler(int sig);
 void			put_error(t_env *env, const char *err_msg);
 int				anthill_complete(t_env *env);
 
 /*
- * LINKS
- */
+** LINKS
+*/
 
 t_link			*add_link(t_room *new_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
@@ -52,15 +64,15 @@ int				count_rooms(t_room *room);
 void			free_room_links(t_env *env, t_room *room);
 
 /*
- * ROOMS
- */
+** ROOMS
+*/
 
 void			new_room(t_env *env, char *name, long x, long y);
 t_room			*str_to_room(t_env *env, const char *s);
 
 /*
- * ANTS
- */
+** ANTS
+*/
 
 void			ant_add_path(t_env *env, t_ant *ant, t_room *room);
 int				move_ant_forward(t_env *env, t_ant *ant);
@@ -68,8 +80,8 @@ t_ant			*new_ant(t_env *env, t_path *path);
 void			del_ant(t_ant *ant);
 
 /*
- * PATHS
- */
+** PATHS
+*/
 
 t_path			*new_path(t_env *env);
 t_path			*duplicate_path(t_env *env, t_path *path);
@@ -80,8 +92,8 @@ void			del_path(t_path *path);
 void			put_path(t_path *path);
 
 /*
- * PRINT
- */
+** PRINT
+*/
 
 void			put_all(t_env *env);
 void			put_ant(t_env *env, t_ant *ant);
@@ -92,8 +104,8 @@ void			put_links(t_env *env);
 void			put_room_links(t_env *env, t_room *room);
 
 /*
- * SOLVE
- */
+** SOLVE
+*/
 
 void			brute_solve(t_env *env);
 void			genetic_solve(t_env *env);

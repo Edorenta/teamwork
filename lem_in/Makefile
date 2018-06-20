@@ -33,7 +33,6 @@ COMMON =	main \
 			parser_utils \
 			move_colony \
 			print_anthill \
-			brute_force \
 			genetic
 #			solve
 

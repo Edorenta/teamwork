@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   genetic.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:25:39 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:25:40 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 static int		free_gen(t_path **gen, int gen_size)
@@ -8,22 +20,34 @@ static int		free_gen(t_path **gen, int gen_size)
 	return (1);
 }
 
-static int		next_gen(t_env *env, t_path *parent, int gen_size)
+static int		generate(t_env *env, t_path *parent, t_path **p, t_link *l)
+{
+	*p = add_path(env, duplicate_path(env, parent), l->room);
+	if ((*p)->room == env->end)
+	{
+		if (path_len(env->fastway) == -1 ||
+			(path_len(*p) < path_len(env->fastway)))
+		{
+			del_path(env->fastway);
+			env->fastway = duplicate_path(env, *p);
+		}
+		return (1);
+	}
+	return (0);
+}
+
+static int		next_gen(t_env *env, t_path *parent, int gen_size, int i)
 {
 	t_path	**p;
-//	t_path	*found;
 	t_link	*l;
-	int		i;
 
 	if (!(parent && parent->room && parent->room->link))
 		put_error(env, "Error: cannot make new gen from this parent");
-	p = (t_path **)malloc(sizeof(t_path *) * gen_size);
+	(p = (t_path **)malloc(sizeof(t_path *) * gen_size))
+	? 0 : put_error(env, "Error: t_path ** malloc failed");
 	l = parent->room->link;
 	while (l && l->prev && l->prev->room)
 		l = l->prev;
-	i = -1;
-	//dprintf(2, "gensize: %d\n", gen_size);
-	//put_room_links(env, l->room);
 	while (++i < gen_size && l && l->room)
 	{
 		if ((in_path(parent, l->room) == 1))
@@ -32,19 +56,9 @@ static int		next_gen(t_env *env, t_path *parent, int gen_size)
 			l = l->next;
 			continue;
 		}
-		p[i] = add_path(env, duplicate_path(env, parent), l->room);
-		//put_path(p[i]);
-		if (p[i]->room == env->end)
-		{
-			if (path_len(env->fastway) == -1 || (path_len(p[i]) < path_len(env->fastway)))
-			{
-				del_path(env->fastway);
-				env->fastway = duplicate_path(env, p[i]);
-			}
-			return (free_gen(p, i + 1));
-			//return (1);
-		}
-		next_gen(env, p[i], count_rooms(p[i]->room));
+		if (generate(env, parent, &p[i], l) && free_gen(p, i + 1))
+			return (1);
+		next_gen(env, p[i], count_rooms(p[i]->room), -1);
 		l = l->next;
 	}
 	free_gen(p, gen_size);
@@ -58,9 +72,7 @@ void			genetic_solve(t_env *env)
 	init = new_path(env);
 	(init && init->room && init->room->link && init->room->link)
 	? 0 : put_error(env, "Error: faulty path init");
-	if (!next_gen(env, init, count_rooms(init->room)))
+	if (!next_gen(env, init, count_rooms(init->room), -1))
 		put_error(env, "Error: no way out");
 	del_path(init);
-	//dprintf(2, "fastway:\n");
-	//put_path(env->fastway);
 }

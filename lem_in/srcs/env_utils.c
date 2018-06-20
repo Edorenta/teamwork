@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:25:34 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:25:36 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-static void	free_colony(t_env *env)
+static void		free_colony(t_env *env)
 {
 	int i;
 
@@ -11,7 +23,7 @@ static void	free_colony(t_env *env)
 	env->colony ? free(env->colony) : 0;
 }
 
-static void	free_rooms(t_env *env)
+static void		free_rooms(t_env *env)
 {
 	t_parsed_room *parsed;
 
@@ -24,12 +36,13 @@ static void	free_rooms(t_env *env)
 		(parsed->prev && parsed->prev->room) ? free(parsed->prev->room) : 0;
 		parsed->prev ? free(parsed->prev) : 0;
 	}
-	(parsed && parsed->room && parsed->room->link) ? free_room_links(env, parsed->room) : 0;
+	(parsed && parsed->room && parsed->room->link)
+	? free_room_links(env, parsed->room) : 0;
 	(parsed && parsed->room) ? free(parsed->room) : 0;
 	parsed ? free(parsed) : 0;
 }
 
-static void	free_parsed_links(t_env *env)
+static void		free_parsed_links(t_env *env)
 {
 	t_parsed_link *parsed;
 
@@ -42,7 +55,7 @@ static void	free_parsed_links(t_env *env)
 	parsed ? free(parsed) : 0;
 }
 
-void		init_env(t_env *env)
+void			init_env(t_env *env)
 {
 	env->start = NULL;
 	env->end = NULL;
@@ -57,7 +70,7 @@ void		init_env(t_env *env)
 	L2 = NULL;
 }
 
-void		deinit_env(t_env *env)
+void			deinit_env(t_env *env)
 {
 	free_colony(env);
 	free_rooms(env);

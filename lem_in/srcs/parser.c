@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 18:26:00 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/20 18:26:01 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 static int		get_ants(t_env *env, const char *p)
@@ -15,7 +27,7 @@ static int		get_room(t_env *env, const char *p, int x, int y)
 
 	i = -1;
 	while (!p[++i] || !is_space(p[i]))
-		if (!p[i] || (p[0] == 'L'))
+		if (!p[i] || (p[0] == 'L') || (p[i] == '-'))
 			return (0);
 		else
 			tmp[0][i] = p[i];
@@ -66,8 +78,8 @@ int				interpret_line(t_env *env, const char *p)
 
 	if (state == 0)
 	{
-		if (p[0] == '#' && ((!scmp(p, "##start") && !scmp(p, "##end"))))
-			return ((state = 0));
+		if (p[0] == '#' && scmp(p, "##start") && scmp(p, "##end"))
+			return ((1));
 	 	return ((get_ants(env, p) ? (state = 1) : 0));
 	}
 	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
