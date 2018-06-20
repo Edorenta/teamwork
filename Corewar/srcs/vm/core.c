@@ -7,7 +7,7 @@ void		dump(t_vm *vm)
 	{
 		show_mem(vm);// on affiche  la memoire
 		//du coup free ou pas? :p
-		exit(1);
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -18,7 +18,7 @@ void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 	if (!proc->op.active) //si le process n'est pas n'est  pas en train d'executer une instruction
 	{
 		if (is_opcode(vm->ram[proc->pc % MEM_SIZE].mem)) //on envoi la case memoire
-			create_op(proc, vm->ram[proc->pc % MEM_SIZE].mem);//on met le proc actif
+			create_op(proc, vm->ram[proc->pc % MEM_SIZE].mem);//on met le proc actif et on initialise op
 		else
 			proc->pc = (proc->pc + 1) % MEM_SIZE;//si ce n'est pas un opcode on avance (tant pis si le champ est mal coder, on avance)
 	}

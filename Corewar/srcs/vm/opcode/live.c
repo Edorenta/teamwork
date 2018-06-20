@@ -2,12 +2,24 @@
 
 void	live(t_vm *vm, t_proc *proc)
 {
-	(void)vm;
-	(void)proc;
+	int num;
 
-	//mettre le live du process
-	//augmenter le live in cycle (nb de live dans un ctd)
-	//
-	//afficher les operation (P player | l'instruction)
-	printf("\nopcode live a executer\n");
+	vm->lives_in_cycle++; //augmenter le live in cycle (nb de live dans un ctd)
+	proc->last_live = vm->cycle + 1;
+	num = proc->op.ar[0] * -1;//op.ar 0 pour l'argument 0, -1 car les joueur sont en negatif
+	printf("\nproc->op.code = %d, live\n", proc->op.code);//
+	printf("\nproc->op.ar[0] * -1 = %d\n", num);//
+
+	if (4 & vm->verbosity)//afficher les operation (P player | l'instruction)
+	{
+		show_operations(proc);
+		printf("\n");//
+	}
+	if (num >= 1 && num <= vm->nb_player) //si le num recup correspond bien a un joueur
+	{
+		//
+		vm->player[num].life_signal++;//je m'en servais vraiment de ca? je sais plus
+		vm->player[num].last_live = vm->cycle;
+		//mode verbose, afficher que le player dise qu'il est en vie?
+	}
 }

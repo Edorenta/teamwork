@@ -6,13 +6,13 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/18 05:15:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/20 08:52:37 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int			modulo(int a, int b) //un peu spe, en gros on m'as explique que le modulo du c etait signe, pour la mem il faut pas
+int			modulo(int a, int b) //un peu spe, en gros on m'as explique que le modulo du c etait signe, pour la mem il faut pas, pour ncurses
 {
 	if (a % b >= 0)
 		return (a % b);
@@ -47,6 +47,31 @@ void 	usage(void)
 
 	exit(EXIT_FAILURE);
 }
+
+//func pour afficher les instructions (fichier a part?)-------------------------
+static void	display_args(t_proc *proc, int n)
+{
+	if (proc->op.ar_typ[n] == REG_CODE) //quand registre, on affiche le r
+		printf("r");//
+	printf("%d", proc->op.ar[n]); //la value de l'argument
+}
+
+void		show_operations(t_proc *proc)
+{
+	int		nb_arg;
+	int		i;
+
+	i = 0;
+	nb_arg = g_op_tab[proc->op.code - 1].nb_arg; //recup le nombre d'arg de l'instruction
+	/**/printf("P%5d | %s", proc->id + 1, g_op_tab[proc->op.code - 1].inst); //affiche le process(id) et le name de l'instruction
+	while (i < nb_arg) //pour tous les arguments afficher la value (et r si registre)
+	{
+		/**/printf(" ");//
+		display_args(proc, i);
+		i++;
+	}
+}
+// -----------------------------------------------------------------------------
 
 //
 void	get_winner(t_vm *vm)

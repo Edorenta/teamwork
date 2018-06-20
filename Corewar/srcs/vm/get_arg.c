@@ -28,7 +28,8 @@ void				get_reg(t_vm *vm, t_proc *proc, int num, int pos)
 {
 	unsigned char	value;
 
-	value = (unsigned char)vm->ram[(pos + REG_SIZE) % MEM_SIZE].mem;//recupere le num du registre
+	// value = (unsigned char)vm->ram[(pos + REG_SIZE) % MEM_SIZE].mem;//recupere le num du registre //+1 ou +reg_size?
+	value = (unsigned char)vm->ram[(pos + 1) % MEM_SIZE].mem;//recupere le num du registre
 	proc->op.ar[num] = value;
 }
 

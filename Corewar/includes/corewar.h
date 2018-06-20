@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/18 05:15:36 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/20 10:37:10 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct			s_op //pour les operations
 	int					active;
 	char				code; //value
 	unsigned char		ocp;
-	int					ar[3];
+	int					ar[3];//les arguments (dans get_dir, etc..)
 	int					ar_typ[3];
 	int					loadtime;//par rpport au cycle
 	int					pos_opcode;//par rapport au pc (voir parse_op.c)
@@ -118,6 +118,8 @@ void					exit_error(const char *s);
 void 					usage(void);
 void					init_vm(t_vm *vm);
 void					get_winner(t_vm *vm);
+static void				display_args(t_proc *proc, int n);
+void					show_operations(t_proc *proc);
 
 int						check_arg(t_vm *vm, int argc, char **argv);
 int						search_nb_dump(int argc, char **argv);
@@ -184,5 +186,6 @@ void					lld(t_vm *vm, t_proc *proc);
 void					lldi(t_vm *vm, t_proc *proc);
 void					op_lfork(t_vm *vm, t_proc *proc);
 void					aff(t_vm *vm, t_proc *proc);
+void border_ncurses(WINDOW **w);
 
 #endif
