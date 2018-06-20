@@ -24,7 +24,6 @@ void			put_lines(t_env *env)
 
 	l = env->first_line;
 	(l && l->txt) ? 0 : put_error(env, "Error: no anthill to print");
-	//dprintf(2, "l->txt: %s\n", l->txt);
 	pstr(1, l->txt, '\n');
 	while (l->next && (l = l->next))
 		pstr(1, l->txt, '\n');
@@ -37,8 +36,9 @@ void			free_lines(t_env *env)
 
 	l = env->first_line;
 	prev = l;
-	while (l && l->next && (l = l->next))
+	while (l && l->next)
 	{
+		l = l->next;
 		(prev && prev->txt) ? free(prev->txt) : 0;
 		prev ? free(prev) : 0;
 		prev = l;
@@ -65,7 +65,6 @@ int				get_lines(t_env *env)
 		if (c == 10)
 		{
 			p[i] = '\0';
-			//dprintf(2, "line: %s\n", p);
 			if (!*p || (*p && !interpret_line(env,p)))
 				break;
 			store_line(env, p);

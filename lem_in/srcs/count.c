@@ -32,8 +32,11 @@ int		path_len(t_path *path)
 	{
 		while (p && p->prev && p->prev->room)
 			p = p->prev;
-		while (p->next && p->next->room && (p = p->next))
+		while (p->next && p->next->room)
+		{
+			p = p->next;
 			++len;
+		}
 		return (len);
 	}
 	return (-1);
@@ -50,7 +53,10 @@ int		count_rooms(t_room *r)
 	l = r->link;
 	while (l && l->prev && l->prev->room)
 		l = l->prev;
-	while (l->next && l->next->room && (l = l->next))
+	while (l->next && l->next->room)
+	{
+		l = l->next;
 		++cnt;
+	}
 	return (cnt);
 }

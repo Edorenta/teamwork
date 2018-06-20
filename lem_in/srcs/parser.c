@@ -8,28 +8,24 @@ static int		get_ants(t_env *env, const char *p)
 	return (1);
 }
 
-static int		get_room(t_env *env, const char *p)
+static int		get_room(t_env *env, const char *p, int x, int y)
 {
 	int		i;
-	int		x;
-	int		y;
 	char	tmp[3][256];
 
 	i = -1;
 	while (!p[++i] || !is_space(p[i]))
-		if (!p[i])
+		if (!p[i] || (p[0] == 'L'))
 			return (0);
 		else
 			tmp[0][i] = p[i];
 	tmp[0][i] = '\0';
-	x = -1;
 	while (!p[++i] || !is_space(p[i]))
 		if (!p[i] || !is_digit(p[i]))
 			return (0);
 		else
 			tmp[1][++x] = p[i];
 	tmp[1][++x] = '\0';
-	y = -1;
 	while ((p[++i]))
 		if (!is_digit(p[i]))
 			return (0);
@@ -40,23 +36,18 @@ static int		get_room(t_env *env, const char *p)
 	return (1);
 }
 
-static int		get_link(t_env *env, const char *p)
+static int		get_link(t_env *env, const char *p, int i, int j)
 {
 	t_room	*room1;
 	t_room	*room2;
-	int		i;
-	int		j;
 	char	tmp[256];
 
-	i = -1;
-	j = -1;
 	while (!p[++i] || p[i] != '-')
 		if (!p[i] || is_space(p[i]))
 			return (0);
 		else
 			tmp[i] = p[i];
 	tmp[i] = '\0';
-	//dprintf(2, "i = %d tmp[0] = %c tmp[1] = %c\n", i, tmp[0], tmp[1]);
 	room1 = str_to_room(env, tmp);
 	while (p[++i])
 		if (is_space(p[i]))
@@ -69,31 +60,30 @@ static int		get_link(t_env *env, const char *p)
 	return (1);
 }
 
-//here comes the manual entry interpreter
 int				interpret_line(t_env *env, const char *p)
 {
-	static int state = 0; //0 = #ants, 1 = room, 2 = start, 3 = end, 4 = link
+	static int state = 0;
 
-	//(env->last_parsed_room && env->last_parsed_room->room) ? put_room(env, env->last_parsed_room->room) : 0;
-	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
-		return (1); //jump comment
-	if (!scmp(p, "##start") || !scmp(p, "##end"))	//next room is the anthill entry or exit
-		return ((state = (!scmp(p, "##start") ? 2 : 3)));
 	if (state == 0)
-	 	return ((get_ants(env, p) ? (state = 1) : 0));
-	if (state == 4)
-		return ((get_link(env, p) ? 4 : 0));
-//	if (state > 0 && state < 4)
-//	{
-	if (!(get_room(env, p)))
 	{
-		if ((!env->start || !env->end) && dprintf(2, "line: %s\n", p))
- 			put_error(env, "Error: incomplete room list");
- 		(!get_link(env, p)) ? put_error(env, "Error: wrong input") : 0;
+		if (p[0] == '#' && ((!scmp(p, "##start") && !scmp(p, "##end"))))
+			return ((state = 0));
+	 	return ((get_ants(env, p) ? (state = 1) : 0));
+	}
+	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
+		return (1);
+	if (!scmp(p, "##start") || !scmp(p, "##end"))
+		return ((state = (!scmp(p, "##start") ? 2 : 3)));
+	if (state == 4)
+		return ((get_link(env, p, -1, -1) ? 4 : 0));
+	if (!(get_room(env, p, -1, -1)))
+	{
+		if ((!env->start || !env->end))
+ 			put_error(env, "Error: incomplete room list or invalid room name");
+ 		(!get_link(env, p, -1, -1)) ? put_error(env, "Error: wrong input") : 0;
  		return ((state = 4));
 	}
  	state == 2 ? (env->start = env->last_parsed_room->room) : 0;
  	state == 3 ? (env->end = env->last_parsed_room->room) : 0;
  	return ((state = 1));
-//	}
 }

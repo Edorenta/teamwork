@@ -20,8 +20,11 @@ t_path	*duplicate_path(t_env *env, t_path *path)
 	new = new_path(env);
 	while (p && p->prev && p->prev->room)
 		p = p->prev;
-	while (p && p->next && (p = p->next))
+	while (p && p->next)
+	{
+		p = p->next;
 		new = add_path(env, new, p->room);
+	}
 	return (new);
 }
 
@@ -45,10 +48,12 @@ void	del_path(t_path *path)
 	t_path *p;
 
 	p = path;
-	while (p && p->prev && (p = p->prev))
+	while (p && p->prev)
+		(p = p->prev);
+	while (p && p->next)
 	{
-		path ? free(path) : 0;
-		path = p;
+		p = p->next;
+		p->prev ? free(p->prev) : 0;
 	}
 	p ? free(p) : 0;
 }
