@@ -44,10 +44,13 @@ t_room		*str_to_room(t_env *env, const char *s)
 	if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
 		&& */!scmp(parsed->room->id, s))
 		return (parsed->room);
-	while (parsed->next && parsed->next->room && (parsed = parsed->next))
+	while (parsed->next && parsed->next->room)
+	{
+		parsed = parsed->next;
 		if (/*dprintf(2, "comparing with %s\n", parsed->room->id)
 			&& */!scmp(parsed->room->id, s))
 			return (parsed->room);
+	}
 	put_error(env, "Error: name could not relate to any room.name");
 	return (NULL);
 }
@@ -67,7 +70,10 @@ void		put_rooms(t_env *env)
 	if (parsed && parsed->room)
 	{
 		put_room(env, parsed->room);
-		while(parsed->next && (parsed = parsed->next))
+		while(parsed->next)
+		{
+			parsed = parsed->next;
 			put_room(env, parsed->room);
+		}
 	}
 }

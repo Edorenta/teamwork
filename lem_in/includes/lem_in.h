@@ -49,6 +49,7 @@ t_link			*add_link(t_room *new_room, t_link *prev_link);
 void			new_link(t_env *env, t_room *room1, t_room *room2);
 void			link_rooms(t_room *room1, t_room *room2);
 int				count_rooms(t_room *room);
+void			free_room_links(t_env *env, t_room *room);
 
 /*
  * ROOMS

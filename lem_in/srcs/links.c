@@ -71,7 +71,10 @@ void		put_links(t_env *env)
 	if (parsed->room1 && parsed->room2)
 	{
 		put_link(env, parsed);
-		while(parsed->next && (parsed = parsed->next))
+		while(parsed->next)
+		{
+			parsed = parsed->next;
 			put_link(env, parsed);
+		}
 	}
 }
