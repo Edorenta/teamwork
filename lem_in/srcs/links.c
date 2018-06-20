@@ -75,7 +75,6 @@ void		put_link(t_env *env, t_parsed_link *l)
 	: put_error(env, "Error: no room name to print");
 }
 
-
 void		put_links(t_env *env)
 {
 	t_parsed_link *parsed;
@@ -84,7 +83,7 @@ void		put_links(t_env *env)
 	if (parsed->room1 && parsed->room2)
 	{
 		put_link(env, parsed);
-		while(parsed->next)
+		while (parsed->next)
 		{
 			parsed = parsed->next;
 			put_link(env, parsed);
