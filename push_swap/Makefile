@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/13 12:10:13 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/06/20 15:23:39 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,8 @@ fclean : clean
 	@rm -f _visualizer/unsorted_list.txt
 	@rm -f tmp.txt
 	@rm -rf logs
+	@rm -rf checker.dSYM
+	@rm -rf push_swap.dSYM
 	@printf '\t'$(OK)'\n'
 
 re : fclean all
