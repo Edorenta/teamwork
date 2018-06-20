@@ -51,6 +51,7 @@ void		new_link(t_env *env, t_room *room1, t_room *room2)
 
 void		link_rooms(t_room *room1, t_room *room2)
 {
+	room1 == room2 ? put_error(env, "Error: room linked to itself") : 0;
 	if (room1->link)
 	{
 		room1->link->next = add_link(room2, room1->link);

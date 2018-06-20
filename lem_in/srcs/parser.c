@@ -85,7 +85,11 @@ int				interpret_line(t_env *env, const char *p)
 	if (!p || (p[0] && p[0] == '#' && scmp(p, "##start") && scmp(p, "##end")))
 		return (1);
 	if (!scmp(p, "##start") || !scmp(p, "##end"))
+	{
+		((!scmp(p, "##start") && env->start) || (!scmp(p, "##end") && env->end))
+		? put_error(env, "Error: duplicate command") : 0;
 		return ((state = (!scmp(p, "##start") ? 2 : 3)));
+	}
 	if (state == 4)
 		return ((get_link(env, p, -1, -1) ? 4 : 0));
 	if (!(get_room(env, p, -1, -1)))
