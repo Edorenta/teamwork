@@ -20,7 +20,7 @@ static void		assign_colony(t_env *env)
 	(env->colony = (t_ant **)malloc(sizeof(t_ant *) * env->nb_ants))
 	? 0 : put_error(env, "Error: t_ant ** malloc failed");
 	while (++i < env->nb_ants)
-		env->colony[i] = new_ant(env, env->fastway);
+		env->colony[i] = new_ant(env, env->fw);
 }
 
 void			put_ant(t_env *env, t_ant *ant)
@@ -29,7 +29,7 @@ void			put_ant(t_env *env, t_ant *ant)
 	{
 		((ant->path->room != env->end) && (ant != env->colony[0]))
 		? write(1, " ", 1) : 0;
-		(ant != env->colony[0] && path_len(env->fastway) == 2)
+		(ant != env->colony[0] && path_len(env->fw) == 2)
 		? write(1, " ", 1) : 0;
 		write(1, "L", 1);
 		plong(1, ant->n, '\0');
@@ -65,15 +65,15 @@ void			move_colony(t_env *env)
 
 	i = -1;
 	assign_colony(env);
-	rounds = (env->nb_ants + path_len(env->fastway));
+	rounds = (env->nb_ants + path_len(env->fw));
 	write(1, "\n", 1);
 	while (++i < rounds)
 	{
 		j = -1;
 		while (++j < env->nb_ants)
 			move_ant_forward(env, env->colony[j]);
-		(i < (rounds - 1) && path_len(env->fastway) != 2)
+		(i < (rounds - 1) && path_len(env->fw) != 2)
 		? write(1, "\n", 1) : 0;
 	}
-	(path_len(env->fastway) == 2) ? write(1, "\n", 1) : 0;
+	(path_len(env->fw) == 2) ? write(1, "\n", 1) : 0;
 }

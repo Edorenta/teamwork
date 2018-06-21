@@ -31,7 +31,7 @@ struct			s_env
 {
 	t_room			*start;
 	t_room			*end;
-	t_path			*fastway;
+	t_path			*fw;
 	t_lines			*first_line;
 	t_parsed_room	*first_parsed_room;
 	t_parsed_room	*last_parsed_room;
