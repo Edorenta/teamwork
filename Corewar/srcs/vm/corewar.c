@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/20 08:52:37 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/21 13:48:01 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,32 @@ void 	usage(void)
 	printf("memory)\n");
 
 	exit(EXIT_FAILURE);
+}
+
+//
+int		check_reg(int nb)
+{
+	if (nb < 1 || nb > REG_NUMBER) //verifie que le nb est correct
+		return (0);
+	return (1);
+}
+
+//
+int		check_params(t_op *op)
+{
+	int i;
+
+	i = 0;
+	while (i < g_op_tab[op->code - 1].nb_arg) //tous les args
+	{
+		if (op->ar_typ[i] == REG_CODE) //si c'est un registre
+		{
+			if (!check_reg(op->ar[i]))
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 //func pour afficher les instructions (fichier a part?)-------------------------

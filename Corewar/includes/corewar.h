@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/20 10:37:10 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/21 13:38:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,8 @@ void					lldi(t_vm *vm, t_proc *proc);
 void					op_lfork(t_vm *vm, t_proc *proc);
 void					aff(t_vm *vm, t_proc *proc);
 void border_ncurses(WINDOW **w);
+
+int		check_params(t_op *op);
+int		check_reg(int nb);
 
 #endif

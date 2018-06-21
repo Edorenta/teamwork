@@ -4,6 +4,7 @@ void	live(t_vm *vm, t_proc *proc)
 {
 	int num;
 
+	//verifier que le premier arg est un registre valable?
 	vm->lives_in_cycle++; //augmenter le live in cycle (nb de live dans un ctd)
 	proc->last_live = vm->cycle + 1;
 	num = proc->op.ar[0] * -1;//op.ar 0 pour l'argument 0, -1 car les joueur sont en negatif

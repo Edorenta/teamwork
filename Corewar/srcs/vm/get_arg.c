@@ -34,7 +34,7 @@ void				get_reg(t_vm *vm, t_proc *proc, int num, int pos)
 }
 
 //recupere la value d'un indirecte
-void				get_ind(t_vm *vm, t_proc *proc, int num, int pos)
+void				get_ind(t_vm *vm, t_proc *proc, int num, int pos) //dans le parsing
 {
 	unsigned int	value;
 
@@ -45,4 +45,21 @@ void				get_ind(t_vm *vm, t_proc *proc, int num, int pos)
 	proc->op.ar[num] = value;
 	if ((value & 0x8000) == 0x8000) //bit de signe (voir plus haut)
 		proc->op.ar[num] = (value - USHRT_MAX) - 1;
+}
+
+int					get_indirect(t_vm *vm, t_op *op, int nb_arg) //pour les instructions
+{
+	int	value;
+	int	pos;
+
+	value = 0x0;
+	pos = op->pos_opcode + (op->ar[nb_arg] % IDX_MOD);
+	value |= (unsigned char)vm->ram[modulo(pos, MEM_SIZE)].mem;
+	value = value << 8;
+	value |= (unsigned char)vm->ram[modulo(pos + 1, MEM_SIZE)].mem;
+	value = value << 8;
+	value |= (unsigned char)vm->ram[modulo(pos + 2, MEM_SIZE)].mem;
+	value = value << 8;
+	value |= (unsigned char)vm->ram[modulo(pos + 3, MEM_SIZE)].mem;
+	return (value);
 }
