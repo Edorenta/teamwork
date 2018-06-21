@@ -62,7 +62,7 @@ static int		next_gen(t_env *env, t_path *parent, int gen_size, int i)
 		next_gen(env, p[i], count_rooms(p[i]->room), -1);
 		l = l->next;
 	}
-	return (env->fw ? free_gen(p, i + 1, 1) : free_gen(p, i + 1, 0));
+	return (env->fw ? free_gen(p, gen_size, 1) : free_gen(p, gen_size, 0));
 }
 
 void			genetic_solve(t_env *env)

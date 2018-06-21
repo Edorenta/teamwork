@@ -17,7 +17,6 @@ FLAGS		= -Wall -Werror -Wextra #-g -fsanitize=address
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
-#SRC_PREFIX	= 
 COMMON =	main \
 			io \
 			error \
@@ -34,7 +33,6 @@ COMMON =	main \
 			move_colony \
 			print_anthill \
 			genetic
-#			solve
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
 OBJ_FILES	= $(SRC_FILES:.c=.o)
