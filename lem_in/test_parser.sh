@@ -20,10 +20,10 @@ for f in $BAD_MAPS
 printf "\n>> 2. GOOD MAPS\n"
 for f in $GOOD_MAPS
 	do
-		if [[ $(./lem-in < $f 2>&1 | grep "Error") ]]
+		if [[ $(./lem-in < $f 2>&1 | grep "##start") ]]
 		then
-		    printf ">> ${RED}KO${BASE} << ${f##*/}\n"
-		else
 		    printf ">> ${GREEN}OK${BASE} << ${f##*/}\n"
+		else
+		    printf ">> ${RED}KO${BASE} << ${f##*/}\n"
 		fi
 	done
