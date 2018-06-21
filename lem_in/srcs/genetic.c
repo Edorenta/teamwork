@@ -56,8 +56,9 @@ static int		next_gen(t_env *env, t_path *parent, int gen_size, int i)
 			l = l->next;
 			continue;
 		}
-		if (generate(env, parent, &p[i], l) && free_gen(p, i + 1))
-			return (1);
+		if ((generate(env, parent, &p[i], l) || (path_len(env->fastway) > 0
+			&& path_len(p[i]) >= path_len(env->fastway))) && free_gen(p, i + 1))
+			return (env->fastway ? 1 : 0);
 		next_gen(env, p[i], count_rooms(p[i]->room), -1);
 		l = l->next;
 	}
