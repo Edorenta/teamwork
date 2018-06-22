@@ -12,12 +12,13 @@
 
 #ifndef ASM_H
 # define ASM_H
+# include <stdio.h>
 # include "ft_printf.h"
 # include "asm_def.h"
 # include "libft.h"
 # include "op.h"
 
-typedef struct	s_op
+typedef struct		s_op
 {
 	char	*name;
 	int		nlen;
@@ -28,11 +29,21 @@ typedef struct	s_op
 	char	*desc;
 	int		octal;
 	int		label;
-}				t_op;
+}			t_op;
 
 /*
 ** TOKENS
 */
+
+typedef struct		s_tok
+{
+	int		type;
+	char		*label;
+	int		nbl;
+	int		pos;
+	struct s_token	*list;
+	struct s_token	*next;
+}			t_tok;
 
 int			token_wsp(char *line);
 int			token_lab(char *line);

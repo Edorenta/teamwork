@@ -14,7 +14,7 @@
 
 t_op	g_op_tab[17];
 
-static void end_line(int count, char **line)
+static void end_line(t_tok *tok, int count, char **line)
 {
 	while (**line && ft_isspace(**line))
 	{
@@ -35,7 +35,7 @@ static void end_line(int count, char **line)
 
 }
 
-static int	lexer_ins(int count, char **line, unsigned int *token)
+static int	lexer_ins(t_tok *tok, int count, char **line, unsigned int *token)
 {
 	int sep;
 
@@ -106,13 +106,14 @@ static int	lexer_ins(int count, char **line, unsigned int *token)
 	}
 	return (count);
 }
+//t_tok	*create_tok(int type, char *label, int nbl, int pos)
 
-void	lexer_basics(char *line, unsigned int *token, int lnb)
+t_tok	*lexer_basics(char *line, unsigned int *token, int lnb)
 {
 	if (line && *line == COMMENT_CHAR)
 	{
 		*token |= TOKEN_COM;
-		*token <<= 4; 
+		*token <<= 4;
 		printf("[TOKEN_COM][%d]", lnb);
 	}
 	else if (line && token_lab(line))
@@ -149,26 +150,33 @@ void	lexer_basics(char *line, unsigned int *token, int lnb)
 		*token <<= 4; 
 		printf("[TOKEN_SPA][%d]",lnb);
 	}
+	return (*token ? create_tok(*token, NULL, nbl , 0) : NULL);
+	
 }
 
 void	lex(int fd)
 {
-	char			*line;
-	int				ret;
-	int				op;
-	int				len;
-	int				lnb;
-	int				count;
+	t_tok		*first;
+	t_tok		*iter;
+	char		*line;
+	int		ret;
+	int		op;
+	int		len;
+	int		lnb;
+	int		count;
 	unsigned int	token;
 
 	lnb = 0;
 	line = NULL;
+	first = NULL;
+	iter = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		count = 0;
 		token = 0;
 		printf("\nline :{%s}\n", line);
-		count = 0;
-		lexer_basics(line, &token, lnb);
+		!first ? first = lexer_basics(line, &token, lnb) : 0;
+		!iter ? iter = first : iter = lexer_basics(line, &token, lnb);
 		if (line && token == 0)
 		{
 			token |= TOKEN_INS;
@@ -190,8 +198,8 @@ void	lex(int fd)
 					++count;
 					++line;
 				}
-				count = lexer_ins(count, &line, &token);
-				end_line(count, &line);
+				count = lexer_ins(iter, count, &line, &token);
+				end_line(iter, count, &line);
 			}
 		}
 		printf("\n[TOKEN][%#.2x]\n", token);
