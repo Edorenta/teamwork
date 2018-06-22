@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 14:06:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:09:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void				tok_tostring(t_tok *tok);
 void				end_line(int count, char **line);
 void				lexer_ins_sub(char **line, unsigned int *tok, int *c);
 void				lexer_ins(char **line, unsigned int *tok, int lnb, int *c);
-void				lexer_basics(char *line, unsigned int *tok, int lnb);
+void				lexer_basics(char *line, unsigned int *tok, int lnb, int *c);
 
 #endif

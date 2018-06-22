@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 14:04:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:20:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	lexer_token(unsigned int token, int lnb, int pos)
 		{
 			new = create_tok(token >> 4, lexer_label((token >> 4)), lnb, 0);
 			token = token & 0xF;
-			new->list = create_tok(token, lexer_head(token), lnb, 0);
+			new->list = create_tok(token, lexer_head(token), lnb, pos);
 		}
 	}
 	else

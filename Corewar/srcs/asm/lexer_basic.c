@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 14:05:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:38:20 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,11 @@ void	lexer_basics(char *line, unsigned int *token, int lnb, int *count)
 			*token |= HEAD_COMT;
 		else
 			*token |= HEAD_ERRR;
+		while ((*line) && *line != '"')
+		{
+			++(*count);
+			++line;
+		}
 		return;
 	}
 	else if (line && token_wsp(line))
