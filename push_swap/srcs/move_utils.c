@@ -84,7 +84,7 @@ int		archive_move(t_env *env, const char *id, char which, t_move *prev)
 		env->first_move = (env->first_move ? env->first_move : env->this_move);
 	else
 		put_error(env, "Error: this.move is not historized");
-	if (IS_SET_V)
+	if (IS_SET_V && IS_CHECKER)
 	{
 		put_move(env->this_move, '\n');
 		put_piles(env);
