@@ -9,7 +9,7 @@ gcc list_jsonifier.o -o list_jsonifier.exe
 ./list_jsonifier.exe "unsorted_list" "$(cat ../unsorted_list.txt)" "0" > ../unsorted_list.json 
 cd ../..
 echo "<!> running push_swap on generated list ..."
-valgrind --tool=memcheck --leak-check=full --track-origins=yes ./push_swap -o $(cat _visualizer/unsorted_list.txt) > _visualizer/commands.txt
+./push_swap -jo $(cat _visualizer/unsorted_list.txt) > _visualizer/commands.txt
 cd _visualizer/c
 cat ../commands.txt
 echo "<!> building json from output ..."
