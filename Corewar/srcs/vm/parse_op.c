@@ -67,7 +67,8 @@ int			find_args(t_vm *vm, t_proc *proc, int num, int pos)//num = num arg
 	{
 		get_reg(vm, proc, num, pos);
 		printf("\n find_args: get_registre => %d\n", proc->op.ar[0]);//
-		return (REG_SIZE);
+		// return (REG_SIZE);
+		return (1);
 	}
 	if (type == DIR_CODE)
 	{

@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/21 13:38:36 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:30:42 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int						arg_available(int ocp_chunk, int opcode, int num_arg);//est appelé pou
 void					get_ind(t_vm *vm, t_proc *proc, int num, int pos);
 void					get_reg(t_vm *vm, t_proc *proc, int num, int pos);
 void					get_dir(t_vm *vm, t_proc *proc, int num, int pos);
+int					get_indirect(t_vm *vm, t_op *op, int nb_arg); //pour les instructions
 
 int						count_octet(int octet, t_optab *ref);
 void					show_mem(t_vm *vm);

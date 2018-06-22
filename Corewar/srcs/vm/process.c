@@ -12,7 +12,7 @@ void	add_process(t_vm *vm, t_proc *proc)
 int			count_octet(int octet, t_optab *ref)
 {
 	if (octet == 1)
-		return (REG_SIZE);
+		return (1);
 	else if (octet == 2)
 		return ((ref->direct_size) ? 2 : 4);//info dans du tab global
 	else if (octet == 3)

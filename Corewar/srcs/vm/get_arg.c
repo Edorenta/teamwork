@@ -53,7 +53,7 @@ int					get_indirect(t_vm *vm, t_op *op, int nb_arg) //pour les instructions
 	int	pos;
 
 	value = 0x0;
-	pos = op->pos_opcode + (op->ar[nb_arg] % IDX_MOD);
+	pos = op->pos_opcode + (op->ar[nb_arg] % IDX_MOD); //zone memoire de 'adresse pointé / pas de - pour allez en arriere?
 	value |= (unsigned char)vm->ram[modulo(pos, MEM_SIZE)].mem;
 	value = value << 8;
 	value |= (unsigned char)vm->ram[modulo(pos + 1, MEM_SIZE)].mem;
@@ -61,5 +61,6 @@ int					get_indirect(t_vm *vm, t_op *op, int nb_arg) //pour les instructions
 	value |= (unsigned char)vm->ram[modulo(pos + 2, MEM_SIZE)].mem;
 	value = value << 8;
 	value |= (unsigned char)vm->ram[modulo(pos + 3, MEM_SIZE)].mem;
+
 	return (value);
 }
