@@ -1,5 +1,6 @@
 SRC = asm.c \
 	  lexer.c \
+	  lexer_basic.c \
 	  op.c \
 	  token.c \
 	  check.c

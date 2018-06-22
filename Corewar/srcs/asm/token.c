@@ -1,54 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/14 15:11:38 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/22 13:47:19 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_op	g_op_tab[17];
-
-int		token_wsp(char *line)
+void	tok_tostring(t_tok *tok)
 {
-	if (line)
-	{
-		while (ft_isspace(*line))
-			++line;
-		return (!(*line));
-	}
-	return (1);
-}
-int		token_lab(char *line)
-{
-	if (!(line))
-		return (0);
-	while (*line && (ft_isalpha(*line) || ft_isdigit(*line)))
-		++line;	
-	return (*line == ':');
+	if (tok)
+		printf("[LINE %d][TOKEN %#x][LABEL %s][POS %d]\n",
+		 tok->lnb, tok->type, tok->label, tok->pos);
 }
 
-int		token_ins(char *line)
+t_tok	*new_tok()
 {
-	int	i;
-	int	len;
-	int	ret;
+	t_tok	*new;
+	
+	if ((new = (t_tok *)malloc(sizeof(t_tok))) == NULL)
+		return (NULL);
+	new->type = -1;
+	new->label = NULL;
+	new->lnb = -1;
+	new->pos = 0;
+	new->list = NULL;
+	new->next = NULL;
+	return (new);
+}
 
-	ret = -1;
-	i = 0;
-	while (*line && ft_isspace(*line))
-		++line;
-	while (i < 16)
-	{
-		len = ft_strlen(g_op_tab[i].name);
-		if (ft_strnequ(line, g_op_tab[i].name, len) == 1)
-			ret = i;
-		i++;
-	}
-	return (ret);
+t_tok	*create_tok(int type, char *label, int lnb, int pos)
+{
+	t_tok	*tok;
+
+	if ((tok = new_tok()) == NULL)
+		return (NULL);
+	tok->type = type;
+	tok->label = ft_strdup(label);
+	tok->lnb = lnb;
+	tok->pos = pos;
+	return (tok);
 }

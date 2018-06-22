@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/16 18:04:50 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:04:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,156 +14,59 @@
 
 t_op	g_op_tab[17];
 
-static void end_line(t_tok *tok, int count, char **line)
+char	*lexer_head(unsigned int token)
 {
-	while (**line && ft_isspace(**line))
+	return ((token & 0x2) ? "HEAD_NAME" : "HEAD_COMMENT");
+}
+
+char	*lexer_label(unsigned int token)
+{
+	if (token == TOKEN_COM)
+		return "TOKEN_COMMENT";
+	if (token == TOKEN_LAB)
+		return "TOKEN_LABEL";
+	if (token == TOKEN_HEA)
+		return "TOKEN_HEAD";
+	if (token == TOKEN_SPA)
+		return "TOKEN_SPACE";
+	return "TOKEN_ERROR";
+}
+
+void	lexer_token(unsigned int token, int lnb, int pos)
+{
+	t_tok	*new;
+
+	new = NULL;
+	if (token <= 0xA0)
 	{
-		++count;
-		++(*line);
+		if (!(token & 0x0F))
+		{
+			token >>= 4;
+			new = create_tok(token, lexer_label(token), lnb, 0);
+		}
+		else
+		{
+			new = create_tok(token >> 4, lexer_label((token >> 4)), lnb, 0);
+			token = token & 0xF;
+			new->list = create_tok(token, lexer_head(token), lnb, 0);
+		}
 	}
-	if (**line == ';')
-	{
-		printf("[INS_COM][%d]", count);
-		printf("[INS_END][%d]", count);
-	}
-	else if (!(**line))
-		printf("[INS_END][%d]", count);
-	else if (**line == '#')
-		printf("[INS_COM][%d]", count);
 	else
-		printf("[INS_ERR][%d]", count);
-
-}
-
-static int	lexer_ins(t_tok *tok, int count, char **line, unsigned int *token)
-{
-	int sep;
-
-	sep = 0;
-	while (**line && ft_isspace(**line))
-	{
-		++count;
-		++(*line);
-	}
-	while (sep < 3)
-	{
-		if (**line == '%')
-		{
-			++count;
-			++(*line);
-			if (**line == ':')
-			{
-				*token <<= 4;
-				*token |= INS_DIR;
-				printf("[INS_DIR][%d]", count);
-				++count;
-				++(*line);
-			}
-			else if (ft_isdigit(**line) || **line == '-')
-			{
-				*token <<= 4;
-				*token |= INS_DIR;
-				printf("[INS_DIR][%d]", count);
-			}
-		}
-		else if (**line == 'r')
-		{
-			++count;
-			++(*line);
-			*token <<= 4;
-			*token |= INS_REG;
-			printf("[INS_REG][%d]", count);
-		}
-		else if (ft_isdigit(**line) || **line == '-')
-		{
-			*token <<= 4;
-			*token |= INS_REG;	
-			printf("[INS_IND][%d]", count);
-		}
-		else
-			break;
-		while (**line && (ft_isdigit(**line) || ft_isalpha(**line) || **line == '_' || **line == '-'))
-		{
-			++count;
-			++(*line);
-		}
-		if (**line && **line == ',')
-		{
-			*token <<= 4;
-			*token |= INS_SEP;
-			printf("[INS_SEP][%d]", count);
-			++count;
-			++(*line);
-		}
-		else
-			break;
-		while (**line && ft_isspace(**line))
-		{
-			++count;
-			++(*line);
-		}
-		sep++;
-	}
-	return (count);
-}
-//t_tok	*create_tok(int type, char *label, int nbl, int pos)
-
-t_tok	*lexer_basics(char *line, unsigned int *token, int lnb)
-{
-	if (line && *line == COMMENT_CHAR)
-	{
-		*token |= TOKEN_COM;
-		*token <<= 4;
-		printf("[TOKEN_COM][%d]", lnb);
-	}
-	else if (line && token_lab(line))
-	{
-		*token |= TOKEN_LAB;
-		*token <<= 4; 
-		printf("[TOKEN_LAB][%d]", lnb);
-	}
-	else if (line && *line == '.')
-	{
-		*token |= TOKEN_HEA;
-		*token <<= 4; 
-		printf("[TOKEN_HEA][%d]", lnb);
-		if (ft_strnequ(line, NAME_CMD_STRING, 5))
-		{
-			*token |= HEAD_NAME;
-			printf("[HEAD_NAME]");
-		}
-		else if (ft_strnequ(line, COMMENT_CMD_STRING, 8))
-		{
-			*token |= HEAD_COMT;
-			printf("[HEAD_COMT]");
-		}
-		else
-		{
-			*token |= HEAD_ERRR;
-			*token <<= 4; 
-			printf("[HEAD_ERR]");
-		}
-	}
-	else if (line && token_wsp(line))
-	{
-		*token |= TOKEN_SPA;
-		*token <<= 4; 
-		printf("[TOKEN_SPA][%d]",lnb);
-	}
-	return (*token ? create_tok(*token, NULL, nbl , 0) : NULL);
-	
+		printf("token true : %d\n", check_op(token));
+	tok_tostring(new);
+	if (new)
+		tok_tostring(new->list);
+	return ;
 }
 
 void	lex(int fd)
 {
-	t_tok		*first;
-	t_tok		*iter;
-	char		*line;
-	int		ret;
-	int		op;
-	int		len;
-	int		lnb;
-	int		count;
+	t_tok			*first;
+	t_tok			*iter;
+	char			*line;
+	int				ret;
+	int				lnb;
+	int				count;
 	unsigned int	token;
 
 	lnb = 0;
@@ -175,35 +78,9 @@ void	lex(int fd)
 		count = 0;
 		token = 0;
 		printf("\nline :{%s}\n", line);
-		!first ? first = lexer_basics(line, &token, lnb) : 0;
-		!iter ? iter = first : iter = lexer_basics(line, &token, lnb);
-		if (line && token == 0)
-		{
-			token |= TOKEN_INS;
-			token <<= 4;
-			printf("[TOKEN_INS][%d]\n", lnb);
-			if ((op = token_ins(line)) > -1)
-			{
-				token <<= 4;
-				token |= op + 1;
-				printf("[GOT_INS][%s]\n", g_op_tab[op].name);
-				len = g_op_tab[op].nlen;
-				while (*line && ft_isspace(*line))
-				{
-					++count;
-					++line;
-				}
-				while (--len > -1)
-				{
-					++count;
-					++line;
-				}
-				count = lexer_ins(iter, count, &line, &token);
-				end_line(iter, count, &line);
-			}
-		}
-		printf("\n[TOKEN][%#.2x]\n", token);
-		printf("token true : %d\n", check_op(token));
+		lexer_basics(line, &token, lnb, &count);
+		lexer_ins(&line, &token, lnb, &count);
+		lexer_token(token, lnb, count);
 		++lnb;
 	}
 }
