@@ -44,11 +44,16 @@ void			put_lines(t_env *env)
 	while (l && l->prev)
 		l = l->prev;
 	(l && l->txt) ? 0 : put_error(env, "Error: no anthill to print");
-	pstr(1, l->txt, '\n');
-	while (l->next)
+	while (l)
 	{
-		l = l->next;
+		if (IS_SET_U && l->txt[0] == '#'
+			&& scmp(l->txt, "##start") && scmp(l->txt, "##end"))
+		{
+			l = l->next;
+			continue;
+		}
 		pstr(1, l->txt, '\n');
+		l = l->next;
 	}
 }
 

@@ -64,6 +64,7 @@ void			init_env(t_env *env)
 	env->colony = NULL;
 	env->first_line = NULL;
 	env->fw = NULL;
+	env->option = 0;
 	R1 = NULL;
 	R2 = NULL;
 	L1 = NULL;

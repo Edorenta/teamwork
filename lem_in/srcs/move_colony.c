@@ -21,6 +21,7 @@ static void		assign_colony(t_env *env)
 	? 0 : put_error(env, "Error: t_ant ** malloc failed");
 	while (++i < env->nb_ants)
 		env->colony[i] = new_ant(env, env->fw);
+	IS_SET_A ? put_ants(env) : 0;
 }
 
 void			put_ant(t_env *env, t_ant *ant)
@@ -51,7 +52,7 @@ int				move_ant_forward(t_env *env, t_ant *ant)
 		ant->path->room->ant = NULL;
 		ant->path = (ant->path->room == env->end) ? ant->path : ant->path->next;
 		ant->path->room->ant = (ant->path->room == env->end) ? NULL : ant;
-		put_ant(env, ant);
+		(IS_SET_M && !IS_SET_S) ? 0 : put_ant(env, ant);
 		return (1);
 	}
 	return (0);
@@ -66,14 +67,14 @@ void			move_colony(t_env *env)
 	i = -1;
 	assign_colony(env);
 	rounds = (env->nb_ants + path_len(env->fw));
-	write(1, "\n", 1);
+	IS_SET_M ? 0 : write(1, "\n", 1);
 	while (++i < rounds)
 	{
 		j = -1;
 		while (++j < env->nb_ants)
 			move_ant_forward(env, env->colony[j]);
-		(i < (rounds - 1) && path_len(env->fw) != 2)
+		(i < (rounds - 1) && path_len(env->fw) != 2 && (!IS_SET_M || IS_SET_S))
 		? write(1, "\n", 1) : 0;
 	}
-	(path_len(env->fw) == 2) ? write(1, "\n", 1) : 0;
+	(path_len(env->fw) == 2 && (!IS_SET_M || IS_SET_S)) ? write(1, "\n", 1) : 0;
 }

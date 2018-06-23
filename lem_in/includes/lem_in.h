@@ -13,10 +13,39 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+/*
+** DEPENDENCIES
+*/
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
 # include "anthill.h"
+
+/*
+** MACROS
+*/
+
+# define R1 (env->first_parsed_room)
+# define R2 (env->last_parsed_room)
+# define L1 (env->first_parsed_link)
+# define L2 (env->last_parsed_link)
+
+# define IS_SET_U		(env->option & (1 << 0))
+# define IS_SET_M		(env->option & (1 << 1))
+# define IS_SET_A		(env->option & (1 << 2))
+# define IS_SET_L		(env->option & (1 << 3))
+# define IS_SET_R		(env->option & (1 << 4))
+# define IS_SET_S		(env->option & (1 << 5))
+# define IS_SET_V		(env->option & (1 << 6))
+
+# define SET_U			(env->option |= (1 << 0))
+# define SET_M			(env->option |= (1 << 1))
+# define SET_A			(env->option |= (1 << 2))
+# define SET_L			(env->option |= (1 << 3))
+# define SET_R			(env->option |= (1 << 4))
+# define SET_S			(env->option |= (1 << 5))
+# define SET_V			(env->option |= (1 << 6))
 
 /*
 ** BASICS
@@ -94,6 +123,8 @@ void			put_path(t_path *path);
 ** PRINT
 */
 
+void			put_fwinfo(t_env *env);
+void			put_ants(t_env *env);
 void			put_all(t_env *env);
 void			put_ant(t_env *env, t_ant *ant);
 void			put_room(t_env *env, t_room *r);
