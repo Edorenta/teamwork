@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/22 16:06:04 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/23 17:29:10 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # define IND_SIZE				2
 # define REG_SIZE				4
 # define DIR_SIZE				REG_SIZE
-//modif des 3 values du haut
-// # define IND_SIZE				2 //c'est bien les vrais valeur celles la non?
-// # define REG_SIZE				1
-// # define DIR_SIZE				4
 
 # define REG_CODE				1
 # define DIR_CODE				2
