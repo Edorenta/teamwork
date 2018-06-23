@@ -12,6 +12,16 @@
 
 #include "lem_in.h"
 
+void	put_fwinfo(t_env *env)
+{
+	pstr(1, "Paths used:", ' ');
+	plong(1, 1, '\n');
+	pstr(1, "Shortest path length:", ' ');
+	plong(1, path_len(env->fw), '\n');
+	pstr(1, "Turns to move the whole colony:", ' ');
+	plong(1, (path_len(env->fw) + env->nb_ants), '\n');
+}
+
 void	put_room_links(t_env *env, t_room *room)
 {
 	t_link *l;
@@ -21,14 +31,15 @@ void	put_room_links(t_env *env, t_room *room)
 	l ? 0 : put_error(env, "Error: Room has no link");
 	while ((l && l->prev && l->prev->room))
 		(l = l->prev);
-	pstr(2, "linked to room ", '\0');
-	pstr(2, room->id, '\0');
-	pstr(2, ":\n", '\0');
-	&(l->room->id[0]) ? pstr(2, &(l->room->id[0]), '\n') : 0;
-	while (l->next)
+	pstr(1, room->id, ' ');
+	pstr(1, "links:", ' ');
+	while (l)
 	{
+		if (l->next)
+			&(l->room->id[0]) ? pstr(1, &(l->room->id[0]), ' ') : 0;
+		else
+			&(l->room->id[0]) ? pstr(1, &(l->room->id[0]), '\n') : 0;
 		l = l->next;
-		&(l->room->id[0]) ? pstr(2, &(l->room->id[0]), '\n') : 0;
 	}
 }
 

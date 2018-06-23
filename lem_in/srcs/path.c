@@ -82,7 +82,8 @@ void	put_path(t_path *path)
 		p = p->prev;
 	while (p && p->room && &(p->room->id[0]))
 	{
-		&(p->room->id[0]) ? pstr(1, p->room->id, ' ') : 0;
+		if (&(p->room->id[0]))
+			p->next ? pstr(1, p->room->id, '-') : pstr(1, p->room->id, '\0');
 		p = p->next;
 	}
 	write(1, "\n", 1);

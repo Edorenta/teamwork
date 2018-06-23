@@ -27,6 +27,26 @@ t_ant	*new_ant(t_env *env, t_path *path)
 	return (a);
 }
 
+void	put_ants(t_env *env)
+{
+	int i;
+
+	(env->colony && env->nb_ants > 0) ? 0 : put_error(env, "Error: no colony");
+	i = -1;
+	pstr(1, "Colony size:", ' ');
+	plong(1, env->nb_ants, '\n');
+	if (IS_SET_V)
+	{
+		pstr(1, "Ants' paths:", '\n');
+		while (++i < env->nb_ants)
+		{
+			pstr(1, "#", '\0');
+			plong(1, i, ' ');
+			put_path(env->colony[i]->path);
+		}
+	}
+}
+
 void	del_ant(t_ant *ant)
 {
 	(ant && ant->path && ant->path->room && ant->path->room->ant)

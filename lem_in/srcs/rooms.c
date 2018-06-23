@@ -76,8 +76,14 @@ void		put_room(t_env *env, t_room *r)
 	: put_error(env, "Error: no room name to print");
 	r->x >= 0 ? plong(1, r->x, ' ')
 	: put_error(env, "Error: no room x to print");
-	r->y >= 0 ? plong(1, r->y, '\n')
+	r->y >= 0 ? plong(1, r->y, '\0')
 	: put_error(env, "Error: no room y to print");
+	if (r == env->start)
+		pstr(1, " [START]", '\n');
+	else if (r == env->end)
+		pstr(1, " [END]", '\n');
+	else
+		write(1, "\n", 1);
 }
 
 void		put_rooms(t_env *env)
@@ -85,13 +91,12 @@ void		put_rooms(t_env *env)
 	t_parsed_room *parsed;
 
 	parsed = R1;
-	if (parsed && parsed->room)
+	(parsed && parsed->room)
+	? pstr(1, "Rooms list:", '\n') : put_error(env, "Error: no parsed rooms");
+	while (parsed)
 	{
 		put_room(env, parsed->room);
-		while (parsed->next)
-		{
-			parsed = parsed->next;
-			put_room(env, parsed->room);
-		}
+		IS_SET_V ? put_room_links(env, parsed->room) : 0;
+		parsed = parsed->next;
 	}
 }

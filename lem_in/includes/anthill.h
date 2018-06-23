@@ -13,11 +13,6 @@
 #ifndef ANTHILL_H
 # define ANTHILL_H
 
-# define R1 (env->first_parsed_room)
-# define R2 (env->last_parsed_room)
-# define L1 (env->first_parsed_link)
-# define L2 (env->last_parsed_link)
-
 typedef struct s_path			t_path;
 typedef struct s_room			t_room;
 typedef struct s_ant			t_ant;
@@ -37,7 +32,7 @@ struct			s_env
 	t_parsed_room	*last_parsed_room;
 	t_parsed_link	*first_parsed_link;
 	t_parsed_link	*last_parsed_link;
-	char			opt;
+	char			option;
 	int				nb_rooms;
 	int				nb_ants;
 	t_ant			**colony;
