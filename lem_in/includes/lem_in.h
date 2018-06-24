@@ -38,6 +38,7 @@
 # define IS_SET_R		(env->option & (1 << 4))
 # define IS_SET_S		(env->option & (1 << 5))
 # define IS_SET_V		(env->option & (1 << 6))
+# define IS_SET_H		(env->option & (1 << 7))
 
 # define SET_U			(env->option |= (1 << 0))
 # define SET_M			(env->option |= (1 << 1))
@@ -46,6 +47,7 @@
 # define SET_R			(env->option |= (1 << 4))
 # define SET_S			(env->option |= (1 << 5))
 # define SET_V			(env->option |= (1 << 6))
+# define SET_H			(env->option |= (1 << 7))
 
 /*
 ** BASICS
@@ -78,6 +80,7 @@ void			put_lines(t_env *env);
 */
 
 void			sig_handler(int sig);
+void			put_usage(t_env *env);
 void			put_error(t_env *env, const char *err_msg);
 int				anthill_complete(t_env *env);
 
