@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 18:25:46 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/20 18:25:47 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/24 21:13:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		get_option(t_env *env, char *av)
 		(av[i] == 'r') ? SET_R : 0;
 		(av[i] == 's') ? SET_S : 0;
 		(av[i] == 'v') ? SET_V : 0;
-		(av[i] == 'h') ? SET_H : 0;	
+		(av[i] == 'h') ? SET_H : 0;
 	}
 	IS_SET_H ? put_usage(env) : 0;
 	return (active_bits(env->option));
