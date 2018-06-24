@@ -12,6 +12,21 @@
 
 #include "lem_in.h"
 
+void		put_usage(t_env *env)
+{
+	pstr(1, "Usage: lem-in [OPTION]\n"
+		"  -u\tuncomment: hides comments on output\n"
+		"  -m\tmute: hides execution output\n"
+		"  -v\tverbose: further info, use with [rla]\n"
+		"  -r\trooms: displays room list\n"
+		"  -l\tlinks: displays link list\n"
+		"  -a\tants: displays colony\n"
+		"  -s\tsolver: displays solution\n"
+		, '\0');
+	deinit_env(env);
+	exit(EXIT_SUCCESS);
+}
+
 void		put_error(t_env *env, const char *err_msg)
 {
 	pstr(2, err_msg, '\n');

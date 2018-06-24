@@ -35,7 +35,7 @@ COMMON =	main \
 			genetic
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
-OBJ_FILES	= $(SRC_FILES:.c=.o)
+OBJ_FILES = $(SRC_FILES:.c=.o)
 SRC		= $(addprefix $(SRC_PATH),$(SRC_FILES))
 OBJ		= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
 
