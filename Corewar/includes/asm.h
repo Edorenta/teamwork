@@ -38,12 +38,27 @@ typedef struct		s_op
 typedef struct		s_tok
 {
 	int				type;
+	unsigned int			token;
 	char			*label;
 	int				lnb;
 	int				pos;
 	struct s_tok	*list;
 	struct s_tok	*next;
 }					t_tok;
+
+
+/*
+** ITERATION
+*/
+
+typedef struct		s_iter
+{
+	char		*line;
+	int		count;
+	int		lnb;
+	unsigned int	token;
+	
+}					t_iter;
 
 int					token_wsp(char *line);
 int					token_lab(char *line);
@@ -56,9 +71,10 @@ t_tok				*create_tok(int type, char *label, int nbl, int pos);
 void				tok_tostring(t_tok *tok);
 
 
-void				end_line(int count, char **line);
-void				lexer_ins_sub(char **line, unsigned int *tok, int *c);
-void				lexer_ins(char **line, unsigned int *tok, int lnb, int *c);
-void				lexer_basics(char *line, unsigned int *tok, int lnb, int *c);
+void				end_line(t_iter *iter);
+void				lexer_ins_sub(t_iter *iter);
+void				lexer_ins(t_iter *iter);
+int				lexer_basics(t_iter *iter);
 
+void				clear_wsp(t_iter *iter);
 #endif

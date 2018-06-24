@@ -32,10 +32,16 @@ char	*lexer_label(unsigned int token)
 	return "TOKEN_ERROR";
 }
 
-void	lexer_token(unsigned int token, int lnb, int pos)
+static int	lexer_token(t_iter *iter)
 {
 	t_tok	*new;
+	unsigned int token;
+	int lnb;
+	int pos;
 
+	token = iter->token;
+	pos = iter->count;
+	lnb = iter->lnb;
 	new = NULL;
 	if (token <= 0xA0)
 	{
@@ -50,37 +56,33 @@ void	lexer_token(unsigned int token, int lnb, int pos)
 			token = token & 0xF;
 			new->list = create_tok(token, lexer_head(token), lnb, pos);
 		}
-	}
-	else
-		printf("token true : %d\n", check_op(token));
-	tok_tostring(new);
-	if (new)
+		tok_tostring(new);
 		tok_tostring(new->list);
-	return ;
+		return (0);
+	}
+	printf("token true : %d\n", check_op(token));
+	return (1);
 }
 
 void	lex(int fd)
 {
-	t_tok			*first;
-	t_tok			*iter;
+	t_iter			iter;
 	char			*line;
-	int				ret;
-	int				lnb;
-	int				count;
-	unsigned int	token;
+	int			ret;
 
-	lnb = 0;
-	line = NULL;
-	first = NULL;
-	iter = NULL;
+	iter.lnb = 0;
+	iter.line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		count = 0;
-		token = 0;
-		printf("\nline :{%s}\n", line);
-		lexer_basics(line, &token, lnb, &count);
-		lexer_ins(&line, &token, lnb, &count);
-		lexer_token(token, lnb, count);
-		++lnb;
+		iter.line = line;
+		iter.count = 0;
+		iter.token = 0;
+		printf("\nline :{%s}\n", iter.line);
+		lexer_basics(&iter);
+		lexer_ins(&iter);
+		lexer_token(&iter);
+		++(iter.lnb);
+		free(line);
+		line = NULL;
 	}
 }
