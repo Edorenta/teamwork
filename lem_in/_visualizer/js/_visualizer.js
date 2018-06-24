@@ -226,6 +226,14 @@ function work_out(data){
         }
         z += 1
     }
+    let tx = (x_min() + x_max()) / 2;
+    let ty = (y_min() + y_max()) / 2;
+    let tz = (z_min() + z_max()) / 2;
+    for (let o = 0; o < env.nb_rooms; o++){
+        df[o].x -= tx;
+        df[o].y -= ty;
+        df[o].z -= tz;
+    }
     console.log(df);
     return (1);
 }
@@ -284,26 +292,42 @@ function y_min(){
             y = df[i].y;
     return (y);
 }
+function z_max(){
+    let z = 0;
+    for (let i = 0; i < env.nb_rooms; i++)
+        if ((df[i].z + win.scl*2) > z)
+            z = (df[i].z + win.scl*2);
+    return (z);
+}
+function z_min(){
+    let z = 1000000;
+    for (let i = 0; i < env.nb_rooms; i++)
+        if (df[i].z < z)
+            z = df[i].z;
+    return (z);
+}
 
 function draw_rooms(){
     for (let i = 0; i < env.nb_rooms; i++){
-        strokeWeight(1)
+        strokeWeight(2)
         if (df[i].is_start){
             push();
             //noStroke();
             stroke(255);
-            fill(255, 0, 255);
+            //fill(255, 0, 255);
             //base_lights();
             translate(df[i].x, df[i].y, df[i].z+win.scl*2);
+            ambientMaterial(255,0,255);
             box(win.scl);
             pop();
         }
         else if (df[i].is_end){
             push();
             stroke(255);
-            fill(0, 200, 200, env.clr);
+            //fill(0, 200, 200, env.clr);
             //base_lights();
             translate(df[i].x, df[i].y, df[i].z+win.scl*2);
+            ambientMaterial(0,255,255);
             box(win.scl);
             pop();
         }
@@ -312,7 +336,7 @@ function draw_rooms(){
             //base_lights();
             //noStroke();
             stroke(0);
-            fill(255);
+            (df[i].is_fw) ? ambientMaterial(0,255,0) : ambientMaterial(150,150,150);
             /*
             for (let j = 0; j < ((df[i].move.length)); j++){
                 //console.log("df[i].name =", df[i].name);
@@ -341,11 +365,6 @@ function draw_rooms(){
 //initialization function
 function setup() {
     //noLoop();
-    frameRate(30);
-    canvas = createCanvas(win.w, win.h, WEBGL);
-    title = document.getElementById('title');
-    translate(win.w / 2, win.h / 2);
-    rectMode(CENTER);
     lines_json = document.getElementById('lines').innerHTML;
     lines = JSON.parse(lines_json).lines;
     nb_lines = lines.length;
@@ -362,10 +381,15 @@ function setup() {
     console.log("env.nb_ants =", env.nb_ants);
     console.log("nb lines:", nb_lines);
     work_out(data);
-    env.centerX = (x_min() + x_max()) / 2;
-    env.centerY = (y_min() + y_max()) / 2;
-    env.camX = (x_min() + x_max()) / 2;
-    env.camY = (y_min() + y_max()) / 2;
+    frameRate(30);
+    canvas = createCanvas(win.w, win.h, WEBGL);
+    title = document.getElementById('title');
+    //translate((x_min() + x_max()) / 2, (y_min() + y_max()) / 2);
+    rectMode(CENTER);
+        env.centerX = 0;
+        env.centerY = 0;
+        env.camX = 0;
+        env.camY = 0;
 }
 
 function keyPressed(){
@@ -387,29 +411,37 @@ function keyPressed(){
         case 107: _plus = true; break;
         case 109: _minus = true; break;
     }
-    if (_r){ //RESET settings
-        x = 0;
-        y = 0;
-        z = 0;
-        camX = 0;
-        camY = 0;
-        camZ = -500;
-        centerX = 0;
-        centerY = 0;
-        centerZ = 0;
-        upX = 0;
-        upY = 1;
-        upZ = 0;
+    if (_r){ //RESET setting
+        env.x = 0;
+        env.y = 0;
+        env.z = 0;
+        env.camZ = -500;
+        /*
+        env.centerX = (x_min() + x_max()) / 2;
+        env.centerY = (y_min() + y_max()) / 2;
+        env.camX = (x_min() + x_max()) / 2;
+        env.camY = (y_min() + y_max()) / 2;
+        */
+        env.centerX = 0;
+        env.centerY = 0;
+        env.camX = 0;
+        env.camY = 0;
+        env.centerZ = 0;
+        env.upX = 0;
+        env.upY = 1;
+        env.upZ = 0;
         zoom = 1.00;
         zMin = 0.05;
         zMax = 9.00;
         accuracy = 0.0005;
         change_view();
     }
+    /*
     console.log("cam centerX:", env.centerX, "cam centerY:", env.centerY);
     console.log("X max:", x_max(), "X min:", x_min());
     console.log("Y max:", y_max(), "Y min:", y_min());
     console.log(keyCode);
+    */
 }
 
 function keyReleased(){
@@ -446,7 +478,7 @@ function change_view(){
 }
 
 function mouseWheel(event) {
-  zoom += accuracy * event.delta;
+  zoom -= accuracy * event.delta;
   zoom = constrain(zoom, zMin, zMax);
   return false;
 }
@@ -455,6 +487,7 @@ function mouseWheel(event) {
 function draw() {
     background(0);
     base_lights();
+    //pointLight(200,0,0,0,500,0);
     _8 ? env.x += 3 : 0;
     _2 ? env.x -= 3 : 0;
     _6 ? env.y += 3 : 0;
@@ -467,14 +500,10 @@ function draw() {
     _right ? env.centerX += 20 : 0;
     _up ? env.centerY += 20 : 0;
     _down ? env.centerY -= 20 : 0;
-    translate((x_min() + x_max()) / 2, (y_min() + y_max()) / 2);
-    change_view();
     scale(zoom);
-    //translate((x_min() + x_max()) / 2, (y_min() + y_max()) / 2);
     rotateX(env.x * 0.015);
     rotateY(env.y * 0.015);
     rotateZ(env.z * 0.015);
-    //translate(win.w / 8, win.h / 8);
     draw_rooms();
     draw_lines();
 }
