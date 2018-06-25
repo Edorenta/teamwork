@@ -6,62 +6,37 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 14:30:58 by pde-rent          #+#    #+#             */
-/*   Updated: 2017/11/27 14:51:52 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/25 12:35:39 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		store_line(char **dst, char *src)
+int			get_next_line(const int fd, char **line)
 {
-	int		i;
-	int		j;
-	char	*tmp;
+	char		buff[BUFF_SIZE + 1];
+	int			ret;
+	static char	*str[OPEN_MAX + 1];
 
-	j = 0;
-	i = 0;
-	while (src[i] != '\n')
-		i++;
-	IS((tmp = (char*)malloc(sizeof(char) * i + 1)));
-	i = -1;
-	while (src[++i] != '\n')
-		tmp[i] = src[i];
-	tmp[i] = '\0';
-	*dst = tmp;
-	while (src[++i])
-	{
-		src[j] = src[i];
-		++j;
-	}
-	src[j] = '\0';
-	return (1);
-}
-
-int				get_next_line(int fd, char **line)
-{
-	static char	*str[OPEN_MAX];
-	char		buf[BUFF_SIZE + 1];
-	size_t		found;
-
-	if (fd < 0 || line == (void *)0 || read(fd, (void *)0, 0) || fd > OPEN_MAX)
+	if (!(line) || fd < 0 || fd > OPEN_MAX)
 		return (-1);
-	str[fd] = (str[fd] == (void *)0 ? (char *)malloc(sizeof(char)) : str[fd]);
-	if (str[fd] && (ft_strchr(str[fd], '\n') != 0))
-		return (store_line(line, str[fd]));
-	while ((found = read(fd, buf, BUFF_SIZE)))
+	if (fd > -1 && str[fd] && ft_strchri(str[fd], '\n') != -1)
 	{
-		while (buf[found])
-			buf[found++] = '\0';
-		str[fd] = ft_strjoinfree(str[fd], buf, &str[fd]);
-		if (ft_strchr(str[fd], '\n') != 0)
-			return (store_line(line, str[fd]));
-	}
-	if (str[fd][0] != '\0')
-	{
-		IS((*line = (char *)malloc(ft_strlen(str[fd]))));
-		*line = ft_strcpy(*line, str[fd]);
-		ft_bzero(str[fd], ft_strlen(str[fd]));
+		str[fd] = ft_strsubin(str[fd], line, '\n');
 		return (1);
 	}
-	return (0);
+	if ((ret = read(fd, buff, BUFF_SIZE)) > 0)
+	{
+		buff[ret] = '\0';
+		str[fd] = ((!str[fd]) ? ft_strdup(buff) : ft_strljoin(str[fd], buff));
+		return (get_next_line(fd, line));
+	}
+	if (ret == 0 && str[fd] && str[fd][0])
+	{
+		*line = ft_strdup(str[fd]);
+		free(str[fd]);
+		str[fd] = NULL;
+		return (1);
+	}
+	return (ret > 0 ? 1 : ret);
 }

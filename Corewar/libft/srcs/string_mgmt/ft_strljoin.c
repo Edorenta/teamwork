@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   ft_strljoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 12:21:38 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/02 17:22:18 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/25 12:26:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-#include <strings.h>
+#include "libft.h"
 
-void	lex(int fd);
-
-int main(int argc, char **argv)
+char	*ft_strljoin(char *s1, char *s2)
 {
-	if (argc > 1)
+	char	*join;
+
+	join = ft_strjoin(s1, s2);
+	if (s1)
 	{
-		int fd = open(argv[1], O_RDONLY);
-		if (fd > 0)
-		{
-			lex(fd);
-			close(fd);
-		}
+		free(s1);
+		s1 = NULL;
 	}
-	//write_head();
-	return (0);
+	return (join);
 }

@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:15:12 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/25 11:42:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/25 12:36:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # endif
 # include "string_mgmt.h"
 # include "memory_mgmt.h"
+# ifndef LIMITS_H
+#  include <limits.h>
+# endif
 
 # define BUFF_SIZE 42
 # ifndef IS

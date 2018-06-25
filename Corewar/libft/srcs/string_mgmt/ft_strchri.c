@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   ft_chrindex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 12:21:38 by fmadura          ###   ########.fr       */
+/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/25 12:26:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-#include <strings.h>
-
-void	lex(int fd);
-
-int main(int argc, char **argv)
+int		ft_strchri(char *str, char c)
 {
-	if (argc > 1)
+	int count;
+
+	count = 0;
+	while (str[count])
 	{
-		int fd = open(argv[1], O_RDONLY);
-		if (fd > 0)
-		{
-			lex(fd);
-			close(fd);
-		}
+		if (str[count] == c)
+			return (count);
+		count++;
 	}
-	//write_head();
-	return (0);
+	return (-1);
 }

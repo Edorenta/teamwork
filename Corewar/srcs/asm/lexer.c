@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 14:20:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/25 12:51:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	lex(int fd)
 	int			ret;
 
 	iter.lnb = 0;
+	line = NULL;
 	iter.line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
@@ -83,6 +84,7 @@ void	lex(int fd)
 		lexer_token(&iter);
 		++(iter.lnb);
 		free(line);
+		iter.line = NULL;
 		line = NULL;
 	}
 }

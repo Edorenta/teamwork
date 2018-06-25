@@ -7,9 +7,9 @@ SRC = asm.c \
       check.c \
       utils.c
 
-LIB = ../../printf/libftprintf.a
-INC = -I../../includes -I../../printf/includes -I../../printf/libft/includes
-LUB = -lftprintf
+LIB = ../../libft/libft.a
+INC = -I../../includes -I../../libft/includes
+LUB = -lft
 NAME = asm
 
 
@@ -19,7 +19,7 @@ all :
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind ./asm ../../rsrc/examples/bee_gees.s
+	valgrind --leak-check=full ./asm ../../rsrc/examples/bee_gees.s
 
 clean :
 	rm -rf asm asm.dSym/
