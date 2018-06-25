@@ -14,9 +14,10 @@
 
 void		put_usage(t_env *env)
 {
-	pstr(1, "Usage: lem-in [OPTION]\n"
+	pstr(2, "Usage: lem-in [OPTION]\n"
 		"  -u\tuncomment: hides comments on output\n"
 		"  -m\tmute: hides execution output\n"
+		"  -e\terror mode: describes errors\n"
 		"  -v\tverbose: further info, use with [rla]\n"
 		"  -r\trooms: displays room list\n"
 		"  -l\tlinks: displays link list\n"
