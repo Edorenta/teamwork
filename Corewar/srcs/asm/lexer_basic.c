@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 14:38:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:41:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	lexer_basics(t_iter *iter)
 			++(iter->count);
 			++(iter->line);
 		}
+		return (iter->token);
 	}
 	else if ((iter->line) && token_wsp((iter->line)))
 		(iter->token) |= TOKEN_SPA;
