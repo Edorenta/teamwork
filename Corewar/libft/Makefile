@@ -1,53 +1,90 @@
-CC =			gcc
-NAME =			libft.a
-SRC_DIR =		./
-# SRC_DIR_PRINTF =./ft_printf/
-OBJ_DIR =		./obj/
-# OBJ_DIR_PRINTF =./obj/ft_printf/
-HEADER =		./include
-CFLAGS =		-Wall -Werror -Wextra
-DEBUG_FLAGS =	-fsanitize=address -g
-ARFLAGS =		-rcs
-CFILES =		ft_putchar ft_putchar_fd ft_putstr ft_putstr_fd						\
-				ft_putnbr ft_putnbr_fd ft_putendl ft_putendl_fd						\
-				ft_strcpy ft_strncpy ft_strdup										\
-				ft_strlen ft_strcmp ft_strncmp ft_strcat ft_strncat ft_strlcat ft_strtrim ft_strjoin ft_strsub			\
-				ft_bzero ft_memalloc ft_memdel ft_memset ft_memmove ft_memcpy ft_memccpy ft_memcmp ft_memchr ft_strstr ft_strnstr 		\
-				ft_isascii ft_isdigit ft_isalpha ft_isalnum ft_isspace ft_isprint	\
-				ft_toupper ft_tolower ft_atoi ft_itoa ft_ulltoa_base ft_lltoa_base \
-				ft_strclr ft_striter ft_striteri ft_strnew ft_strdel ft_strequ ft_strnequ ft_strmap ft_strmapi ft_strchr ft_strrchr ft_strsplit\
-				ft_swap ft_range ft_sqrt ft_pow ft_abs\
-				ft_lstnew ft_lstdelone ft_lstdel ft_lstadd ft_lstiter ft_lstmap get_next_line \
-				apply ft_printf modifier ft_printf_parser spec_conv spec_decimal spec_type spec_unicode
+#******************************************************************************#
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/12/07 17:38:00 by pde-rent          #+#    #+#              #
+#    Updated: 2018/06/25 11:32:54 by fmadura          ###   ########.fr        #
+#                                                                              #
+#******************************************************************************#
 
-SRC =			$(CFILES:%=$(SRC_DIR)%.c)
-# SRC_PRINTF =	$(CFILES_PRINTF:%=$(SRC_DIR_PRINTF)%.c)
-OBJ =			$(SRC:%.c=$(OBJ_DIR)%.o)
-# OBJ_PRINTF =	$(SRC_PRINTF:%.c=$(OBJ_DIR_PRINTF)%.o)
+NAME    	= libft.a
+SRCS_PATH	= srcs/
+OBJS_PATH	= objs/
+I_PATH		= -I includes
+FLAGS		= -Wall -Wextra -g $(I_PATH) #-Wpedantic
+CC			= clang $(FLAGS)
+SRCS_SUBDIRS= $(shell find $(SRCS_PATH) -type d)
+SRCS_FILES	= $(shell find $(SRCS_PATH)/* -type f -name "*.c"\
+				 -exec basename {} \;)
+OBJS_FILES	= $(SRCS_FILES:.c=.o)
+SRCS		= $(shell find $(SRCS_PATH) -type f -name "*.c")
+OBJS		= $(addprefix $(OBJS_PATH),$(OBJS_FILES))
+NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
+				sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
+
+#color
+YELLOW		= "\\033[33m"
+BLUE		= "\\033[34m"
+RED			= "\\033[31m"
+WHITE		= "\\033[0m"
+CYAN		= "\\033[36m"
+GREEN		= "\\033[32m"
+BOLD		= "\\033[1m"
+PINK		= "\\033[95m"
+
+#command
+EOLCLR		= "\\033[0K"
+
+#unicode
+CHECK		= "\\xE2\\x9C\\x94"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar $(ARFLAGS) $@ $(OBJ)
-	@echo $@ Done !
+$(NAME): $(OBJS)
+	@printf "$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"all binaries compiled\t"$(OK)'\n'
+	@printf "[$(NAME_P)] building library $@$(WHITE)"
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@printf '\t\t'$(OK)'\n'
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) -c $< -I$(HEADER) -o $@ $(CFLAGS)
+$(OBJS) : | $(OBJS_PATH)
 
-# $(OBJ_DIR)%.o: $(SRC_DIR_PRINTF)%.c
-	# mkdir -p $(OBJ_DIR)
-	# $(CC) -c $< -I$(HEADER) -o $@ $(CFLAGS)
+$(OBJS_PATH) :
+	@mkdir -p $(OBJS_PATH)
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)*/%.c | $(TRACKER)
+	@printf "$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)\r"
+	@$(CC) -c $< -o $@
+
+%.c:
+	@printf "$(RED)Missing file : $@$(WHITE)\n"
+
+$(TRACKER): $(SRCS)
+	@touch $(TRACKER)
+	@mkdir -p $(OBJS_PATH)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
+	@rm -rf $(OBJS_PATH)
+	@rm -f $(TRACKER)
+	@printf '\t\t'$(OK)'\n'
 
-fclean:		clean
-	rm -f $(NAME)
+fclean: clean
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
+	@rm -f $(NAME)
+	@printf '\t\t\t'$(OK)'\n'
 
-re:			fclean all
+re: fclean
+	@$(MAKE) all
 
-#Regles qui ne concerne pas des noms de fichiers
-.PHONY: clean fclean re
-#Enleve les directives implicites par defauts
-.SUFFIXES:
+norm:
+	@echo $(RED)
+	@norminette $(SRCS) $(I_PATH) | grep -v Norme -B1 || true
+	@echo $(END)
+
+.PHONY: all clean fclean re norm

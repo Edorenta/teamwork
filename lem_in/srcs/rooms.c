@@ -34,6 +34,7 @@ void		new_room(t_env *env, char *name, long x, long y)
 	t_room			*room;
 	t_parsed_room	*parsed_room;
 
+	dup_room_name(env, name) ? put_error(env, "Error: duplicate room.name") : 0;
 	(room = (t_room *)malloc(sizeof(t_room)))
 	? 0 : put_error(env, "Error: could not allocate room");
 	(parsed_room = (t_parsed_room *)malloc(sizeof(t_parsed_room))) ? 0

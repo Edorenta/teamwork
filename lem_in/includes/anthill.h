@@ -32,7 +32,7 @@ struct			s_env
 	t_parsed_room	*last_parsed_room;
 	t_parsed_link	*first_parsed_link;
 	t_parsed_link	*last_parsed_link;
-	char			option;
+	int				option;
 	int				nb_rooms;
 	int				nb_ants;
 	t_ant			**colony;

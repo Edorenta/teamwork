@@ -7,7 +7,7 @@ GOOD_MAPS=checker/good_maps/*
 BAD_MAPS=checker/bad_maps/*
 
 printf ">> ERROR MANAGEMENT\n"
-printf ">> 1. BAD MAPS\n"
+printf "\n>> 1. BAD MAPS\n"
 for f in $BAD_MAPS
 	do
 		if [[ $(./lem-in < $f 2>&1 | grep "Error") ]]

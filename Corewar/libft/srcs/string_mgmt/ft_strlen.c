@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 12:21:38 by fmadura          ###   ########.fr       */
+/*   Created: 2017/11/16 00:41:05 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/25 12:13:17 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-#include <strings.h>
+#ifndef STDDEF_H
+# include <stddef.h>
+#endif
 
-void	lex(int fd);
-
-int main(int argc, char **argv)
+size_t	ft_strlen(const char *str)
 {
-	if (argc > 1)
-	{
-		int fd = open(argv[1], O_RDONLY);
-		if (fd > 0)
-		{
-			lex(fd);
-			close(fd);
-		}
-	}
-	//write_head();
-	return (0);
+	size_t	count;
+
+	count = 0;
+	while (str[count])
+		count++;
+	return (count);
 }

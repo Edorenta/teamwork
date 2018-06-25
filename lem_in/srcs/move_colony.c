@@ -73,7 +73,7 @@ void			move_colony(t_env *env)
 		j = -1;
 		while (++j < env->nb_ants)
 			move_ant_forward(env, env->colony[j]);
-		(i < (rounds - 1) && path_len(env->fw) != 2 && (!IS_SET_M || IS_SET_S))
+		(i < (rounds - 2) && path_len(env->fw) != 2 && (!IS_SET_M || IS_SET_S))
 		? write(1, "\n", 1) : 0;
 	}
 	(path_len(env->fw) == 2 && (!IS_SET_M || IS_SET_S)) ? write(1, "\n", 1) : 0;

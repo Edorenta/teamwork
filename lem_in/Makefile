@@ -35,7 +35,7 @@ COMMON =	main \
 			genetic
 
 SRC_FILES = $(addsuffix $(SRC_SUFFIX),$(COMMON))
-OBJ_FILES	= $(SRC_FILES:.c=.o)
+OBJ_FILES = $(SRC_FILES:.c=.o)
 SRC		= $(addprefix $(SRC_PATH),$(SRC_FILES))
 OBJ		= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
 
@@ -77,6 +77,9 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 clean :
 	@printf "[$(NAME_P)] removing\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
+	@rm -f _visualizer/lines*
+	@rm -f _visualizer/html/index.html
+	@rm -f _visualizer/c/list_jsonifier.exe
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean

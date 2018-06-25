@@ -12,9 +12,25 @@
 
 #include "lem_in.h"
 
+void		put_usage(t_env *env)
+{
+	pstr(2, "Usage: lem-in [OPTION]\n"
+		"  -u\tuncomment: hides comments on output\n"
+		"  -m\tmute: hides execution output\n"
+		"  -e\terror mode: describes errors\n"
+		"  -v\tverbose: further info, use with [rla]\n"
+		"  -r\trooms: displays room list\n"
+		"  -l\tlinks: displays link list\n"
+		"  -a\tants: displays colony\n"
+		"  -s\tsolver: displays solution\n"
+		, '\0');
+	deinit_env(env);
+	exit(EXIT_SUCCESS);
+}
+
 void		put_error(t_env *env, const char *err_msg)
 {
-	pstr(2, err_msg, '\n');
+	IS_SET_E ? pstr(2, err_msg, '\n') : pstr(2, "Error", '\n');
 	deinit_env(env);
 	exit(EXIT_FAILURE);
 }
@@ -37,4 +53,20 @@ int			anthill_complete(t_env *env)
 	if (!(parsed && parsed->room && parsed->room->link))
 		put_error(env, "Error: incomplete anthill");
 	return (1);
+}
+
+int			dup_room_name(t_env *env, const char *name)
+{
+	t_parsed_room *r;
+
+	r = R1;
+	while (r && r->prev)
+		r = r->prev;
+	while (r && r->room && &(r->room->id[0]))
+	{
+		if (!scmp(r->room->id, name))
+			return (1);
+		r = r->next;
+	}
+	return (0);
 }

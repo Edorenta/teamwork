@@ -1,17 +1,29 @@
 SRC = asm.c \
-	  lexer.c \
-	  lexer_basic.c \
-	  op.c \
-	  token.c \
-	  check.c
-LIB = ../../printf/libftprintf.a
-INC = -I../../includes -I../../printf/includes -I../../printf/libft/includes
-LUB = -lftprintf
+      lexer.c \
+      lexer_basic.c \
+      lexer_ins.c \
+      op.c \
+      token.c \
+      check.c \
+      utils.c
+
+LIB = ../../libft/libft.a
+INC = -I../../includes -I../../libft/includes
+LUB = -lft
 NAME = asm
 
 
 all :
-	#rm -f exe.cor
-	#rm -f asm
-	gcc $(SRC) $(LIB) $(INC) -o $(NAME)
+	clang $(SRC) $(LIB) $(INC) -o $(NAME)
+	./asm ../../rsrc/examples/bee_gees.s
+
+val :
+	clang $(SRC) $(LIB) $(INC) -o $(NAME)
+	valgrind --leak-check=full ./asm ../../rsrc/examples/bee_gees.s
+
+clean :
+	rm -rf asm asm.dSym/
+
+fsan :
+	clang -fsanitize=address $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm ../../rsrc/examples/bee_gees.s
