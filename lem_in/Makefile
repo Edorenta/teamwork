@@ -79,7 +79,7 @@ clean :
 	@rm -rf $(OBJ_PATH)
 	@rm -f _visualizer/lines*
 	@rm -f _visualizer/html/index.html
-	@rm -f _visualizer/c/list_jsonifier
+	@rm -f _visualizer/c/list_jsonifier.exe
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean

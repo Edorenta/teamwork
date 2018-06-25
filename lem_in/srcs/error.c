@@ -54,3 +54,19 @@ int			anthill_complete(t_env *env)
 		put_error(env, "Error: incomplete anthill");
 	return (1);
 }
+
+int			dup_room_name(t_env *env, const char *name)
+{
+	t_parsed_room *r;
+
+	r = R1;
+	while (r && r->prev)
+		r = r->prev;
+	while (r && r->room && &(r->room->id[0]))
+	{
+		if (!scmp(r->room->id, name))
+			return (1);
+		r = r->next;
+	}
+	return (0);
+}

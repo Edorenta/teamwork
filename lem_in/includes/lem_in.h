@@ -85,6 +85,7 @@ void			sig_handler(int sig);
 void			put_usage(t_env *env);
 void			put_error(t_env *env, const char *err_msg);
 int				anthill_complete(t_env *env);
+int				dup_room_name(t_env *env, const char *name);
 
 /*
 ** LINKS
