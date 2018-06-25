@@ -6,11 +6,26 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/21 13:48:01 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/25 16:39:22 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	free_all(t_vm *vm) //free a lst de process
+{
+	t_proc *tmp;
+	t_proc *tmp2;
+
+	tmp = vm->proc;
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2);
+	}
+	vm->proc = NULL;
+}
 
 int			modulo(int a, int b) //un peu spe, en gros on m'as explique que le modulo du c etait signe, pour la mem il faut pas, pour ncurses
 {
@@ -154,6 +169,7 @@ int		main(int argc, char *argv[])
 	printf("Contestant %d, \"%s\", has won !\n", vm.winner, //ncurses.h issue
 		vm.player[vm.winner].name);
 	//free
+	free_all(&vm); //free a lst de process
 
 	return (0);
 }

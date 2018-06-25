@@ -6,14 +6,14 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/22 15:30:42 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/23 22:08:30 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include <unistd.h>
+# include <unistd.h>//tester un truc entre le and et le or
 # include <stdlib.h>
 # include <limits.h>
 # include <sys/types.h>
@@ -28,9 +28,9 @@
 #include <stdio.h>//
 
 # define MAGIC_NB 		4
-# define PROG_NAME 		128 + 4//
+# define PROG_NAME 		128 + 4//+3 pour le packing de la strucutre header (pour combler), +1 pour \0
 # define PROG_SIZE 		4
-# define PROG_COMS 		2048 + 4//
+# define PROG_COMS 		2048 + 4
 # define T_IND			4//0100
 # define T_WINDOW WINDOW //pour la norme (redifinition de WINDOW, pour ncurses)
 
@@ -115,6 +115,7 @@ typedef struct			s_optab
 extern t_optab g_op_tab[];
 
 void					exit_error(const char *s);
+void	free_all(t_vm *vm); //free a lst de process
 void 					usage(void);
 void					init_vm(t_vm *vm);
 void					get_winner(t_vm *vm);

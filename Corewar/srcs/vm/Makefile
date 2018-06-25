@@ -29,4 +29,4 @@ NAME = corewar
 all :
 	#rm -f exe.cor
 	#rm -f asm
-	gcc -g -lncurses $(SRC) $(LIB) $(INC) -o $(NAME)
+	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME)
