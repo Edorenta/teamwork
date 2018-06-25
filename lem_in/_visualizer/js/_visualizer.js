@@ -45,7 +45,7 @@ var env = {
         //camZ : (win.h/2.0) / Math.tan(Math.PI*30.0 / 180.0),
         camX : 0,
         camY : 0,
-        camZ : -500,
+        camZ : -2000,
         centerX : 0,
         centerY : 0,
         centerZ : 0,
@@ -62,7 +62,7 @@ var env = {
 var df = [];
 
 class Room{
-    constructor(name, x, y, z) {
+    constructor(name, x, y, z){
         this.name = name;
         this.x = x;
         this.y = y;
@@ -103,21 +103,21 @@ var nb_lines;
 var data;
 var turn;
 var zoom = 1.00;
-var zMin = 0.05;
-var zMax = 9.00;
+var zMin = 0.02;
+var zMax = 14;
 var accuracy = 0.0005;
 
 //min max of array as .this function
-Array.prototype.max = function() {
+Array.prototype.max = function(){
     return Math.max.apply(null, this);
 };
 
-Array.prototype.min = function() {
+Array.prototype.min = function(){
     return Math.min.apply(null, this);
 };
 
 //canvas resize on viewport change
-function canvas_resize() {
+function canvas_resize(){
     win.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     win.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     resizeCanvas(win.w, win.h, true);
@@ -242,9 +242,9 @@ function draw_lines(){
     for (let j = 0; j < env.nb_rooms; j++){
         if ((df[j].link)){
             push();
-            strokeWeight(2);
-            stroke(200,200,200);
             for (let i = 0; i < ((df[j].link.length)); i++){
+                strokeWeight(1);
+                stroke(200,200,200);
                 if ((df[j].is_fw || df[j].is_start) && (df[j].link[i].is_fw || df[j].link[i].is_end)){
                     stroke(0,255,0);
                     strokeWeight(4);
@@ -318,7 +318,7 @@ function draw_rooms(){
             //base_lights();
             translate(df[i].x, df[i].y, df[i].z+win.scl*2);
             ambientMaterial(255,0,255);
-            box(win.scl);
+            box(win.scl*5);
             pop();
         }
         else if (df[i].is_end){
@@ -328,7 +328,7 @@ function draw_rooms(){
             //base_lights();
             translate(df[i].x, df[i].y, df[i].z+win.scl*2);
             ambientMaterial(0,255,255);
-            box(win.scl);
+            box(win.scl*5);
             pop();
         }
         else if (!(df[i].is_start) && !(df[i].is_end)){
@@ -355,7 +355,7 @@ function draw_rooms(){
             */
             //print "turn = ", turn
             translate(df[i].x, df[i].y, df[i].z+win.scl*2);
-            box(win.scl/1.5);
+            (df[i].is_fw) ? box(win.scl*3.5) : box(win.scl*2.5);
             pop();
         }
     }
@@ -363,7 +363,7 @@ function draw_rooms(){
 }
 
 //initialization function
-function setup() {
+function setup(){
     //noLoop();
     lines_json = document.getElementById('lines').innerHTML;
     lines = JSON.parse(lines_json).lines;
@@ -386,36 +386,65 @@ function setup() {
     title = document.getElementById('title');
     //translate((x_min() + x_max()) / 2, (y_min() + y_max()) / 2);
     rectMode(CENTER);
-        env.centerX = 0;
-        env.centerY = 0;
-        env.camX = 0;
-        env.camY = 0;
+    env.centerX = 0;
+    env.centerY = 0;
+    env.camX = 0;
+    env.camY = 0;
+    win.scl = ((y_max() - y_min()) * (x_max() - x_min())) / (env.nb_rooms * (env.nb_rooms / 1.5) * 500);
+    console.log(win.scl);
 }
 
 function keyPressed(){
     switch (keyCode){
-        case 37: _left = true; break;
-        case 38: _up =  true; break;
-        case 39: _right = true; break;
-        case 40: _down = true; break;
-        case 97: _1 = true; break;
-        case 98: _2 = true; break;
-        case 99: _3 = true; break;
-        case 100: _4 = true; break;
-        case 101: _5 = true; break;
-        case 102: _6 = true; break;
-        case 103: _7 = true; break;
-        case 104: _8 = true; break;
-        case 105: _9 = true; break;
-        case 82: _r = true; break;
-        case 107: _plus = true; break;
-        case 109: _minus = true; break;
-    }
+		//multi
+        case 37: _left = _left ? false : true; _right = false; break;
+        case 38: _up = _up ? false : true; _down = false; break;
+        case 39: _right = _right ? false : true; _left = false; break;
+        case 40: _down = _down ? false : true; _up = false; break;
+	    case 82: _r = true; break;
+        case 107: _plus = _plus ? false : true; _minus = false; break;
+        case 109: _minus = _minus ? false : true; _plus = false; break;
+		//windows
+        case 97: _1 = _1 ? false : true; _3 = false; break;
+        case 98: _2 = _2 ? false : true; _8 = false; break;
+        case 99: _3 = _3 ? false : true; _1 = false; break;
+        case 100: _4 = _4 ? false : true; _6 = false; break;
+        case 101: _5 = _5 ? false : true; break;
+        case 102: _6 = _6 ? false : true; _4 = false; break;
+        case 103: _7 = _7 ? false : true; break;
+        case 104: _8 = _8 ? false : true; _2 = false; break;
+        case 105: _9 = _9 ? false : true; break;
+	    //mac
+        case 49: _1 = _1 ? false : true; _3 = false; break;
+        case 50: _2 = _2 ? false : true; _8 = false; break;
+        case 51: _3 = _3 ? false : true; _1 = false; break;
+        case 52: _4 = _4 ? false : true; _6 = false; break;
+        case 53: _5 = _5 ? false : true; break;
+        case 54: _6 = _6 ? false : true; _4 = false; break;
+        case 55: _7 = _7 ? false : true; break;
+        case 56: _8 = _8 ? false : true; _2 = false; break;
+        case 57: _9 = _9 ? false : true; break;
+   	}
     if (_r){ //RESET setting
+        _plus = false;
+        _minus = false;
+        _1 = false;
+        _2 = false;
+        _3 = false;
+        _4 = false;
+        _5 = false;
+        _6 = false;
+        _7 = false;
+        _8 = false;
+        _9 = false;
+        _up = false;
+        _down = false;
+        _left = false;
+        _right = false;
         env.x = 0;
         env.y = 0;
         env.z = 0;
-        env.camZ = -500;
+        env.camZ = -2000;
         /*
         env.centerX = (x_min() + x_max()) / 2;
         env.centerY = (y_min() + y_max()) / 2;
@@ -434,16 +463,17 @@ function keyPressed(){
         zMin = 0.05;
         zMax = 9.00;
         accuracy = 0.0005;
-        change_view();
+        _r = false;
     }
     /*
     console.log("cam centerX:", env.centerX, "cam centerY:", env.centerY);
     console.log("X max:", x_max(), "X min:", x_min());
     console.log("Y max:", y_max(), "Y min:", y_min());
-    console.log(keyCode);
     */
+	//console.log(keyCode);
 }
 
+/*
 function keyReleased(){
     switch (keyCode){
         case 37: _left = false; break;
@@ -463,7 +493,9 @@ function keyReleased(){
         case 107: _plus = false; break;
         case 109: _minus = false; break;
     }
+    console.log(keyCode);
 }
+*/
 
 function change_view(){
     /*
@@ -477,29 +509,34 @@ function change_view(){
         env.centerZ, env.upX, env.upY, env.upZ);
 }
 
-function mouseWheel(event) {
-  zoom -= accuracy * event.delta;
-  zoom = constrain(zoom, zMin, zMax);
-  return false;
+function zoom_in(delta){
+    zoom -= accuracy * delta;
+    zoom = constrain(zoom, zMin, zMax);
+}
+
+function mouseWheel(event){
+    zoom_in(event.delta);
+    return false;
 }
 
 //p5js loop function at every FPS (OPS)
-function draw() {
+function draw(){
     background(0);
+    change_view();
     base_lights();
     //pointLight(200,0,0,0,500,0);
-    _8 ? env.x += 3 : 0;
-    _2 ? env.x -= 3 : 0;
-    _6 ? env.y += 3 : 0;
-    _4 ? env.y -= 3 : 0;
-    _3 ? env.z += 3 : 0;
-    _1 ? env.z -= 3 : 0;
-    _plus ? env.camZ += 30 : 0;
-    _minus ? env.camZ -= 30 : 0;
-    _left ? env.centerX -= 20 : 0;
-    _right ? env.centerX += 20 : 0;
-    _up ? env.centerY += 20 : 0;
-    _down ? env.centerY -= 20 : 0;
+    _8 ? env.x -= 1 : 0;
+    _2 ? env.x += 1 : 0;
+    _6 ? env.y += 1 : 0;
+    _4 ? env.y -= 1 : 0;
+    _3 ? env.z -= 1 : 0;
+    _1 ? env.z += 1 : 0;
+    _plus ? zoom_in(-20) : 0;
+    _minus ? zoom_in(20) : 0;
+    _left ? env.centerX += 5 : 0;
+    _right ? env.centerX -= 5 : 0;
+    _up ? env.centerY -= 5 : 0;
+    _down ? env.centerY += 5 : 0;
     scale(zoom);
     rotateX(env.x * 0.015);
     rotateY(env.y * 0.015);
