@@ -14,7 +14,10 @@ NAME = asm
 
 
 all :
-	#rm -f exe.cor
-	#rm -f asm
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm ../../rsrc/examples/bee_gees.s
+
+val :
+	clang $(SRC) $(LIB) $(INC) -o $(NAME)
+	valgrind ./asm ../../rsrc/examples/bee_gees.s
+
