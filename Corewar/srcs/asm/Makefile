@@ -23,3 +23,7 @@ val :
 
 clean :
 	rm -rf asm asm.dSym/
+
+fsan :
+	clang -fsanitize=address $(SRC) $(LIB) $(INC) -o $(NAME)
+	./asm ../../rsrc/examples/bee_gees.s

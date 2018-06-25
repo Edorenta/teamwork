@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 12:51:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:38:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	lexer_token(t_iter *iter)
 		}
 		tok_tostring(new);
 		tok_tostring(new->list);
+		del_tok(new);
 		return (0);
 	}
 	printf("token true : %d\n", check_op(token));

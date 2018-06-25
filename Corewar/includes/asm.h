@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 11:46:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:47:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,14 @@ int					check_op(unsigned int value);
 t_tok				*new_tok(void);
 t_tok				*create_tok(int type, char *label, int nbl, int pos);
 void				tok_tostring(t_tok *tok);
+void				del_tok(t_tok *tok);
 
 
 void				end_line(t_iter *iter);
 void				lexer_ins_sub(t_iter *iter);
 void				lexer_ins(t_iter *iter);
-int				lexer_basics(t_iter *iter);
+int					lexer_basics(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);
+void				increment(t_iter *iter);
 #endif
