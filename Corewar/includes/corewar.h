@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 18:33:14 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/25 20:02:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <ncurses.h>
 
 # include "../libft/includes/libft.h"//
+// # include "../printf/"
+# include "ft_printf.h"
 // # include "../libft/include/ft_printf.h" //error si j'inclus curses.h
 # include "op.h"
 

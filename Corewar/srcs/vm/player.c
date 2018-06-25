@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/18 02:15:56 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/25 21:13:54 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	create_players(t_vm *vm)
 	i = 1;
 	j = 0;
 	// ft_printf("Introducing contestants...\n");
-	printf("Introducing contestants...\n"); //ncurses.h
+	ft_printf("Introducing contestants...\n");
 	while (i <= MAX_PLAYERS)
 	{
 		if (vm->player[i].active)

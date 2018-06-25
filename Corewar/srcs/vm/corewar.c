@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/25 16:39:22 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/25 21:10:57 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,13 @@ void	exit_error(const char *s)
 
 void 	usage(void)
 {
-	// ft_printf("Usage: ./corewar [-d N | -ncurses ] <[-n N] ");
-	// ft_printf("champion1.cor> <...>\n");
-	// ft_printf("  -d N\t\t: Dumps memory after N cycles then exits\n");
-	// ft_printf("  -v N\t\t: pas encore implémenter, a faire? ");
-	// ft_printf("  -ncurses\t: Ncurses output mode\n");
-	// ft_printf("  -n N\t\t: Champion number (position at initalisation of ");
-	// ft_printf("memory)\n");
-
-	//temporaire, error si je met ft_printf.h et ncurses.h
-	printf("Usage: ./corewar [-d N | -ncurses ] <[-n N] ");
-	printf("champion1.cor> <...>\n");
-	printf("  -d N\t\t: Dumps memory after N cycles then exits\n");
-	printf("  -v N\t\t: pas encore implémenter, a faire? upd: --v 2 pour les cycles ");
-	printf("  -ncurses\t: Ncurses output mode\n");
-	printf("  -n N\t\t: Champion number (position at initalisation of ");
-	printf("memory)\n");
+	ft_printf("Usage: ./corewar [-d N | -ncurses ] <[-n N] ");
+	ft_printf("champion1.cor> <...>\n");
+	ft_printf("  -d N\t\t: Dumps memory after N cycles then exits\n");
+	ft_printf("  -v N\t\t: pas encore implémenter, a faire? upd: --v 2 pour les cycles ");
+	ft_printf("  -ncurses\t: Ncurses output mode\n");
+	ft_printf("  -n N\t\t: Champion number (position at initalisation of ");
+	ft_printf("memory)\n");
 
 	exit(EXIT_FAILURE);
 }
@@ -93,8 +84,8 @@ int		check_params(t_op *op)
 static void	display_args(t_proc *proc, int n)
 {
 	if (proc->op.ar_typ[n] == REG_CODE) //quand registre, on affiche le r
-		printf("r");//
-	printf("%d", proc->op.ar[n]); //la value de l'argument
+		ft_printf("r");
+	ft_printf("%d", proc->op.ar[n]); //la value de l'argument
 }
 
 void		show_operations(t_proc *proc)
@@ -104,10 +95,10 @@ void		show_operations(t_proc *proc)
 
 	i = 0;
 	nb_arg = g_op_tab[proc->op.code - 1].nb_arg; //recup le nombre d'arg de l'instruction
-	/**/printf("P%5d | %s", proc->id + 1, g_op_tab[proc->op.code - 1].inst); //affiche le process(id) et le name de l'instruction
+	ft_printf("P%5d | %s", proc->id + 1, g_op_tab[proc->op.code - 1].inst); //affiche le process(id) et le name de l'instruction
 	while (i < nb_arg) //pour tous les arguments afficher la value (et r si registre)
 	{
-		/**/printf(" ");//
+		ft_printf(" ");
 		display_args(proc, i);
 		i++;
 	}
@@ -166,10 +157,9 @@ int		main(int argc, char *argv[])
 
 	//affichage (ncurses)?
 
-	printf("Contestant %d, \"%s\", has won !\n", vm.winner, //ncurses.h issue
+	ft_printf("Contestant %d, \"%s\", has won !\n", vm.winner,
 		vm.player[vm.winner].name);
-	//free
-	free_all(&vm); //free a lst de process
+	free_all(&vm); //free la lst de process
 
 	return (0);
 }

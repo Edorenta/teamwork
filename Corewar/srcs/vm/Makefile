@@ -20,13 +20,13 @@ SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
 		opcode/aff.c \
 		opcode/fork.c \
 
-LIB = ../../libft/libft.a
-INC = -I../../includes
-# INC = -Iinc_tmp/
-LUB = -llibft.a
+LIB = ../../libft/libft.a ../../printf/libftprintf.a
+INC = -I../../includes -I../../libft/includes
+LUB = -lft.a
 NAME = corewar
 
 all :
 	#rm -f exe.cor
 	#rm -f asm
-	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME)
+	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
+	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g

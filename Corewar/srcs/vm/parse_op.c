@@ -66,15 +66,15 @@ int			find_args(t_vm *vm, t_proc *proc, int num, int pos)//num = num arg
 	if (type == REG_CODE)
 	{
 		get_reg(vm, proc, num, pos);
-		printf("\n find_args: get_registre => %d\n", proc->op.ar[0]);//
+		// ft_printf("\n find_args: get_registre => %d\n", proc->op.ar[0]);
 		// return (REG_SIZE);
 		return (1);
 	}
 	if (type == DIR_CODE)
 	{
 		get_dir(vm, proc, num, pos);
-		printf("\n find_args: get_dir => %d\n", proc->op.ar[1]);//
-		printf("\n find_args: get_dir => %d\n", proc->op.ar[2]);//
+		// ft_printf("\n find_args: get_dir => %d\n", proc->op.ar[1]);
+		// ft_printf("\n find_args: get_dir => %d\n", proc->op.ar[2]);
 		return ((g_op_tab[proc->op.code - 1].direct_size) ? 2 : 4);
 	}
 	if (type == IND_CODE)
@@ -99,8 +99,8 @@ int			fill_cur_op(t_vm *vm, t_proc *proc)
 	{
 		pos++;//position du pc du proc
 		proc->op.ocp = (unsigned char)vm->ram[pos % MEM_SIZE].mem;//contenu de la case memoire de l'ocp
-		printf("\nfill_cur_op -> proc->op.code = %d\n", proc->op.code);//
-		printf("\nfill_cur_op -> proc->op.ocp = %d\n", proc->op.ocp);//
+		ft_printf("\nfill_cur_op -> proc->op.code = %d\n", proc->op.code);
+		// ft_printf("\nfill_cur_op -> proc->op.ocp = %d\n", proc->op.ocp);
 		if (check_ocp(proc->op.ocp, proc->op.code))//si l'ocp est pas bon, on jump quand meme de sa valeur(?)
 		{
 			while (i < g_op_tab[proc->op.code - 1].nb_arg) //pour tous les arguments de l'op
@@ -117,9 +117,9 @@ int			fill_cur_op(t_vm *vm, t_proc *proc)
 	{
 		get_dir(vm, proc, 0, pos);
 		//-----D E B U G----
-		if (proc->op.ocp == 1) {
-			printf("\n----------live---------\n");
-		}
+		// if (proc->op.ocp == 1) {
+			// printf("\n----------live---------\n");
+		// }
 		//------------------
 	}
 	return (1);

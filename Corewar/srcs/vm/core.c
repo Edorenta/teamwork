@@ -53,7 +53,7 @@ void			run(t_vm *vm) //reset_live
 
 		//verbosity pour les cycles
 		if (2 & vm->verbosity)
-			printf("It is now cycle %d\n", vm->cycle + 1); //curses.h
+			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		//ncurses?
 		proc = vm->proc;
 		while (proc != NULL)//on parcours tous les process, (liste chainee)
@@ -66,8 +66,8 @@ void			run(t_vm *vm) //reset_live
 		vm->cycle++; //quand chaque process est terminé, on augmente le nb de cycle ecoulé
 		if (vm->dump != -1) //ne pas appeler dump si ncurses est activé
 			dump(vm);//si on a l'option -d => dump
+			// show_mem(vm);//
 	}
 	if (vm->last_one) //test avec la vm (le nom ou le fichier?)
-		printf("Last_one => %s\n", vm->last_one->file_name);
-		// ft_printf("Last_one => %s\n", vm->last_one->file_name); //ncurses.h issue
+		ft_printf("Last_one => %s\n", vm->last_one->file_name);
 }
