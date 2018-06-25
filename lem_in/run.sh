@@ -2,7 +2,7 @@
 ./lem-in < ${1:-"checker/good_maps/good_map04"} > _visualizer/lines.txt
 cd _visualizer/c
 echo "<!> compiling json list generator"
-gcc list_jsonifier.c -o list_jsonifier.exe
+gcc list_jsonifier.o -o list_jsonifier.exe
 cd ../..
 cd _visualizer/c
 echo "<!> building json from output ..."

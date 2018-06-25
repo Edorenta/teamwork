@@ -39,6 +39,7 @@
 # define IS_SET_S		(env->option & (1 << 5))
 # define IS_SET_V		(env->option & (1 << 6))
 # define IS_SET_H		(env->option & (1 << 7))
+# define IS_SET_E		(env->option & (1 << 8))
 
 # define SET_U			(env->option |= (1 << 0))
 # define SET_M			(env->option |= (1 << 1))
@@ -48,6 +49,7 @@
 # define SET_S			(env->option |= (1 << 5))
 # define SET_V			(env->option |= (1 << 6))
 # define SET_H			(env->option |= (1 << 7))
+# define SET_E			(env->option |= (1 << 8))
 
 /*
 ** BASICS

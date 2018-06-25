@@ -244,7 +244,7 @@ function draw_lines(){
             push();
             for (let i = 0; i < ((df[j].link.length)); i++){
                 strokeWeight(1);
-                stroke(200,200,200);
+                stroke(120,120,120);
                 if ((df[j].is_fw || df[j].is_start) && (df[j].link[i].is_fw || df[j].link[i].is_end)){
                     stroke(0,255,0);
                     strokeWeight(4);
@@ -390,7 +390,7 @@ function setup(){
     env.centerY = 0;
     env.camX = 0;
     env.camY = 0;
-    win.scl = ((y_max() - y_min()) * (x_max() - x_min())) / (env.nb_rooms * (env.nb_rooms / 1.5) * 500);
+    win.scl = 10 + (env.nb_rooms); //+ (((y_max() - y_min()) * (x_max() - x_min())) / 70000000);
     console.log(win.scl);
 }
 

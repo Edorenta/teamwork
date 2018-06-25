@@ -77,6 +77,9 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 clean :
 	@printf "[$(NAME_P)] removing\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
+	@rm -f _visualizer/lines*
+	@rm -f _visualizer/html/index.html
+	@rm -f _visualizer/c/list_jsonifier
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
