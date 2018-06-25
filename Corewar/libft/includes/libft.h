@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 13:50:45 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/16 10:21:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/25 11:44:33 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "string_mgmt.h"
 # include "stream_mgmt.h"
 # include "output_mgmt.h"
-# include "macos_keymap.h"
 # include "get_next_line.h"
 # include "non_printables.h"
 # include "terminal_colors.h"

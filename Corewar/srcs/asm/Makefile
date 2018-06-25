@@ -21,3 +21,5 @@ val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	valgrind ./asm ../../rsrc/examples/bee_gees.s
 
+clean :
+	rm -rf asm asm.dSym/

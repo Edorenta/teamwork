@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 19:38:16 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/23 15:18:39 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/25 11:33:56 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DEPENDENCIES_H
 
 # include <stdarg.h>
-# include "../libft/includes/libft.h"
+# include "libft.h"
 
 # define FLAGS_FMT		"diuoxXfFeEgGaAOUcCsSpbrn\0"
 # define FLAGS_NUM		"diuoxXfFeEgGaAOU\0"
