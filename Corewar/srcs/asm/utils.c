@@ -8,3 +8,9 @@ void	clear_wsp(t_iter *iter)
 		++(iter->line);
 	}
 }
+
+void	increment(t_iter *iter)
+{
+	++(iter->count);
+	++(iter->line);
+}

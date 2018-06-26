@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 17:37:36 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/26 14:20:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 
 void	tok_tostring(t_tok *tok)
 {
+	t_tok	*list;
 	if (tok)
-		printf("[LINE %d][TYPE %#x][TOKEN %#x][LABEL %s][POS %d]\n",
-		 tok->lnb, tok->type,tok->token, tok->label, tok->pos);
+	{
+		printf("[LINE %d][TYPE %#.2x][LABEL %-13s][POS %-4d]\n",
+		 tok->lnb, tok->type, tok->label, tok->pos);
+		list = tok->list;
+		while (list)
+		{
+			printf("[LINE %d][TYPE %#.2x][LABEL %-13s][POS %-4d]\n",
+		 	list->lnb, list->type, list->label, list->pos);
+			list = list->next;
+		}
+	}
 }
 
 void	del_tok(t_tok *tok)

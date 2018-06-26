@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_def.h                                          :+:      :+:    :+:   */
+/*   iter.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 13:56:38 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/26 14:04:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_DEF_H
-# define ASM_DEF_H
+#include "asm.h"
 
-# define TOKEN_COM	0x02
-# define TOKEN_LAB	0x04
-# define TOKEN_INS	0x06
-# define TOKEN_HEA	0x08
-# define TOKEN_SPA	0x0A
+t_iter	*iter_add_list(t_iter *iter, char *label, int type)
+{
+	t_tok	*node;
 
-# define INS_DIR	0x02
-# define INS_IND	0x04
-# define INS_REG	0x06
-# define INS_SEP	0x08
-# define INS_COM	0x0A
-# define INS_END	0x0B
-# define INS_ERR	0x0C
-
-# define HEAD_NAME	0x02
-# define HEAD_COMT	0x04
-# define HEAD_ERRR	0x06
-
-#endif
+	if (iter && iter->iter)
+	{
+		node = iter->iter->list;
+		if (node)
+		{
+			while (node->next)
+				node = node->next;
+			node->next = create_tok(type, label, iter->lnb, iter->count);
+		}
+		else
+		{
+			iter->iter->list = create_tok(type, label, iter->lnb, iter->count);
+		}
+	}
+	return (iter);
+}

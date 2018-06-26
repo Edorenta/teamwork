@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 17:41:18 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/26 13:55:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	end_line(t_iter *iter)
 	clear_wsp(iter);
 	if (*iter->line == ';')
 	{
-		printf("[INS_COM][%d]", iter->count);
-		printf("[INS_END][%d]", iter->count);
+		iter_add_list(iter, "INS_COM", INS_COM);
+		iter_add_list(iter, "INS_END", INS_END);
 	}
 	else if (!(*iter->line))
-		printf("[INS_END][%d]", iter->count);
+		iter_add_list(iter, "INS_END", INS_END);
 	else if (*iter->line == '#')
-		printf("[INS_COM][%d]", iter->count);
+		iter_add_list(iter, "INS_END", INS_END);
 	else
-		printf("[INS_ERR][%d]", iter->count);
+		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
-int	lexer_basics(t_iter *iter)
+int		lexer_basics(t_iter *iter)
 {
 	if (iter->line && *(iter->line) == COMMENT_CHAR)
 		(iter->token) |= TOKEN_COM;
