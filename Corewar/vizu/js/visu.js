@@ -1,6 +1,7 @@
 "use strict";
 
 //keyboard mapping
+/*
 var
 _up = false,
 _down = false,
@@ -18,7 +19,7 @@ _9 = false,
 _r = false,
 _plus = false,
 _minus = false;
-
+*/
 //viewport size tracker
 var win = {
     w : Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -26,25 +27,21 @@ var win = {
 };
 //interface colors tracker
 var clrs = {
-    a_in : "rgb(45,45,45)",
-    b_in : "rgb(45,45,45)",
-    a_out : "rgb(211,140,0)",
-    b_out : "rgb(0,180,0)",
-    back : "rgb(0,0,0)",
-    txt : "rgb(0,255,255)",
-    txt_back : "rgb(45,45,45)"
+    blue : "rgb(0,110,255)",   //blue
+    green : "rgb(45,255,0)",   //green
+    red : "rgb(230,0,0)",      //red
+    purple : "rgb(230,0,230)", //purple
+    yellow : "rgb(250,250,0)", //yellow
+    grey : "rgb(80,80,80)"  //grey
 };
 
 //global variables
 var title;
-var memory_dump;
-var lines = [];
-var data = [];
 var canvas;
-var nb_lines;
 var mem_div;
 var cmd_div;
 var back_img;
+var joystix_font;
 
 //min max of array as .this function
 Array.prototype.max = function(){
@@ -55,26 +52,17 @@ Array.prototype.min = function(){
     return Math.min.apply(null, this);
 };
 
+String.prototype.rpl = function(from, to) {
+    let target = this;
+    return target.replace(new RegExp(from, 'g'), to);
+};
+
 //canvas resize on viewport change
 function canvas_resize(){
     win.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     win.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     resizeCanvas(win.w, win.h, true);
 }
-
-class Player{
-    constructor(name, msg){
-        this.name = name;
-        this.msg = msg;
-        console.log("New player:", this.name);
-    }
-    set_name(name){
-        this.name = name;
-    }
-    get_name(){
-        return this.name;
-    }
-};
 
 function get_mem(){
     //...
@@ -83,24 +71,7 @@ function get_mem(){
 function draw_rooms(){
     //...
 }
-
-//initialization function
-function setup(){
-    //noLoop();
-    mem_div = document.getElementById("mem");
-    //mem = JSON.parse(mem_div.innerHTML).mem;
-    //nb_lines = mem.length;
-    //console.log(mem_div.innerHTML);
-    frameRate(30);
-    canvas = createCanvas(1920, 1000); //WEBGL);
-    title = document.getElementById('title');
-    back_img = loadImage("../assets/corewar_background.png");
-    textFont('Courier New');
-    textStyle(BOLD);
-    textSize(12);
-    rectMode(CENTER);
-}
-
+/*
 function keyPressed(){
     switch (keyCode){
 		//multi
@@ -133,21 +104,101 @@ function keyPressed(){
         case 57: _9 = _9 ? false : true; break;
    	}
 }
-
+*/
 function mouseWheel(event){
     //...
     return false;
 }
 
 var str;
+var trim;
 var fontsize;
-//p5js loop function at every FPS (OPS)
+var text_mode = true;
+var block_mode = true;
+var block = [];
+var start_x = 557;
+var start_y = 40;
+var itx = 0;
+var ity = 0;
+var space_x = 20.7;
+var space_y = 14.4;
+
+class Block{
+    constructor(x, y, clr){
+        this.x = x;
+        this.y = y;
+        this.clr = clr;
+    }
+};
+
+class Player{
+    constructor(name, msg, clr){
+        this.name = name;
+        this.msg = msg;
+        this.clr = clr;
+        console.log("New player:", this.name);
+    }
+    set_name(name){
+        this.name = name;
+    }
+    get_name(){
+        return this.name;
+    }
+};
+
+//initialization function
+function preload(){
+    back_img = loadImage("../assets/corewar_background_2.png");
+    joystix_font = loadFont("../fonts/joystix_monospace.ttf");
+    title = document.getElementById('title');
+    mem_div = document.getElementById("mem");
+}
+
+function setup(){
+    //noLoop();
+    frameRate(30);
+    canvas = createCanvas(1920, 1000); //WEBGL);
+    rectMode(CENTER);
+    noStroke();
+    for (let i = 0; i < 4096; i++){
+        block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), clrs.grey);
+        itx = itx > 1290 ? 0 : itx + space_x;
+        ity = itx == 0 ? ity + space_y : ity;
+        //if (i > 2023 && i < 3000) block[i].clr = clrs.red;
+        if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.red;
+        if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.blue;
+    }
+}
+
 function draw(){
     //canvas_resize();
+    background(0);
+    //print player names
+    textAlign(CENTER, CENTER);
+    textFont('Courier New');
+    textFont('Joystix Monospace');
+    textStyle(BOLD);
+    textSize(30);
+    fill(255,255,255,255);
+    text("Player 1 vs Player 2", 1213, 950);
+    //initiate font for arena printing
+    textAlign(LEFT, TOP);
+    textFont('Courier New');
+    textStyle(BOLD);
+    textSize(11.5);
     background(back_img);
-    textSize(11); //textSize(Math.min(win.h, win.w) / 90);
-    str = mem_div.innerHTML;
-    fill(255);
-    text(str, 550, 45); //win.w * 18 / 20, win.h * 18 / 20);
+    if (block_mode == true){
+        //update_clrs();
+        for (let i = 0; i < 4096; i++){
+            fill(block[i].clr);
+            ellipse(block[i].x, block[i].y, space_x, space_y);
+        }
+    }
+    if (text_mode == true){
+        str = mem_div.innerHTML;
+        trim = str.rpl(/0x0.*: /, '')
+        fill(255,255,255,200);
+        text(trim, 550, 20); //win.w * 18 / 20, win.h * 18 / 20);
+    }
     //...
 }
