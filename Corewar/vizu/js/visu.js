@@ -92,10 +92,11 @@ function setup(){
     //nb_lines = mem.length;
     //console.log(mem_div.innerHTML);
     frameRate(30);
-    canvas = createCanvas(win.w, win.h); //WEBGL);
+    canvas = createCanvas(1920, 1000); //WEBGL);
     title = document.getElementById('title');
     back_img = loadImage("../assets/corewar_background.png");
     textFont('Courier New');
+    textStyle(BOLD);
     textSize(12);
     rectMode(CENTER);
 }
@@ -142,11 +143,11 @@ var str;
 var fontsize;
 //p5js loop function at every FPS (OPS)
 function draw(){
-    canvas_resize();
+    //canvas_resize();
     background(back_img);
-    textSize(win.w / 175); //textSize(Math.min(win.h, win.w) / 90);
+    textSize(11); //textSize(Math.min(win.h, win.w) / 90);
     str = mem_div.innerHTML;
     fill(255);
-    text(str, win.w / 3.48, win.h / 30); //win.w * 18 / 20, win.h * 18 / 20);
+    text(str, 550, 45); //win.w * 18 / 20, win.h * 18 / 20);
     //...
 }
