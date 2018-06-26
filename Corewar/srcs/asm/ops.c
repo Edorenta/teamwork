@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ops.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 18:20:17 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/26 16:35:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	parser(t_iter *iter, int fd)
+t_ops	*ops_new(void)
 {
-	char	*line;
-	int		ret;
-	t_ops	*first;
-	t_ops	*itera;
+	t_ops	*new;
 
-	line = NULL;
-	first = NULL;
-	itera = NULL;
-	ret = 0;
-	// Set error here
-	if (lseek(fd, 0, SEEK_SET) < 0)
-		return;
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		printf("%s\n", line);
-		free(line);
-		line = NULL;
-	}
+	if ((new = (t_ops *)malloc(sizeof(t_ops))) == NULL)
+		return (NULL);
+	new->op = NULL;
+	new->next = NULL;
+	new->type = 0;
+	new->opcode = 0;
+	new->args[0] = -1;
+	new->args[1] = -1;
+	new->args[2] = -1;
+	new->label_id[0] = -1;
+	new->label_id[1] = -1;
+	new->label_id[2] = -1;
+	return (new);
 }

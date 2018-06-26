@@ -1,5 +1,7 @@
 SRC = asm.c \
+	  main.c \
       lexer.c \
+      parser.c \
       lexer_basic.c \
       lexer_ins.c \
 	  iter.c \
@@ -28,3 +30,7 @@ clean :
 fsan :
 	clang -fsanitize=address $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm ../../rsrc/examples/bee_gees.s
+
+lldb :
+	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
+	lldb ./asm ../../rsrc/examples/bee_gees.s

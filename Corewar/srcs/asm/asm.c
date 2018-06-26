@@ -6,26 +6,29 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 12:21:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/26 18:28:48 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include <strings.h>
 
-void	lex(int fd);
-
-int main(int argc, char **argv)
+int		ft_asm(char **argv)
 {
-	if (argc > 1)
+	int		fd; 
+	t_iter	*iter;
+
+	//error handling here
+	if ((iter = iter_new()) != NULL)
 	{
-		int fd = open(argv[1], O_RDONLY);
+		fd = open(argv[1], O_RDONLY);
 		if (fd > 0)
 		{
-			lex(fd);
+			iter = lexer(iter, fd);
+			parser(iter, fd);
 			close(fd);
 		}
+		iter_del(iter);
 	}
-	//write_head();
 	return (0);
 }
