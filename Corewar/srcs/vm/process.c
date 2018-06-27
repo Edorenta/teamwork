@@ -105,7 +105,6 @@ void	set_ctd(t_vm *vm)
 	{
 		vm->ctd -= CYCLE_DELTA; //on decremente le ctd (de DELTA), => de - en - de temps pour live
 		vm->ctd_check = 0;
-		//
 	}
 	else
 		vm->ctd_check++;
@@ -122,7 +121,7 @@ void	kill_proc(t_vm *vm)
 	while (tmp) //tant qu'il y a des process
 	{
 		//si actif ET si il n'y a pas eu de live durant le ctd
-		if ((vm->cycle - tmp->last_live) >= vm->ctd && tmp->active) //?
+		if ((vm->cycle - tmp->last_live) >= vm->ctd && tmp->active)
 		{
 			tmp->active = 0; //on desactive le proc
 			//verbosity pour les morts

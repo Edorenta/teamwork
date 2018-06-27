@@ -34,7 +34,7 @@ void	st(t_vm *vm, t_proc *proc)
 	{
 		if (proc->op.ar[1] >= 1 && proc->op.ar[1] <= 16)
 			//le reg de l'arg 1 = reg de l'arg 2
-			proc->reg[proc->op.ar[1]] = proc->reg[proc->op.ar[0]];//on a le droit
+			proc->reg[proc->op.ar[1]] = proc->reg[proc->op.ar[0]];
 	}
 	else
 		st_set_value(vm, proc);

@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 20:29:35 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 22:33:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct			s_vm
 	int				next_ctd;
 	int					dump; //a quel cycle dump la memoire
 	int					lives_in_cycle; //
-	int					ncurses;//si l'option ncurses est active
 	t_mem				ram[MEM_SIZE]; //la memoire (l'arene)
 	char				*files_name[5];
 	t_player			player[5];

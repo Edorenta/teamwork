@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/25 21:13:54 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 22:47:22 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,29 @@ void 	write_player(t_vm *vm, int nb, int num)
 	char *data;
 	int prog_size;
 	char	buff[sizeof(t_header) + CHAMP_MAX_SIZE];//contient la taille max du champion
+	char c[128] = {0};
 
 	//pour set les champion au bon endroit dans la memoire
 	i = (MEM_SIZE / vm->nb_player) * num;//pour placer la value de i au bon endroit en fonction du nombre de champions
 	data = get_data(&vm->player[nb], buff);//on envoi le player et le buffer (renvoi le fichier du champion)
 	ft_memcpy(vm->player[nb].name, data + MAGIC_NB, PROG_NAME);//copie le nom du champion dans vm->player[nb].name (le nom est apres le magic_number)
 	ft_strlen(vm->player[nb].name) ? 0 : exit_error("Empty name"); //check si le nom est vide alors error
+
+			ft_sprintf(c, "[%s]", vm->player[nb].name);
+			send_to_socket(vm, c, 0);
+
 	ft_memcpy(vm->player[nb].comments, data + MAGIC_NB + PROG_NAME + PROG_SIZE, PROG_COMS); //copie le comments dans vm->player[nb].comments (apres le prog_size)
 	ft_strlen(vm->player[nb].comments) ? 0 : exit_error("Empty comments");//check si le comment est vide alors error
 	prog_size = get_prog_size(data); //recup la taille du prog
 	/**/if (!prog_size/*si pas de taille*/ || vm->player[nb].read_ret != prog_size + sizeof(t_header)) //si le retour du read ne correspond pas a la taille du prog
 		exit_error("Bad prog_size");
-	// ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
-		// nb, prog_size, vm->player[nb].name, vm->player[nb].comments);
-	/*ncurses.h*/printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
+	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", //on print toutes les informations recuperes !!!!!
 		nb, prog_size, vm->player[nb].name, vm->player[nb].comments);
 	prog_size += i;//place prog_size a la valeur de fin du programme du champion
 	while (i < prog_size)//tant que i est < a la value de fin du prog, remplir la memory avec le champion
 	{
 		vm->ram[i % MEM_SIZE].mem = (unsigned char)*(data + SRC_BEGIN);
-			//=====> ecrit octet par octet dans la memoire le champion
-		vm->ram[i % MEM_SIZE].num = (num + 1/*+1 car le joueur commence a 0*/) * -1;
-			//=====> * -1 car le num du joueur est inversé dans la memoire (player -1, -2, etc..)
+		vm->ram[i % MEM_SIZE].num = (num + 1) * -1;
 		data++;
 		i++;
 	}
@@ -111,7 +112,6 @@ void	create_players(t_vm *vm)
 
 	i = 1;
 	j = 0;
-	// ft_printf("Introducing contestants...\n");
 	ft_printf("Introducing contestants...\n");
 	while (i <= MAX_PLAYERS)
 	{
@@ -122,5 +122,6 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
+	send_to_socket(vm, "\n\n", 0);
 	init_process(vm);
 }
