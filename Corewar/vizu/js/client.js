@@ -1,4 +1,4 @@
-var socket_url = "ws://localhost:8080"; 
+var socket_url = "ws://127.0.0.1:8888"; 
 var socket = new WebSocket(socket_url);
 var mem_div = document.getElementById("mem");
 var cmd_div = document.getElementById("cmd");
@@ -49,6 +49,7 @@ function get_msg(event)
 	}
 	else //receiving command
 	{
+		console.log(msg);
 		cmd.innerHTML = msg;	
 	}
 }
