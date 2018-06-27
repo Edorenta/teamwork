@@ -22,10 +22,10 @@ all :
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind --leak-check=full ./asm ../../rsrc/examples/bee_gees.s
+	valgrind --leak-check=full --show-leak-kinds=all ./asm ../../rsrc/examples/bee_gees.s
 
 clean :
-	rm -rf asm asm.dSym/
+	rm -rf asm.dSym
 
 fsan :
 	clang -fsanitize=address $(SRC) $(LIB) $(INC) -o $(NAME)

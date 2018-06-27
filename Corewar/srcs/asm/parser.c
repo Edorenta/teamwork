@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+static t_ops	*parse_sub(t_iter *iter, char *line)
+{
+}
+
 void	parser(t_iter *iter, int fd)
 {
 	char	*line;
@@ -23,13 +27,26 @@ void	parser(t_iter *iter, int fd)
 	first = NULL;
 	itera = NULL;
 	ret = 0;
+	iter->iter = iter->first;
 	// Set error here
 	if (lseek(fd, 0, SEEK_SET) < 0)
 		return;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		if (!first)
+		{
+			first = parse_sub(iter, line);
+			itera = first;
+		}
+		else
+		{
+			itera->next = parse_sub(iter->line);
+			itera = itera->next;
+		}
 		printf("%s\n", line);
 		free(line);
 		line = NULL;
+		iter->iter = iter->iter->next;
 	}
+	free(line);
 }

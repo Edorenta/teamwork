@@ -36,7 +36,7 @@ typedef struct		s_ops
 	int				opcode;
 	long			args[3];
 	long			label_id[3];
-	struct s_op		*next;
+	struct s_ops		*next;
 }					t_ops;
 
 /*

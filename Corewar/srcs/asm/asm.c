@@ -19,6 +19,7 @@ int		ft_asm(char **argv)
 	t_iter	*iter;
 
 	//error handling here
+	iter = NULL;
 	if ((iter = iter_new()) != NULL)
 	{
 		fd = open(argv[1], O_RDONLY);
@@ -28,7 +29,7 @@ int		ft_asm(char **argv)
 			parser(iter, fd);
 			close(fd);
 		}
-		iter_del(iter);
 	}
+	iter_del(iter);
 	return (0);
 }

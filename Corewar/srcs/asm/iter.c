@@ -63,4 +63,5 @@ void 	iter_del(t_iter *iter)
 		iter->first = iter->first->next;
 		del_tok(token);
 	}
+	free(iter);
 }

@@ -24,6 +24,10 @@
 # ifndef LIMITS_H
 #  include <limits.h>
 # endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 5000
+# endif
+
 
 # define BUFF_SIZE 42
 # ifndef IS

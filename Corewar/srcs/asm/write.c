@@ -23,3 +23,20 @@ void	write_head(char *filename, t_header head)
 	write(fd, head.comment, COMMENT_LENGTH);
 	close(fd);
 }
+
+void	token_binary(t_tok *tok)
+{
+	return;
+}
+
+void	write_ins(char *filename, t_tok *tokens)
+{
+	int		fd;
+	
+	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
+	while (tokens)
+	{
+		token_binary()
+		tokens = tokens->next;
+	}
+}

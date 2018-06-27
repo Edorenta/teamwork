@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	if (argc > 1)
 	{
 		ft_asm(argv);
+		sleep(20);
 	}
 	return (0);
 }
