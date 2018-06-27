@@ -42,20 +42,16 @@ void		show_mem(t_vm *vm)
 void		send_mem(t_vm *vm)
 {
 	int		i;
-	char **c;
+	char c[20000];
 
 	i = 0;
-	c = malloc(sizeof(char *));
-	// ft_printf("0x0000 : ");
 	while (i < MEM_SIZE) //on parcours toutes la memoire
 	{
-		ft_sprintf(*c, "%02x ", (unsigned char)vm->ram[i].mem); //affiche le contenu de cette case mem = contenu
-		// sprintf(c, "%02x ", (unsigned char)vm->ram[i].mem); //affiche le contenu de cette case mem = contenu
-		send_to_socket(vm, *c, 0);
+		ft_sprintf(c, "%02x ", (unsigned char)vm->ram[i].mem); //affiche le contenu de cette case mem = contenu
+		send_to_socket(vm, c, 0);
 		if (i / 64 != (i + 1) / 64)
 			send_to_socket(vm, "\n", 0);
 		i++;
-		free(c);
 	}
-	// ft_printf("\n\n");
+	send_to_socket(vm, "\n", 0);
 }
