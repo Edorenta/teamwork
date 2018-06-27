@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 12:57:59 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/27 14:38:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	tok_tostring(t_tok *tok)
 	t_tok	*list;
 	if (tok)
 	{
-		printf("[LINE %d][TYPE %#.2x][LABEL %-13s][POS %-4d]\n",
+		printf("[LINE %d][TYPE %#.3x][LABEL %-13s][POS %-4d]\n",
 		 tok->lnb, tok->type, tok->label, tok->pos);
 		list = tok->list;
 		while (list)
 		{
-			printf("[LINE %d][TYPE %#.2x][LABEL %-13s][POS %-4d]\n",
+			printf("[LINE %d][TYPE %#.3x][LABEL %-13s][POS %-4d]\n",
 		 	list->lnb, list->type, list->label, list->pos);
 			list = list->next;
 		}
@@ -54,7 +54,8 @@ void	del_tok(t_tok *tok)
 t_tok	*new_tok()
 {
 	t_tok	*new;
-	
+
+	//error here	
 	if ((new = (t_tok *)malloc(sizeof(t_tok))) == NULL)
 		return (NULL);
 	new->type = -1;
@@ -71,6 +72,7 @@ t_tok	*create_tok(int type, char *label, int lnb, int pos)
 {
 	t_tok	*tok;
 
+	//error here	
 	if ((tok = new_tok()) == NULL)
 		return (NULL);
 	tok->type = type;

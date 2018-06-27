@@ -6,11 +6,32 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 12:57:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/27 16:13:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	ops_debug(t_ops *ops)
+{
+	printf("type : %d, opcode: %d\n", ops->type, ops->opcode);
+	printf("args : %ld, %ld, %ld\n", ops->args[0], ops->args[1], ops->args[2]);
+	printf("argv : %ld, %ld, %ld\n", ops->argv[0], ops->argv[1], ops->argv[2]);
+}
+
+void	ops_tostring(t_ops *ops)
+{
+	printf("[TYPE :%#x][OPCODE %#x]\n", ops->type, ops->opcode);
+}
+
+static inline void	set_arr(long arr[3])
+{
+	int count;
+
+	count = -1;
+	while (++count < 3)
+		arr[count] = -1;
+}
 
 t_ops	*ops_new(void)
 {
@@ -18,15 +39,11 @@ t_ops	*ops_new(void)
 
 	if ((new = (t_ops *)malloc(sizeof(t_ops))) == NULL)
 		return (NULL);
-	new->op = NULL;
 	new->next = NULL;
 	new->type = 0;
 	new->opcode = 0;
-	new->args[0] = -1;
-	new->args[1] = -1;
-	new->args[2] = -1;
-	new->label_id[0] = -1;
-	new->label_id[1] = -1;
-	new->label_id[2] = -1;
+	set_arr(new->args);
+	set_arr(new->argv);
+	set_arr(new->label_id);
 	return (new);
 }

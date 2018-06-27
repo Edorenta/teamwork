@@ -4,12 +4,13 @@ SRC = asm.c \
       parser.c \
       lexer_basic.c \
       lexer_ins.c \
-	  iter.c \
       op.c \
-      token.c \
+	  struct_iter.c \
+      struct_ops.c \
+      struct_token.c \
       check.c \
       utils.c
-
+CFLAGS = -Wall -Werror -Wextra
 LIB = ../../libft/libft.a
 INC = -I../../includes -I../../libft/includes
 LUB = -lft
@@ -22,7 +23,7 @@ all :
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./asm ../../rsrc/examples/bee_gees.s
+	valgrind --leak-check=full ./asm ../../rsrc/examples/bee_gees.s
 
 clean :
 	rm -rf asm.dSym
