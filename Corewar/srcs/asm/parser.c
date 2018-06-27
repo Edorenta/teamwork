@@ -6,14 +6,20 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 18:20:17 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/27 12:57:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static t_ops	*parse_sub(t_iter *iter, char *line)
+static t_ops	*parse_sub(t_tok *token, char *line)
 {
+	t_ops	*new;
+
+	new = ops_new();
+	if (token->type == 0x6)
+		printf(token->label);
+	return (new);
 }
 
 void	parser(t_iter *iter, int fd)
@@ -35,12 +41,12 @@ void	parser(t_iter *iter, int fd)
 	{
 		if (!first)
 		{
-			first = parse_sub(iter, line);
+			first = parse_sub(iter->iter, line);
 			itera = first;
 		}
 		else
 		{
-			itera->next = parse_sub(iter->line);
+			itera->next = parse_sub(iter->iter, line);
 			itera = itera->next;
 		}
 		printf("%s\n", line);
