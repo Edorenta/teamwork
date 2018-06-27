@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 13:56:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/27 15:49:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # define TOKEN_HEA	0x08
 # define TOKEN_SPA	0x0A
 
-# define INS_DIR	0x02
-# define INS_IND	0x04
-# define INS_REG	0x06
+# define INS_REG	0x02
+# define INS_DIR	0x04
+# define INS_IND	0x06
 # define INS_SEP	0x08
 # define INS_COM	0x0A
 # define INS_END	0x0B
