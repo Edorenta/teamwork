@@ -1,5 +1,21 @@
 "use strict";
 
+//interface colors tracker
+var clrs = {
+    blue : "rgb(0,110,255)",   //blue
+    green : "rgb(15,185,0)",   //green
+    red : "rgb(230,0,0)",      //red
+    purple : "rgb(230,0,230)", //purple
+    yellow : "rgb(250,250,0)", //yellow
+    grey : "rgb(80,80,80)"  //grey
+};
+
+var text_mode = true;
+var block_mode = true;
+var text_mode_bold = false;
+var arena_block_shape = ['round', 1];
+var arena_block_clr = clrs.grey;
+
 //keyboard mapping
 /*
 var
@@ -25,15 +41,6 @@ var win = {
     w : Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
     h : Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
 };
-//interface colors tracker
-var clrs = {
-    blue : "rgb(0,110,255)",   //blue
-    green : "rgb(45,255,0)",   //green
-    red : "rgb(230,0,0)",      //red
-    purple : "rgb(230,0,230)", //purple
-    yellow : "rgb(250,250,0)", //yellow
-    grey : "rgb(80,80,80)"  //grey
-};
 
 //global variables
 var title;
@@ -42,6 +49,16 @@ var mem_div;
 var cmd_div;
 var back_img;
 var joystix_font;
+var str;
+var trim;
+var fontsize;
+var block = [];
+var start_x = 557;
+var start_y = 40;
+var itx = 0;
+var ity = 0;
+var space_x = 20.7;
+var space_y = 14.4;
 
 //min max of array as .this function
 Array.prototype.max = function(){
@@ -110,21 +127,6 @@ function mouseWheel(event){
     return false;
 }
 
-var str;
-var trim;
-var fontsize;
-var text_mode = true;
-var block_mode = true;
-var arena_block_shape = ['square', 2];
-var arena_block_clr = clrs.grey;
-var block = [];
-var start_x = 557;
-var start_y = 40;
-var itx = 0;
-var ity = 0;
-var space_x = 20.7;
-var space_y = 14.4;
-
 class Block{
     constructor(x, y, player){
         this.x = x;
@@ -132,6 +134,7 @@ class Block{
         this.shape = player ? player.shape : arena_block_shape;
         this.clr = player ? player.clr : arena_block_clr;
         this.player = player ? player : null;
+        //console.log(this.clr);
     }
     set_shape(shape){
         this.shape = shape;
@@ -140,14 +143,19 @@ class Block{
         this.clr = clr;
     }
     draw(){
-        console.log(this.clr);
         fill(this.clr);
         switch (this.shape[0]){
-            case ('square') : rect(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]); break;
-            case ('round') : ellipse(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]); break;
-            case ('triangle') : triangle(this.x, this.y-(space_y-this.shape[1]),
-                space_x+((space_x-this.shape[1])/2), this.y,
-                space_x+(space_x-this.shape[1]), this.y-(space_y-this.shape[1])); break;
+            case 'square' :
+                rect(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]);
+                break;
+            case 'round' :
+                ellipse(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]);
+                break;
+            case 'triangle' :
+                triangle(this.x - space_x/2, this.y-space_y/2+(space_y-this.shape[1]),
+                this.x-space_x/2+((space_x-this.shape[1])/2), this.y-space_y/2,
+                this.x-space_x/2+(space_x-this.shape[1]), this.y-space_y/2+(space_y-this.shape[1]));
+                break;
         }
     }
 };
@@ -209,19 +217,19 @@ function draw(){
     //initiate font for arena printing
     textAlign(LEFT, TOP);
     textFont('Courier New');
-    textStyle(BOLD);
+    text_mode_bold ? textStyle(BOLD) : textStyle(NORMAL);
     textSize(11.5);
     background(back_img);
     if (block_mode == true){
         //update_clrs();
         for (let i = 0; i < 4096; i++){
-            fill(block[i].draw);
+            block[i].draw();
         }
     }
     if (text_mode == true){
         str = mem_div.innerHTML;
         trim = str.rpl(/0x0.*: /, '')
-        fill(0,0,0,200);
+        fill(255,255,255,200);
         text(trim, 550, 20); //win.w * 18 / 20, win.h * 18 / 20);
     }
     //...
