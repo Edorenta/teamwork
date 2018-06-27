@@ -66,7 +66,9 @@ void			run(t_vm *vm) //reset_live
 		vm->cycle++; //quand chaque process est terminé, on augmente le nb de cycle ecoulé
 		if (vm->dump != -1) //ne pas appeler dump si ncurses est activé
 			dump(vm);//si on a l'option -d => dump
-			// show_mem(vm);//
+		//----------------------------------------------------------------------
+		printf("\nvm->sock = %d\n", vm->sock);
+		// init_socket(vm, "panda powa !", 12+1);//
 	}
 	if (vm->last_one) //test avec la vm (le nom ou le fichier?)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);

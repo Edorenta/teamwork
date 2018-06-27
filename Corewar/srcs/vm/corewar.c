@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/25 21:10:57 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 18:03:59 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,16 @@ void	init_vm(t_vm *vm)
 int		main(int argc, char *argv[])
 {
 	t_vm		vm;
-	T_WINDOW	*w; //pour ncurses
 
 	ft_bzero(&vm, sizeof(t_vm)); //initialise toutes la structure vm a 0 (je fais tjr ca directement)
 	init_vm(&vm);
+	vm.sock = init_socket();
 	if(check_arg(&vm, argc, argv)) //si check_args return 1, error
 		exit_error("Error: arguments invalide");
 	create_players(&vm);
 
-	if (vm.ncurses) //juste quelque tests avec ncurses
-		init_ncurses(&w);
+	// if (vm.ncurses) //juste quelque tests avec ncurses
+		// init_ncurses(&w);
 
 	run(&vm);
 	get_winner(&vm);

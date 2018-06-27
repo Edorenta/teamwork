@@ -6,28 +6,31 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 20:02:11 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 18:04:57 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include <unistd.h>//tester un truc entre le and et le or
+# include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/fcntl.h>
-# include <ncurses.h>
 
 # include "../libft/includes/libft.h"//
-// # include "../printf/"
 # include "ft_printf.h"
-// # include "../libft/include/ft_printf.h" //error si j'inclus curses.h
 # include "op.h"
 
 #include <stdio.h>//
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <string.h>
+
+# define PORT 8888
 
 # define MAGIC_NB 		4
 # define PROG_NAME 		128 + 4//+3 pour le packing de la strucutre header (pour combler), +1 pour \0
@@ -85,6 +88,7 @@ typedef struct			s_mem //une case de la memoire
 typedef struct			s_vm
 {
 	int					nb_player; //nombre de joueurs
+	int					sock;
 	int					ctd; //cycle to die
 	int					cycle; //cycle
 	int				verbosity;
@@ -172,7 +176,7 @@ int					get_indirect(t_vm *vm, t_op *op, int nb_arg); //pour les instructions
 int						count_octet(int octet, t_optab *ref);
 void					show_mem(t_vm *vm);
 int						modulo(int a, int b);
-void					init_ncurses(WINDOW **w);
+// void					init_ncurses(WINDOW **w);
 
 void					live(t_vm *vm, t_proc *proc);
 void					ld(t_vm *vm, t_proc *proc);
@@ -190,9 +194,12 @@ void					lld(t_vm *vm, t_proc *proc);
 void					lldi(t_vm *vm, t_proc *proc);
 void					op_lfork(t_vm *vm, t_proc *proc);
 void					aff(t_vm *vm, t_proc *proc);
-void border_ncurses(WINDOW **w);
+// void border_ncurses(WINDOW **w);
 
 int		check_params(t_op *op);
 int		check_reg(int nb);
+
+int init_socket(void);
+int send_to_socket(t_vm *vm, char *payload, int len);
 
 #endif

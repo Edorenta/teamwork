@@ -1,7 +1,7 @@
 SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
  		show.c process.c get_arg.c core.c op.c \
 		\
-		ncurses/ncurses.c \
+		client.c \
 		\
 		opcode/live.c \
 		opcode/ld.c \
@@ -20,7 +20,7 @@ SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
 		opcode/aff.c \
 		opcode/fork.c \
 
-LIB = ../../libft/libft.a 
+LIB = ../../libft/libft.a
 INC = -I../../includes -I../../libft/includes
 LUB = -lft.a
 NAME = corewar
