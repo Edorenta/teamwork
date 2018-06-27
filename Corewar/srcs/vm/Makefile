@@ -27,6 +27,6 @@ NAME = corewar
 
 all :
 	#rm -f exe.cor
-	#rm -f asm
+	#rm -f corewar
 	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
 	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
