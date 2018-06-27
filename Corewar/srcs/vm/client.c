@@ -1,9 +1,11 @@
 #include "corewar.h"
 
-int send_to_socket(t_vm *vm, char *payload, int len)
+void send_to_socket(t_vm *vm, char *payload, int len)
 {
+	(void)len;
 	// send(sock, payload, strlen(payload), 0 );
-	send(vm->sock, payload, len/*strlen(payload)*/, 0);
+	// send(vm->sock, payload, len/*strlen(payload)*/, 0);
+	send(vm->sock, payload, strlen(payload), 0);
 }
 
 int init_socket(void)

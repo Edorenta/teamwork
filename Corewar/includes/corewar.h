@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 18:04:57 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 18:09:33 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void					aff(t_vm *vm, t_proc *proc);
 int		check_params(t_op *op);
 int		check_reg(int nb);
 
-int init_socket(void);
-int send_to_socket(t_vm *vm, char *payload, int len);
+int 	init_socket(void);
+void 	send_to_socket(t_vm *vm, char *payload, int len);
 
 #endif

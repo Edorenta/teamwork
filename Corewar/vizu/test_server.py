@@ -14,7 +14,7 @@ print("starting up on %s port %d" % server_address)
 sock.bind(server_address)
 # Listen for incoming connections
 sock.listen(1)
-#while was before sock.accept() in order to handle more 
+#while was before sock.accept() in order to handle more
 new_socket, client_address = sock.accept()
 while 1:
 	# Wait for a connection
@@ -23,9 +23,9 @@ while 1:
 		# print >>sys.stderr, 'connection from', client_address
 		# Receive the payload in small chunks and retransmit it
 		# while True:
-	payload = new_socket.recv(1024)
+	payload = new_socket.recv(1)
 	if payload:
-		print("Rec: %s" % payload.decode())
+		print("%c" % payload.decode(), end='')
 	else:
 		print("End of payload.")
 		sys.exit(0)
