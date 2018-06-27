@@ -99,8 +99,6 @@ int			fill_cur_op(t_vm *vm, t_proc *proc)
 	{
 		pos++;//position du pc du proc
 		proc->op.ocp = (unsigned char)vm->ram[pos % MEM_SIZE].mem;//contenu de la case memoire de l'ocp
-		// ft_printf("\nfill_cur_op -> proc->op.code = %d\n", proc->op.code);
-		// ft_printf("\nfill_cur_op -> proc->op.ocp = %d\n", proc->op.ocp);
 		if (check_ocp(proc->op.ocp, proc->op.code))//si l'ocp est pas bon, on jump quand meme de sa valeur(?)
 		{
 			while (i < g_op_tab[proc->op.code - 1].nb_arg) //pour tous les arguments de l'op

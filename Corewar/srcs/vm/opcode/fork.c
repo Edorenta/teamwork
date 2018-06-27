@@ -17,6 +17,7 @@ static void	clone_proc(t_proc *proc, t_proc *new)
 	registre_cpy(proc, new);
 	new->carry = proc->carry;
 	new->last_live = proc->last_live;
+	new->num = proc->num;
 }
 
 void	op_fork(t_vm *vm, t_proc *proc)
