@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/27 23:07:18 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 23:13:39 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void 	write_player(t_vm *vm, int nb, int num)
 	ft_memcpy(vm->player[nb].name, data + MAGIC_NB, PROG_NAME);//copie le nom du champion dans vm->player[nb].name (le nom est apres le magic_number)
 	ft_strlen(vm->player[nb].name) ? 0 : exit_error("Empty name"); //check si le nom est vide alors error
 
-			(nb == vm->nb_player) ? ft_sprintf(c, "%s", vm->player[nb].name) : ft_sprintf(c, "%s,", vm->player[nb].name);
+			(nb == vm->nb_player || vm->nb_player == 1) ? ft_sprintf(c, "%s", vm->player[nb].name) : ft_sprintf(c, "%s,", vm->player[nb].name);
 			send_to_socket(vm, c, 0);
 
 	ft_memcpy(vm->player[nb].comments, data + MAGIC_NB + PROG_NAME + PROG_SIZE, PROG_COMS); //copie le comments dans vm->player[nb].comments (apres le prog_size)
