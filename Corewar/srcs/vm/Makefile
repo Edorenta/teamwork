@@ -34,7 +34,6 @@ clean :
 
 fsan :
 	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g -fsanitize=address
-	./corewar ../../rsrc/champs/42.cor
 
 val :
 	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
