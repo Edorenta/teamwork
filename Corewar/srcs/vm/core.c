@@ -45,6 +45,7 @@ void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 void			run(t_vm *vm) //reset_live
 {
 	t_proc			*proc;
+		char *buf;
 		int panda = 0;
 
 	while (process_living(vm))//tant qu'il y a des process en vie (check avec le ctd)
@@ -69,9 +70,12 @@ void			run(t_vm *vm) //reset_live
 			dump(vm);//si on a l'option -d => dump
 
 		//----------------------------------------------------------------------
-		printf("%d\n", panda);
-		send_to_socket(vm, ft_itoa(panda++), 0);
-		send_to_socket(vm, "\n", 0);
+
+		send_mem(vm);
+
+		// printf("%d\n", panda);
+		// send_to_socket(vm, ft_itoa(panda++), 0);
+		// send_to_socket(vm, "\n", 0);
 		// send_to_socket(vm, "p789a4n95daddadadad\n", 0);//
 	}
 	if (vm->last_one) //test avec la vm (le nom ou le fichier?)

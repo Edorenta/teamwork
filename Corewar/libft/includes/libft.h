@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 13:50:45 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/25 12:34:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/27 19:24:01 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "private_macros.h"
 
 # include "parsing.h"
+# include "ft_printf.h"
 # include "unicode.h"
 # include "maths_op.h"
 # include "tokenizer.h"

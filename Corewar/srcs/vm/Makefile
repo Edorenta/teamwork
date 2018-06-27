@@ -20,21 +20,20 @@ SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
 		opcode/aff.c \
 		opcode/fork.c \
 
-LIB = ../../libft/libft.a
-INC = -I../../includes -I../../libft/includes
-LUB = -lft.a
+INC = -I../../includes -I ../../libft/includes
+LIB = -L ../../libft -lft
 NAME = corewar
 
 all :
 	#rm -f corewar
 	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
-	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
+	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g
 
 clean : 
 	rm -rf corewar.dSym
 
 fsan :
-	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
+	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g -fsanitize=address
 	./corewar ../../rsrc/champs/42.cor
 
 val :

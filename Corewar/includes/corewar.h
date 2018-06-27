@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 18:09:33 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 19:20:21 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <sys/stat.h>
 # include <sys/fcntl.h>
 
-# include "../libft/includes/libft.h"//
-# include "ft_printf.h"
+# include "libft.h"
 # include "op.h"
 
 #include <stdio.h>//
@@ -201,5 +200,6 @@ int		check_reg(int nb);
 
 int 	init_socket(void);
 void 	send_to_socket(t_vm *vm, char *payload, int len);
+void		send_mem(t_vm *vm);
 
 #endif
