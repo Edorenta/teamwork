@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/25 17:38:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/26 18:14:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,60 +32,59 @@ char	*lexer_label(unsigned int token)
 	return "TOKEN_ERROR";
 }
 
-static int	lexer_token(t_iter *iter)
+static t_tok	*lexer_token(t_iter *iter)
 {
-	t_tok	*new;
-	unsigned int token;
-	int lnb;
-	int pos;
+	t_tok			*new;
+	unsigned int	token;
+	int 			lnb;
+	int 			pos;
 
 	token = iter->token;
 	pos = iter->count;
 	lnb = iter->lnb;
 	new = NULL;
-	if (token <= 0xA0)
+	if (!(token & 0x0F))
 	{
-		if (!(token & 0x0F))
+		token >>= 4;
+		new = tok_iter(iter, lexer_label(token));
+	}
+	else
+	{
+		new = create_tok(token >> 4, lexer_label((token >> 4)), lnb, 0);
+		token = token & 0xF;
+		new->list = tok_iter(iter, lexer_head(token));
+	}
+	return (new);
+}
+
+t_iter	*lexer(t_iter *iter, int fd)
+{
+	char			*line;
+	int				ret;
+
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		iter->line = line;
+		iter->count = 0;
+		iter->token = 0;
+		printf("\nline :{%s}\n", iter->line);
+		if (!lexer_basics(iter))
+			lexer_ins(iter);
+		else if (!iter->first)
 		{
-			token >>= 4;
-			new = create_tok(token, lexer_label(token), lnb, 0);
+			iter->first = lexer_token(iter);
+			iter->iter = iter->first;
 		}
 		else
 		{
-			new = create_tok(token >> 4, lexer_label((token >> 4)), lnb, 0);
-			token = token & 0xF;
-			new->list = create_tok(token, lexer_head(token), lnb, pos);
+			iter->iter->next = lexer_token(iter);
+			iter->iter = iter->iter->next;
 		}
-		tok_tostring(new);
-		tok_tostring(new->list);
-		del_tok(new);
-		return (0);
-	}
-	printf("token true : %d\n", check_op(token));
-	return (1);
-}
-
-void	lex(int fd)
-{
-	t_iter			iter;
-	char			*line;
-	int			ret;
-
-	iter.lnb = 0;
-	line = NULL;
-	iter.line = NULL;
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		iter.line = line;
-		iter.count = 0;
-		iter.token = 0;
-		printf("\nline :{%s}\n", iter.line);
-		lexer_basics(&iter);
-		lexer_ins(&iter);
-		lexer_token(&iter);
-		++(iter.lnb);
+		tok_tostring(iter->iter);
+		++(iter->lnb);
 		free(line);
-		iter.line = NULL;
+		iter->line = NULL;
 		line = NULL;
 	}
+	return (iter);
 }

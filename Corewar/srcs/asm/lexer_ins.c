@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/24 21:25:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/26 13:57:25 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,42 @@ t_op	g_op_tab[17];
 
 void	lexer_sub_dir(t_iter *iter)
 {
-	++(iter->count);
-	++(iter->line);
+	increment(iter);
 	if (*iter->line == ':')
 	{
 		iter->token <<= 4;
 		iter->token |= INS_DIR;
-		printf("[INS_DIR][%d]", iter->count);
-		++(iter->count);
-		++(iter->line);
+		iter_add_list(iter, "INS_DIR", INS_DIR);
+		increment(iter);	
 	}
 	else if (ft_isdigit(*iter->line) || *iter->line == '-')
 	{
 		iter->token <<= 4;
 		iter->token |= INS_DIR;
-		printf("[INS_DIR][%d]", iter->count);
+		iter_add_list(iter, "INS_DIR", INS_DIR);
 	}
 }
-
+static int	lexer_ins_log(t_iter *iter)
+{
+	if (*iter->line == '%')
+		lexer_sub_dir(iter);
+	else if (*iter->line == 'r')
+	{
+		increment(iter);
+		iter->token <<= 4;
+		iter->token |= INS_REG;
+		iter_add_list(iter, "INS_REG", INS_REG);
+	}
+	else if (ft_isdigit(*iter->line) || *iter->line == '-')
+	{
+		iter->token <<= 4;
+		iter->token |= INS_REG;	
+		iter_add_list(iter, "INS_IND", INS_IND);
+	}
+	else
+		return (0);
+	return (1);
+}
 void	lexer_ins_sub(t_iter *iter) 
 {
 	int sep;
@@ -42,37 +60,17 @@ void	lexer_ins_sub(t_iter *iter)
 	clear_wsp(iter);
 	while (sep < 3)
 	{
-		if (*iter->line == '%')
-			lexer_sub_dir(iter);
-		else if (*iter->line == 'r')
-		{
-			++(iter->count);
-			++(iter->line);
-			iter->token <<= 4;
-			iter->token |= INS_REG;
-			printf("[INS_REG][%d]", iter->count);
-		}
-		else if (ft_isdigit(*iter->line) || *iter->line == '-')
-		{
-			iter->token <<= 4;
-			iter->token |= INS_REG;	
-			printf("[INS_IND][%d]", iter->count);
-		}
-		else
+		if (!lexer_ins_log(iter))
 			break;
 		while (*iter->line && (ft_isdigit(*iter->line) ||
 			ft_isalpha(*iter->line) || *iter->line == '_' || *iter->line == '-'))
-		{
-			++(iter->count);
-			++(iter->line);
-		}
+			increment(iter);
 		if (*iter->line && *iter->line == ',')
 		{
 			iter->token <<= 4;
 			iter->token |= INS_SEP;
-			printf("[INS_SEP][%d]", iter->count);
-			++(iter->count);
-			++(iter->line);
+			iter_add_list(iter, "INS_SEP", INS_SEP);
+			increment(iter);
 		}
 		else
 			break;
@@ -85,9 +83,11 @@ void	lexer_ins(t_iter *iter)
 {
 	int		len;
 	int		op;
+	t_tok	*token;
 
 	len = 0;
 	op = 0;
+	token = NULL;
 	if (iter->line && iter->token == 0)
 	{
 		iter->token |= TOKEN_INS;
@@ -96,14 +96,12 @@ void	lexer_ins(t_iter *iter)
 		{
 			iter->token <<= 4;
 			iter->token |= op + 1;
-			printf("[GOT_INS][%s]\n", g_op_tab[op].name);
+			iter->iter->next = create_tok(op + 1, g_op_tab[op].name, iter->lnb, iter->count);
+			iter->iter = iter->iter->next;
 			len = g_op_tab[op].nlen;
 			clear_wsp(iter);
 			while (--len > -1)
-			{
-				++(iter->count);
-				++(iter->line);
-			}
+				increment(iter);
 			lexer_ins_sub(iter);
 			end_line(iter);
 		}

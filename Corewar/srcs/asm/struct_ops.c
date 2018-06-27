@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_def.h                                          :+:      :+:    :+:   */
+/*   ops.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 13:56:38 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/27 12:57:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_DEF_H
-# define ASM_DEF_H
+#include "asm.h"
 
-# define TOKEN_COM	0x02
-# define TOKEN_LAB	0x04
-# define TOKEN_INS	0x06
-# define TOKEN_HEA	0x08
-# define TOKEN_SPA	0x0A
+t_ops	*ops_new(void)
+{
+	t_ops	*new;
 
-# define INS_DIR	0x02
-# define INS_IND	0x04
-# define INS_REG	0x06
-# define INS_SEP	0x08
-# define INS_COM	0x0A
-# define INS_END	0x0B
-# define INS_ERR	0x0C
-
-# define HEAD_NAME	0x02
-# define HEAD_COMT	0x04
-# define HEAD_ERRR	0x06
-
-#endif
+	if ((new = (t_ops *)malloc(sizeof(t_ops))) == NULL)
+		return (NULL);
+	new->op = NULL;
+	new->next = NULL;
+	new->type = 0;
+	new->opcode = 0;
+	new->args[0] = -1;
+	new->args[1] = -1;
+	new->args[2] = -1;
+	new->label_id[0] = -1;
+	new->label_id[1] = -1;
+	new->label_id[2] = -1;
+	return (new);
+}
