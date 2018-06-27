@@ -6,13 +6,13 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:59:21 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/16 18:58:43 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/27 19:45:56 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "maths_op.h"
 
-double	ft_cos(double x)
+double	ft_sin(double x)
 {
 	double	y;
 	double	s;
