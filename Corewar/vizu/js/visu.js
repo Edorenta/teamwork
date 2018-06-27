@@ -115,6 +115,8 @@ var trim;
 var fontsize;
 var text_mode = true;
 var block_mode = true;
+var arena_block_shape = ['square', 2];
+var arena_block_clr = clrs.grey;
 var block = [];
 var start_x = 557;
 var start_y = 40;
@@ -124,18 +126,40 @@ var space_x = 20.7;
 var space_y = 14.4;
 
 class Block{
-    constructor(x, y, clr){
+    constructor(x, y, player){
         this.x = x;
         this.y = y;
+        this.shape = player ? player.shape : arena_block_shape;
+        this.clr = player ? player.clr : arena_block_clr;
+        this.player = player ? player : null;
+    }
+    set_shape(shape){
+        this.shape = shape;
+    }
+    set_clr(clr){
         this.clr = clr;
+    }
+    draw(){
+        console.log(this.clr);
+        fill(this.clr);
+        switch (this.shape[0]){
+            case ('square') : rect(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]); break;
+            case ('round') : ellipse(this.x, this.y, space_x-this.shape[1], space_y-this.shape[1]); break;
+            case ('triangle') : triangle(this.x, this.y-(space_y-this.shape[1]),
+                space_x+((space_x-this.shape[1])/2), this.y,
+                space_x+(space_x-this.shape[1]), this.y-(space_y-this.shape[1])); break;
+        }
     }
 };
 
+//Player shapes: square / triangle / round
+
 class Player{
-    constructor(name, msg, clr){
+    constructor(name, msg, clr, shape){
         this.name = name;
         this.msg = msg;
         this.clr = clr;
+        this.shape = shape;
         console.log("New player:", this.name);
     }
     set_name(name){
@@ -156,17 +180,18 @@ function preload(){
 
 function setup(){
     //noLoop();
+
     frameRate(30);
     canvas = createCanvas(1920, 1000); //WEBGL);
     rectMode(CENTER);
     noStroke();
     for (let i = 0; i < 4096; i++){
-        block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), clrs.grey);
+        block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), null);
         itx = itx > 1290 ? 0 : itx + space_x;
         ity = itx == 0 ? ity + space_y : ity;
         //if (i > 2023 && i < 3000) block[i].clr = clrs.red;
-        if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.red;
-        if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.blue;
+        if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.blue;
+        if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.green;
     }
 }
 
@@ -190,14 +215,13 @@ function draw(){
     if (block_mode == true){
         //update_clrs();
         for (let i = 0; i < 4096; i++){
-            fill(block[i].clr);
-            ellipse(block[i].x, block[i].y, space_x, space_y);
+            fill(block[i].draw);
         }
     }
     if (text_mode == true){
         str = mem_div.innerHTML;
         trim = str.rpl(/0x0.*: /, '')
-        fill(255,255,255,200);
+        fill(0,0,0,200);
         text(trim, 550, 20); //win.w * 18 / 20, win.h * 18 / 20);
     }
     //...
