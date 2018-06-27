@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:34:27 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/27 22:37:43 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 23:17:20 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		search_players(t_vm *vm, int argc, char **argv)
 	char c[5];//4?
 	if(vm->nb_player)//si il y a des joueurs return 0, sinon return  1 (1 = error)
 	{
-		ft_sprintf(c, "\n%d, ", vm->nb_player);
+		ft_sprintf(c, "%d, ", vm->nb_player);
 		send_to_socket(vm, c, 0);
 		return (0);
 	}
