@@ -86,14 +86,11 @@ void	create_players(t_vm *vm)
 {
 	int		i;
 	int		j;
-	char	c[20];
 
 	i = 1;
 	j = 0;
-	ft_bzero(c, 20);
 	ft_printf("Introducing contestants...\n");
-	ft_sprintf(c, "[");
-	send_to_socket(vm, c);
+	send_to_socket(vm, "<set>[", 6);
 	while (i <= MAX_PLAYERS)
 	{
 		if (vm->player[i].active)
@@ -104,7 +101,6 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
-	ft_sprintf(c, "]\n\n");
-	send_to_socket(vm, c);
+	send_to_socket(vm, "]\n\r", 3);
 	init_process(vm);
 }

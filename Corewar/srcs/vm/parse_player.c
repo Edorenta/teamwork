@@ -85,7 +85,7 @@ int		search_players(t_vm *vm, int argc, char **argv)
 	if (vm->nb_player)
 	{
 		ft_sprintf(c, "%d, ", vm->nb_player);
-		send_to_socket(vm, c);
+		send_to_socket(vm, c, ft_strlen(c));
 		return (0);
 	}
 	return (1);

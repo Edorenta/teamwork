@@ -3,6 +3,10 @@ var port = "8082";
 var address = "ws://" + uri + ":" + port;
 var ws;
 
+var in_set;
+var in_hex;
+var in_map;
+
 function init()
 {
 	ws = new WebSocket(address);
@@ -14,7 +18,14 @@ function init()
 	};
 
 	ws.onmessage = function(event){
-		console.log("Received:\n" + event.data);
+		let data = event.data;
+		let type = data.slice(0, 5);
+		switch (type){
+			case "<set>": in_set = data.slice(5, data.length); break;
+			case "<hex>": in_hex = data.slice(5, data.length); break;
+			case "<map>": in_map = data.slice(5, data.length); console.log(in_map); break;
+		}
+
 	};
 
 	ws.onclose = function(){

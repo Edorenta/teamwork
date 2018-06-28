@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/06/28 22:06:37 by pde-rent         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	send_player(t_vm *vm, int nb)
@@ -8,13 +20,13 @@ void	send_player(t_vm *vm, int nb)
 	(nb == vm->nb_player || vm->nb_player == 1) ?
 		ft_sprintf(c, "%s", vm->player[nb].name) :
 		ft_sprintf(c, "%s,", vm->player[nb].name);
-	send_to_socket(vm, c);
+	send_to_socket(vm, c, ft_strlen(c));
 }
 
-void	send_to_socket(t_vm *vm, char *payload)
+void	send_to_socket(t_vm *vm, char *payload, size_t size)
 {
 	if (vm->vizu)
-		send(vm->sock, payload, ft_strlen(payload), 0);
+		send(vm->sock, payload, size, 0);
 }
 
 int		init_socket(void)

@@ -29,7 +29,7 @@
 # include <arpa/inet.h>
 # include <string.h>
 
-# define PORT 8888
+# define PORT 8083
 
 # define MAGIC_NB 		4
 # define PROG_NAME 		128 + 4
@@ -196,7 +196,7 @@ int						check_params(t_op *op);
 int						check_reg(int nb);
 
 int						init_socket(void);
-void					send_to_socket(t_vm *vm, char *payload);
+void					send_to_socket(t_vm *vm, char *payload, size_t size);
 void					send_mem(t_vm *vm);
 void					send_num_player(t_vm *vm);
 void					send_player(t_vm *vm, int nb);

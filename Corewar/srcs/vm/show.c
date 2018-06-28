@@ -33,24 +33,27 @@ void		show_mem(t_vm *vm)
 void		send_mem(t_vm *vm)
 {
 	int		i;
-	char	s1[8258];
+	char	s1[12289];
 	char	s2[130];
 
 	i = 0;
-	ft_bzero(s1, 8258);
+	ft_bzero(s1, 12289);
 	if (vm->vizu)
 	{
+		send_to_socket(vm, "<hex>", 5);
 		while (i < MEM_SIZE)
 		{
 			ft_bzero(s2, 130);
-			ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem);
+			(i == MEM_SIZE - 1)
+			? ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem)
+			: ft_sprintf(s2, "%02x ", (unsigned char)vm->ram[i].mem);
 			s1[0] ? ft_strcat(s1, s2) : ft_strcpy(s1, s2);
 			if (i / 64 != (i + 1) / 64)
 				ft_strcat(s1, "\n");
 			i++;
 		}
-		ft_strcat(s1, "\n");
-		send_to_socket(vm, s1);
+		ft_strcat(s1, "\r");
+		send_to_socket(vm, s1, 12289);
 	}
 }
 
@@ -64,6 +67,7 @@ void		send_num_player(t_vm *vm)
 	ft_bzero(s1, 4098);
 	if (vm->vizu)
 	{
+		send_to_socket(vm, "<map>", 5);
 		while (i < MEM_SIZE)
 		{
 			c = (char)('0' + ft_iabs(vm->ram[i].num));
@@ -71,8 +75,8 @@ void		send_num_player(t_vm *vm)
 			i++;
 		}
 		s1[i] = '\n';
-		s1[i + 1] = '\0';
-		send_to_socket(vm, s1);
+		s1[++i] = '\r';
+		send_to_socket(vm, s1, 4098);
 	}
 }
 
