@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 13:35:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 16:38:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,47 @@ int		check_op(unsigned int value)
 	return (0);
 }
 
+int		token_com(char *line)
+{
+	char	*iter;
+
+	iter = line;
+	if (!(iter))
+		return (0);
+	while (*iter && ft_isspace(*iter))
+		++iter;
+	return (*iter == '#' || *iter == ';');
+}
+
 int		token_wsp(char *line)
 {
-	if (line)
-	{
-		while (ft_isspace(*line))
-			++line;
-		return (!(*line));
-	}
-	return (1);
+	char	*iter;
+
+	iter = line;
+	if (!(iter))
+		return (0);
+	while (*iter && ft_isspace(*iter))
+		++iter;
+	return (!(*line));
 }
+
 int		token_lab(char *line)
 {
-	if (!(line))
+	char	*iter;
+
+	iter = line;
+	if (!(iter))
 		return (0);
-	while (*line && (ft_isalpha(*line) || ft_isdigit(*line)))
-		++line;
-	while (*line && ft_isspace(*line))
-		++line;
-	return (*line == ':');
+	while (*iter && (ft_isalpha(*iter) || ft_isdigit(*iter)))
+		++iter;
+	while (*iter && ft_isspace(*iter))
+		++iter;
+	if (*iter == ':')
+	{
+		++iter;
+		return (!(*iter) || token_wsp(iter) || token_com(iter));
+	}
+	return (0);
 }
 
 int		token_ins(char *line)
