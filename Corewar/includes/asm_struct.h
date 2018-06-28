@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:46:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 15:39:35 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_iter
 	char			*line;
 	int				count;
 	int				lnb;
+	int				error;
 	t_tok			*first;
 	t_tok			*iter;
 	t_lab			*labels;
