@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 19:56:34 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 22:05:37 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define HEAD_ERR3	0x5e
 # define NAME_ERR0	0x6e
 # define COMT_ERR0	0x7e
+# define ENDLI_ERR  0x1e
 
-# define LABEL_ERR1	0x1e
 # define LABEL_ERR2 0x2e
 
 #endif
