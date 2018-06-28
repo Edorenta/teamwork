@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 12:22:34 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 16:57:50 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	token_tostring(t_tok *tok)
 {
 	t_tok	*list;
+	
 	if (tok)
 	{
 		printf("[LINE %d][TYPE %#.3x][LABEL %-13s][POS %-4d]\n",
@@ -32,7 +33,6 @@ void	token_tostring(t_tok *tok)
 void	token_del(t_tok *tok)
 {
 	t_tok	*list;
-	t_tok	*iter;
 
 	if (tok)
 	{

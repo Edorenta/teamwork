@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 13:34:25 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:56:28 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,78 @@ void	end_line(t_iter *iter)
 		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
+void	check_head(t_iter *iter)
+{
+	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
+	{
+		if (iter->line[5] != ' ')
+		{
+			iter->token |= HEAD_ERR1;
+			iter->count = 6;
+		}
+		else
+			iter->token |= HEAD_NAME;
+	}
+	else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
+	{
+		if (iter->line[8] != ' ')
+		{
+			iter->token |= HEAD_ERR2;
+			iter->count = 9;
+		}
+		else
+			iter->token |= HEAD_COMT;
+	}
+	else
+		(iter->token) |= HEAD_ERR0;
+}
+
+void	check_name(t_iter *iter)
+{
+	int countChar;
+
+	countChar = 1;
+	while ((*(iter->line)) && *(iter->line) != '"')
+	{
+		if (iter->line[0] != ' ')
+		{
+			iter->token |= HEAD_ERR3;
+			return ;
+		}	
+		++(iter->count);
+		++(iter->line);
+	}
+	++(iter->count);
+	++(iter->line);
+	while ((*(iter->line)) && *(iter->line) != '"')
+	{
+		++(iter->count);
+		++(iter->line);
+		countChar++;
+		if (iter->token == 0x02 && countChar == 129)
+		{
+			iter->token |= NAME_ERR0;
+			return ;
+		}
+		else if (iter->token == 0x04 && countChar == 2049)
+		{
+			iter->token |= COMT_ERR0;
+			return ;
+		}
+	}
+}
+
 int		lexer_basics(t_iter *iter)
 {
 	if (iter->line && *(iter->line) == COMMENT_CHAR)
 		(iter->token) |= TOKEN_COM;
-	else if (iter->line && token_lab(iter->line))
+	else if (iter->line && token_lab(iter))
 		(iter->token) |= TOKEN_LAB;
 	else if (iter->line && *(iter->line) == '.')
 	{
 		(iter->token) |= TOKEN_HEA;
 		(iter->token) <<= 4; 
-		if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
-			(iter->token) |= HEAD_NAME;
-		else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
-			(iter->token) |= HEAD_COMT;
-		else
-			(iter->token) |= HEAD_ERRR;
+		check_head(iter);
 		while ((*(iter->line)) && *(iter->line) != '"')
 		{
 			++(iter->count);
@@ -53,7 +109,7 @@ int		lexer_basics(t_iter *iter)
 		}
 		return (iter->token);
 	}
-	else if ((iter->line) && token_wsp((iter->line)))
+	else if ((iter->line) && token_wsp(iter->line, 0))
 		(iter->token) |= TOKEN_SPA;
 	(iter->token) <<= 4;
 	return (iter->token);

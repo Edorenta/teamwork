@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 13:35:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:35:29 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,68 @@ int		check_op(unsigned int value)
 	return (0);
 }
 
-int		token_wsp(char *line)
+int		token_com(char *line, int *count)
 {
-	if (line)
-	{
-		while (ft_isspace(*line))
-			++line;
-		return (!(*line));
-	}
-	return (1);
-}
-int		token_lab(char *line)
-{
-	if (!(line))
+	char	*iter;
+
+	iter = line;
+	if (!(iter))
 		return (0);
-	while (*line && (ft_isalpha(*line) || ft_isdigit(*line)))
-		++line;
-	while (*line && ft_isspace(*line))
-		++line;
-	return (*line == ':');
+	while (*iter && ft_isspace(*iter))
+	{
+		(*count)++;
+		++iter;
+	}
+	return (*iter == '#' || *iter == ';');
+}
+
+int		token_wsp(char *line, int *count)
+{
+	char	*iter;
+
+	iter = line;
+	if (!(iter))
+		return (0);
+	while (*iter && ft_isspace(*iter))
+	{
+		(*count)++;
+		++iter;
+	}
+	return (!(*line));
+}
+
+int		token_lab(t_iter *itr)
+{
+	char	*iter;
+	int		count;
+
+	count = 0;
+	iter = itr->line;
+	if (!(iter))
+		return (0);
+	while (*iter && (ft_isalpha(*iter) || ft_isdigit(*iter) || *iter == '_'))
+	{
+		++iter;
+		count++;
+	}
+	if (*iter == ':')
+	{
+		++iter;
+		count++;
+		if ((*iter) && (token_wsp(iter, &count) == 0 || token_com(iter, &count) == 0))
+		{
+			itr->token |= LABEL_ERR2;
+			itr->count = count;
+			return(-1);
+		}
+		return(1);
+	}
+	else
+	{
+		itr->token |= LABEL_ERR1;
+		itr->count = count;
+		return(-1);
+	}
 }
 
 int		token_ins(char *line)

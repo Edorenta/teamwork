@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:22:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 16:25:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_ops	*ops_new(void)
 	new->opcode = 0;
 	set_arr(new->args);
 	set_arr(new->argv);
-	set_arr(new->label_id);
 	return (new);
 }
 

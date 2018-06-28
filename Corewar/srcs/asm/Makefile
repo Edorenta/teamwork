@@ -6,11 +6,13 @@ SRC = asm.c \
       lexer_ins.c \
       op.c \
 	  struct_iter.c \
+	  struct_lab.c \
       struct_ops.c \
       struct_token.c \
       check.c \
       utils.c \
 	  utils_ops.c \
+	  utils_lab.c \
 	  write.c
 
 CFLAGS = -Wall -Werror -Wextra
@@ -38,4 +40,4 @@ fsan :
 
 lldb :
 	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm $(FILE)$(TARGET).s
+	lldb ./asm $(FILE)$(TARGET).s

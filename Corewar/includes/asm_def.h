@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 12:32:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:56:34 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 
 # define HEAD_NAME	0x02
 # define HEAD_COMT	0x04
-# define HEAD_ERRR	0x06
+# define HEAD_ERR0	0x0e
+# define HEAD_ERR1	0x3e
+# define HEAD_ERR2	0x4e
+# define HEAD_ERR3	0x5e
+# define NAME_ERR0	0x6e
+# define COMT_ERR0	0x7e
+
+# define LABEL_ERR1	0x1e
+# define LABEL_ERR2 0x2e
 
 #endif

@@ -6,15 +6,20 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:46:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:56:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static long		get_index(char *line)
+static long		get_index(t_iter *iter, char *line)
 {
-	return (-2);	
+	char	*label;
+
+	(void)iter;
+	label = lab_parse_ins(line);
+	printf("%s\n", label);
+	return (-2);
 }
 
 static t_ops	*parse_sub(t_tok *token, char *line)
@@ -35,7 +40,7 @@ static t_ops	*parse_sub(t_tok *token, char *line)
 			if (iter->type == 0x1)
 				new->argv[argc] = ft_atoi(&line[++iter->pos]);
 			else if (iter->type == 0x5)	
-				new->argv[argc] = get_index(&line[iter->pos]);	
+				new->argv[argc] = get_index(iter, &line[iter->pos]);	
 			else
 				new->argv[argc] = ft_atoi(&line[iter->pos]);
 			argc++;
@@ -43,8 +48,8 @@ static t_ops	*parse_sub(t_tok *token, char *line)
 		iter = iter->next;
 	}
 	ops_get_ocp(new);
-	ops_debug(new);
-	token_tostring(token);
+	//ops_debug(new);
+	//token_tostring(token);
 	return (new);
 }
 
@@ -63,9 +68,9 @@ t_ops	*parser(t_iter *iter, int fd)
 	// Set error here
 	if (lseek(fd, 0, SEEK_SET) < 0)
 		return (NULL);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
-		printf("line{%s}\n", line);
+		//printf("line{%s}\n", line);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{
 			if (!first)
@@ -80,7 +85,7 @@ t_ops	*parser(t_iter *iter, int fd)
 			}
 		}
 		else
-			printf("\n");
+			;//printf("\n");
 		free(line);
 		line = NULL;
 		if (iter->iter)

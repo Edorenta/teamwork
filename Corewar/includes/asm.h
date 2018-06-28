@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:34:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:53:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include "libft.h"
 # include "op.h"
 
-int					token_wsp(char *line);
-int					token_lab(char *line);
+int					token_wsp(char *line, int *count);
+int					token_lab(t_iter *itr);
 int					token_ins(char *line);
+int					token_com(char *line, int *count);
 
 int					check_op(unsigned int value);
 
@@ -55,4 +56,12 @@ int					ops_get_ocp(t_ops *ops);
 
 void				write_ops(char *filename, t_ops *ops);
 void				write_head(char *filename, t_header head);
+
+t_lab				*lab_new(void);
+int					lab_exist(t_lab *lab, char *name);
+void				lab_add(t_lab *lab, t_lab *new);
+void				lab_del(t_lab *lab);
+void				lab_create(t_iter *iter);
+char				*lab_parse(char *line);
+char				*lab_parse_ins(t_iter *iter, char *line);
 #endif
