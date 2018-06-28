@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 19:20:21 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 22:33:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct			s_vm
 	int				next_ctd;
 	int					dump; //a quel cycle dump la memoire
 	int					lives_in_cycle; //
-	int					ncurses;//si l'option ncurses est active
 	t_mem				ram[MEM_SIZE]; //la memoire (l'arene)
 	char				*files_name[5];
 	t_player			player[5];
@@ -201,5 +200,6 @@ int		check_reg(int nb);
 int 	init_socket(void);
 void 	send_to_socket(t_vm *vm, char *payload, int len);
 void		send_mem(t_vm *vm);
+void		send_num_player(t_vm *vm);
 
 #endif

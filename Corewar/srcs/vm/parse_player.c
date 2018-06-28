@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:34:27 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/13 19:35:35 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 23:17:20 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,33 +65,32 @@ int		get_nb_player(t_vm *vm, char **argv, int arg_num)
 	return (0);
 }
 
-//recherche du/des champion(s) passé en arguments
 int		search_players(t_vm *vm, int argc, char **argv)
 {
 	int i;
-	int res; //supr, et appeler directement dans new player
 	char *tmp;
 
 	i = 1;
-	res = 0;
 	tmp = NULL;
-	//add vm->player = 0?
 	while (i < argc) //parcours tous les arguments
 	{
 		//si l'argument contient .cor (strstr dans tmp) ET si tmp != 4 || .cor en millieu de nom?
 		if ((tmp = ft_strstr(argv[i], ".cor")) && !tmp[4])
 		{
-			vm->nb_player++; //apres les errors? (+ de check?)
-			//si vm->nb_player est superieur au max de champion possible, error
+			vm->nb_player++;
 			if (vm->nb_player > MAX_PLAYERS)
 				exit_error("trop de champions"); //message a mettre en anglais
-			res = get_nb_player(vm, argv, i); //donne le bon num d'emplacement au champion
-			new_player(vm, res, argv[i]/*path du file*/); //si toutes les conditions sont bonnes on ajoute le player
+			new_player(vm, get_nb_player(vm, argv, i), argv[i]); //si toutes les conditions sont bonnes on ajoute le player
 		}
 		++i;
 	}
-	//si il y a des joueurs return 0, sinon return  1 (1 = error)
-	if(vm->nb_player)
+	//free tmp?
+	char c[5];//4?
+	if(vm->nb_player)//si il y a des joueurs return 0, sinon return  1 (1 = error)
+	{
+		ft_sprintf(c, "%d, ", vm->nb_player);
+		send_to_socket(vm, c, 0);
 		return (0);
+	}
 	return (1);
 }

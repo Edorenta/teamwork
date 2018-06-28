@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:29:46 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/18 03:41:53 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/27 22:35:39 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		check_arg(t_vm *vm, int argc, char **argv)
 	vm->dump = search_nb_dump(argc, argv); //return la taille a mettre dans vm->dump si -d existe
 	if (!vm->dump) //si on a pas d'option dump, on la passe a zero
 		vm->dump++;
-	vm->ncurses = search_ncurses(argc, argv); //return 1 ou 0 si il y a l'option ncurses ou pas
+	// vm->ncurses = search_ncurses(argc, argv); //return 1 ou 0 si il y a l'option ncurses ou pas
 	//add Fnct pour mode verbose?
 	vm->verbosity = srch_verbose(argc, argv); //en fonction du chiffre return, pas le meme mode de verbose
 	if(search_players(vm, argc, argv))//check si il y a un/des player(s) ou pas

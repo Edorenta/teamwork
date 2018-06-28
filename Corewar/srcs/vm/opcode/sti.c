@@ -17,9 +17,13 @@ static int		sti_set_value(t_vm *vm, t_proc *proc, int reg)
 	//decale pour inserer l'int a droite au fur et au mesure comme un char
 	//je sais on peut faire une boucle mais bon ^^
 	vm->ram[modulo(addr, MEM_SIZE)].mem = proc->reg[reg] >> 24;
+	vm->ram[modulo(addr, MEM_SIZE)].num = proc->num;
 	vm->ram[modulo(addr + 1, MEM_SIZE)].mem = proc->reg[reg] >> 16;
+	vm->ram[modulo(addr + 1, MEM_SIZE)].num = proc->num;
 	vm->ram[modulo(addr + 2, MEM_SIZE)].mem = proc->reg[reg] >> 8;
+	vm->ram[modulo(addr + 2, MEM_SIZE)].num = proc->num;
 	vm->ram[modulo(addr + 3, MEM_SIZE)].mem = proc->reg[reg];
+	vm->ram[modulo(addr + 3, MEM_SIZE)].num = proc->num;
 
 	return (addr);
 }

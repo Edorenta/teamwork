@@ -3,8 +3,6 @@
 void send_to_socket(t_vm *vm, char *payload, int len)
 {
 	(void)len;
-	// send(sock, payload, strlen(payload), 0 );
-	// send(vm->sock, payload, len/*strlen(payload)*/, 0);
 	send(vm->sock, payload, strlen(payload), 0);
 }
 
@@ -35,13 +33,5 @@ int init_socket(void)
         printf("Connection Failed\n");//
         exit(EXIT_FAILURE);
     }
-    // while (1)
-    // {
-        // send_to_socket();
-        // printf("I'm sending!\n");//
-        // sleep(1);
-    // }
-    //handler = recv(sock, buf, 1024); //or read?
-    //printf("%s\n",buf);
     return sock;
 }

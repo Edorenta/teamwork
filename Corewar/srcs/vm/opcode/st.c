@@ -8,15 +8,19 @@ static void	st_set_value(t_vm *vm, t_proc *proc)//si le segond param est in IND,
 
 	addr = modulo(addr, MEM_SIZE);
 	vm->ram[addr].mem = proc->reg[proc->op.ar[0]] >> 24;
+	vm->ram[addr].num = proc->num;
 
 	addr = modulo(addr + 1, MEM_SIZE);
 	vm->ram[addr].mem = proc->reg[proc->op.ar[0]] >> 16;
+	vm->ram[addr].num = proc->num;
 
 	addr = modulo(addr + 1, MEM_SIZE);
 	vm->ram[addr].mem = proc->reg[proc->op.ar[0]] >> 8;
+	vm->ram[addr].num = proc->num;
 
 	addr = modulo(addr + 1, MEM_SIZE);
 	vm->ram[addr].mem = proc->reg[proc->op.ar[0]];
+	vm->ram[addr].num = proc->num;
 }
 
 void	st(t_vm *vm, t_proc *proc)
@@ -30,7 +34,7 @@ void	st(t_vm *vm, t_proc *proc)
 	{
 		if (proc->op.ar[1] >= 1 && proc->op.ar[1] <= 16)
 			//le reg de l'arg 1 = reg de l'arg 2
-			proc->reg[proc->op.ar[1]] = proc->reg[proc->op.ar[0]];//on a le droit
+			proc->reg[proc->op.ar[1]] = proc->reg[proc->op.ar[0]];
 	}
 	else
 		st_set_value(vm, proc);

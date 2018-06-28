@@ -14,7 +14,7 @@ void		dump(t_vm *vm)
 //	tmp: create => loadtime le calcul, signe, pc ram
 void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 {
-	vm->ram[proc->pc % MEM_SIZE].pc = 0;//ram = l'espace memoire de l'arene, program counter a zero de la mem
+	vm->ram[proc->pc % MEM_SIZE].pc = 0;
 	if (!proc->op.active) //si le process n'est pas n'est  pas en train d'executer une instruction
 	{
 		if (is_opcode(vm->ram[proc->pc % MEM_SIZE].mem)) //on envoi la case memoire
@@ -40,23 +40,16 @@ void			exec_proc(t_vm *vm, t_proc *proc)//pc_move
 }
 
 //fonction principale du core: run tous les process
-//
-//	tmp pour moi: life_signal, calcul, last_one
 void			run(t_vm *vm) //reset_live
 {
 	t_proc			*proc;
-		char *buf;
-		int panda = 0;
 
 	while (process_living(vm))//tant qu'il y a des process en vie (check avec le ctd)
 	{
 		if (!((vm->cycle + 1) % vm->ctd)) //si le cycle arrive au cycle to die
 			reset_live(vm); //on reset les lives
-
-		//verbosity pour les cycles
 		if (2 & vm->verbosity)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
-		//ncurses?
 		proc = vm->proc;
 		while (proc != NULL)//on parcours tous les process, (liste chainee)
 		{
@@ -68,15 +61,8 @@ void			run(t_vm *vm) //reset_live
 		vm->cycle++; //quand chaque process est terminé, on augmente le nb de cycle ecoulé
 		if (vm->dump != -1) //ne pas appeler dump si ncurses est activé
 			dump(vm);//si on a l'option -d => dump
-
-		//----------------------------------------------------------------------
-
 		send_mem(vm);
-
-		// printf("%d\n", panda);
-		// send_to_socket(vm, ft_itoa(panda++), 0);
-		// send_to_socket(vm, "\n", 0);
-		// send_to_socket(vm, "p789a4n95daddadadad\n", 0);//
+		send_num_player(vm);
 	}
 	if (vm->last_one) //test avec la vm (le nom ou le fichier?)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
