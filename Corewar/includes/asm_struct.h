@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 12:15:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 14:46:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_op
 typedef struct		s_ops
 {
 	int				type;
+	int				len;
 	int				opcode;
 	long			args[3];
 	long			argv[3];
@@ -43,6 +44,13 @@ typedef struct		s_ops
 /*
  ** TOKENS
  */
+
+typedef struct		s_lab
+{
+	char			*name;
+	int				lnb;
+	struct s_lab	*next;
+}					t_lab;
 
 typedef struct		s_tok
 {
@@ -66,8 +74,8 @@ typedef struct		s_iter
 	int				lnb;
 	t_tok			*first;
 	t_tok			*iter;
+	t_lab			*labels;
 	unsigned int	token;
-	
 }					t_iter;
 
 #endif

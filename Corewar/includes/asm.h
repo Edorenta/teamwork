@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 12:22:36 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 14:34:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,8 @@ t_ops				*ops_new(void);
 void				ops_del(t_ops *ops);
 void				ops_tostring(t_ops *ops);
 void				ops_debug(t_ops *ops);
+int					ops_get_ocp(t_ops *ops);
+
+void				write_ops(char *filename, t_ops *ops);
+void				write_head(char *filename, t_header head);
 #endif

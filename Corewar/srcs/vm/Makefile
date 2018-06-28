@@ -37,5 +37,5 @@ fsan :
 
 val :
 	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
-	valgrind ./corewar ../../rsrc/champs/42.cor
+	valgrind ./corewar ../../rsrc/champs/toto.cor ../../rsrc/champs/toto.cor
 

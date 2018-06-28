@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   utils_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:37:50 by fmadura          ###   ########.fr       */
+/*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
+/*   Updated: 2018/06/28 14:33:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include <strings.h>
 
-int		ft_asm(char **argv)
+int		ops_get_ocp(t_ops *ops)
 {
-	int		fd; 
-	t_iter	*iter;
-	t_ops	*ops;
+	int		opc;
+	int		count;
 
-	//error handling here
-	iter = iter_new();
-	if (iter == NULL)
-		return (1);
-	else
+	opc = 0;
+	count = -1;
+	if (!ops)
+		return (0);
+	while (++count < 3)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (fd > 0)
-		{
-			iter = lexer(iter, fd);
-			ops = parser(iter, fd);
-			iter_del(iter);
-			//write_ops("test.cor", ops);
-			ops_del(ops);
-			close(fd);
-		}
+		if (ops->args[count] == -1)
+			break;
+		opc <<= 2;
+		opc += ops->args[count];
 	}
-	return (0);
+	while (++count < 5)
+		opc <<= 2;
+	ops->opcode = opc;
+	return (1);
+}
+
+int		ops_get_len(t_ops *ops)
+{
+	int		len;
+
+	len = 8;
+	return (1);
 }
