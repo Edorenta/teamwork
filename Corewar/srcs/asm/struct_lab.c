@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 17:31:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:48:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,15 @@ void	lab_del(t_lab *lab)
 		free(iter);
 		iter = NULL;
 	}
+}
+
+void	lab_create(t_iter *iter)
+{
+	char	*line;
+	int		count;
+
+	line = iter->line;
+	while (line[count] && line[count] != ':')
+		count++;
+		
 }

@@ -6,6 +6,7 @@ SRC = asm.c \
       lexer_ins.c \
       op.c \
 	  struct_iter.c \
+	  struct_lab.c \
       struct_ops.c \
       struct_token.c \
       check.c \

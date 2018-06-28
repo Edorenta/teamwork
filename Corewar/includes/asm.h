@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 17:28:04 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 18:48:57 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,10 @@ int					ops_get_ocp(t_ops *ops);
 
 void				write_ops(char *filename, t_ops *ops);
 void				write_head(char *filename, t_header head);
+
+t_lab				*lab_new(void);
+int					lab_exist(t_lab *lab, char *name);
+void				lab_add(t_lab *lab, t_lab *new);
+void				lab_del(t_lab *lab);
+void				lab_create(t_iter *iter);
 #endif
