@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:52:44 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 00:16:11 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_name(t_iter *iter)
 	{
 		if (iter->line[0] != ' ')
 		{
-			iter->token |= HEAD_ERR3;
+			iter->token = HEAD_ERR3;
 			return ;
 		}	
 		++(iter->count);
@@ -87,13 +87,13 @@ void	check_name(t_iter *iter)
 		countChar++;
 		if (iter->token == 0x02 && countChar == 129)
 		{
-			iter->token |= NAME_ERR0;
+			iter->token = NAME_ERR0;
 			iter->count += countChar;
 			return ;
 		}
 		else if (iter->token == 0x04 && countChar == 2049)
 		{
-			iter->token |= COMT_ERR0;
+			iter->token = COMT_ERR0;
 			iter->count += countChar;
 			return ;
 		}
@@ -106,7 +106,7 @@ void	check_name(t_iter *iter)
 	}
 	if (*(iter->line) != ';' && *(iter->line) != '#' && *(iter->line) != '\0')
 	{
-		iter->token |= ENDLI_ERR;
+		iter->token = ENDLI_ERR;
 	}
 }
 
