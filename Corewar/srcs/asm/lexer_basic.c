@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 00:36:36 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 01:01:47 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int		lexer_basics(t_iter *iter)
 		(iter->token) |= TOKEN_COM;
 	else if (iter->line && token_lab(iter))
 		(iter->token) |= TOKEN_LAB;
+	else if (iter->line && token_lab(iter) == -1)
+		return (-1);
 	else if (iter->line && *(iter->line) == '.')
 	{
 		(iter->token) |= TOKEN_HEA;

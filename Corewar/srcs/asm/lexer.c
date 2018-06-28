@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:36:05 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 01:01:44 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,29 @@ static t_tok	*lexer_token(t_iter *iter)
 	return (new);
 }
 
+void	put_error(t_iter *iter)
+{
+	iter_dell(iter);
+	if (iter->token == HEAD_ERR0)
+		printf("test");
+}
+
 t_iter	*lexer(t_iter *iter, int fd)
 {
 	char			*line;
 	int				ret;
+	long			basic;
 
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		iter->line = line;
 		iter->count = 0;
 		iter->token = 0;
-		if (!lexer_basics(iter))
+		basic = lexer_basics(iter);
+		if (basic == 0 || basic == TOKEN_LAB)
 			lexer_ins(iter);
+		else if (basic == -1)
+			put_error(iter);
 		else if (!iter->first)
 		{
 			iter->first = lexer_token(iter);
