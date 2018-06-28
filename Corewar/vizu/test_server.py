@@ -14,27 +14,37 @@ print("starting up on %s port %d" % server_address)
 sock.bind(server_address)
 # Listen for incoming connections
 sock.listen(1)
-#while was before sock.accept() in order to handle more
-new_socket, client_address = sock.accept()
+
+buf = []
+payload = None
+
 while 1:
-	# Wait for a connection
-	# print >>sys.stderr, 'waiting for a connection'
-	# try:
-		# print >>sys.stderr, 'connection from', client_address
-		# Receive the payload in small chunks and retransmit it
-		# while True:
-	payload = new_socket.recv(1)
-	if payload:
-		print("%c" % payload.decode(), end='')
-	else:
-		print("End of payload.")
-		sys.exit(0)
-			# if payload:
-				# print >>sys.stderr, 'sending payload back to the client'
-				# connection.sendall(payload)
-			# else:
-				# print >>sys.stderr, 'no more payload from', client_address
-				# break
-	# finally:
-		# Clean up the connection
-		# connection.close()
+	new_socket, client_address = sock.accept()
+	i = 0
+	j = 0
+	while j < 50:
+		if i == 0: # pipe waiting for players
+			while not payload or "]" not in payload:
+				payload = new_socket.recv(2).decode()
+				buf.append(payload)
+				print("%s" % payload, end='')
+			j += 1
+		elif i == 1: # pipe waiting for hex dump
+			payload = new_socket.recv(12288).decode()
+			i = 2
+			# print("%s" % payload, end='')
+		elif i == 2: # pipe waiting for player map
+			payload = new_socket.recv(8193).decode()
+			i = 1
+			# print("%s" % payload, end='')
+		if payload:
+			# print("%c" % payload.decode(), end='') # 
+			pass
+		else:
+			print("End of payload.\nDo we wait for the next game? [y/n]")
+			c = sys.stdin.read(1)
+			if (c == 'y' or c == 'Y'):
+				break
+			else:
+				sock.close()
+				sys.exit(0)
