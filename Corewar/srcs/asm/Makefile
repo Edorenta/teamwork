@@ -38,4 +38,4 @@ fsan :
 
 lldb :
 	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm $(FILE)$(TARGET).s
+	lldb ./asm $(FILE)$(TARGET).s
