@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lld.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 15:04:17 by jjourne           #+#    #+#             */
+/*   Updated: 2018/06/28 15:15:23 by jjourne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-//pareil que ld mais sans le IDX_MOD
 void	lld_get_value(t_vm *vm, t_proc *proc, int reg_nb)
 {
 	int addr;
@@ -35,6 +46,6 @@ void	lld(t_vm *vm, t_proc *proc)
 	if (0x4 & vm->verbosity)
 	{
 		show_operations(proc);
-		printf("\n");//
+		ft_printf("\n");
 	}
 }

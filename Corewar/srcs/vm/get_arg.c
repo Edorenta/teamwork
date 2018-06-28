@@ -3,29 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:24 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/27 23:26:25 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/28 16:46:00 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-//soit sur 2 soit sur 4,, recupere la value d'un direct
 void				get_dir(t_vm *vm, t_proc *proc, int num, int pos)
 {
 	unsigned int	value;
 
-	value = 0x0; //juste 0
-	value = (unsigned char)vm->ram[(pos + 1) % MEM_SIZE].mem; //le cast pour pas avoir de probleme avec la memoire
-	value = value << 8;// on decale de 8 la value, ex 1 => 0000 0001 => 0000 0001 0000 0000
+	value = 0x0;
+	value = (unsigned char)vm->ram[(pos + 1) % MEM_SIZE].mem;
+	value = value << 8;
 	value = value | (unsigned char)vm->ram[(pos + 2) % MEM_SIZE].mem;
-	if (g_op_tab[proc->op.code - 1].direct_size)//si c'est un short
+	if (g_op_tab[proc->op.code - 1].direct_size)
 	{
-		if ((value & 0x8000) == 0x8000)//si le bit de signe est 1 ==> 1000 0000 0000 0000
-			value = (value - USHRT_MAX) - 1;//valeur max - value, pour recuperer la val en signed
-		proc->op.ar[num] = value; //stock la value dans l'argument qui faut de l'op
+		if ((value & 0x8000) == 0x8000)
+			value = (value - USHRT_MAX) - 1;
+		proc->op.ar[num] = value;
 		return ;
 	}
 	value = value << 8;
@@ -35,18 +34,15 @@ void				get_dir(t_vm *vm, t_proc *proc, int num, int pos)
 	proc->op.ar[num] = value;
 }
 
-//recupere la value d'un registre
 void				get_reg(t_vm *vm, t_proc *proc, int num, int pos)
 {
 	unsigned char	value;
 
-	// value = (unsigned char)vm->ram[(pos + REG_SIZE) % MEM_SIZE].mem;//recupere le num du registre //+1 ou +reg_size?
-	value = (unsigned char)vm->ram[(pos + 1) % MEM_SIZE].mem;//recupere le num du registre
+	value = (unsigned char)vm->ram[(pos + 1) % MEM_SIZE].mem;
 	proc->op.ar[num] = value;
 }
 
-//recupere la value d'un indirecte
-void				get_ind(t_vm *vm, t_proc *proc, int num, int pos) //dans le parsing
+void				get_ind(t_vm *vm, t_proc *proc, int num, int pos)
 {
 	unsigned int	value;
 
@@ -55,17 +51,17 @@ void				get_ind(t_vm *vm, t_proc *proc, int num, int pos) //dans le parsing
 	value = value << 8;
 	value = value | (unsigned char)vm->ram[(pos + 2) % MEM_SIZE].mem;
 	proc->op.ar[num] = value;
-	if ((value & 0x8000) == 0x8000) //bit de signe (voir plus haut)
+	if ((value & 0x8000) == 0x8000)
 		proc->op.ar[num] = (value - USHRT_MAX) - 1;
 }
 
-int					get_indirect(t_vm *vm, t_op *op, int nb_arg) //pour les instructions
+int					get_indirect(t_vm *vm, t_op *op, int nb_arg)
 {
 	int	value;
 	int	pos;
 
 	value = 0x0;
-	pos = op->pos_opcode + (op->ar[nb_arg] % IDX_MOD); //zone memoire de 'adresse pointé / pas de - pour allez en arriere?
+	pos = op->pos_opcode + (op->ar[nb_arg] % IDX_MOD);
 	value |= (unsigned char)vm->ram[modulo(pos, MEM_SIZE)].mem;
 	value = value << 8;
 	value |= (unsigned char)vm->ram[modulo(pos + 1, MEM_SIZE)].mem;
@@ -73,6 +69,5 @@ int					get_indirect(t_vm *vm, t_op *op, int nb_arg) //pour les instructions
 	value |= (unsigned char)vm->ram[modulo(pos + 2, MEM_SIZE)].mem;
 	value = value << 8;
 	value |= (unsigned char)vm->ram[modulo(pos + 3, MEM_SIZE)].mem;
-
 	return (value);
 }

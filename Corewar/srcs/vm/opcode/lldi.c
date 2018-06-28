@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lldi.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 15:04:28 by jjourne           #+#    #+#             */
+/*   Updated: 2018/06/28 15:16:29 by jjourne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-//pareil sans IDX_MOD, une func en + a cause des lignes => params ocp differents
 void			lldi_verbose(t_proc *proc, unsigned int value,
 				unsigned int addr)
 {
 	show_operations(proc);
-	printf("\n| -> load from %d + %d = %d (with pc and mod %d)",
-			proc->op.ar[0], proc->op.ar[1], value, addr);//
-	printf("\n"); //
+	ft_printf("\n| -> load from %d + %d = %d (with pc and mod %d)",
+			proc->op.ar[0], proc->op.ar[1], value, addr);
+	ft_printf("\n");
 }
 
 unsigned int	lldi_get_addr(t_proc *proc)

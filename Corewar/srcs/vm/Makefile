@@ -1,5 +1,5 @@
 SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
- 		show.c process.c get_arg.c core.c op.c \
+ 		show.c process.c get_arg.c core.c op.c tools.c flib.c action_proc.c \
 		\
 		client.c \
 		\
@@ -29,7 +29,7 @@ all :
 	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
 	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g
 
-clean : 
+clean :
 	rm -rf corewar.dSym
 
 fsan :
@@ -38,4 +38,3 @@ fsan :
 val :
 	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
 	valgrind ./corewar ../../rsrc/champs/toto.cor ../../rsrc/champs/toto.cor
-

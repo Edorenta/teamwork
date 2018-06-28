@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_op.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:42 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/27 23:26:43 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:20:58 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-//
-int			is_opcode(char data)
-{
-	if (data > 0 && data < 17) //si c'est une instruction
-		return (1);
-	return (0);
-}
-
-//initialise tous a 0, (utiliser + de bzero?, fusionner avec delete?)
 void		init_op(t_op *op)
 {
 	op->active = 0;
@@ -36,7 +27,6 @@ void		init_op(t_op *op)
 	op->pos_opcode = 0;
 }
 
-//
 void		create_op(t_proc *proc, char data)
 {
 	int		i;
@@ -44,14 +34,13 @@ void		create_op(t_proc *proc, char data)
 	i = 0;
 	if (!is_opcode(data))
 		return ;
-	init_op(&proc->op);//directement un bzero
+	init_op(&proc->op);
 	proc->op.active = 1;
-	proc->op.code = data; //code = value
-	proc->op.loadtime = g_op_tab[data - 1].loadtime - 1; //cycle du process
-	proc->op.pos_opcode = proc->pc; //position de l'opcode = program counter
+	proc->op.code = data;
+	proc->op.loadtime = g_op_tab[data - 1].loadtime - 1;
+	proc->op.pos_opcode = proc->pc;
 }
 
-//remet tous a zero pour l'op
 void		delete_op(t_proc *proc)
 {
 	proc->op.code = 0;
@@ -63,30 +52,25 @@ void		delete_op(t_proc *proc)
 	proc->op.active = 0;
 }
 
-//retourne la taille que prennent les arguments de l'op, et recupere et stock les info dans la structure
-int			find_args(t_vm *vm, t_proc *proc, int num, int pos)//num = num arg
+int			find_args(t_vm *vm, t_proc *proc, int num, int pos)
 {
 	unsigned char	type;
 	unsigned char	mask;
 
 	type = proc->op.ocp;
-	mask = 0xC0;//on part du premier
-	mask = mask >> (2 * num);//on decale de 2 a chaque fois, en fnct de arg 1, 2, ou 3
+	mask = 0xC0;
+	mask = mask >> (2 * num);
 	type = type & mask;
-	type = type >> (6 - 2 * num);// d'abord => 110000 puis 001100 puis 000011, et la met au bon endroit
+	type = type >> (6 - 2 * num);
 	proc->op.ar_typ[num] = type;
 	if (type == REG_CODE)
 	{
 		get_reg(vm, proc, num, pos);
-		// ft_printf("\n find_args: get_registre => %d\n", proc->op.ar[0]);
-		// return (REG_SIZE);
 		return (1);
 	}
 	if (type == DIR_CODE)
 	{
 		get_dir(vm, proc, num, pos);
-		// ft_printf("\n find_args: get_dir => %d\n", proc->op.ar[1]);
-		// ft_printf("\n find_args: get_dir => %d\n", proc->op.ar[2]);
 		return ((g_op_tab[proc->op.code - 1].direct_size) ? 2 : 4);
 	}
 	if (type == IND_CODE)
@@ -97,7 +81,6 @@ int			find_args(t_vm *vm, t_proc *proc, int num, int pos)//num = num arg
 	return (0);
 }
 
-//arg_available => mettre le mask t_IND a +1
 int			fill_cur_op(t_vm *vm, t_proc *proc)
 {
 	int			i;
@@ -106,31 +89,23 @@ int			fill_cur_op(t_vm *vm, t_proc *proc)
 
 	i = 0;
 	pos = proc->pc;
-	optab_ref = &g_op_tab[proc->op.code - 1]; //ptr sur le global_op_tab
-	if (optab_ref->need_ocp)// seulement si l'op a besoin d'un ocp
+	optab_ref = &g_op_tab[proc->op.code - 1];
+	if (optab_ref->need_ocp)
 	{
-		pos++;//position du pc du proc
-		proc->op.ocp = (unsigned char)vm->ram[pos % MEM_SIZE].mem;//contenu de la case memoire de l'ocp
-		if (check_ocp(proc->op.ocp, proc->op.code))//si l'ocp est pas bon, on jump quand meme de sa valeur(?)
+		pos++;
+		proc->op.ocp = (unsigned char)vm->ram[pos % MEM_SIZE].mem;
+		if (check_ocp(proc->op.ocp, proc->op.code))
 		{
-			while (i < g_op_tab[proc->op.code - 1].nb_arg) //pour tous les arguments de l'op
+			while (i < g_op_tab[proc->op.code - 1].nb_arg)
 			{
-				//recupre et stocks les info des args pui:
-				pos += find_args(vm, proc, i, pos);//retourne la taille de l'argument, et l'ajoute dans pc pour avancer le curseur
+				pos += find_args(vm, proc, i, pos);
 				i++;
 			}
 		}
-		else //si check_ocp ==0, on return 0 (on appel pas l'op)
+		else
 			return (0);
 	}
-	else //si il n'y a pas d'ocp, c'est forcement que le param est un direct (voir tableau)
-	{
+	else
 		get_dir(vm, proc, 0, pos);
-		//-----D E B U G----
-		// if (proc->op.ocp == 1) {
-			// printf("\n----------live---------\n");
-		// }
-		//------------------
-	}
 	return (1);
 }

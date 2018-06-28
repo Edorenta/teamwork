@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ldi.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 15:03:58 by jjourne           #+#    #+#             */
+/*   Updated: 2018/06/28 15:13:23 by jjourne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 unsigned int	ldi_get_addr(t_proc *proc)
@@ -47,8 +59,8 @@ void			ldi(t_vm *vm, t_proc *proc)
 	if (0x4 & vm->verbosity)
 	{
 		show_operations(proc);
-		printf("\n| -> load from %d + %d = %d (with pc and mod %d)",//
+		ft_printf("\n| -> load from %d + %d = %d (with pc and mod %d)",
 		proc->op.ar[0], proc->op.ar[1], proc->op.ar[0] + proc->op.ar[1], addr);
-		printf("\n");//
+		ft_printf("\n");
 	}
 }
