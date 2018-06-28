@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:38:08 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 21:51:57 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 00:22:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*lab_parse_ins(char *line)
 		return (NULL);
 	count = 0;
 	label = NULL;
-	while (line[count] && !(line[count] == ',' || ft_isspace(line[count])))
+	while (line[count] && !(line[count] == ':' || ft_isspace(line[count])))
 		count++;
 	if (line[count] == ',' || ft_isspace(line[count]))
 		label = ft_strsub(line, 0, count);

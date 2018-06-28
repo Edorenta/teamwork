@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:08:52 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 00:27:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static long		get_index(t_iter *iter, char *line)
 
 	(void)iter;
 	label = lab_parse_ins(line);
-	printf("label :%s\n", label);
 	return (-2);
 }
 
@@ -48,8 +47,8 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line)
 		iter = iter->next;
 	}
 	ops_get_ocp(new);
-	ops_debug(new);
-	token_tostring(token);
+	//ops_debug(new);
+	//token_tostring(token);
 	return (new);
 }
 
@@ -70,7 +69,8 @@ t_ops	*parser(t_iter *iter, int fd)
 		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
-		token_tostring(iter->iter);
+		//printf("\nline {%s}\n", line);
+		//token_tostring(iter->iter);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{
 			if (!first)
