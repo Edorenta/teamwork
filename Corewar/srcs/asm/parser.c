@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:58:28 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:26:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static t_ops	*parse_sub(t_tok *token, char *line)
 		iter = iter->next;
 	}
 	ops_get_ocp(new);
-	ops_debug(new);
-	token_tostring(token);
+	//ops_debug(new);
+	//token_tostring(token);
 	return (new);
 }
 

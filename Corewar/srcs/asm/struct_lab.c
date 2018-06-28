@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:53:25 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:31:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lab_add(t_lab *lab, t_lab *new)
 
 	iter = lab;
 	if (!iter)
-		return;
+		lab = new;
 	while (iter->next)
 		iter = iter->next;
 	iter->next = new;

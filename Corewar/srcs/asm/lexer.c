@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 15:30:27 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 17:27:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ static t_tok	*lexer_token(t_iter *iter)
 	lnb = iter->lnb;
 	new = NULL;
 	if (!(token & 0x0F))
+	{
 		new = token_iter(iter, lexer_label(token));
+		if ((new->type >> 4) == TOKEN_LAB)
+			printf("lol\n");
+	}
 	else
 	{
 		new = token_create(token, lexer_label(token), lnb, 0);
@@ -81,7 +85,7 @@ t_iter	*lexer(t_iter *iter, int fd)
 		free(line);
 		iter->line = NULL;
 		line = NULL;
-		token_tostring(iter->iter);
+		//token_tostring(iter->iter);
 	}
 	return (iter);
 }
