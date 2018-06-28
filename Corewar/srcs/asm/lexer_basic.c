@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 00:16:11 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 00:35:32 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	end_line(t_iter *iter)
 		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
-void	check_head(t_iter *iter)
+int		check_head(t_iter *iter)
 {
 	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
 	{
@@ -38,6 +38,7 @@ void	check_head(t_iter *iter)
 		{
 			iter->token |= HEAD_ERR1;
 			iter->count = 6;
+			return (-1);
 		}
 		else
 		{
@@ -51,6 +52,7 @@ void	check_head(t_iter *iter)
 		{
 			iter->token |= HEAD_ERR2;
 			iter->count = 9;
+			return (-1);
 		}
 		else
 		{
@@ -61,20 +63,22 @@ void	check_head(t_iter *iter)
 	else
 	{
 		(iter->token) |= HEAD_ERR0;
+		return (-1)
 	}
+	return (1);
 }
 
-void	check_name(t_iter *iter)
+int	check_name(t_iter *iter)
 {
-	int countChar;
+	int countchar;
 
-	countChar = 1;
+	countchar = 1;
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
 		if (iter->line[0] != ' ')
 		{
 			iter->token = HEAD_ERR3;
-			return ;
+			return (-1);
 		}	
 		++(iter->count);
 		++(iter->line);
@@ -84,18 +88,18 @@ void	check_name(t_iter *iter)
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
 		++(iter->line);
-		countChar++;
+		countchar++;
 		if (iter->token == 0x02 && countChar == 129)
 		{
 			iter->token = NAME_ERR0;
-			iter->count += countChar;
-			return ;
+			iter->count += countchar;
+			return (-1);
 		}
-		else if (iter->token == 0x04 && countChar == 2049)
+		else if (iter->token == 0x04 && countchar == 2049)
 		{
 			iter->token = COMT_ERR0;
-			iter->count += countChar;
-			return ;
+			iter->count += countchar;
+			return (-1);
 		}
 	}
 	++(iter->line);
@@ -107,7 +111,9 @@ void	check_name(t_iter *iter)
 	if (*(iter->line) != ';' && *(iter->line) != '#' && *(iter->line) != '\0')
 	{
 		iter->token = ENDLI_ERR;
+		return (-1);
 	}
+	return (0);
 }
 
 int		lexer_basics(t_iter *iter)
@@ -120,8 +126,10 @@ int		lexer_basics(t_iter *iter)
 	{
 		(iter->token) |= TOKEN_HEA;
 		(iter->token) <<= 4; 
-		check_head(iter);
-		check_name(iter);	
+		if (check_head(iter) == -1)
+			return (-1);
+		if (check_name(iter) == -1)
+			return (-1);
 		return (iter->token);
 	}
 	else if ((iter->line) && token_wsp(iter->line, &(iter->count)))
