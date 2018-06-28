@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:38:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:25:12 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		check_op(unsigned int value)
 	return (0);
 }
 
-int		token_com(char *line)
+int		token_com(char *line, int *count)
 {
 	char	*iter;
 
@@ -80,11 +80,14 @@ int		token_com(char *line)
 	if (!(iter))
 		return (0);
 	while (*iter && ft_isspace(*iter))
+	{
+		(*count)++;
 		++iter;
+	}
 	return (*iter == '#' || *iter == ';');
 }
 
-int		token_wsp(char *line)
+int		token_wsp(char *line, int *count)
 {
 	char	*iter;
 
@@ -92,27 +95,43 @@ int		token_wsp(char *line)
 	if (!(iter))
 		return (0);
 	while (*iter && ft_isspace(*iter))
+	{
+		(*count)++;
 		++iter;
+	}
 	return (!(*line));
 }
 
-int		token_lab(char *line)
+int		token_lab(t_iter *itr)
 {
 	char	*iter;
+	int		count;
 
-	iter = line;
+	iter = itr->line;
 	if (!(iter))
 		return (0);
-	while (*iter && (ft_isalpha(*iter) || ft_isdigit(*iter)))
+	while (*iter && (ft_isalpha(*iter) || ft_isdigit(*iter) || *iter == '_'))
+	{
 		++iter;
-	while (*iter && ft_isspace(*iter))
-		++iter;
+		count++;
+	}
 	if (*iter == ':')
 	{
 		++iter;
-		return (!(*iter) || token_wsp(iter) || token_com(iter));
+		count++;
+		if ((*iter) && (token_wsp(iter, &count) == 0 || token_com(iter, &count) == 0))
+		{
+			itr->token |= LABEL_ERR2;
+			itr->count = count;
+			return(-1);
+		}
 	}
-	return (0);
+	else
+	{
+		itr->token |= LABEL_ERR1;
+		itr->count = count;
+		return(-1);
+	}
 }
 
 int		token_ins(char *line)
