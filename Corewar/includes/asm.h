@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 21:53:21 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 22:21:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void				iter_del(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);
 void				increment(t_iter *iter);
+void				increment_num(t_iter *iter, int num);
 void				end_line(t_iter *iter);
 
 t_ops				*ops_new(void);

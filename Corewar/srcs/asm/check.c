@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:05:28 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 22:50:36 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,6 @@
 
 t_op	g_op_tab[17];
 
-int		check_op(unsigned int value)
-{
-	unsigned int	frst;
-	unsigned int	scnd;
-	unsigned int	last;
-	unsigned int	op;
-
-	frst = value & 0xF8080;
-	scnd = value & 0x08F80;
-	last = value & 0x0808F;
-	if (value > 0x60000000)
-		op = (value & 0x0FF00000) >> 20;
-	else if (value > 0x600000)
-		op = (value & 0x00F000) >> 12;
-	else
-		op = (value & 0x00F0) >> 4;
-	if (A_LIVE(op) || A_ZJMP(op) || A_FORK(op) || A_LFORK(op))
-		return (value == (0x6002 | (op << 4)));
-	if (A_LD(op) || A_LLD(op))
-		return ((value & 0xFFF) == 0x286 || (value & 0xFFF) == 0x486);
-	if (A_ST(op))
-		return (value == 0x603684 || value == 0x603686);
-	if (A_ADD(op) || A_SUB(op))
-		return ((value & 0xFFFFF) == 0x68686);
-	if (A_AND(op) || A_OR(op) || A_XOR(op))
-		return ((frst == 0x28080 || frst == 0x48080 || frst == 0x68080)
-		&& (scnd == 0x08280 || scnd == 0x08480 || scnd == 0x08680)
-		&& (last == 0x68082 || last == 0x08084 || last == 0x08086));
-	if (A_LDI(op) || A_LLDI(op))
-		return ((frst == 0x28080 || frst == 0x48080 || frst == 0x68080)
-		&& (scnd == 0x08280 || scnd == 0x08680)
-		&& (last == 0x08086));
-	if (A_STI(op))
-		return ((frst == 0x68080)
-		&& (scnd == 0x08280 || scnd == 0x08480 || scnd == 0x08680)
-		&& (last == 0x08082 || last == 0x08086));
-	if (A_AFF(op))
-		return (value == 0x6106);
-	return (0);
-}
-
 int		token_com(char *line, int *count)
 {
 	char	*iter;
@@ -81,7 +40,7 @@ int		token_com(char *line, int *count)
 		return (0);
 	while (*iter && ft_isspace(*iter))
 	{
-		(*count)++;
+		++(*count);
 		++iter;
 	}
 	return (*iter == '#' || *iter == ';');
@@ -91,12 +50,12 @@ int		token_wsp(char *line, int *count)
 {
 	char	*iter;
 
-	iter = line;
-	if (!(iter))
+	if (!(line))
 		return (0);
+	iter = line;
 	while (*iter && ft_isspace(*iter))
 	{
-		(*count)++;
+		++(*count);
 		++iter;
 	}
 	return (!(*line));
@@ -122,12 +81,14 @@ int		token_lab(t_iter *itr)
 		count++;
 		if ((*iter) && (token_wsp(iter, &count) == 0 || token_com(iter, &count) == 0))
 		{
+			printf("salut\n");
 			itr->token |= LABEL_ERR2;
 			itr->count = count;
-			return(-1);
+			return (-1);
 		}
-		return(1);
+		return (1);
 	}
+	return (0);
 }
 
 int		token_ins(char *line)

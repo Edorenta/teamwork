@@ -9,6 +9,14 @@ void	clear_wsp(t_iter *iter)
 	}
 }
 
+void	increment_num(t_iter *iter, int num)
+{
+	while (--num >= 0)
+	{
+		++(iter->count);
+		++(iter->line);
+	}
+}
 void	increment(t_iter *iter)
 {
 	++(iter->count);

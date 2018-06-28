@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:05:31 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 22:52:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,34 @@ void	check_head(t_iter *iter)
 {
 	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
 	{
-		if (iter->line[5] != ' ')
+		if (iter->line[5] && iter->line[5] != ' ')
 		{
 			iter->token |= HEAD_ERR1;
 			iter->count = 6;
 		}
 		else
+		{
 			iter->token |= HEAD_NAME;
+			increment_num(iter, 5);
+		}
 	}
 	else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
 	{
-		if (iter->line[8] != ' ')
+		if (iter->line[8] && iter->line[8] != ' ')
 		{
 			iter->token |= HEAD_ERR2;
 			iter->count = 9;
 		}
 		else
+		{
+			increment_num(iter, 8);
 			iter->token |= HEAD_COMT;
+		}
 	}
 	else
+	{
 		(iter->token) |= HEAD_ERR0;
+	}
 }
 
 void	check_name(t_iter *iter)
@@ -75,20 +83,22 @@ void	check_name(t_iter *iter)
 	++(iter->line);
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
-		++(iter->count);
 		++(iter->line);
 		countChar++;
 		if (iter->token == 0x02 && countChar == 129)
 		{
 			iter->token |= NAME_ERR0;
+			iter->count += countChar;
 			return ;
 		}
 		else if (iter->token == 0x04 && countChar == 2049)
 		{
 			iter->token |= COMT_ERR0;
+			iter->count += countChar;
 			return ;
 		}
 	}
+	++(iter->line);
 	while  ((*(iter->line)) && *(iter->line) == ' ')
 	{
 		++(iter->count);
@@ -111,14 +121,10 @@ int		lexer_basics(t_iter *iter)
 		(iter->token) |= TOKEN_HEA;
 		(iter->token) <<= 4; 
 		check_head(iter);
-		while ((*(iter->line)) && *(iter->line) != '"')
-		{
-			++(iter->count);
-			++(iter->line);
-		}
+		check_name(iter);	
 		return (iter->token);
 	}
-	else if ((iter->line) && token_wsp(iter->line, 0))
+	else if ((iter->line) && token_wsp(iter->line, &(iter->count)))
 		(iter->token) |= TOKEN_SPA;
 	(iter->token) <<= 4;
 	return (iter->token);
