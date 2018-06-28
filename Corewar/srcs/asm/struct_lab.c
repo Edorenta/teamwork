@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 18:48:52 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:20:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		lab_exist(t_lab *lab, char *name)
 {
 	t_lab	*iter;
 
+	if (!lab)
+		return (0);
 	iter = lab;
-	if (!iter)
-		return (0);;
 	while (iter)
 	{
 		if (!ft_strcmp(lab->name, name))
@@ -44,9 +44,12 @@ void	lab_add(t_lab *lab, t_lab *new)
 {
 	t_lab	*iter;
 
-	iter = lab;
-	if (!iter)
+	if (!lab)
+	{
 		lab = new;
+		return;
+	}
+	iter = lab;
 	while (iter->next)
 		iter = iter->next;
 	iter->next = new;
@@ -68,10 +71,27 @@ void	lab_del(t_lab *lab)
 void	lab_create(t_iter *iter)
 {
 	char	*line;
+	char	*label;
+	t_lab	*lab;
 	int		count;
 
 	line = iter->line;
+	count = 0;
 	while (line[count] && line[count] != ':')
 		count++;
-		
+	//ft_error here
+	if ((lab = lab_new()) == NULL)
+		return ;
+	label = lab_parse(line);
+	if (label == NULL || lab_exist(iter->labels, label))
+	{
+		label ? free(label) : 0;
+		//token error here
+	}
+	lab->lnb = iter->lnb;
+	lab->name = ft_strdup(label);
+	free(label);
+	label = NULL;
+	lab_add(iter->labels, lab);
+	printf("%s %d\n", lab->name, lab->lnb);
 }

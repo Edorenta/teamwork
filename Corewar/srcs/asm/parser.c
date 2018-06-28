@@ -6,16 +6,20 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 17:26:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 19:56:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static long		get_index(char *line)
+static long		get_index(t_iter *iter, char *line)
 {
-	(void)line;
-	return (-2);	
+	char	*label;
+
+	(void)iter;
+	label = lab_parse_ins(line);
+	printf("%s\n", label);
+	return (-2);
 }
 
 static t_ops	*parse_sub(t_tok *token, char *line)
@@ -36,7 +40,7 @@ static t_ops	*parse_sub(t_tok *token, char *line)
 			if (iter->type == 0x1)
 				new->argv[argc] = ft_atoi(&line[++iter->pos]);
 			else if (iter->type == 0x5)	
-				new->argv[argc] = get_index(&line[iter->pos]);	
+				new->argv[argc] = get_index(iter, &line[iter->pos]);	
 			else
 				new->argv[argc] = ft_atoi(&line[iter->pos]);
 			argc++;
