@@ -9,17 +9,21 @@ SRC = asm.c \
       struct_ops.c \
       struct_token.c \
       check.c \
-      utils.c
+      utils.c \
+	  utils_ops.c \
+	  write.c
+
 CFLAGS = -Wall -Werror -Wextra
 LIB = ../../libft/libft.a
 INC = -I../../includes -I../../libft/includes
 LUB = -lft
 NAME = asm
-
+FILE = ../../rsrc/examples/
+TARGET = bee_gees
 
 all :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm ../../rsrc/examples/bee_gees.s
+	./asm $(FILE)$(TARGET).s
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
@@ -30,8 +34,8 @@ clean :
 
 fsan :
 	gcc -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm ../../rsrc/examples/bee_gees.s
+	./asm $(FILE)$(TARGET).s
 
 lldb :
 	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
-	lldb ./asm ../../rsrc/examples/bee_gees.s
+	./asm $(FILE)$(TARGET).s

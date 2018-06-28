@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 11:56:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 14:22:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ops_debug(t_ops *ops)
 {
-	printf("type : %d, opcode: %d\n", ops->type, ops->opcode);
+	printf("type : %d, opcode: %#x\n", ops->type, ops->opcode);
 	printf("args : %ld, %ld, %ld\n", ops->args[0], ops->args[1], ops->args[2]);
 	printf("argv : %ld, %ld, %ld\n", ops->argv[0], ops->argv[1], ops->argv[2]);
 }
@@ -41,6 +41,7 @@ t_ops	*ops_new(void)
 		return (NULL);
 	new->next = NULL;
 	new->type = 0;
+	new->len = 0;
 	new->opcode = 0;
 	set_arr(new->args);
 	set_arr(new->argv);

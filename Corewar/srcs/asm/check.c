@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 14:51:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 13:35:24 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ int		token_lab(char *line)
 	if (!(line))
 		return (0);
 	while (*line && (ft_isalpha(*line) || ft_isdigit(*line)))
-		++line;	
+		++line;
+	while (*line && ft_isspace(*line))
+		++line;
 	return (*line == ':');
 }
 

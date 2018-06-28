@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/14 14:17:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 14:35:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,18 @@ void	write_head(char *filename, t_header head)
 	close(fd);
 }
 
-void	token_binary(t_tok *tok)
-{
-	return;
-}
-
-void	write_ins(char *filename, t_tok *tokens)
+void	write_ops(char *filename, t_ops *ops)
 {
 	int		fd;
+	t_ops	*iter;
 	
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
-	while (tokens)
+	iter = ops;
+	while (iter)
 	{
-		token_binary()
-		tokens = tokens->next;
+		write(fd, (const char *)&iter->type, 1);
+		write(fd, (const char *)&iter->opcode, 1);
+		iter = iter->next;
 	}
+	close(fd);
 }

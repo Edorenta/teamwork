@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 15:49:13 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 12:32:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define INS_REG	0x02
 # define INS_DIR	0x04
+# define INS_DIL	0x05
 # define INS_IND	0x06
 # define INS_SEP	0x08
 # define INS_COM	0x0A
