@@ -20,7 +20,7 @@ int main(void)
     {
         printf("Socket creation error\n");
         exit(EXIT_FAILURE);
-    }  
+    }
     memset(&serv_addr, '0', sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);

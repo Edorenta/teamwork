@@ -2,11 +2,9 @@
 import http.server
 import socketserver
 
-PORT = 8000
+port = 8080
 
 Handler = http.server.SimpleHTTPRequestHandler
-
-httpd = socketserver.TCPServer(("", PORT), Handler)
-
-print("serving at port", PORT)
+httpd = socketserver.TCPServer(("", port), Handler)
+print("Serving local files at localhost: %d" % port)
 httpd.serve_forever()
