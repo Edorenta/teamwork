@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 14:34:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:28:04 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include "libft.h"
 # include "op.h"
 
-int					token_wsp(char *line);
-int					token_lab(char *line);
+int					token_wsp(char *line, int *count);
+int					token_lab(t_iter *itr);
 int					token_ins(char *line);
+int					token_com(char *line, int *count);
 
 int					check_op(unsigned int value);
 
