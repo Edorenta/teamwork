@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 14:37:37 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 12:19:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	lexer_ins(t_iter *iter)
 		{
 			iter->token <<= 4;
 			iter->token |= op + 1;
-			iter->iter->next = create_tok(0x600 | (op + 1), g_op_tab[op].name, iter->lnb, iter->count);
+			iter->iter->next = token_create(0x600 | (op + 1), g_op_tab[op].name, iter->lnb, iter->count);
 			iter->iter = iter->iter->next;
 			len = g_op_tab[op].nlen;
 			clear_wsp(iter);

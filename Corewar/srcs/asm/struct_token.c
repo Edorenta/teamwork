@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 14:38:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 12:22:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	tok_tostring(t_tok *tok)
+void	token_tostring(t_tok *tok)
 {
 	t_tok	*list;
 	if (tok)
@@ -29,29 +29,28 @@ void	tok_tostring(t_tok *tok)
 	}
 }
 
-void	del_tok(t_tok *tok)
+void	token_del(t_tok *tok)
 {
 	t_tok	*list;
 	t_tok	*iter;
 
 	if (tok)
 	{
-		list = tok->list;
-		while (list)
-		{
-			iter = list;
-			list = list->next;
-			free(iter);
-			iter = NULL;	
-		}
 		if (tok->label)
 			free(tok->label);
+		while (tok->list)
+		{
+			list = tok->list;
+			tok->list = tok->list->next;
+			token_del(list);
+			list = NULL;	
+		}
 		free(tok);
 		tok = NULL;
 	}
 }
 
-t_tok	*new_tok()
+t_tok	*token_new(void)
 {
 	t_tok	*new;
 
@@ -68,12 +67,12 @@ t_tok	*new_tok()
 	return (new);
 }
 
-t_tok	*create_tok(int type, char *label, int lnb, int pos)
+t_tok	*token_create(int type, char *label, int lnb, int pos)
 {
 	t_tok	*tok;
 
 	//error here	
-	if ((tok = new_tok()) == NULL)
+	if ((tok = token_new()) == NULL)
 		return (NULL);
 	tok->type = type;
 	tok->label = ft_strdup(label);
@@ -82,10 +81,10 @@ t_tok	*create_tok(int type, char *label, int lnb, int pos)
 	return (tok);
 }
 
-t_tok	*tok_iter(t_iter *iter, char *label)
+t_tok	*token_iter(t_iter *iter, char *label)
 {
 	t_tok	*tok;
 
 	tok = NULL;
-	return (create_tok(iter->token, label, iter->lnb, iter->count));
+	return (token_create(iter->token, label, iter->lnb, iter->count));
 }

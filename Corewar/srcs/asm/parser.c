@@ -6,11 +6,16 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 17:46:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 12:18:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static long		get_index(char *line)
+{
+	return (1);	
+}
 
 static t_ops	*parse_sub(t_tok *token, char *line)
 {
@@ -27,18 +32,20 @@ static t_ops	*parse_sub(t_tok *token, char *line)
 		if ((iter->type & 0x0F) <= 0x6)
 		{
 			new->args[argc] = (iter->type >> 1);
-			new->argv[argc] = ft_atoi(&line[iter->pos]);
-			printf("argv %ld\n", new->argv[argc]);
+			if (iter->type == 0x2)
+				new->argv[argc] = ft_atoi(&line[iter->pos]);
+			else
+				new->argv[argc] = get_index(&line[iter->pos]);	
 			argc++;
 		}
 		iter = iter->next;
 	}
 	ops_debug(new);
-	tok_tostring(token);
+	token_tostring(token);
 	return (new);
 }
 
-void	parser(t_iter *iter, int fd)
+t_ops	*parser(t_iter *iter, int fd)
 {
 	char	*line;
 	int		ret;
@@ -52,7 +59,7 @@ void	parser(t_iter *iter, int fd)
 	iter->iter = iter->first;
 	// Set error here
 	if (lseek(fd, 0, SEEK_SET) < 0)
-		return;
+		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((iter->iter->type & 0x600))
@@ -74,4 +81,5 @@ void	parser(t_iter *iter, int fd)
 		iter->iter = iter->iter->next;
 	}
 	free(line);
+	return (first);
 }

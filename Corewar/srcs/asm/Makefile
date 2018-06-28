@@ -23,13 +23,13 @@ all :
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind --leak-check=full ./asm ../../rsrc/examples/bee_gees.s
+	valgrind --leak-check=full --track-origins=yes ./asm ../../rsrc/examples/bee_gees.s
 
 clean :
 	rm -rf asm.dSym
 
 fsan :
-	clang -fsanitize=address $(SRC) $(LIB) $(INC) -o $(NAME)
+	gcc -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm ../../rsrc/examples/bee_gees.s
 
 lldb :

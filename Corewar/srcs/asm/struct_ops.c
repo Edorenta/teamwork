@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/27 16:13:54 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 11:56:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ t_ops	*ops_new(void)
 	set_arr(new->argv);
 	set_arr(new->label_id);
 	return (new);
+}
+
+void	ops_del(t_ops *ops)
+{
+	t_ops	*iter;
+
+	while (ops)
+	{
+		iter = ops;
+		ops = ops->next;
+		free(iter);
+		iter = NULL;
+	}
 }

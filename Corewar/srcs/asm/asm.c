@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/26 18:28:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 12:17:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,23 @@ int		ft_asm(char **argv)
 {
 	int		fd; 
 	t_iter	*iter;
+	t_ops	*ops;
 
 	//error handling here
-	iter = NULL;
-	if ((iter = iter_new()) != NULL)
+	iter = iter_new();
+	if (iter == NULL)
+		return (1);
+	else
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd > 0)
 		{
 			iter = lexer(iter, fd);
-			parser(iter, fd);
+			ops = parser(iter, fd);
+			iter_del(iter);
+			ops_del(ops);
 			close(fd);
 		}
 	}
-	iter_del(iter);
 	return (0);
 }
