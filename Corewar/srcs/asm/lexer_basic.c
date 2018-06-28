@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 17:31:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:35:22 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ void	end_line(t_iter *iter)
 		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
+void	check_head(t_iter *iter)
+{
+	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
+	{
+		if (iter->line[5] != ' ')
+		{
+			iter->token |= HEAD_ERR1;
+			iter->count = 6;
+		}
+		else
+			iter->token |= HEAD_NAME;
+	}
+	else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
+	{
+		if (iter->line[8] != ' ')
+		{
+			iter->token |= HEAD_ERR2;
+			iter->count = 9;
+		}
+		else
+			iter->token |= HEAD_COMT;
+	}
+	else
+		(iter->token) |= HEAD_ERR0;
+}
+
 int		lexer_basics(t_iter *iter)
 {
 	if (iter->line && *(iter->line) == COMMENT_CHAR)
@@ -40,12 +66,14 @@ int		lexer_basics(t_iter *iter)
 	{
 		(iter->token) |= TOKEN_HEA;
 		(iter->token) <<= 4; 
-		if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
+		/*if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
+		{
 			(iter->token) |= HEAD_NAME;
 		else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
 			(iter->token) |= HEAD_COMT;
 		else
-			(iter->token) |= HEAD_ERRR;
+			(iter->token) |= HEAD_ERR0;*/
+		check_head(iter);
 		while ((*(iter->line)) && *(iter->line) != '"')
 		{
 			++(iter->count);

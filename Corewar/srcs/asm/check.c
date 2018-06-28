@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 17:29:55 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/28 18:35:29 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		token_lab(t_iter *itr)
 	char	*iter;
 	int		count;
 
+	count = 0;
 	iter = itr->line;
 	if (!(iter))
 		return (0);
