@@ -12,6 +12,7 @@ SRC = asm.c \
       check.c \
       utils.c \
 	  utils_ops.c \
+	  utils_lab.c \
 	  write.c
 
 CFLAGS = -Wall -Werror -Wextra
