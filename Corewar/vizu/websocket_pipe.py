@@ -30,6 +30,7 @@ def client_left(client, server):
 # Called when a client sends a message
 def message_received(client, server, message):
 	server.send_message_to_all(message)
+	print("Transmitting...")
 	# print(message)
 
 server = WebsocketServer(int(port), host=uri, loglevel=0)

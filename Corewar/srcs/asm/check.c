@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 00:59:33 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 01:51:15 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		token_lab(t_iter *itr)
 	{
 		++iter;
 		count++;
-		if ((*iter) && (*iter) != ' ')
+		if ((*iter) && ((*iter) != ' ' && (*iter) != '\t'))
 		{
 			itr->token |= LABEL_ERR2;
 			itr->count = count;

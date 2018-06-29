@@ -27,14 +27,14 @@ NAME = corewar
 all :
 	#rm -f corewar
 	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
-	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g
+	gcc $(SRC) $(INC) $(LIB) -o $(NAME) -g
 
 clean :
 	rm -rf corewar.dSym
 
 fsan :
-	gcc -lncurses $(SRC) $(INC) $(LIB) -o $(NAME) -g -fsanitize=address
+	gcc $(SRC) $(INC) $(LIB) -o $(NAME) -g -fsanitize=address
 
 val :
-	gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g
+	gcc $(SRC) $(LIB) $(INC) -o $(NAME) -g
 	valgrind ./corewar ../../rsrc/champs/toto.cor ../../rsrc/champs/toto.cor
