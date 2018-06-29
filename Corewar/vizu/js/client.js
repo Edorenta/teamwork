@@ -20,7 +20,7 @@ function init()
 	ws.onmessage = function(event){
 		let data = event.data;
 		let type = data.slice(0, 5);
-		console.log("Rec:" + type);
+		//console.log("Rec:" + type);
 		// console.log("Rec:" + type);
 		switch (type){
 			case "<set>": in_set = data.slice(5, data.length); break;

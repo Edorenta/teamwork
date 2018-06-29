@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:25:10 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:23:56 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ typedef struct		s_ops
 {
 	int				type;
 	int				len;
+	int				lnb;
 	int				opcode;
 	long			args[3];
 	long			argv[3];
-	struct s_lab	label[3];
+	long			label[3];
 	struct s_ops	*next;
 }					t_ops;
 

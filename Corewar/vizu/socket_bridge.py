@@ -15,6 +15,7 @@
 import websocket
 import socket
 import time
+import asyncio
 import sys
 import os
 
@@ -38,8 +39,12 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 wsock = websocket.create_connection(address)
 sock.bind((s_uri,int(s_port)))
 sock.listen(1)
+loop = asyncio.get_event_loop()
 
-def play_corewar():
+async def send_websocket(data):
+	await wsock.send(data)
+
+async def play_corewar():
 
 	_dbg = 0
 	payload = None
@@ -47,21 +52,25 @@ def play_corewar():
 	while 1:
 		buf = None
 		while 1:
-			payload = new_socket.recv(2).decode()
+			payload = new_socket.recv(1).decode()
 			if (not payload or ("<end>" in payload)): #or len(payload) < 2):
 				print("End of payload.\nWaiting for another game to begin!")
 				new_socket.close()
+				await play_corewar()
 				return
 				# continue
-			else:
+			elif not "$" in payload:
 				if buf:
 					buf += payload
 				else:
 					buf = payload
-			if "\r" in payload:
+			# print("payload:%s" % payload)
+			if "$" in payload:
 				# print("%s" % buf, end='')
 				print("Sending #%d" % _dbg)
 				_dbg += 1
+				# asyncio.ensure_future(send_websocket(buf))
+				time.sleep(0.05)
 				wsock.send(buf)
 				buf = None
 			# if ("<end>" in payload): #or len(payload) < 2):
@@ -77,5 +86,8 @@ def play_corewar():
 				# 	wsock.close()
 				# 	sys.exit(0)
 				# 	break
-while 1:
-	play_corewar()
+
+# loop.run_until_complete(play_corewar())
+asyncio.ensure_future(play_corewar())
+loop.run_forever()
+# loop.close()
