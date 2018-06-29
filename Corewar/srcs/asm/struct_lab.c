@@ -6,11 +6,26 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 19:20:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 03:04:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	lab_tostring(t_iter *iter)
+{
+	t_lab	*lab;
+
+	if (iter->labels)
+	{
+		lab = iter->labels;
+		while (lab)
+		{
+			printf("name : %s, lnb : %d\n", lab->name, lab->lnb);
+			lab = lab->next;
+		}
+	}
+}
 
 t_lab	*lab_new(void)
 {
@@ -24,45 +39,19 @@ t_lab	*lab_new(void)
 	return (new);
 }
 
-int		lab_exist(t_lab *lab, char *name)
-{
-	t_lab	*iter;
-
-	if (!lab)
-		return (0);
-	iter = lab;
-	while (iter)
-	{
-		if (!ft_strcmp(lab->name, name))
-			return (1);
-		iter = iter->next;
-	}
-	return (0);
-}
-
-void	lab_add(t_lab *lab, t_lab *new)
-{
-	t_lab	*iter;
-
-	if (!lab)
-	{
-		lab = new;
-		return;
-	}
-	iter = lab;
-	while (iter->next)
-		iter = iter->next;
-	iter->next = new;
-}
-
 void	lab_del(t_lab *lab)
 {
 	t_lab	*iter;
 
+	if (!lab)
+		printf("error\n");
 	while (lab)
 	{
 		iter = lab;
 		lab = lab->next;
+		if (iter->name)
+			free(iter->name);
+		iter->name = NULL;
 		free(iter);
 		iter = NULL;
 	}
@@ -72,26 +61,16 @@ void	lab_create(t_iter *iter)
 {
 	char	*line;
 	char	*label;
-	t_lab	*lab;
-	int		count;
 
 	line = iter->line;
-	count = 0;
-	while (line[count] && line[count] != ':')
-		count++;
 	//ft_error here
-	if ((lab = lab_new()) == NULL)
-		return ;
 	label = lab_parse(line);
 	if (label == NULL || lab_exist(iter->labels, label))
 	{
 		label ? free(label) : 0;
 		//token error here
 	}
-	lab->lnb = iter->lnb;
-	lab->name = ft_strdup(label);
+	lab_add(iter, label);
 	free(label);
 	label = NULL;
-	lab_add(iter->labels, lab);
-	printf("%s %d\n", lab->name, lab->lnb);
 }
