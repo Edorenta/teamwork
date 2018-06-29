@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:34:27 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 06:06:37 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 09:39:00 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int		search_players(t_vm *vm, int argc, char **argv)
 	char	c[21];
 	char	*tmp;
 
-	i = 1;
+	i = 0;
 	tmp = NULL;
 	ft_bzero(c, 21);
 	vm->nb_player = 0;
-	while (i < argc)
+	while (++i < argc)
 	{
 		if ((tmp = ft_strstr(argv[i], ".cor")) && !tmp[4])
 		{
@@ -80,9 +80,7 @@ int		search_players(t_vm *vm, int argc, char **argv)
 				exit_error("Too many champs");
 			new_player(vm, get_nb_player(vm, argv, i), argv[i]);
 		}
-		++i;
 	}
-	//free tmp?
 	if (vm->nb_player)
 	{
 		ft_sprintf(c, "%d, ", vm->nb_player);

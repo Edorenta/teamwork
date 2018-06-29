@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 07:37:00 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 09:39:44 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void		show_mem(t_vm *vm)
 
 void		send_mem(t_vm *vm)
 {
-
 	int		i;
 	char	s1[15000];
 	char	s2[130];

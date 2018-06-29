@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 05:45:01 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 09:24:06 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	dump(t_vm *vm)
 	if (vm->cycle == vm->dump)
 	{
 		show_mem(vm);
-		//du coup free ou pas? :p
+		free_all(vm);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -76,11 +76,10 @@ void	run(t_vm *vm)
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
-		// send_mem(vm);
-		// send_num_player(vm);
+		send_mem(vm);
+		send_num_player(vm);
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
-	if (vm->vizu)
-		send_to_socket(vm, "<end>", 5);
+	send_to_socket(vm, "<end>", 5);
 }

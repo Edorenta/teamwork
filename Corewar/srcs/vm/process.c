@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:01 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 05:36:01 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 09:59:23 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ t_proc	*create_process(t_vm *vm, int num)
 	t_proc	*tmp;
 
 	if (!(tmp = (t_proc*)ft_memalloc(sizeof(t_proc))))
+	{
+		free_all(vm);
 		exit_error("Malloc Error");
+	}
 	tmp->id = set_proc_id(vm);
 	tmp->num = num;
 	tmp->pc = (MEM_SIZE / vm->nb_player) * ((num * (-1) - 1));
