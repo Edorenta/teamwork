@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:04:17 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 15:15:23 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 11:00:43 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	lld(t_vm *vm, t_proc *proc)
 		return ;
 	reg_nb = proc->op.ar[1];
 	if (proc->op.ar_typ[0] == IND_CODE)
+	{
 		lld_get_value(vm, proc, reg_nb);
+		proc->op.ar[0] = proc->reg[reg_nb];
+	}
 	else
 		proc->reg[reg_nb] = proc->op.ar[0];
 	proc->carry = (proc->reg[reg_nb] == 0) ? 1 : 0;
