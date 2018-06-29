@@ -80,6 +80,7 @@ void	run(t_vm *vm)
 		send_mem(vm);
 	printf("cycle = %d\n", vm->cycle);
 		send_num_player(vm);
+		ft_printf(">>>%d cycles\n", vm->cycle);
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);

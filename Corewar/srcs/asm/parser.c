@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 00:27:27 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 03:08:48 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static long		get_index(t_iter *iter, char *line)
 
 	(void)iter;
 	label = lab_parse_ins(line);
+	free(label);
+	label = NULL;
 	return (-2);
 }
 
@@ -64,6 +66,7 @@ t_ops	*parser(t_iter *iter, int fd)
 	itera = NULL;
 	ret = 0;
 	iter->iter = iter->first;
+	lab_tostring(iter);
 	// Set error here
 	if (lseek(fd, 0, SEEK_SET) < 0)
 		return (NULL);

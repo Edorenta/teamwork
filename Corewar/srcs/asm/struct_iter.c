@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 19:08:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 02:46:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void 	iter_del(t_iter *iter)
 		iter->first = iter->first->next;
 		token_del(token);
 	}
+	lab_del(iter->labels);
 	free(iter);
 	iter = NULL;
 }

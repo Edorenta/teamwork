@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 04:01:18 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:28:58 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,41 +107,6 @@ void		show_mem(t_vm *vm)
 // 	}
 // }
 
-//---------------------OLD ONE--------------------------------------------------
-void		send_mem(t_vm *vm)
-{
-	int		i;
-	char c[20000];
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		!((i + 1) % 64) ? ft_sprintf(c, "%02x", (unsigned char)vm->ram[i].mem)
-		: ft_sprintf(c, "%02x ", (unsigned char)vm->ram[i].mem);
-		send_to_socket(vm, c, ft_strlen(c));
-		if (i / 64 != (i + 1) / 64)
-			send_to_socket(vm, "\n", 1);
-		i++;
-	}
-	send_to_socket(vm, "\n", 1);
-}
-
-void		send_num_player(t_vm *vm)
-{
-	int		i;
-	char c[20000];
-
-	i = 0;
-
-	while (i < MEM_SIZE)
-	{
-		i == MEM_SIZE - 1 ? ft_sprintf(c, "%d", ft_iabs(vm->ram[i].num)) : ft_sprintf(c, "%d,", ft_iabs(vm->ram[i].num));
-		send_to_socket(vm, c, 0);
-		i++;
-	}
-	send_to_socket(vm, "\n\n", 2);
-}
-//---------------------OLD ONE--------------------------------------------------
 
 
 
