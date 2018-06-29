@@ -53,6 +53,7 @@ async def play_corewar():
 		buf = None
 		while 1:
 			payload = new_socket.recv(1).decode()
+			# print(payload)
 			if (not payload or ("<end>" in payload)): #or len(payload) < 2):
 				print("End of payload.\nWaiting for another game to begin!")
 				new_socket.close()
@@ -70,7 +71,7 @@ async def play_corewar():
 				print("Sending #%d" % _dbg)
 				_dbg += 1
 				# asyncio.ensure_future(send_websocket(buf))
-				time.sleep(0.05)
+				# time.sleep(0.05)
 				wsock.send(buf)
 				buf = None
 			# if ("<end>" in payload): #or len(payload) < 2):
