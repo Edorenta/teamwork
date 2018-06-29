@@ -9,7 +9,7 @@ var in_map;
 
 function init()
 {
-	ws = new WebSocket(address);
+	ws = new ReconnectingWebSocket(address);
 	if (window.WebSocket === undefined)
 		console.log("Error: WebSockets not supported");
 	//callbacks:
@@ -20,8 +20,8 @@ function init()
 	ws.onmessage = function(event){
 		let data = event.data;
 		let type = data.slice(0, 5);
+		console.log(event.data);
 		//console.log("Rec:" + type);
-		// console.log("Rec:" + type);
 		switch (type){
 			case "<set>": in_set = data.slice(5, data.length); break;
 			case "<hex>": in_hex = data.slice(5, data.length); break;
