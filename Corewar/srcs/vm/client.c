@@ -25,8 +25,11 @@ void	send_player(t_vm *vm, int nb)
 
 void	send_to_socket(t_vm *vm, char *payload, size_t size)
 {
+	int ret;
+
 	if (vm->vizu)
-		send(vm->sock, payload, size, 0);
+		ret = send(vm->sock, payload, size, 0);
+	// ft_printf("Sent %d bytes:\n%s\n", ret, payload);
 }
 
 int		init_socket(void)

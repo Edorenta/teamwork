@@ -34,16 +34,16 @@ void		send_mem(t_vm *vm)
 {
 	int		i;
 	char	s1[15000];
-	char	s2[130];
+	char	s2[150];
 
 	i = 0;
-	ft_bzero(s1, 15000);
+	ft_memset(s1, 0, 15000);
 	if (vm->vizu)
 	{
 		send_to_socket(vm, "<hex>", 5);
 		while (i < MEM_SIZE)
 		{
-			ft_bzero(s2, 130);
+			ft_memset(s2, 0, 150);
 			(i == MEM_SIZE - 1)
 			? ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem)
 			: ft_sprintf(s2, "%02x ", (unsigned char)vm->ram[i].mem);
