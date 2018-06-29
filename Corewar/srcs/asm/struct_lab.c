@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 03:04:37 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:57:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ void	lab_create(t_iter *iter)
 	if (label == NULL || lab_exist(iter->labels, label))
 	{
 		label ? free(label) : 0;
+		label = NULL;
 		//token error here
 	}
-	lab_add(iter, label);
-	free(label);
+	label ? lab_add(iter, label) : 0;
+	label ? free(label) : 0;
 	label = NULL;
 }

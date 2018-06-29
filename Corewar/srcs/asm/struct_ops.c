@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:25:13 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:40:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	ops_debug(t_ops *ops)
 {
-	printf("type : %d, opcode: %#x\n", ops->type, ops->opcode);
+	printf("type : %d, opcode: %#x, lnb : %d\n", ops->type, ops->opcode, ops->lnb);
 	printf("args : %ld, %ld, %ld\n", ops->args[0], ops->args[1], ops->args[2]);
 	printf("argv : %ld, %ld, %ld\n", ops->argv[0], ops->argv[1], ops->argv[2]);
+	printf("label : %ld, %ld, %ld\n", ops->label[0], ops->label[1], ops->label[2]);
 }
 
 void	ops_tostring(t_ops *ops)
 {
-	printf("[TYPE :%#x][OPCODE %#x]\n", ops->type, ops->opcode);
+	printf("[TYPE :%#x][OPCODE %#x][LNB: %d]\n", ops->type, ops->opcode, ops->lnb);
 }
 
 static inline void	set_arr(long arr[3])
@@ -45,6 +46,7 @@ t_ops	*ops_new(void)
 	new->opcode = 0;
 	set_arr(new->args);
 	set_arr(new->argv);
+	set_arr(new->label);
 	return (new);
 }
 

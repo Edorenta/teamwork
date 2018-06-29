@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:38:08 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 03:01:13 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:03:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,47 @@ int		lab_exist(t_lab *lab, char *name)
 	iter = lab;
 	while (iter)
 	{
-		if (!ft_strcmp(lab->name, name))
+		if (ft_strequ(lab->name, name))
 			return (1);
 		iter = iter->next;
 	}
 	return (0);
 }
 
+long	lab_get(t_iter *iter, char *name)
+{
+	t_lab	*lab;
+
+	if (!iter || !name || !iter->labels)
+		return (-1);
+	lab = iter->labels;
+	while (lab)
+	{
+		if (ft_strequ(lab->name, name))
+			return (lab->lnb);
+		lab = lab->next;
+	}
+	return (-1);
+}
+
 void	lab_add(t_iter *iter, char *name)
 {
 	t_lab	*lab;
 
+	lab = NULL;
 	if (!iter->labels)
+	{
 		iter->labels = lab_new();
-	lab = iter->labels;
-	while (lab->next)
+		lab = iter->labels;
+	}
+	else
+	{
+		lab = iter->labels;
+		while (lab->next)
+			lab = lab->next;
+		lab->next = lab_new();
 		lab = lab->next;
-	lab->next = lab_new();
-	lab = lab->next;
+	}
 	lab->name = ft_strdup(name);
 	lab->lnb = iter->lnb;
 }
