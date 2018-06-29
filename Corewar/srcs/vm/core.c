@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 09:24:06 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 16:36:26 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 void	run(t_vm *vm)
 {
 	t_proc	*proc;
+	char	buf[50000];
 
 	while (process_living(vm))
 	{
@@ -66,13 +67,22 @@ void	run(t_vm *vm)
 		if (2 & vm->verbosity)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		proc = vm->proc;
+		ft_sprintf(buf, "%d,$", vm->cycle);
+		send_to_socket(vm, "<cyc>$", 6);
+		send_to_socket(vm, buf, ft_strlen(buf));
+		send_to_socket(vm, "[", 1);
 		while (proc != NULL)
 		{
 			if (proc->active)
+			{
 				exec_proc(vm, proc);
+				ft_sprintf(buf, "%d,$", proc->num);
+				send_to_socket(vm, buf, ft_strlen(buf));
+			}
 			proc->last_pc = proc->pc;
 			proc = proc->next;
 		}
+		send_to_socket(vm, "]$", 2);
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
