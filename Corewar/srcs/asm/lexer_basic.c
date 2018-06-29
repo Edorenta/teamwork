@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 01:01:47 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 02:28:31 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		check_head(t_iter *iter)
 	{
 		if (iter->line[5] && iter->line[5] != ' ')
 		{
-			iter->token |= HEAD_ERR1;
+			iter->token = HEAD_ERR1;
 			iter->count = 6;
 			return (-1);
 		}
@@ -50,7 +50,7 @@ int		check_head(t_iter *iter)
 	{
 		if (iter->line[8] && iter->line[8] != ' ')
 		{
-			iter->token |= HEAD_ERR2;
+			iter->token = HEAD_ERR2;
 			iter->count = 9;
 			return (-1);
 		}
@@ -118,11 +118,14 @@ int	check_name(t_iter *iter)
 
 int		lexer_basics(t_iter *iter)
 {
+	int	i;
+
+	i = token_lab(iter);
 	if (iter->line && *(iter->line) == COMMENT_CHAR)
 		(iter->token) |= TOKEN_COM;
-	else if (iter->line && token_lab(iter))
+	else if (iter->line && i == 1)
 		(iter->token) |= TOKEN_LAB;
-	else if (iter->line && token_lab(iter) == -1)
+	else if (iter->line && i == -1)
 		return (-1);
 	else if (iter->line && *(iter->line) == '.')
 	{

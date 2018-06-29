@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 01:01:44 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 02:34:20 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,17 @@ static t_tok	*lexer_token(t_iter *iter)
 
 void	put_error(t_iter *iter)
 {
-	iter_dell(iter);
-	if (iter->token == HEAD_ERR0)
-		printf("test");
+	//iter_del(iter);
+	printf("iter->token : %x\n", iter->token);
+	if (iter->token == LABEL_ERR2)
+		printf("%s\n%*c\nApres les deux points il faut un espace.\n", iter->line, iter->count + 1 , '^');
+	else if (iter->token == HEAD_ERR1)
+		printf("%s\n%*c\nIl faut un espace apres name.\n", iter->line, iter->count, '^');
+	else if (iter->token == HEAD_ERR2)
+		printf("%s\n%*c\nIl faut un espace apres comment.\n", iter->line, iter->count , '^');
+	else if (iter->token == HEAD_ERR0)
+		printf("%s\n%*c\nCe n'est pas un mot correct (name ou comment).\n", iter->line, iter->count + 1 , '^');
+	exit (0);
 }
 
 t_iter	*lexer(t_iter *iter, int fd)
@@ -78,18 +86,27 @@ t_iter	*lexer(t_iter *iter, int fd)
 		iter->count = 0;
 		iter->token = 0;
 		basic = lexer_basics(iter);
+	//	printf("%lx : ", basic);
 		if (basic == 0 || basic == TOKEN_LAB)
+		{
+	//		printf("instruction\n");
 			lexer_ins(iter);
+		}
 		else if (basic == -1)
+		{
+	//		printf("error\n");
 			put_error(iter);
+		}
 		else if (!iter->first)
 		{
+	//		printf("premier\n");
 			iter->first = lexer_token(iter);
 			iter->iter = iter->first;
 		}
 		else
 		{
 			iter->iter->next = lexer_token(iter);
+	//		printf("autre\n");
 			iter->iter = iter->iter->next;
 		}
 		++(iter->lnb);
