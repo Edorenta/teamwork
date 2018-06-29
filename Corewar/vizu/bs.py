@@ -43,55 +43,57 @@ while 1:
 	i = 0
 	buf = None
 	while 1:
+		buf = "<set>"
 		# j = 0
 		if i == 0: # pipe waiting for players
-			time.sleep(0.5)
-			print("Player names:")
+			# time.sleep(0.5)
+			# print("\nPlayer names:")
 			i = 1
 			while 1:
 				payload = new_socket.recv(2).decode()
 				if not payload:
 					pass
-				elif payload and "\n" not in payload:
+				elif payload and "\r" not in payload:
 					if buf:
 						buf += payload
 					else:
 						buf = payload
 				else:
-					buf += '\n'
-					buf += '\n'
+					# buf += '\n'
 					break
 		elif i == 1: # pipe waiting for hex dump
 			i = 2
-			time.sleep(0.5)
-			print("Map:")
+			buf = "<hex>"
+			# time.sleep(0.5)
+			# print("\nMap:")
 			while 1:
-				payload = new_socket.recv(8258).decode()
+				payload = new_socket.recv(2).decode()
 				if not payload:
 					pass
-				elif payload and (not buf or len(buf) < 8258):
+				elif payload and "\r" not in payload:
 					if buf:
 						buf += payload
 					else:
 						buf = payload
-					# j += 1
 				else:
+					# buf += '\n'
 					break
 		elif i == 2: # pipe waiting for player map
 			i = 1
-			time.sleep(0.5)
-			print("Players:")
+			buf = "<map>"
+			# time.sleep(0.5)
+			# print("\nPlayers:")
 			while 1:
-				payload = new_socket.recv(4098).decode()
+				payload = new_socket.recv(2).decode()
 				if not payload:
 					pass
-				elif payload and (not buf or len(buf) < 4098):
+				elif payload and "\r" not in payload:
 					if buf:
 						buf += payload
 					else:
 						buf = payload
-					# j += 1
 				else:
+					# buf += '\n'
 					break
 			# print("%s" % payload, end='')
 		if payload:
