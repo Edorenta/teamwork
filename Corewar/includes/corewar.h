@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 20:40:36 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 17:15:35 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ char					*get_data(t_player *player, char *buff);
 void					init_process(t_vm *vm);
 t_proc					*create_process(t_vm *vm, int num);
 int						process_living(t_vm *vm);
+void 					list_proc(t_vm *vm, t_proc *proc);
 void					kill_proc(t_vm *vm);
 void					set_ctd(t_vm *vm);
 int						set_proc_id(t_vm *vm);

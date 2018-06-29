@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 16:36:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 17:13:28 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,8 @@ void	run(t_vm *vm)
 		ft_sprintf(buf, "%d,$", vm->cycle);
 		send_to_socket(vm, "<cyc>$", 6);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		send_to_socket(vm, "[", 1);
-		while (proc != NULL)
-		{
-			if (proc->active)
-			{
-				exec_proc(vm, proc);
-				ft_sprintf(buf, "%d,$", proc->num);
-				send_to_socket(vm, buf, ft_strlen(buf));
-			}
-			proc->last_pc = proc->pc;
-			proc = proc->next;
-		}
+		send_to_socket(vm, "[$", 2);
+		list_proc(vm, proc);
 		send_to_socket(vm, "]$", 2);
 		vm->cycle++;
 		if (vm->dump != -1)
