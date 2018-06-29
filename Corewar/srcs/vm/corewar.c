@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 20:14:21 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:01:40 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,27 @@ void	get_winner(t_vm *vm)
 
 void	init_vm(t_vm *vm)
 {
+	// vm->ctd = CYCLE_TO_DIE;
+	// vm->next_ctd = CYCLE_TO_DIE;
+	// vm->dump = -1;
+	// ft_bzero(vm->player, sizeof(t_player) * 5);
+	// ft_bzero(vm->ram, sizeof(t_mem) * MEM_SIZE);
+
+	vm->nb_player = 0;
+	vm->lives_in_cycle = 0;
 	vm->ctd = CYCLE_TO_DIE;
+	vm->cycle = 0;
+	// vm->boost = 0;
+	vm->proc = NULL;
+	vm->last_one = NULL;
+	// vm->pause = 1;
+	// vm->ncurses = 0;
+	// vm->delay = NCURSES_DELAY;
+	vm->ctd_check = 0;
 	vm->next_ctd = CYCLE_TO_DIE;
 	vm->dump = -1;
+	// vm->debug = 0;
+	vm->winner = 0;
 	ft_bzero(vm->player, sizeof(t_player) * 5);
 	ft_bzero(vm->ram, sizeof(t_mem) * MEM_SIZE);
 }

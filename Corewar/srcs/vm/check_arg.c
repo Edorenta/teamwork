@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:29:46 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 20:14:16 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:03:49 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int		search_nb_dump(int argc, char **argv)
 
 int		search_vizu(int argc, char **argv)
 {
-	if (ft_strargv(argc, argv, "-g"))
+	int ret;
+
+	ret = 0;
+	if ((ret = ft_strargv(argc, argv, "-g")))
 		return (1);
 	return (0);
 }

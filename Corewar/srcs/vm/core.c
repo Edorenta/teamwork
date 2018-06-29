@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 05:18:40 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:45:01 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 void	run(t_vm *vm)
 {
 	t_proc	*proc;
-	int i = 0;//
 
 	while (process_living(vm))
 	{
@@ -77,10 +76,8 @@ void	run(t_vm *vm)
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
-		send_mem(vm);
-	printf("cycle = %d\n", vm->cycle);
-		send_num_player(vm);
-		ft_printf(">>>%d cycles\n", vm->cycle);
+		// send_mem(vm);
+		// send_num_player(vm);
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);

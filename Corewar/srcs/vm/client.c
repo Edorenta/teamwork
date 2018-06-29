@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/28 22:06:37 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/06/29 06:36:24 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ void	send_player(t_vm *vm, int nb)
 {
 	char	c[129];
 
-	ft_bzero(c, 129);
-	(nb == vm->nb_player || vm->nb_player == 1) ?
-		ft_sprintf(c, "%s", vm->player[nb].name) :
-		ft_sprintf(c, "%s,", vm->player[nb].name);
-	send_to_socket(vm, c, ft_strlen(c));
+	if (vm->vizu)
+	{
+		ft_bzero(c, 129);
+		(nb == vm->nb_player || vm->nb_player == 1) ?
+			ft_sprintf(c, "%s", vm->player[nb].name) :
+			ft_sprintf(c, "%s,", vm->player[nb].name);
+		send_to_socket(vm, c, ft_strlen(c));
+	}
 }
 
 void	send_to_socket(t_vm *vm, char *payload, size_t size)
@@ -29,7 +32,6 @@ void	send_to_socket(t_vm *vm, char *payload, size_t size)
 
 	if (vm->vizu)
 		ret = send(vm->sock, payload, size, 0);
-	// ft_printf("Sent %d bytes:\n%s\n", ret, payload);
 }
 
 int		init_socket(void)

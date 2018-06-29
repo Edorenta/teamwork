@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:34:27 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 20:34:47 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:06:37 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ int		search_players(t_vm *vm, int argc, char **argv)
 	i = 1;
 	tmp = NULL;
 	ft_bzero(c, 21);
+	vm->nb_player = 0;
 	while (i < argc)
 	{
 		if ((tmp = ft_strstr(argv[i], ".cor")) && !tmp[4])
 		{
 			vm->nb_player++;
 			if (vm->nb_player > MAX_PLAYERS)
-				exit_error("trop de champions");
+				exit_error("Too many champs");
 			new_player(vm, get_nb_player(vm, argv, i), argv[i]);
 		}
 		++i;

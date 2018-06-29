@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:04:38 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 03:55:50 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:24:35 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	set_ctd(t_vm *vm)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		vm->ctd_check = 0;
+		if (2 & vm->verbosity)
+			ft_printf("Cycle to die is now %d\n", vm->ctd);
 	}
 	else
 		vm->ctd_check++;

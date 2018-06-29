@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:01 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 05:09:10 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:36:01 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		process_living(t_vm *vm)
 	tmp = vm->proc;
 	if (vm->cycle < vm->next_ctd)
 		return (1);
-	printf("test===========================\n===============================\n");
 	kill_proc(vm);
 	set_ctd(vm);
 	vm->next_ctd = vm->cycle + vm->ctd;

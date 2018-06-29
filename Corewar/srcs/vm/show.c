@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 05:28:58 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 07:37:00 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,21 @@ void		show_mem(t_vm *vm)
 	ft_printf("\n\n");
 }
 
-// void		send_mem(t_vm *vm)
-// {
-/*
+void		send_mem(t_vm *vm)
+{
+
 	int		i;
 	char	s1[15000];
-	// char	s2[130];
-	char	s2[180];
+	char	s2[130];
 
 	i = 0;
-	// ft_bzero(s1, 15000);
+	ft_bzero(s1, 15000);
 	if (vm->vizu)
 	{
 		send_to_socket(vm, "<hex>", 5);
 		while (i < MEM_SIZE)
 		{
-			// ft_bzero(s2, 130);
+			ft_bzero(s2, 130);
 			(i == MEM_SIZE - 1)
 			? ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem)
 			: ft_sprintf(s2, "%02x ", (unsigned char)vm->ram[i].mem);
@@ -57,59 +56,30 @@ void		show_mem(t_vm *vm)
 		ft_strcat(s1, "\r");
 		send_to_socket(vm, s1, 15000);
 	}
-*/
-	// int		i;
-	// char	s2[130];
-	// char	s2[180];
+}
 
-	// i = 0;
-	// ft_bzero(s1, 15000);
-	// if (vm->vizu)
-	// {
-		// send_to_socket(vm, "<hex>", 5);
-		// while (i < MEM_SIZE)
-		// {
-			// ft_bzero(s2, 180);
-			// ft_bzero(s2, 130);
-			// (i == MEM_SIZE - 1)
-			// ? ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem)
-			// : ft_sprintf(s2, "%02x ", (unsigned char)vm->ram[i].mem);
-			// if (i / 64 != (i + 1) / 64)
-				// ft_strcat(s2, "\n");
-			// i++;
-			// send_to_socket(vm, s2, 180);
-			// printf("i %d", i);
-		// }
-		// send_to_socket(vm, "\r", 1);
-	// }
-// }
+void		send_num_player(t_vm *vm)
+{
+	int		i;
+	char	s1[5000];
+	char	c;
 
-// void		send_num_player(t_vm *vm)
-// {
-// 	int		i;
-// 	char	s1[5000];
-// 	char	c;
-//
-// 	i = 0;
-// 	ft_bzero(s1, 5000);
-// 	if (vm->vizu)
-// 	{
-// 		send_to_socket(vm, "<map>", 5);
-// 		while (i < MEM_SIZE)
-// 		{
-// 			c = (char)('0' + ft_iabs(vm->ram[i].num));
-// 			s1[i] = c;
-// 			i++;
-// 		}
-// 		s1[i] = '\n';
-// 		s1[++i] = '\r';
-// 		send_to_socket(vm, s1, 5000);
-// 	}
-// }
-
-
-
-
+	i = 0;
+	ft_bzero(s1, 5000);
+	if (vm->vizu)
+	{
+		send_to_socket(vm, "<map>", 5);
+		while (i < MEM_SIZE)
+		{
+			c = (char)('0' + ft_iabs(vm->ram[i].num));
+			s1[i] = c;
+			i++;
+		}
+		s1[i] = '\n';
+		s1[++i] = '\r';
+		send_to_socket(vm, s1, 5000);
+	}
+}
 
 static void	display_args(t_proc *proc, int n)
 {

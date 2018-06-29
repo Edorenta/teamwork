@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 20:33:17 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 06:53:42 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	write_player(t_vm *vm, int nb, int num)
 	i = (MEM_SIZE / vm->nb_player) * num;
 	data = get_data(&vm->player[nb], buff);
 	ft_memcpy(vm->player[nb].name, data + MAGIC_NB, PROG_NAME);
+	// ft_printf("Player name = %s\n len:%d\n", vm->player[nb].name, ft_strlen(vm->player[nb].name));
 	ft_strlen(vm->player[nb].name) ? 0 : exit_error("Empty name");
 	ft_memcpy(vm->player[nb].comments, data + MAGIC_NB + PROG_NAME + PROG_SIZE,
 		PROG_COMS);
@@ -101,6 +102,6 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
-	send_to_socket(vm, "]\n\n", 3);
+	send_to_socket(vm, "]\n\r", 3);
 	init_process(vm);
 }
