@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 02:28:31 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/06/29 03:08:26 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int		check_head(t_iter *iter)
 	}
 	else
 	{
-		(iter->token) |= HEAD_ERR0;
+		iter->count = 1;
+		(iter->token) = HEAD_ERR0;
 		return (-1);
 	}
 	return (1);
@@ -89,13 +90,13 @@ int	check_name(t_iter *iter)
 	{
 		++(iter->line);
 		countchar++;
-		if (iter->token == 0x02 && countchar == 129)
+		if (iter->token == 0x82 && countchar == 129)
 		{
 			iter->token = NAME_ERR0;
 			iter->count += countchar;
 			return (-1);
 		}
-		else if (iter->token == 0x04 && countchar == 2049)
+		else if (iter->token == 0x84 && countchar == 2049)
 		{
 			iter->token = COMT_ERR0;
 			iter->count += countchar;
@@ -105,11 +106,12 @@ int	check_name(t_iter *iter)
 	++(iter->line);
 	while  ((*(iter->line)) && *(iter->line) == ' ')
 	{
-		++(iter->count);
+		++(countchar);
 		++(iter->line);
 	}
 	if (*(iter->line) != ';' && *(iter->line) != '#' && *(iter->line) != '\0')
 	{
+		iter->count += countchar;
 		iter->token = ENDLI_ERR;
 		return (-1);
 	}

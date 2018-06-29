@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 02:47:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/29 03:10:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,26 @@ static t_tok	*lexer_token(t_iter *iter)
 	return (new);
 }
 
-void	put_error(t_iter *iter)
+void	put_error(t_iter *iter, char *line)
 {
 	//iter_del(iter);
 	printf("iter->token : %x\n", iter->token);
 	if (iter->token == LABEL_ERR2)
-		printf("%s\n%*c\nApres les deux points il faut un espace.\n", iter->line, iter->count + 1 , '^');
+		printf("%s\n%*c\nApres les deux points il faut un espace.\n", line, iter->count + 1 , '^');
 	else if (iter->token == HEAD_ERR1)
-		printf("%s\n%*c\nIl faut un espace apres name.\n", iter->line, iter->count, '^');
+		printf("%s\n%*c\nIl faut un espace apres name.\n", line, iter->count, '^');
 	else if (iter->token == HEAD_ERR2)
-		printf("%s\n%*c\nIl faut un espace apres comment.\n", iter->line, iter->count , '^');
+		printf("%s\n%*c\nIl faut un espace apres comment.\n", line, iter->count , '^');
 	else if (iter->token == HEAD_ERR0)
-		printf("%s\n%*c\nCe n'est pas un mot correct (name ou comment).\n", iter->line, iter->count + 1 , '^');
+		printf("%s\n%*c\nCe n'est pas un mot correct (name ou comment).\n", line, iter->count + 1 , '^');
+	else if (iter->token == NAME_ERR0)
+		printf("%s\n%*c\nLe nom ne peut pas depasser les 128 caracteres.\n", line, iter->count, '^');
+	else if (iter->token == COMT_ERR0)
+		printf("%s\n%*c\nLes commentaires ne peuvent pas depasser les 2048 caracteres.\n", line, iter->count , '^');
+	else if (iter->token == ENDLI_ERR)
+		printf("%s\n%*c\nLa ligne se termine soit par un commentaire soit par rien.\n", line, iter->count + 1 , '^');
+
+
 	exit (0);
 }
 
@@ -95,7 +103,7 @@ t_iter	*lexer(t_iter *iter, int fd)
 		else if (basic == -1)
 		{
 	//		printf("error\n");
-			put_error(iter);
+			put_error(iter, line);
 		}
 		else if (!iter->first)
 		{
