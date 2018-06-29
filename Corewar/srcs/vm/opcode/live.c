@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:04:10 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 15:15:03 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/29 05:13:41 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ void	live(t_vm *vm, t_proc *proc)
 		vm->player[num].life_signal++;
 		vm->player[num].last_live = vm->cycle;
 	}
+	ft_printf("Player %d (%s) is said to be alive\n",
+		num, vm->player[num].name);
 }
