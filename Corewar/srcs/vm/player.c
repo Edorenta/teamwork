@@ -101,6 +101,6 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
-	send_to_socket(vm, "]\n\r", 3);
+	send_to_socket(vm, "]\n\n", 3);
 	init_process(vm);
 }

@@ -81,4 +81,6 @@ void	run(t_vm *vm)
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
+	if (vm->vizu)
+		send_to_socket(vm, "<end>", 5);
 }

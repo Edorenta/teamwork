@@ -33,11 +33,11 @@ void		show_mem(t_vm *vm)
 void		send_mem(t_vm *vm)
 {
 	int		i;
-	char	s1[12289];
+	char	s1[15000];
 	char	s2[130];
 
 	i = 0;
-	ft_bzero(s1, 12289);
+	ft_bzero(s1, 15000);
 	if (vm->vizu)
 	{
 		send_to_socket(vm, "<hex>", 5);
@@ -53,18 +53,18 @@ void		send_mem(t_vm *vm)
 			i++;
 		}
 		ft_strcat(s1, "\r");
-		send_to_socket(vm, s1, 12289);
+		send_to_socket(vm, s1, 15000);
 	}
 }
 
 void		send_num_player(t_vm *vm)
 {
 	int		i;
-	char	s1[4098];
+	char	s1[5000];
 	char	c;
 
 	i = 0;
-	ft_bzero(s1, 4098);
+	ft_bzero(s1, 5000);
 	if (vm->vizu)
 	{
 		send_to_socket(vm, "<map>", 5);
@@ -76,7 +76,7 @@ void		send_num_player(t_vm *vm)
 		}
 		s1[i] = '\n';
 		s1[++i] = '\r';
-		send_to_socket(vm, s1, 4098);
+		send_to_socket(vm, s1, 5000);
 	}
 }
 
