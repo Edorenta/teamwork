@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:34:56 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 20:34:14 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/30 20:41:00 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	usage(void)
 	ft_printf("  -d N\t\t: Dumps memory after N cycles then exits\n");
 	ft_printf("  -v N\t\t: Verbosity levels, can be added together to enable ");
 	ft_printf("several\n");
-	ft_printf("\t\t\t- 1 : Show lives\n");
 	ft_printf("\t\t\t- 2 : Show cycles\n");
 	ft_printf("\t\t\t- 4 : Show operations (Params are NOT litteral ...)\n");
 	ft_printf("  -g\t: Graphics output mode\n");
