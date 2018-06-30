@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 09:39:44 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/30 18:19:04 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		send_num_player(t_vm *vm)
 	}
 }
 
-static void	display_args(t_proc *proc, int n)
+void		display_args(t_proc *proc, int n)
 {
 	if (proc->op.ar_typ[n] == REG_CODE)
 		ft_printf("r");

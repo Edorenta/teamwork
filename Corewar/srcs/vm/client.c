@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/29 09:50:23 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/06/30 20:17:50 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	send_to_socket(t_vm *vm, char *payload, size_t size)
 
 int		init_socket(void)
 {
-	char				*payload;
 	int					sock;
-	int					handler;
 	struct sockaddr_in	serv_addr;
 
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
