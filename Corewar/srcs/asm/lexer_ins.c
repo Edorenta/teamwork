@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 22:02:40 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 00:15:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		lexer_ins_sub(t_iter *iter, int op)
 		while (*iter->line && (ft_isdigit(*iter->line) ||
 			ft_isalpha(*iter->line) || *iter->line == '_' || *iter->line == '-'))
 			increment(iter);
-		clear_wsp(iter);
+		//clear_wsp(iter);
 		if (*iter->line && *iter->line == ',')
 		{
 			iter->token <<= 4;

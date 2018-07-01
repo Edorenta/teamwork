@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 05:36:30 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 00:04:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int		ops_get_ocp(t_ops *ops)
 	return (1);
 }
 
-int		ops_get_len(t_ops *ops)
+static unsigned int	ops_getlen(t_ops *ops)
 {
-	int		len;
-	int		count;
-	long		num;
+	unsigned int	len;
+	int				count;
+	long			num;
 
 	count = -1;
 	len = 0;
@@ -50,11 +50,32 @@ int		ops_get_len(t_ops *ops)
 		else if (num == 1)
 			len++;
 		else if (num == 2)
-			len += (ops->label[count] == -1) ? 2 : 4;
+			len += (ops->argv[count] == -1) ? 4 : 2;
 		else if (num == 3)
 			len += 2;	
 		else
+			//error here
 			break;
 	}
+	return (len);
+}
+
+unsigned int		ops_get_len(t_ops *ops)
+{
+	t_ops			*iter;
+	unsigned int	len;
+
+	len = 0;
+	if (ops)
+	{
+		iter = ops;
+		while (iter)
+		{
+			len += ops_getlen(iter);
+			iter = iter->next;
+		}
+	}
+	else
+		;//error here;	
 	return (len);
 }
