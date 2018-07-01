@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:04:38 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:33:13 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 00:34:32 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		move_pc(t_proc *proc)
 
 void	set_ctd(t_vm *vm)
 {
+	vm->ctd_check++;
 	if (vm->lives_in_cycle >= NBR_LIVE || vm->ctd_check >= MAX_CHECKS)
 	{
 		vm->ctd -= CYCLE_DELTA;
@@ -43,8 +44,6 @@ void	set_ctd(t_vm *vm)
 		if (2 & vm->verbosity)
 			ft_printf("Cycle to die is now %d\n", vm->ctd);
 	}
-	else
-		vm->ctd_check++;
 	vm->lives_in_cycle = 0;
 }
 
