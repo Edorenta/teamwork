@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 19:18:48 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 20:09:57 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		token_lab(t_iter *itr)
 			itr->count = count;
 			return (-1);
 		}
+		itr->count = count;
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 19:18:44 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 20:12:54 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,37 @@ t_iter	*lexer(t_iter *iter, int fd)
 		iter->count = 0;
 		iter->token = 0;
 		basic = lexer_basics(iter);
-	//	printf("%lx : ", basic);
-		if (basic == 0 || basic == TOKEN_LAB)
+		if (basic == TOKEN_LAB)
 		{
-	//		printf("instruction\n");
+			if (!iter->first)
+			{
+				iter->first = lexer_token(iter);
+				iter->iter = iter->first;
+			}
+			else
+			{
+				iter->iter->next = lexer_token(iter);
+				iter->iter = iter->iter->next;
+			}
+			iter->token = 0;
+			if (lexer_ins(iter) == -1)
+				put_error(iter, line);
+		}
+		else if (basic == 0)
+		{
 			if (lexer_ins(iter) == -1)
 				put_error(iter, line);
 		}
 		else if (basic == -1)
-		{
-	//		printf("error\n");
 			put_error(iter, line);
-		}
 		else if (!iter->first)
 		{
-	//		printf("premier\n");
 			iter->first = lexer_token(iter);
 			iter->iter = iter->first;
 		}
 		else
 		{
 			iter->iter->next = lexer_token(iter);
-	//		printf("autre\n");
 			iter->iter = iter->iter->next;
 		}
 		++(iter->lnb);
