@@ -6,7 +6,8 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 00:15:18 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 00:42:28 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 23:19:30 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +15,7 @@
 
 t_op	g_op_tab[17];
 
-void	lexer_sub_dir(t_iter *iter)
+int		lexer_sub_dir(t_iter *iter)
 {
 	increment(iter);
 	if (*iter->line == ':')
@@ -30,11 +31,22 @@ void	lexer_sub_dir(t_iter *iter)
 		iter->token |= INS_DIR;
 		iter_add_list(iter, "INS_DIR", INS_DIR);
 	}
+	else
+		return (-1);
+	return (0);
 }
-static int	lexer_ins_log(t_iter *iter)
+
+static int	lexer_ins_log(t_iter *iter, int op, int para)
 {
 	if (*iter->line == '%')
-		lexer_sub_dir(iter);
+	{
+		if (lexer_sub_dir(iter) == -1)
+		{
+			iter->token = PAR_ERR0;
+			return (-1);
+		}
+		else if (g_op_tab[op].arg[i] !=
+	}
 	else if (*iter->line == 'r')
 	{
 		increment(iter);
@@ -55,6 +67,7 @@ static int	lexer_ins_log(t_iter *iter)
 	}
 	return (1);
 }
+
 int		lexer_ins_sub(t_iter *iter, int op) 
 {
 	int sep;
@@ -63,7 +76,7 @@ int		lexer_ins_sub(t_iter *iter, int op)
 	clear_wsp(iter);
 	while (sep < 3)
 	{
-		if (lexer_ins_log(iter) == -1)
+		if (lexer_ins_log(iter, op, sep) == -1)
 			return (-1);
 		while (*iter->line && (ft_isdigit(*iter->line) ||
 			ft_isalpha(*iter->line) || *iter->line == '_' || *iter->line == '-'))
@@ -87,7 +100,6 @@ int		lexer_ins_sub(t_iter *iter, int op)
 		return (-1);
 	}
 	return (1);
-	//voir si nb separateur == nb parametre + 1;
 }
 
 int		lexer_ins(t_iter *iter)
