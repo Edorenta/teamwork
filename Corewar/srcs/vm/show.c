@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:26:02 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:45:31 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		send_mem(t_vm *vm)
 		while (i < MEM_SIZE)
 		{
 			ft_bzero(s2, 130);
-			(i == MEM_SIZE - 1)
+			((i == MEM_SIZE - 1) || !(i % 64 && i > 0)))
 			? ft_sprintf(s2, "%02x", (unsigned char)vm->ram[i].mem)
 			: ft_sprintf(s2, "%02x ", (unsigned char)vm->ram[i].mem);
 			s1[0] ? ft_strcat(s1, s2) : ft_strcpy(s1, s2);
