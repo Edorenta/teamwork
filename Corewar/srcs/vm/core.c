@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:25:41 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:33:32 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void	run(t_vm *vm)
 		proc = vm->proc;
 		ft_sprintf(buf, "%d,", vm->cycle);
 		send_to_socket(vm, "$<cyc>[", 7);
-		ft_sprintf(buf, "%d,", vm->cdt);//
 		send_to_socket(vm, buf, ft_strlen(buf));
+		ft_sprintf(buf, "%d,", vm->ctd);
+		buf[ft_strlen(buf)] = ']';
 		send_to_socket(vm, buf, ft_strlen(buf));
-		send_to_socket(vm, "]$<exe>[", 8);
+		send_to_socket(vm, "$<exe>[", 7);
 		list_proc(vm, proc);
 		send_to_socket(vm, "]", 1);
 		vm->cycle++;
