@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 18:01:05 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:40:26 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ void	run(t_vm *vm)
 		if (2 & vm->verbosity)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		proc = vm->proc;
-		ft_sprintf(buf, "%d,$", vm->cycle);
-		send_to_socket(vm, "<cyc>$", 6);
+		send_to_socket(vm, "$<cyc>[", 7);
+		ft_sprintf(buf, "%d,", vm->cycle);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		send_to_socket(vm, "[$", 2);
+		ft_sprintf(buf, "%d", vm->ctd);
+		send_to_socket(vm, buf, ft_strlen(buf));
+		send_to_socket(vm, "]$<exe>[", 8);
 		list_proc(vm, proc);
-		send_to_socket(vm, "]$", 2);
+		send_to_socket(vm, "]", 1);
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
@@ -81,5 +83,5 @@ void	run(t_vm *vm)
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
-	send_to_socket(vm, "<end>", 5);
+	send_to_socket(vm, "$<end>", 6);
 }

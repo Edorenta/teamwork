@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 19:33:51 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 09:25:48 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:24:46 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	create_players(t_vm *vm)
 	i = 1;
 	j = 0;
 	ft_printf("Introducing contestants...\n");
-	send_to_socket(vm, "<set>[", 6);
+	send_to_socket(vm, "$<set>[", 7);
 	while (i <= MAX_PLAYERS)
 	{
 		if (vm->player[i].active)
@@ -101,6 +101,6 @@ void	create_players(t_vm *vm)
 		}
 		i++;
 	}
-	send_to_socket(vm, "]\n\r", 3);
+	send_to_socket(vm, "]", 1);
 	init_process(vm);
 }
