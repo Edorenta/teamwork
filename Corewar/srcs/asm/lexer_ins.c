@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 20:12:30 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 20:54:29 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,9 @@ int		lexer_ins(t_iter *iter)
 	token = NULL;
 	if (iter->line && iter->token == 0)
 	{
-		iter->token = TOKEN_INS;
-		iter->token <<= 4;
 		if ((op = token_ins(iter, iter->line)) > -1)
 		{
+			iter->token = TOKEN_INS;
 			iter->token <<= 4;
 			iter->token |= op + 1;
 			iter->iter->next = token_create(0x600 | (op + 1), g_op_tab[op].name, iter->lnb, iter->count);
@@ -106,7 +105,7 @@ int		lexer_ins(t_iter *iter)
 			end_line(iter);
 			return (0);
 		}
-		else
+		else if (op == -1)
 			return (-1);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 20:12:54 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 20:55:45 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_tok	*lexer_token(t_iter *iter)
 void	put_error(t_iter *iter, char *line)
 {
 	//iter_del(iter);
-	printf("iter->token : %x\n", iter->token);
+	printf("iter->token  lol ?: %x\n", iter->token);
 	if (iter->token == LABEL_ERR2)
 		printf("%s\n%*c\nApres les deux points il faut un espace.\n", line, iter->count + 1 , '^');
 	else if (iter->token == HEAD_ERR1)
@@ -96,7 +96,7 @@ t_iter	*lexer(t_iter *iter, int fd)
 		iter->count = 0;
 		iter->token = 0;
 		basic = lexer_basics(iter);
-		if (basic == TOKEN_LAB)
+		if (basic == (TOKEN_LAB << 4))
 		{
 			if (!iter->first)
 			{
