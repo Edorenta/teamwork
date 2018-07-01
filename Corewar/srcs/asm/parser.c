@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 22:59:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 00:10:47 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line)
 	iter = token->list;
 	new = ops_new();
 	new->type = (token->type & 0xFF);
+	printf("\n%s\n", line);
 	while (iter)
 	{
 		if ((iter->type & 0x0F) <= 0x6)
@@ -47,11 +48,12 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line)
 			else
 				new->argv[argc] = ft_atoi(&line[iter->pos]);
 			argc++;
+			printf("(%s)\n", &line[iter->pos]);
 		}
 		iter = iter->next;
 	}
-	ops_get_ocp(new);
 	new->lnb = token->lnb;
+	ops_debug(new);
 	return (new);
 }
 
