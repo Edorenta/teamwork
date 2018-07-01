@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 19:02:27 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:22:38 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_ops	*parser(t_iter *iter, int fd)
 		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
+		token_tostring(iter->iter);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{
 			if (!first)

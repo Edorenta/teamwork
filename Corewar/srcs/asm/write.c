@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 19:18:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 20:13:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ static int	write_args(int fd, t_ops *ops)
 		if (num == -1)
 			break;
 		else if (num == 1)
-			write(fd, (const char *)ops->argv[count], 1);
+			;//write(fd, (const char *)ops->argv[count], 1);
 		else if (num == 2)
 		{
 			if (ops->label[count] == -1)
-				write(fd, (const char *)ops->argv[count], 2);
+				;//write(fd, (const char *)ops->argv[count], 2);
 			else
-				write(fd, (const char *)ops->label[count], 4);		
+				;//write(fd, (const char *)ops->label[count]122, 4);		
 		}
 		else if (num == 3)
-			write(fd, (const char *)ops->argv[count], 2);
+			;//write(fd, (const char *)ops->argv[count], 2);
 		else
 			break;
 	}
