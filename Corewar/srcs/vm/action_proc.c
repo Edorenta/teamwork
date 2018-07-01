@@ -75,8 +75,8 @@ void	list_proc(t_vm *vm, t_proc *proc)
 		if (proc->active)
 		{
 			exec_proc(vm, proc);
-			proc->next ? ft_sprintf(buf, "%d,", proc->num)
-			: ft_sprintf(buf, "%d", proc->num);
+			proc->next ? ft_sprintf(buf, "\"%d\",", proc->num)
+			: ft_sprintf(buf, "\"%d\"", proc->num);
 			send_to_socket(vm, buf, ft_strlen(buf));
 		}
 		proc->last_pc = proc->pc;

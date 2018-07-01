@@ -68,9 +68,9 @@ void	run(t_vm *vm)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		proc = vm->proc;
 		send_to_socket(vm, "$<cyc>[", 7);
-		ft_sprintf(buf, "%d,", vm->cycle);
+		ft_sprintf(buf, "\"%d\",", vm->cycle);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		ft_sprintf(buf, "%d", vm->ctd);
+		ft_sprintf(buf, "\"%d\"", vm->ctd);
 		send_to_socket(vm, buf, ft_strlen(buf));
 		send_to_socket(vm, "]$<exe>[", 8);
 		list_proc(vm, proc);
