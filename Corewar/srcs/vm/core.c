@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:33:32 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:38:03 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ void	run(t_vm *vm)
 		if (2 & vm->verbosity)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		proc = vm->proc;
-		ft_sprintf(buf, "%d,", vm->cycle);
 		send_to_socket(vm, "$<cyc>[", 7);
+		ft_sprintf(buf, "%d,", vm->cycle);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		ft_sprintf(buf, "%d,", vm->ctd);
-		buf[ft_strlen(buf)] = ']';
+		ft_sprintf(buf, "%d", vm->ctd);
 		send_to_socket(vm, buf, ft_strlen(buf));
 		send_to_socket(vm, "$<exe>[", 7);
 		list_proc(vm, proc);
