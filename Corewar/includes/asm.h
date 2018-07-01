@@ -6,7 +6,8 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 19:18:50 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 19:21:10 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 19:01:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +43,7 @@ int					lexer_basics(t_iter *iter);
 
 t_iter				*iter_add_list(t_iter *iter, char *label, int type);
 t_iter				*iter_new(void);
-void				iter_head(char *line, t_iter *iter);
+void				iter_head(char *line, t_iter *iter, int token);
 void				iter_del(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);

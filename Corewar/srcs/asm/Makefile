@@ -25,8 +25,11 @@ FILE = ../../rsrc/examples/
 TARGET = bee_gees
 
 all :
-	clang $(SRC) $(LIB) $(INC) -o $(NAME)
+	@rm -f test.cor
+	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm $(FILE)$(TARGET).s
+	echo
+	hexdump -C test.cor
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
