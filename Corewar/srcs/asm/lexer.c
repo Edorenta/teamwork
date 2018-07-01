@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 17:47:37 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:18:44 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	put_error(t_iter *iter, char *line)
 		printf("%s\n%*c\nLes commentaires ne peuvent pas depasser les 2048 caracteres.\n", line, iter->count , '^');
 	else if (iter->token == ENDLI_ERR)
 		printf("%s\n%*c\nLa ligne se termine soit par un commentaire soit par rien.\n", line, iter->count + 1 , '^');
+	else if (iter->token == INS_ERR0)
+		printf("%s\n%*c\nInstruction non defini.\n", line, iter->count + 1 , '^');
 
 
 	exit (0);
@@ -98,7 +100,8 @@ t_iter	*lexer(t_iter *iter, int fd)
 		if (basic == 0 || basic == TOKEN_LAB)
 		{
 	//		printf("instruction\n");
-			lexer_ins(iter);
+			if (lexer_ins(iter) == -1)
+				put_error(iter, line);
 		}
 		else if (basic == -1)
 		{

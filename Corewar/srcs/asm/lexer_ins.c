@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 12:32:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:17:56 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	lexer_ins_sub(t_iter *iter)
 	}
 }
 
-void	lexer_ins(t_iter *iter)
+int		lexer_ins(t_iter *iter)
 {
 	int		len;
 	int		op;
@@ -92,7 +92,7 @@ void	lexer_ins(t_iter *iter)
 	{
 		iter->token |= TOKEN_INS;
 		iter->token <<= 4;
-		if ((op = token_ins(iter->line)) > -1)
+		if ((op = token_ins(iter, iter->line)) > -1)
 		{
 			iter->token <<= 4;
 			iter->token |= op + 1;
@@ -104,6 +104,10 @@ void	lexer_ins(t_iter *iter)
 				increment(iter);
 			lexer_ins_sub(iter);
 			end_line(iter);
+			return (0);
 		}
+		else
+			return (-1);
 	}
+	return (1);
 }

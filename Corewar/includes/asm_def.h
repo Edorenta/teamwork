@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 22:05:37 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 19:14:44 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define INS_COM	0x0A
 # define INS_END	0x0B
 # define INS_ERR	0x0C
+# define INS_ERR0	0x8e
 
 # define HEAD_NAME	0x02
 # define HEAD_COMT	0x04

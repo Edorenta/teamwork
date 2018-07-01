@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 01:51:15 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 19:18:48 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,37 @@ int		token_lab(t_iter *itr)
 	return (0);
 }
 
-int		token_ins(char *line)
+int		token_ins(t_iter *iter, char *line)
 {
 	int	i;
 	int	len;
 	int	ret;
+	int count;
 
 	ret = -1;
 	i = 0;
+	count = 0;
 	while (*line && ft_isspace(*line))
+	{
+		count++;
 		++line;
+	}
 	while (i < 16)
 	{
 		len = ft_strlen(g_op_tab[i].name);
-//test si len+1 isspace
-//else err aussi !
 		if (ft_strnequ(line, g_op_tab[i].name, len) == 1)
-			ret = i;
+		{
+			if (ft_isspace(line[len]))
+				ret = i;
+			else
+				count = count + len;
+		}
 		i++;
+	}
+	if (ret == -1)
+	{
+		iter->token = INS_ERR0;
+		iter->count += count;
 	}
 	return (ret);
 }

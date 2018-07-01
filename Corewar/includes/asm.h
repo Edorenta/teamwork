@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 18:43:42 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:18:50 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int					token_wsp(char *line, int *count);
 int					token_lab(t_iter *itr);
-int					token_ins(char *line);
+int					token_ins(t_iter *iter, char *line);
 int					token_com(char *line, int *count);
 
 int					check_op(unsigned int value);
@@ -37,7 +37,7 @@ t_iter				*lexer(t_iter *iter, int fd);
 t_ops				*parser(t_iter *iter, int fd);
 
 void				lexer_ins_sub(t_iter *iter);
-void				lexer_ins(t_iter *iter);
+int					lexer_ins(t_iter *iter);
 int					lexer_basics(t_iter *iter);
 
 t_iter				*iter_add_list(t_iter *iter, char *label, int type);
