@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:04:38 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 18:11:52 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:19:15 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	list_proc(t_vm *vm, t_proc *proc)
 		if (proc->active)
 		{
 			exec_proc(vm, proc);
-			ft_sprintf(buf, "%d,$", proc->num);
+			ft_sprintf(buf, "%d,", proc->num);
 			send_to_socket(vm, buf, ft_strlen(buf));
 		}
 		proc->last_pc = proc->pc;

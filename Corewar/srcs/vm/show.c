@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:27:40 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/30 18:19:04 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/01 21:26:02 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		send_mem(t_vm *vm)
 	ft_bzero(s1, 15000);
 	if (vm->vizu)
 	{
-		send_to_socket(vm, "<hex>", 5);
+		send_to_socket(vm, "$<hex>", 6);
 		while (i < MEM_SIZE)
 		{
 			ft_bzero(s2, 130);
@@ -52,7 +52,6 @@ void		send_mem(t_vm *vm)
 				ft_strcat(s1, "\n");
 			i++;
 		}
-		ft_strcat(s1, "\r");
 		send_to_socket(vm, s1, 15000);
 	}
 }
@@ -67,7 +66,7 @@ void		send_num_player(t_vm *vm)
 	ft_bzero(s1, 5000);
 	if (vm->vizu)
 	{
-		send_to_socket(vm, "<map>", 5);
+		send_to_socket(vm, "$<map>", 6);
 		while (i < MEM_SIZE)
 		{
 			c = (char)('0' + ft_iabs(vm->ram[i].num));
@@ -75,7 +74,6 @@ void		send_num_player(t_vm *vm)
 			i++;
 		}
 		s1[i] = '\n';
-		s1[++i] = '\r';
 		send_to_socket(vm, s1, 5000);
 	}
 }
