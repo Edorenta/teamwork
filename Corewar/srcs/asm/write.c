@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:49:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 18:39:38 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static int	write_args(int fd, t_ops *ops)
 			if (ops->label[count] == -1)
 				write(fd, (const char *)ops->argv[count], 2);
 			else
-				write(fd, (const char *)ops->label[count], 4);
-			
+				write(fd, (const char *)ops->label[count], 4);		
 		}
 		else if (num == 3)
 			write(fd, (const char *)ops->argv[count], 2);
@@ -51,13 +50,10 @@ static int	write_args(int fd, t_ops *ops)
 	return (1);
 }
 
-void		write_ops(char *filename, t_ops *ops, t_header *head)
+void		write_ops(int fd, t_ops *ops)
 {
-	int		fd;
 	t_ops		*iter;
 	
-	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
-	write_head(fd, *head);
 	iter = ops;
 	while (iter)
 	{
@@ -66,5 +62,14 @@ void		write_ops(char *filename, t_ops *ops, t_header *head)
 		write_args(fd, ops);
 		iter = iter->next;
 	}
+}
+
+void		write_all(char *filename, t_ops *ops, t_header header)
+{
+	int			fd;
+	
+	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
+	write_head(fd, header);
+	write_ops(fd, ops);
 	close(fd);
 }

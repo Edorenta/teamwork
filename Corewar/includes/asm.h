@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 05:24:10 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 18:43:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					lexer_basics(t_iter *iter);
 
 t_iter				*iter_add_list(t_iter *iter, char *label, int type);
 t_iter				*iter_new(void);
-t_header			iter_head(t_iter *iter);
+void				iter_head(char *line, t_iter *iter);
 void				iter_del(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);
@@ -56,8 +56,9 @@ void				ops_tostring(t_ops *ops);
 void				ops_debug(t_ops *ops);
 int					ops_get_ocp(t_ops *ops);
 
-void				write_ops(char *filename, t_ops *ops, t_header *head);
+void				write_ops(int fd, t_ops *ops);
 void				write_head(int fd, t_header head);
+void				write_all(char *filename, t_ops *ops, t_header head);
 
 t_lab				*lab_new(void);
 long				lab_get(t_iter *iter, char *name);

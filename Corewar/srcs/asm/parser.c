@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 06:01:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 18:40:21 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,28 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line)
 	}
 	ops_get_ocp(new);
 	new->lnb = token->lnb;
-	ops_debug(new);
-	//token_tostring(token);
 	return (new);
 }
 
 t_ops	*parser(t_iter *iter, int fd)
 {
-	char	*line;
-	int		ret;
-	t_ops	*first;
-	t_ops	*itera;
+	char		*line;
+	int			ret;
+	t_ops		*first;
+	t_ops		*itera;
+	t_header	*head;
 
 	line = NULL;
 	first = NULL;
 	itera = NULL;
+	head = NULL;
 	ret = 0;
 	iter->iter = iter->first;
-	lab_tostring(iter);
 	// Set error here
 	if (lseek(fd, 0, SEEK_SET) < 0)
 		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
-		printf("\nline {%s}\n", line);
-		if (iter->iter->type)
-			;
-		//token_tostring(iter->iter);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{
 			if (!first)
@@ -92,8 +87,8 @@ t_ops	*parser(t_iter *iter, int fd)
 				itera = itera->next;
 			}
 		}
-		else
-			;
+		else if (iter->iter->type == 0x82 || iter->iter->type == 0x84)
+			iter_head(line, iter);
 		free(line);
 		line = NULL;
 		if (iter->iter)

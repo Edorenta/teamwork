@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 03:14:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 17:47:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ static t_tok	*lexer_token(t_iter *iter)
 	{
 		new = token_iter(iter, lexer_label(token));
 		if ((new->type >> 4) == TOKEN_LAB)
-		{
-			printf("%s\n", iter->line);
 			lab_create(iter);
-		}
 	}
 	else
 	{
