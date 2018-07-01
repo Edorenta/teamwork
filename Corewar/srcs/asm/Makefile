@@ -1,19 +1,20 @@
 SRC = asm.c \
-	  main.c \
-      lexer.c \
+      op.c \
+      main.c \
       parser.c \
+      lexer.c \
       lexer_basic.c \
       lexer_ins.c \
-      op.c \
-	  struct_iter.c \
-	  struct_lab.c \
+      struct_iter.c \
+      struct_lab.c \
       struct_ops.c \
       struct_token.c \
       check.c \
       utils.c \
-	  utils_ops.c \
-	  utils_lab.c \
-	  write.c
+      utils_ops.c \
+      utils_lab.c \
+      utils_iter.c \
+      write.c
 
 CFLAGS = -Wall -Werror -Wextra
 LIB = ../../libft/libft.a
@@ -35,7 +36,7 @@ clean :
 	rm -rf asm.dSym
 
 fsan :
-	gcc -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
+	clang -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm $(FILE)$(TARGET).s
 
 lldb :

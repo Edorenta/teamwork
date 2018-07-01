@@ -78,6 +78,7 @@ typedef struct		s_iter
 	t_tok			*first;
 	t_tok			*iter;
 	t_lab			*labels;
+	t_header		header;
 	unsigned int	token;
 }					t_iter;
 

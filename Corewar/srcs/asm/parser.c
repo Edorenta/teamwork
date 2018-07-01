@@ -76,6 +76,8 @@ t_ops	*parser(t_iter *iter, int fd)
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
 		printf("\nline {%s}\n", line);
+		if (iter->iter->type)
+			;
 		//token_tostring(iter->iter);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{

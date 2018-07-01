@@ -37,8 +37,24 @@ int		ops_get_ocp(t_ops *ops)
 int		ops_get_len(t_ops *ops)
 {
 	int		len;
+	int		count;
+	long		num;
 
-	(void)ops;
-	len = 8;
-	return (1);
+	count = -1;
+	len = 0;
+	while (++count < 3)
+	{
+		num = (ops->args[count]);
+		if (num == -1)
+			break;
+		else if (num == 1)
+			len++;
+		else if (num == 2)
+			len += (ops->label[count] == -1) ? 2 : 4;
+		else if (num == 3)
+			len += 2;	
+		else
+			break;
+	}
+	return (len);
 }

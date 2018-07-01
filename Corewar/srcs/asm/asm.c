@@ -16,8 +16,9 @@
 int		ft_asm(char **argv)
 {
 	int		fd; 
-	t_iter	*iter;
-	t_ops	*ops;
+	t_iter		*iter;
+	t_ops		*ops;
+	t_header	head;
 
 	//error handling here
 	iter = iter_new();
@@ -30,8 +31,9 @@ int		ft_asm(char **argv)
 		{
 			iter = lexer(iter, fd);
 			ops = parser(iter, fd);
+			head = iter_head(iter);
 			iter_del(iter);
-			//write_ops("test.cor", ops);
+			write_ops("test.cor", ops, &head);
 			ops_del(ops);
 			close(fd);
 		}

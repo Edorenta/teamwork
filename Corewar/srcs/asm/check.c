@@ -103,6 +103,8 @@ int		token_ins(char *line)
 	while (i < 16)
 	{
 		len = ft_strlen(g_op_tab[i].name);
+//test si len+1 isspace
+//else err aussi !
 		if (ft_strnequ(line, g_op_tab[i].name, len) == 1)
 			ret = i;
 		i++;

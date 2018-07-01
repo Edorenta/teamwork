@@ -13,11 +13,11 @@
 #ifndef ASM_H
 # define ASM_H
 # include <stdio.h>
+# include "op.h"
 # include "libft.h"
 # include "asm_def.h"
 # include "asm_struct.h"
 # include "libft.h"
-# include "op.h"
 
 int					token_wsp(char *line, int *count);
 int					token_lab(t_iter *itr);
@@ -42,6 +42,7 @@ int					lexer_basics(t_iter *iter);
 
 t_iter				*iter_add_list(t_iter *iter, char *label, int type);
 t_iter				*iter_new(void);
+t_header			iter_head(t_iter *iter);
 void				iter_del(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);
@@ -55,8 +56,8 @@ void				ops_tostring(t_ops *ops);
 void				ops_debug(t_ops *ops);
 int					ops_get_ocp(t_ops *ops);
 
-void				write_ops(char *filename, t_ops *ops);
-void				write_head(char *filename, t_header head);
+void				write_ops(char *filename, t_ops *ops, t_header *head);
+void				write_head(int fd, t_header head);
 
 t_lab				*lab_new(void);
 long				lab_get(t_iter *iter, char *name);
