@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 20:55:45 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 22:02:48 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_tok	*lexer_token(t_iter *iter)
 void	put_error(t_iter *iter, char *line)
 {
 	//iter_del(iter);
-	printf("iter->token  lol ?: %x\n", iter->token);
+	//printf("iter->token : %x\n", iter->token);
 	if (iter->token == LABEL_ERR2)
 		printf("%s\n%*c\nApres les deux points il faut un espace.\n", line, iter->count + 1 , '^');
 	else if (iter->token == HEAD_ERR1)
@@ -78,9 +78,11 @@ void	put_error(t_iter *iter, char *line)
 	else if (iter->token == ENDLI_ERR)
 		printf("%s\n%*c\nLa ligne se termine soit par un commentaire soit par rien.\n", line, iter->count + 1 , '^');
 	else if (iter->token == INS_ERR0)
-		printf("%s\n%*c\nInstruction non defini.\n", line, iter->count + 1 , '^');
-
-
+		printf("%s\n%*c\nInstruction non defini.\n", line, iter->count, '^');
+	else if (iter->token == PAR_ERR0)
+		printf("%s\n%*c\nCela n'est pas un parametre valable.\n", line, iter->count, '^');
+	else if (iter->token == PAR_ERR1)
+		printf("%s\n%*c\nPas le bon nombre de parametre.\n", line, iter->count, '^');
 	exit (0);
 }
 

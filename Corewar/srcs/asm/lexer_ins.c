@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 20:54:29 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/01 22:02:40 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ static int	lexer_ins_log(t_iter *iter)
 		iter_add_list(iter, "INS_IND", INS_IND);
 	}
 	else
-		return (0);
+	{
+		iter->token = PAR_ERR0;
+		return (-1);
+	}
 	return (1);
 }
-void	lexer_ins_sub(t_iter *iter) 
+int		lexer_ins_sub(t_iter *iter, int op) 
 {
 	int sep;
 
@@ -60,11 +63,12 @@ void	lexer_ins_sub(t_iter *iter)
 	clear_wsp(iter);
 	while (sep < 3)
 	{
-		if (!lexer_ins_log(iter))
-			break;
+		if (lexer_ins_log(iter) == -1)
+			return (-1);
 		while (*iter->line && (ft_isdigit(*iter->line) ||
 			ft_isalpha(*iter->line) || *iter->line == '_' || *iter->line == '-'))
 			increment(iter);
+		clear_wsp(iter);
 		if (*iter->line && *iter->line == ',')
 		{
 			iter->token <<= 4;
@@ -77,6 +81,13 @@ void	lexer_ins_sub(t_iter *iter)
 		clear_wsp(iter);
 		sep++;
 	}
+	if (g_op_tab[op].nbarg != sep + 1)
+	{
+		iter->token = PAR_ERR1;
+		return (-1);
+	}
+	return (1);
+	//voir si nb separateur == nb parametre + 1;
 }
 
 int		lexer_ins(t_iter *iter)
@@ -101,7 +112,8 @@ int		lexer_ins(t_iter *iter)
 			clear_wsp(iter);
 			while (--len > -1)
 				increment(iter);
-			lexer_ins_sub(iter);
+			if (lexer_ins_sub(iter, op) == -1)
+				return (-1);
 			end_line(iter);
 			return (0);
 		}
