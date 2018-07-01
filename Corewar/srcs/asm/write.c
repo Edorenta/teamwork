@@ -6,20 +6,11 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 21:34:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 23:51:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-void		write_head(int fd, t_header head)
-{
-	const char	header[4] = {0, 0xea, 0x83, 0xf3};
-	
-	write(fd, header, 4);
-	write(fd, head.prog_name, PROG_NAME_LENGTH);
-	write(fd, head.comment, COMMENT_LENGTH);
-}
 
 static int	write_fill(int fd, long value, int size, int type)
 {
@@ -38,6 +29,13 @@ static int	write_fill(int fd, long value, int size, int type)
 		print[1] = (value & 0xFF00);
 		print[2] = (value & 0xFF0000);
 		print[3] = (value & 0xFF000000);
+	}
+	else if (type == 4)
+	{	
+		print[3] = (value & 0xFF);
+		print[2] = (value & 0xFF00);
+		print[1] = (value & 0xFF0000);
+		print[0] = (value & 0xFF000000);
 	}
 	return (write(fd, &print, size));
 }
@@ -73,6 +71,22 @@ static int	write_args(int fd, t_ops *ops)
 	}
 	return (1);
 }
+
+void		write_head(int fd, t_header head)
+{
+	const char	header[4] = {0, 0xea, 0x83, 0xf3};
+	int	pad;
+
+	pad = 0;
+	write(fd, header, 4);
+	write(fd, &pad, 4);
+	head.prog_size = 77;
+	write(fd, head.prog_name, PROG_NAME_LENGTH);
+	write_fill(fd, head.prog_size, 4, 4);
+	write(fd, head.comment, COMMENT_LENGTH);
+	write(fd, &pad, 4);
+}
+
 
 void		write_ops(int fd, t_ops *ops)
 {
