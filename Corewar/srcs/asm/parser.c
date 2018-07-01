@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 20:18:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 22:59:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ t_ops	*parser(t_iter *iter, int fd)
 		}
 		else if (iter->iter->type == 0x82 || iter->iter->type == 0x84)
 			iter_head(line, iter, iter->iter->type);
+		else if (iter->iter->type == (TOKEN_LAB << 4))
+		{
+			if (iter->iter->next && iter->iter->lnb == iter->iter->next->lnb)
+			{
+				iter->iter = iter->iter->next;
+				itera->next = parse_sub(iter, iter->iter, &line[iter->iter->pos]);
+				itera = itera->next;
+			}
+		}
 		free(line);
 		line = NULL;
 		if (iter->iter)
@@ -96,5 +105,5 @@ t_ops	*parser(t_iter *iter, int fd)
 	}
 	free(line);
 	line = NULL;
-	return (first);
+	return (ret == -1 ? NULL : first);
 }

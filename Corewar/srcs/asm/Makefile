@@ -28,7 +28,7 @@ all :
 	@rm -f test.cor
 	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm $(FILE)$(TARGET).s
-	echo
+	@echo 
 	hexdump -C test.cor
 
 val :
