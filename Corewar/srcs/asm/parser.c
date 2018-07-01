@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 18:40:21 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:02:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_ops	*parser(t_iter *iter, int fd)
 			}
 		}
 		else if (iter->iter->type == 0x82 || iter->iter->type == 0x84)
-			iter_head(line, iter);
+			iter_head(line, iter, iter->iter->type);
 		free(line);
 		line = NULL;
 		if (iter->iter)

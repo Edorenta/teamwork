@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 18:39:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/01 19:18:48 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		write_head(int fd, t_header head)
 {
 	const char	header[4] = {0, 0xea, 0x83, 0xf3};
-
+	
 	write(fd, header, 4);
 	write(fd, head.prog_name, PROG_NAME_LENGTH);
 	write(fd, head.comment, COMMENT_LENGTH);
@@ -69,6 +69,7 @@ void		write_all(char *filename, t_ops *ops, t_header header)
 	int			fd;
 	
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
+	printf("fd : %d\n", fd);
 	write_head(fd, header);
 	write_ops(fd, ops);
 	close(fd);

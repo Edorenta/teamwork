@@ -22,8 +22,6 @@ static int	head_get(t_header *head, char *line, int boolean)
 					head->comment[count] = *dup;
 				++dup;
 				++count;
-				printf("%s\n", head->comment);
-				printf("%s\n", head->prog_name);
 			}
 			if (*dup == '"')
 				return (1);
@@ -32,7 +30,7 @@ static int	head_get(t_header *head, char *line, int boolean)
 	return (0);
 }
 
-void	iter_head(char *line, t_iter *iter)
+void	iter_head(char *line, t_iter *iter, int token)
 {
 	t_tok		*tok;
 
@@ -43,11 +41,8 @@ void	iter_head(char *line, t_iter *iter)
 		//error here
 		while (tok)
 		{
-			if (tok->type == 0x84 || tok->type == 0x82)
-			{
-				printf("%s\n", line);
-				head_get(&iter->header, line, tok->type == 0x82);
-			}
+			if (tok->type == token)
+				head_get(&iter->header, line, (token == 0x82));
 			tok = tok->next;
 		}
 	}
