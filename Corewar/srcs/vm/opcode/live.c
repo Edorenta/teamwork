@@ -29,8 +29,8 @@ void	live(t_vm *vm, t_proc *proc)
 	{
 		vm->player[num].life_signal++;
 		vm->player[num].last_live = vm->cycle;
-		ft_printf("Player %d (%s) is said to be alive\n",
-			num, vm->player[num].name);
+		// ft_printf("Player %d (%s) is said to be alive\n",
+			// num, vm->player[num].name);
 		send_to_socket(vm, "$<liv>[", 7);
 		ft_sprintf(buf, "\"%d\"", num);
 		send_to_socket(vm, buf, ft_strlen(buf));

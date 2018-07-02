@@ -20,6 +20,10 @@ void	send_exe(t_vm *vm, t_proc *proc)
 	send_to_socket(vm, "$<exe>[", 7);
 	ft_sprintf(buf, "\"%d\",\"%d\",\"%d\"",
 	ft_iabs(proc->num), proc->pc, proc->id);
+if(proc->pc > 4095)
+ft_printf("player = %d, pc = %d, id = %d\n",
+ft_iabs(proc->num), proc->pc, proc->id);
+
 	send_to_socket(vm, buf, ft_strlen(buf));
 	send_to_socket(vm, "]", 1);
 	send_mem(vm);

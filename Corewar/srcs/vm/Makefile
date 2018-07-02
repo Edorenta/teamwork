@@ -27,7 +27,7 @@ NAME = corewar
 all :
 	#rm -f corewar
 	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
-	gcc $(SRC) $(INC) $(LIB) -o $(NAME) -g -Wall -Wextra -Werror
+	clang -std=c99 $(SRC) $(INC) $(LIB) -o $(NAME) -g -Wall -Wextra -Werror
 
 clean :
 	rm -rf corewar.dSym

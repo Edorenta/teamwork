@@ -48,7 +48,10 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 				g_op_tab[proc->op.code - 1].func(vm, proc);
 			if (proc->op.code != 9 ||
 				(proc->op.code == 9 && !proc->carry))
+				{
 				proc->pc += move_pc(proc);
+				proc->pc = proc->pc % MEM_SIZE;
+				}
 			send_exe(vm, proc);
 			delete_op(proc);
 		}
