@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 19:34:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 19:51:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	token_del(t_tok *tok)
 }
 
 /*
-** error here 
+** error here
 */
 
 t_tok	*token_new(void)
@@ -71,7 +71,7 @@ t_tok	*token_new(void)
 }
 
 /*
-** error here 
+** error here
 */
 
 t_tok	*token_create(int type, char *label, int lnb, int pos)
