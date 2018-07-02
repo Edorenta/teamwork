@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:04:38 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 01:50:35 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 02:45:49 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,17 @@ int		set_proc_id(t_vm *vm)
 void	list_proc(t_vm *vm, t_proc *proc)
 {
 	char	buf[50000];
-
+int i=0;
 	while (proc != NULL)
 	{
 		if (proc->active)
 		{
 			exec_proc(vm, proc);
 			proc->next ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
-			: ft_sprintf(buf, "\"%d\",\"%d\"", proc->num);
+			: ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
 			send_to_socket(vm, buf, ft_strlen(buf));
+			// ft_printf("pc: %d - player: %d, i:%d\n", proc->pc, proc->num, i);//
+			// i++;//
 		}
 		proc->last_pc = proc->pc;
 		proc = proc->next;
