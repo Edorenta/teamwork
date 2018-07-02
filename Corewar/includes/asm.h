@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:19:34 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 22:02:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_ops				*parser(t_iter *iter, int fd, int ret);
 
 int					test_param(t_iter *iter);
 int					lexer_ins_sub(t_iter *iter, int op);
-int					lexer_ins(t_iter *iter);
+int					lexer_ins(t_iter *iter, int len, int op);
 int					lexer_basics(t_iter *iter);
 
 t_iter				*iter_add_list(t_iter *iter, char *label, int type);
@@ -74,5 +74,5 @@ void				lab_tostring(t_iter *iter);
 char				*lab_parse(char *line);
 char				*lab_parse_ins(char *line);
 
-void				put_error(t_iter *iter,char *line);
+void				put_error(t_iter *iter, char *line);
 #endif
