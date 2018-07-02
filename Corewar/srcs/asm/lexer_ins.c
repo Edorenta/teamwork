@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:53:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:57:28 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		lexer_ins_sub(t_iter *iter, int op)
 	}
 	if (test_param(iter) == -1)
 	{
-		iter->token = PAR_ERR1;
+		iter->token = PAR_ERR2;
 		return (-1);
 	}
 	return (1);

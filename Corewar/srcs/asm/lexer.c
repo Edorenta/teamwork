@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 02:18:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:58:06 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	put_error(t_iter *iter, char *line)
 		printf("%s\n%*c\nCela n'est pas un parametre valable.\n", line, iter->count, '^');
 	else if (iter->token == PAR_ERR1)
 		printf("%s\n%*c\nPas le bon nombre de parametre.\n", line, iter->count, '^');
+	else if (iter->token == PAR_ERR2)
+		printf("%s\n%*c\nPas le bon type de parametre.\n", line, iter->count, '^');	
 	exit (0);
 }
 

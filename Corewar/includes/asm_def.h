@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 22:00:39 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 03:56:58 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@
 # define LABEL_ERR2 0x2e
 # define PAR_ERR0	0x9e
 # define PAR_ERR1	0xae
-
+# define PAR_ERR2	0xbe
 #endif
