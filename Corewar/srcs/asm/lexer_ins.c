@@ -6,13 +6,19 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 22:00:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 23:07:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 t_op	g_op_tab[17];
+
+static int	lexer_return_err(t_iter *iter, int token)
+{
+	iter->token = token;
+	return (-1);
+}
 
 int			lexer_sub_dir(t_iter *iter)
 {
@@ -40,29 +46,21 @@ static int	lexer_ins_log(t_iter *iter)
 	if (*iter->line == '%')
 	{
 		if (lexer_sub_dir(iter) == -1)
-		{
-			iter->token = PAR_ERR0;
-			return (-1);
-		}
+			return (lexer_return_err(iter, PAR_ERR0));
 	}
 	else if (*iter->line == 'r')
 	{
 		increment(iter);
-		iter->token <<= 4;
-		iter->token |= INS_REG;
+		iter->token = ((iter->token << 4) | INS_REG);
 		iter_add_list(iter, "INS_REG", INS_REG);
 	}
 	else if (ft_isdigit(*iter->line) || *iter->line == '-')
 	{
-		iter->token <<= 4;
-		iter->token |= INS_REG;
+		iter->token = ((iter->token << 4) | INS_REG);
 		iter_add_list(iter, "INS_IND", INS_IND);
 	}
 	else
-	{
-		iter->token = PAR_ERR0;
-		return (-1);
-	}
+		return (lexer_return_err(iter, PAR_ERR0));
 	return (1);
 }
 
@@ -70,38 +68,28 @@ int			lexer_ins_sub(t_iter *iter, int op)
 {
 	int sep;
 
-	sep = 0;
-	clear_wsp(iter);
-	while (sep < 3)
+	sep = -1;
+	while (++sep < 3)
 	{
+		clear_wsp(iter);
 		if (lexer_ins_log(iter) == -1)
 			return (-1);
-		while (*iter->line && (ft_isdigit(*iter->line) ||
-		ft_isalpha(*iter->line) || *iter->line == '_' || *iter->line == '-'))
+		while (*iter->line && lab_ischar(*iter->line))
 			increment(iter);
 		clear_wsp(iter);
 		if (*iter->line && *iter->line == ',')
 		{
-			iter->token <<= 4;
-			iter->token |= INS_SEP;
+			iter->token = ((iter->token << 4) | INS_SEP);
 			iter_add_list(iter, "INS_SEP", INS_SEP);
 			increment(iter);
 		}
 		else
 			break ;
-		clear_wsp(iter);
-		sep++;
 	}
 	if (g_op_tab[op].nbarg != sep + 1)
-	{
-		iter->token = PAR_ERR1;
-		return (-1);
-	}
+		return (lexer_return_err(iter, PAR_ERR1));
 	if (test_param(iter) == -1)
-	{
-		iter->token = PAR_ERR2;
-		return (-1);
-	}
+		return (lexer_return_err(iter, PAR_ERR2));
 	return (1);
 }
 

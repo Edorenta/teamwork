@@ -6,13 +6,20 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 03:11:49 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/02 20:38:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 23:23:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 t_op	g_op_tab[17];
+
+static int	check_err(t_iter *iter, int token, int count)
+{
+	iter->token = token;
+	iter->count = count;
+	return (-1);
+}
 
 void	end_line(t_iter *iter)
 {
@@ -34,12 +41,8 @@ int		check_head(t_iter *iter)
 {
 	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
 	{
-		if (iter->line[5] && iter->line[5] != ' ')
-		{
-			iter->token = HEAD_ERR1;
-			iter->count = 6;
-			return (-1);
-		}
+		if (iter->line[5] && !ft_isspace(iter->line[5]))
+			return (check_err(iter, HEAD_ERR1, 6));
 		else
 		{
 			iter->token |= HEAD_NAME;
@@ -48,12 +51,8 @@ int		check_head(t_iter *iter)
 	}
 	else if (ft_strnequ((iter->line), COMMENT_CMD_STRING, 8))
 	{
-		if (iter->line[8] && iter->line[8] != ' ')
-		{
-			iter->token = HEAD_ERR2;
-			iter->count = 9;
-			return (-1);
-		}
+		if (iter->line[8] && !ft_isspace(iter->line[8]))
+			return (check_err(iter, HEAD_ERR2, 9));
 		else
 		{
 			increment_num(iter, 8);
@@ -61,11 +60,7 @@ int		check_head(t_iter *iter)
 		}
 	}
 	else
-	{
-		iter->count = 1;
-		(iter->token) = HEAD_ERR0;
-		return (-1);
-	}
+		return (check_err(iter, HEAD_ERR0, 1));
 	return (1);
 }
 
@@ -76,48 +71,30 @@ int	check_name(t_iter *iter)
 	countchar = 1;
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
-		if (iter->line[0] != ' ')
-		{
-			iter->token = HEAD_ERR3;
-			return (-1);
-		}
+		if (!ft_isspace(*iter->line))
+			return (check_err(iter, HEAD_ERR3, iter->count));
 		increment(iter);
 	}
 	increment(iter);
 	if ((*(iter->line)) && *(iter->line) == '"')
-	{
-		iter->token = NAME_ERR1;
-		return (-1);
-	}
+		return (check_err(iter, NAME_ERR1, iter->count));
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
 		++(iter->line);
-		countchar++;
+		++countchar;
 		if (iter->token == 0x82 && countchar == 129)
-		{
-			iter->token = NAME_ERR0;
-			iter->count += countchar;
-			return (-1);
-		}
+			return (check_err(iter, NAME_ERR0, iter->count + countchar));
 		else if (iter->token == 0x84 && countchar == 2049)
-		{
-			iter->token = COMT_ERR0;
-			iter->count += countchar;
-			return (-1);
-		}
+			return (check_err(iter, COMT_ERR0, iter->count + countchar));
 	}
 	++(iter->line);
-	while  ((*(iter->line)) && *(iter->line) == ' ')
+	while ((*(iter->line)) && *(iter->line) == ' ')
 	{
 		++(countchar);
 		++(iter->line);
 	}
 	if (*(iter->line) != ';' && *(iter->line) != '#' && *(iter->line) != '\0')
-	{
-		iter->count += countchar;
-		iter->token = ENDLI_ERR;
-		return (-1);
-	}
+		return (check_err(iter, ENDLI_ERR, iter->count + countchar));
 	return (0);
 }
 
@@ -135,7 +112,7 @@ int		lexer_basics(t_iter *iter)
 	else if (iter->line && *(iter->line) == '.')
 	{
 		(iter->token) |= TOKEN_HEA;
-		(iter->token) <<= 4; 
+		(iter->token) <<= 4;
 		if (check_head(iter) == -1)
 			return (-1);
 		if (check_name(iter) == -1)
