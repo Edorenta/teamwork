@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:14:04 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 04:26:19 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define ENDLI_ERR  0x1e
 
 # define LABEL_ERR2 0x2e
+# define LABEL_ERR3 0xde
 # define PAR_ERR0	0x9e
 # define PAR_ERR1	0xae
 # define PAR_ERR2	0xbe

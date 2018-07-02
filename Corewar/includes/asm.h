@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:21:54 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 04:26:46 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ long				lab_get(t_iter *iter, char *name);
 int					lab_exist(t_lab *lab, char *name);
 void				lab_add(t_iter *iter, char *name);
 void				lab_del(t_lab *lab);
-void				lab_create(t_iter *iter);
+int					lab_create(t_iter *iter);
 void				lab_tostring(t_iter *iter);
 char				*lab_parse(char *line);
 char				*lab_parse_ins(char *line);

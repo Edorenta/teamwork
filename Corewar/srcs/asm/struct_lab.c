@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 21:34:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 04:27:00 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	lab_del(t_lab *lab)
 	}
 }
 
-void	lab_create(t_iter *iter)
+int	lab_create(t_iter *iter)
 {
 	char	*line;
 	char	*label;
@@ -67,9 +67,11 @@ void	lab_create(t_iter *iter)
 	{
 		label ? free(label) : 0;
 		label = NULL;
-		//token error here
+		iter->token = LABEL_ERR3;
+		return (-1);
 	}
 	label ? lab_add(iter, label) : 0;
 	label ? free(label) : 0;
 	label = NULL;
+	return (1);
 }
