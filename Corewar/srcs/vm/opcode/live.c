@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:04:10 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 07:34:43 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 02:09:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	live(t_vm *vm, t_proc *proc)
 {
 	int num;
+	char	buf[50000];
 
 	vm->lives_in_cycle++;
 	proc->last_live = vm->cycle + 1;
@@ -30,5 +31,9 @@ void	live(t_vm *vm, t_proc *proc)
 		vm->player[num].last_live = vm->cycle;
 		ft_printf("Player %d (%s) is said to be alive\n",
 			num, vm->player[num].name);
+
+		send_to_socket(vm, "$<live>[", 8);
+		ft_sprintf(buf, "\"%d\"", num);
+		send_to_socket(vm, "]", 1);
 	}
 }
