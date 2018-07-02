@@ -46,7 +46,7 @@ async def send_websocket(data):
 
 async def play_corewar():
 
-	_dbg = 0
+	#_dbg = 0
 	payload = None
 	(new_socket, client_address) = sock.accept()
 	while 1:
@@ -68,8 +68,8 @@ async def play_corewar():
 			# print("payload:%s" % payload)
 			if "$" in payload:
 				# print("%s" % buf, end='')
-				print("Sending #%d" % _dbg)
-				_dbg += 1
+				# print("Sending #%d" % _dbg)
+				#_dbg += 1
 				# asyncio.ensure_future(send_websocket(buf))
 				# time.sleep(0.05)
 				wsock.send(buf)

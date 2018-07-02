@@ -16,7 +16,7 @@ root = os.path.dirname(__file__)
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
 	connections = set()
-	i = 0
+	#i = 0
 	def check_origin(self, origin):
 		return True
 
@@ -26,10 +26,10 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 		self.write_message("You are connected")
 
 	def on_message(self, message):
-		print(message)
-		if "<cyc>" in message:
-			self.i += 1
-			print(">> cycle #%d >>" % self.i)
+		#print(message)
+		#if "<cyc>" in message:
+		#	self.i += 1
+		#	print(">> cycle #%d >>" % self.i)
 		# print("Transmitting message...")
 		for c in self.connections:
 			c.write_message(message)
