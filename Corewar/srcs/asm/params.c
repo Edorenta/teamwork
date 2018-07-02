@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/01 23:25:55 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/02 03:53:46 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 03:55:22 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,12 @@ static int	three_param(t_iter *iter)
 	}
 	else
 	{
-		printf("OK?\n");
 		if (list->type != INS_REG)
 			return (-1);
 		list = list->next->next;
 		if (list->type != INS_REG && list->type != INS_DIR
 				&& list->type != INS_DIL && list->type != INS_IND)
-		{
-			printf("%d\n", list->type);			
 			return (-1);
-		}
 		list = list->next->next;
 		if (list->type != INS_DIR && list->type != INS_DIL && list->type != INS_REG)
 			return (-1);
@@ -116,19 +112,10 @@ int			test_param(t_iter *iter)
 	if (iter->iter->type == 0x601 || iter->iter->type == 0x609
 			|| iter->iter->type == 0x60C || iter->iter->type == 0x60F
 			|| iter->iter->type == 0x610)
-	{
-		printf("chelou\n");
 		return (one_param(iter));
-	}
 	else if (iter->iter->type == 0x602 || iter->iter->type == 0x603
 			|| iter->iter->type == 0x60D)
-	{
-		printf("bizarre\n");
 		return (two_param(iter));
-	}
 	else
-	{
-		printf("weird\n");
 		return (three_param(iter));
-	}
 }
