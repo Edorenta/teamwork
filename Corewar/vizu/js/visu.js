@@ -10,22 +10,24 @@ var clrs = {
     grey : "rgb(80,80,80)"  //grey
 };
 
-var dark = {
-    blue : "rgb(0,95,145)",   //blue
-    green : "rgb(20,145,0)",   //green
-    red : "rgb(145,0,0)",      //red
-    purple : "rgb(145,0,145)", //purple
-    yellow : "rgb(145,145,0)", //yellow
-    grey : "rgb(50,50,50)"  //grey
-};
-
 var text_mode = true;
 var block_mode = true;
 var text_mode_bold = false;
 var arena_block_clr = clrs.grey;
-var player_clrs = [clrs.blue, clrs.red, clrs.green, clrs.purple, clrs.yellow];
-var arena_block_shape = ['square', 6];
-var player_shapes = [['square', 4], ['square', 4], ['square', 4], ['square', 4], ['square', 4]];
+var player_clrs = [
+    ShadeBlend(-0.18, clrs.blue),
+    ShadeBlend(-0.18, clrs.red),
+    ShadeBlend(-0.18, clrs.green),
+    ShadeBlend(-0.18, clrs.purple),
+    ShadeBlend(-0.18, clrs.yellow)];
+var arena_block_shape =
+    ['triangle', 0];
+var player_shapes = [
+    ['square', 4],
+    ['square', 4],
+    ['square', 4],
+    ['square', 4],
+    ['square', 4]];
 var uri = "127.0.0.1";
 var port = "8082";
 var address = "ws://" + uri + ":" + port;
@@ -101,7 +103,8 @@ class Block{
         if (typeof player !== 'undefined'){
             this.player = player;
             this.shape = player.shape;
-            this.clr = this.is_proc ? ShadeBlend(-0.4, player.clr) : player.clr;
+            this.clr = this.is_proc ? ShadeBlend(+0.35, player.clr) : player.clr;
+            this.shape = this.is_proc ? ['round', 0] : player.shape;
         }
     }
     set_proc(player){
@@ -130,38 +133,45 @@ class Proc{
     constructor(pid, player, block){
         this.pid = pid;
         this.player = player;
+        this.player.nb_procs++;
         this.block = block;
         this.block.set_proc(player);
     }
-    move(player, to){
-        this.player = player;
+    move(player, to_block){
+        if (player != this.player){ //proc has been stolen
+            this.player.nb_procs--;
+            this.player = player;
+            this.player.nb_procs++;
+        }
         this.block.is_proc = false;
         this.block.clr = this.block.player.clr;
-        tmp(this.block);
-        this.block = to;
+        this.block = to_block;
+        this.block.set_proc(player);
     }
 };
-
-function tmp(block){
-    block.set_proc(player);    
-}
 
 //Player shapes: square / triangle / round
 
 class Player{
-    constructor(name, msg, clr, shape){
+    constructor(id, name, msg, clr, shape){
+        this.id = id;
         this.name = (name.length > 11 ? name.slice(0, 11) : name);
         this.msg = msg;
         this.clr = clr;
         this.shape = shape;
         this.sum_alives = 0;
-        console.log("New player:", this.name);
+        this.control = 0.0;
+        this.nb_procs = 0;
+        console.log("Player " + this.id + " joined the game.\nWelcome " + this.name + "!");
     }
     set_name(name){
         this.name = name;
     }
     get_name(){
         return this.name;
+    }
+    get_control(){
+        this.control = (in_map.split(this.id).length - 1) / 40.96; // /4096 * 100
     }
 };
 
@@ -201,8 +211,8 @@ function init()
                 break;
             case "<exe>":
                 in_exe = JSON.parse(data.slice(5, data.length));
-                // console.log(in_exe);
-                update_procs();
+                //console.log(in_exe);
+                get_procs();
                 break;
             case "<liv>":
                 in_liv = JSON.parse(data.slice(5, data.length));
@@ -210,13 +220,26 @@ function init()
                 break;
             case "<hex>":
                 in_hex = data.slice(5, data.length);
+                //console.log("ok");
                 // update_hexdump();
                 break;
             case "<map>":
                 in_map = data.slice(5, data.length);
-                update_ownership();
+                get_ownership();
+                get_map_control();
                 break;
             case "<end>": victory();
+                //core GET variables
+                procs = [];
+                block = [];
+                player = [];
+                in_set = [];
+                in_cyc = [];
+                in_exe = [];
+                in_liv = [];
+                in_hex = undefined;
+                in_map = undefined;
+                last_alive = undefined;
                 break;
 
         }
@@ -235,14 +258,14 @@ function init_blocks(){
         block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), null);
         itx = itx > 1290 ? 0 : itx + space_x;
         ity = itx == 0 ? ity + space_y : ity;
-        //if (i > 2023 && i < 3000) block[i].clr = clrs.red;
-        // if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.blue;
-        // if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.green;
     }
 }
+
 function init_players(){
+    let id;
     for (let i = 0; i < in_set.length; i++){
-        player[i] = new Player(in_set[i], "insert_warcry", player_clrs[i], player_shapes[i]);
+        id = i + 1;
+        player[i] = new Player(id.toString(), in_set[i], "insert_warcry", player_clrs[i], player_shapes[i]);
     }
 }
 
@@ -257,6 +280,44 @@ function init_new_period(){
     if (typeof player !== 'undefined' && player.length > 0){
         for (let i = 0; i < player.length; i++){
             player[i].sum_alives = 0;
+        }
+    }
+}
+
+//GET METHODS
+
+function get_procs(){
+    let owner = parseInt(in_exe[0]);
+    let mem = parseInt(in_exe[1]);
+    let pid = parseInt(in_exe[2]);
+    for (let i = 0; i < (procs.length); i++){
+        if (procs[i].pid == pid){
+            procs[i].move(player[owner-1], block[mem]);
+            return 0;
+        }
+    }
+    procs[procs.length] = new Proc(pid, player[owner], block[mem]);
+    // block[parseInt(in_exe[i + 1])].set_player(parseInt(in_exe[i + 1]));
+    // block[parseInt(in_exe[i + 1])].set_proc(parseInt(in_exe[i + 2]));
+    // }    
+}
+
+function get_ownership(){
+    if (block_mode == true){
+        //update_clrs();
+        if (typeof in_map !== 'undefined' && in_map.length > 0){
+            for (let i = 0; i < 4096; i++){
+                block[i].set_player(player[parseInt(in_map[i]) - 1]);
+            }
+        }
+    }
+}
+
+function get_map_control(){
+    if (typeof player !== 'undefined' && player.length > 0){
+        for (let i = 0; i < player.length; i++){
+            player[i].get_control();
+            fill(player[i].clr);
         }
     }
 }
@@ -281,6 +342,8 @@ function update_cycles(){
     text(cyc_tot, 88, 425);
     text(cyc_td, 88, 455); 
 }
+
+//UPDATE METHODS
 
 function update_lives(){
     //hori,verti
@@ -315,7 +378,7 @@ function update_names(){
     textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
     textSize(20);
-    fill(255,255,255,200);
+    fill(255,255,255,255);
     let x = 88;
     let y = 270;
     if (typeof in_set !== 'undefined' && in_cyc.length > 0){
@@ -329,47 +392,69 @@ function update_names(){
                 text(player[i].name, x, y);
             }
             else{
-                fill(255,255,255,200);
+                fill(255,255,255,255);
                 text("unknown", x, y);
             }
         }
     }
     else if (in_cyc.length == 0)
-        text("waiting for players", x, y);
+        text("waiting for players", 88, y);
 }
 
 function update_procs(){
-    let owner = parseInt(in_exe[0]);
-    let mem = parseInt(in_exe[1]);
-    let pid = parseInt(in_exe[2]);
-    for (let i = 0; i < (procs.length); i++){
-        if (procs[i].pid == pid)
-            procs[i].move(owner, mem);
-        return 0;
+    //hori,verti
+    textAlign(LEFT, CENTER);
+    textFont(joystix_font); // textFont('Courier New');
+    // textStyle(BOLD);
+    textSize(20);
+    let x = 88;
+    fill(255,255,255,255);
+    text("SUM :", x, 600);
+    x += 110
+    if (typeof procs !== 'undefined' && procs.length > 0){
+        for (let i = 0; i < player.length; i++){
+            fill(player[i].clr);
+            text(player[i].nb_procs, x, 600);
+            x += 70;
+        }
     }
-    procs[procs.length + 1] = new Proc(pid, owner, mem);
-    // block[parseInt(in_exe[i + 1])].set_player(parseInt(in_exe[i + 1]));
-    // block[parseInt(in_exe[i + 1])].set_proc(parseInt(in_exe[i + 2]));
-    // }
+    else{
+        text("--", 200, 600);
+    }
 }
 
 function update_blocks(){
     if (block_mode == true){
         //update_clrs();
+        rectMode(CENTER);
         for (let i = 0; i < 4096; i++){
             block[i].draw();
         }
     }
 }
 
-function update_ownership(){
-    if (block_mode == true){
-        //update_clrs();
-        if (typeof in_map !== 'undefined' || in_map.length == 0){
-            for (let i = 0; i < 4096; i++){
-                block[i].set_player(player[parseInt(in_map[i]) - 1]);
-            }
+function update_map_control(){
+    let x = 88;
+    let y = 880;
+    let txt;
+    textAlign(LEFT, CENTER);
+    textFont(joystix_font); // textFont('Courier New');
+    // textStyle(BOLD);
+    if (typeof player !== 'undefined' && player.length > 0){
+        textSize(14);
+        for (let i = 0; i < player.length; i++){
+            rectMode(CORNER);
+            fill(player[i].clr);
+            rect(x, y, player[i].control * 4, 10);
+            txt = Number((player[i].control).toFixed(2)).toString() + "%";
+            text(txt, 400, y);
+            y += 20;
         }
+    }
+    else{
+        textSize(20);
+        fill(255,255,255,255);
+        text("waiting for players", x, 895);
     }
 }
 
@@ -397,14 +482,17 @@ function setup(){
 }
 
 function draw(){
+    //clean and resize the canvas
     //canvas_resize();
     background(0);
-    //print player names
-    //initiate font for arena printing
     background(back_img);
-    update_cycles();
+    //update UI
     update_names();
+    update_cycles();
+    update_procs();
     update_lives();
+    update_map_control();
+    //update map
     update_blocks();
     update_hexdump();
     //...
@@ -416,5 +504,6 @@ function keyPressed(){
         case 66: block_mode = block_mode ? false : true; break;
         case 72: text_mode_bold = text_mode_bold ? false : true; break;
     }
-    console.log(keyCode);
+    //TO ADD: color and shape bindings
+    //  console.log(keyCode);
 }

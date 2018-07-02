@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+killall Python
+killall Python3
 nohup python3 file_server.py >/dev/null 2>&1 &
 nohup python3 websocket_pipe.py >/dev/null 2>&1 &
 nohup python3 socket_bridge.py >/dev/null 2>&1 &
