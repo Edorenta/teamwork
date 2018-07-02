@@ -34,7 +34,7 @@ var trim;
 var fontsize;
 var block = [];
 var start_x = 557;
-var start_y = 40;
+var start_y = 35;
 var itx = 0;
 var ity = 0;
 var space_x = 20.7;
@@ -84,9 +84,11 @@ class Block{
         //console.log(this.clr);
     }
     set_player(player){
-        this.player = player;
-        this.shape = player.shape;
-        this.clr = player.clr;
+        if (typeof player !== 'undefined'){
+            this.player = player;
+            this.shape = player.shape;
+            this.clr = player.clr;
+        }
     }
     draw(){
         fill(this.clr);
@@ -130,6 +132,7 @@ function preload(){
     joystix_font = loadFont("../fonts/joystix_monospace.ttf");
     title = document.getElementById('title');
     mem_div = document.getElementById("mem");
+    init();
 }
 
 function init()
@@ -153,10 +156,7 @@ function init()
                 init_players();
                 break;
             case "<cyc>":
-                console.log(data);
                 in_cyc = JSON.parse(data.slice(5, data.length));
-                console.log(data);
-                console.log(in_cyc);
                 // update_cycles();
                 break;
             case "<exe>":
@@ -168,7 +168,7 @@ function init()
                 // update_hexdump();
                 break;
             case "<map>": in_map = data.slice(5, data.length);
-                // update_ownership();
+                update_ownership();
                 break;
         }
     };
@@ -198,7 +198,25 @@ function init_players(){
 }
 
 function update_cycles(){
-
+    //hori,verti
+    textAlign(LEFT, CENTER);
+    // textFont('Courier New');
+    textFont(joystix_font);
+    // textStyle(BOLD);
+    textSize(30);
+    fill(255,255,255,255);
+    let cyc_tot = in_cyc[0];
+    let cyc_td = in_cyc[1];
+    if (typeof in_cyc !== 'undefined' || in_cyc.length == 0){
+        cyc_tot = "Total : " + in_cyc[0];
+        cyc_td = "To Die: " + in_cyc[1];
+    }
+    else{
+        cyc_tot = "-";
+        cyc_td = "-";
+    }
+    text(cyc_tot, 88, 425);
+    text(cyc_td, 88, 455); 
 }
 
 function update_blocks(){
@@ -213,9 +231,9 @@ function update_blocks(){
 function update_ownership(){
     if (block_mode == true){
         //update_clrs();
-        if (typeof in_map !== 'undefined')
+        if (typeof in_map !== 'undefined' || in_map.length == 0)
             for (let i = 0; i < 4096; i++){
-                block[i].set_player(player[parseInt(in_map[i])]);
+                block[i].set_player(player[parseInt(in_map[i]) - 1]);
             }
     }
 }
@@ -229,29 +247,29 @@ function update_hexdump(){
         // str = mem_div.innerHTML;
         // trim = str.rpl(/0x0.*: /, '')
         fill(255,255,255,200);
-        text(in_hex, 550, 32); //win.w * 18 / 20, win.h * 18 / 20);
+        text(in_hex, 550, 28); //win.w * 18 / 20, win.h * 18 / 20);
     }
 }
 
 function update_names(){
-    textAlign(CENTER, CENTER);
-    textFont('Courier New');
-    textFont('Joystix Monospace');
-    textStyle(BOLD);
-    textSize(30);
-    fill(255,255,255,255);
-    let names = "";
-    if (typeof in_set !== 'undefined'){
-        for(let i = 0; i < in_set.length; i++){
-            if (typeof player[i].name !== 'undefined')
-                names += (player[i].name + "\n");
-            else
-                names += "unknown";
-        }
-    }
-    else
-        names = "unknown";
-    text(names, 1213, 950);
+    // textAlign(CENTER, CENTER);
+    // textFont('Courier New');
+    // textFont('Joystix Monospace');
+    // textStyle(BOLD);
+    // textSize(30);
+    // fill(255,255,255,255);
+    // let names = "";
+    // if (typeof in_set !== 'undefined'){
+    //     for(let i = 0; i < in_set.length; i++){
+    //         if (typeof player[i].name !== 'undefined')
+    //             names += (player[i].name + "\n");
+    //         else
+    //             names += "unknown";
+    //     }
+    // }
+    // else
+    //     names = "unknown";
+    // text(names, 1213, 950);
 }
 
 function setup(){
