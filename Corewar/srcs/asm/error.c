@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/02 20:21:46 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:33:36 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 01:24:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	put_error_first(t_iter *iter, char *line)
 
 void	put_error(t_iter *iter, char *line)
 {
-	put_error_first(iter, line);
 	if (iter->token == INS_ERR0)
 		printf("%s\n%*c\nUndefined Instruction.\n", line, iter->count, '^');
 	else if (iter->token == PAR_ERR0)
@@ -48,10 +47,12 @@ void	put_error(t_iter *iter, char *line)
 		printf("%s\n%*c\nCan't be empty\n", line, iter->count, '^');
 	else if (iter->token == LABEL_ERR3)
 		printf("%s\n%*c\nRedefinition of label.\n", line, ++iter->count, '^');
+	else if (iter->token == LABEL_ERR4)
+		printf("%s\n%*c\nSpace after label.\n", line, ++iter->count, '^');
 	if (iter->token == READ_ERR)
+	{
 		printf("Read error\n");
-	else
-		line ? free(line) : 0;
-	iter_del(iter);
-	exit(0);
+		exit(0);
+	}
+	put_error_first(iter, line);
 }

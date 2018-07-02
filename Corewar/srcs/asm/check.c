@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:27:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 01:27:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ int		token_wsp(char *line, int *count)
 	return (!(*iter));
 }
 
-int		token_lab(t_iter *itr)
+static int token_lab_check(t_iter *itr, int count)
 {
 	char	*iter;
-	int		count;
 
-	count = 0;
 	iter = itr->line;
 	if (!(iter))
 		return (0);
@@ -71,6 +69,31 @@ int		token_lab(t_iter *itr)
 		return (1);
 	}
 	return (0);
+}
+
+int		token_lab(t_iter *itr)
+{
+	char	*iter;
+	int		count;
+
+	count = 0;
+	iter = itr->line;
+	if (!(iter))
+		return (0);
+	while (iter[count] && (ft_isalpha(iter[count])
+			|| ft_isdigit(iter[count]) || iter[count] == '_'))
+		++count;
+	while (iter[count] && ft_isspace(iter[count]))
+	{
+		++count;
+		if (iter[count] == ':')
+		{
+			itr->count = count;
+			itr->token = LABEL_ERR4;	
+			put_error(itr, iter);
+		}			
+	}
+	return (token_lab_check(itr, 0));
 }
 
 int		token_ins(t_iter *iter, char *line)
