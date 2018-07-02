@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:39:33 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 21:15:45 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 	return (new);
 }
 
-static void		if_parse(t_iter **iter, char **line, t_ops **itera, t_ops **first)
+static void		if_parse(t_iter **it, char **line, t_ops **itera, t_ops **fst)
 {
-	if (!(*first))
+	if (!(*fst))
 	{
-		*first = parse_sub(*iter, (*iter)->iter, *line, 0);
-		*itera = *first;
+		*fst = parse_sub(*it, (*it)->iter, *line, 0);
+		*itera = *fst;
 	}
 	else
 	{
-		(*itera)->next = parse_sub(*iter, (*iter)->iter, *line, 0);
+		(*itera)->next = parse_sub(*it, (*it)->iter, *line, 0);
 		*(itera) = (*itera)->next;
 	}
 }
@@ -95,49 +95,23 @@ t_ops			*parser(t_iter *iter, int fd)
 	int			ret;
 	t_ops		*first;
 	t_ops		*itera;
-	t_header	*head;
 
 	line = NULL;
 	first = NULL;
 	itera = NULL;
-	head = NULL;
-	ret = 0;
 	iter->iter = iter->first;
-	if (lseek(fd, 0, SEEK_SET) < 0)
-		return (NULL);
+	lseek(fd, 0, SEEK_SET) < 0 ? return (NULL) : 0;
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
 		if ((TYPE & 0x600) == 0x600)
-		{
-/*			if (!first)
-			{
-				first = parse_sub(iter, iter->iter, line, 0);
-				itera = first;
-			}
-			else
-			{
-				itera->next = parse_sub(iter, iter->iter, line, 0);
-				itera = itera->next;
-			}*/
 			if_parse(&iter, &line, &itera, &first);
-		}
 		else if (TYPE == 0x82 || TYPE == 0x84)
 			iter_head(line, iter, TYPE);
 		else if (TYPE == (TOKEN_LAB << 4) && itera)
-		{
-			/*if (iter->iter->next && iter->iter->lnb == iter->iter->next->lnb)
-			{
-				iter->iter = iter->iter->next;
-				itera->next = parse_sub(iter, iter->iter,
-					&line[iter->iter->pos], 0);
-				itera = itera->next;
-			}*/
 			els_parse(&iter, line, &itera);
-		}
 		free(line);
 		line = NULL;
-		if (iter->iter)
-			iter->iter = iter->iter->next;
+		iter->iter ? iter->iter = iter->iter->next : 0;
 	}
 	free(line);
 	line = NULL;
