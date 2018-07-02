@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/07/02 03:56:23 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 18:15:25 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ void	send_exe(t_vm *vm, t_proc *proc)
 	send_to_socket(vm, "$<exe>[", 7);
 	ft_sprintf(buf, "\"%d\",\"%d\",\"%d\"",
 	ft_iabs(proc->num), proc->pc, proc->id);
-if(proc->pc > 4095)
-ft_printf("player = %d, pc = %d, id = %d\n",
-ft_iabs(proc->num), proc->pc, proc->id);
-
 	send_to_socket(vm, buf, ft_strlen(buf));
 	send_to_socket(vm, "]", 1);
 	send_mem(vm);
