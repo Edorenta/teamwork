@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:40:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 01:52:05 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 			if (proc->op.code != 9 ||
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
+			send_mem(vm);
+			send_num_player(vm);
 			delete_op(proc);
 		}
 	}
@@ -78,8 +80,6 @@ void	run(t_vm *vm)
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
-		send_mem(vm);
-		send_num_player(vm);
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
