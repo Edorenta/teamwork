@@ -6,8 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:17:13 by jyildiz-         ###   ########.fr       */
-/*   Updated: 2018/07/01 19:01:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:21:54 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +56,7 @@ void				ops_del(t_ops *ops);
 void				ops_tostring(t_ops *ops);
 void				ops_debug(t_ops *ops);
 int					ops_get_ocp(t_ops *ops);
+unsigned int		ops_get_len(t_ops *ops);
 
 void				write_ops(int fd, t_ops *ops);
 void				write_head(int fd, t_header head);

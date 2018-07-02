@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/01 21:40:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 02:57:58 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	dump(t_vm *vm)
 
 void	exec_proc(t_vm *vm, t_proc *proc)
 {
+	char	buf[50000];//
 	vm->ram[proc->pc % MEM_SIZE].pc = 0;
 	if (!proc->op.active)
 	{
@@ -49,6 +50,15 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 			if (proc->op.code != 9 ||
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
+
+		send_to_socket(vm, "]$<exe>[", 8);
+			proc->next ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
+			: ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
+			send_to_socket(vm, buf, ft_strlen(buf));
+			send_mem(vm);
+			send_num_player(vm);
+		send_to_socket(vm, "]", 1);
+		// ft_printf("pc: %d - player: %d\n", proc->pc, proc->num);//
 			delete_op(proc);
 		}
 	}
@@ -68,18 +78,14 @@ void	run(t_vm *vm)
 			ft_printf("It is now cycle %d\n", vm->cycle + 1);
 		proc = vm->proc;
 		send_to_socket(vm, "$<cyc>[", 7);
-		ft_sprintf(buf, "%d,", vm->cycle);
+		ft_sprintf(buf, "\"%d\",", vm->cycle);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		ft_sprintf(buf, "%d", vm->ctd);
+		ft_sprintf(buf, "\"%d\"", vm->ctd);
 		send_to_socket(vm, buf, ft_strlen(buf));
-		send_to_socket(vm, "]$<exe>[", 8);
 		list_proc(vm, proc);
-		send_to_socket(vm, "]", 1);
 		vm->cycle++;
 		if (vm->dump != -1)
 			dump(vm);
-		send_mem(vm);
-		send_num_player(vm);
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);

@@ -13,34 +13,14 @@ var clrs = {
 var text_mode = true;
 var block_mode = true;
 var text_mode_bold = false;
-var arena_block_shape = ['round', 1];
 var arena_block_clr = clrs.grey;
-
-//keyboard mapping
-/*
-var
-_up = false,
-_down = false,
-_left = false,
-_right = false,
-_1 = false,
-_2 = false,
-_3 = false,
-_4 = false,
-_5 = false,
-_6 = false,
-_7 = false,
-_8 = false,
-_9 = false,
-_r = false,
-_plus = false,
-_minus = false;
-*/
-//viewport size tracker
-var win = {
-    w : Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-    h : Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-};
+var player_clrs = [clrs.blue, clrs.red, clrs.green, clrs.purple, clrs.yellow];
+var arena_block_shape = ['round', 1];
+var player_shapes = [['square', 2], ['square', 2], ['square', 2], ['square', 2], ['square', 2]];
+var uri = "127.0.0.1";
+var port = "8082";
+var address = "ws://" + uri + ":" + port;
+var ws;
 
 //global variables
 var title;
@@ -54,11 +34,19 @@ var trim;
 var fontsize;
 var block = [];
 var start_x = 557;
-var start_y = 40;
+var start_y = 35;
 var itx = 0;
 var ity = 0;
 var space_x = 20.7;
 var space_y = 14.4;
+
+//core GET variables
+var player = [];
+var in_set = [];
+var in_cyc = [];
+var in_exe = [];
+var in_hex;
+var in_map;
 
 //min max of array as .this function
 Array.prototype.max = function(){
@@ -80,52 +68,11 @@ function canvas_resize(){
     win.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     resizeCanvas(win.w, win.h, true);
 }
-
-function get_mem(){
-    //...
-}
-
-function draw_rooms(){
-    //...
-}
-/*
-function keyPressed(){
-    switch (keyCode){
-		//multi
-        case 37: _left = _left ? false : true; _right = false; break;
-        case 38: _up = _up ? false : true; _down = false; break;
-        case 39: _right = _right ? false : true; _left = false; break;
-        case 40: _down = _down ? false : true; _up = false; break;
-	    case 82: _r = true; break;
-        case 107: _plus = _plus ? false : true; _minus = false; break;
-        case 109: _minus = _minus ? false : true; _plus = false; break;
-		//windows
-        case 97: _1 = _1 ? false : true; _3 = false; break;
-        case 98: _2 = _2 ? false : true; _8 = false; break;
-        case 99: _3 = _3 ? false : true; _1 = false; break;
-        case 100: _4 = _4 ? false : true; _6 = false; break;
-        case 101: _5 = _5 ? false : true; break;
-        case 102: _6 = _6 ? false : true; _4 = false; break;
-        case 103: _7 = _7 ? false : true; break;
-        case 104: _8 = _8 ? false : true; _2 = false; break;
-        case 105: _9 = _9 ? false : true; break;
-	    //mac
-        case 49: _1 = _1 ? false : true; _3 = false; break;
-        case 50: _2 = _2 ? false : true; _8 = false; break;
-        case 51: _3 = _3 ? false : true; _1 = false; break;
-        case 52: _4 = _4 ? false : true; _6 = false; break;
-        case 53: _5 = _5 ? false : true; break;
-        case 54: _6 = _6 ? false : true; _4 = false; break;
-        case 55: _7 = _7 ? false : true; break;
-        case 56: _8 = _8 ? false : true; _2 = false; break;
-        case 57: _9 = _9 ? false : true; break;
-   	}
-}
-*/
-function mouseWheel(event){
-    //...
-    return false;
-}
+//viewport size tracker
+var win = {
+    w : Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+    h : Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+};
 
 class Block{
     constructor(x, y, player){
@@ -136,11 +83,12 @@ class Block{
         this.player = player ? player : null;
         //console.log(this.clr);
     }
-    set_shape(shape){
-        this.shape = shape;
-    }
-    set_clr(clr){
-        this.clr = clr;
+    set_player(player){
+        if (typeof player !== 'undefined'){
+            this.player = player;
+            this.shape = player.shape;
+            this.clr = player.clr;
+        }
     }
     draw(){
         fill(this.clr);
@@ -184,6 +132,144 @@ function preload(){
     joystix_font = loadFont("../fonts/joystix_monospace.ttf");
     title = document.getElementById('title');
     mem_div = document.getElementById("mem");
+    init();
+}
+
+function init()
+{
+    ws = new ReconnectingWebSocket(address);
+    if (window.WebSocket === undefined)
+        console.log("Error: WebSockets not supported");
+    //callbacks:
+    ws.onopen = function(event){
+        console.log("Access to WebSocket " + address + " granted");
+    };
+
+    ws.onmessage = function(event){
+        let data = event.data;
+        let type = data.slice(0, 5);
+        //console.log(event.data);
+        //console.log("Rec:" + type);
+        switch (type){
+            case "<set>":
+                in_set = JSON.parse(data.slice(5, data.length));
+                init_players();
+                break;
+            case "<cyc>":
+                in_cyc = JSON.parse(data.slice(5, data.length));
+                // update_cycles();
+                break;
+            case "<exe>":
+                in_exe = JSON.parse(data.slice(5, data.length));
+                // update_procs();
+                break;
+            case "<hex>":
+                in_hex = data.slice(5, data.length);
+                // update_hexdump();
+                break;
+            case "<map>": in_map = data.slice(5, data.length);
+                update_ownership();
+                break;
+        }
+    };
+    ws.onclose = function(){
+        console.log("WebSocket " + address + " closed");
+    };
+    ws.onerror = function(event){
+        console.log("Communication error with " + address);
+        console.log(event);
+    };
+}
+
+function init_blocks(){
+    for (let i = 0; i < 4096; i++){
+        block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), null);
+        itx = itx > 1290 ? 0 : itx + space_x;
+        ity = itx == 0 ? ity + space_y : ity;
+        //if (i > 2023 && i < 3000) block[i].clr = clrs.red;
+        // if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.blue;
+        // if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.green;
+    }
+}
+function init_players(){
+    for(let i = 0; i < in_set.length; i++){
+        player[i] = new Player(in_set[i], "insert_warcry", player_clrs[i], player_shapes[i]);
+    }
+}
+
+function update_cycles(){
+    //hori,verti
+    textAlign(LEFT, CENTER);
+    // textFont('Courier New');
+    textFont(joystix_font);
+    // textStyle(BOLD);
+    textSize(30);
+    fill(255,255,255,255);
+    let cyc_tot = in_cyc[0];
+    let cyc_td = in_cyc[1];
+    if (typeof in_cyc !== 'undefined' || in_cyc.length == 0){
+        cyc_tot = "Total : " + in_cyc[0];
+        cyc_td = "To Die: " + in_cyc[1];
+    }
+    else{
+        cyc_tot = "-";
+        cyc_td = "-";
+    }
+    text(cyc_tot, 88, 425);
+    text(cyc_td, 88, 455); 
+}
+
+function update_blocks(){
+    if (block_mode == true){
+        //update_clrs();
+        for (let i = 0; i < 4096; i++){
+            block[i].draw();
+        }
+    }
+}
+
+function update_ownership(){
+    if (block_mode == true){
+        //update_clrs();
+        if (typeof in_map !== 'undefined' || in_map.length == 0)
+            for (let i = 0; i < 4096; i++){
+                block[i].set_player(player[parseInt(in_map[i]) - 1]);
+            }
+    }
+}
+
+function update_hexdump(){
+    if (text_mode == true){
+        textAlign(LEFT, TOP);
+        textFont('Courier New');
+        text_mode_bold ? textStyle(BOLD) : textStyle(NORMAL);
+        textSize(11.5);
+        // str = mem_div.innerHTML;
+        // trim = str.rpl(/0x0.*: /, '')
+        fill(255,255,255,200);
+        text(in_hex, 550, 28); //win.w * 18 / 20, win.h * 18 / 20);
+    }
+}
+
+function update_names(){
+    // textAlign(CENTER, CENTER);
+    // textFont('Courier New');
+    // textFont('Joystix Monospace');
+    // textStyle(BOLD);
+    // textSize(30);
+    // fill(255,255,255,255);
+    // let names = "";
+    // if (typeof in_set !== 'undefined'){
+    //     for(let i = 0; i < in_set.length; i++){
+    //         if (typeof player[i].name !== 'undefined')
+    //             names += (player[i].name + "\n");
+    //         else
+    //             names += "unknown";
+    //     }
+    // }
+    // else
+    //     names = "unknown";
+    // text(names, 1213, 950);
 }
 
 function setup(){
@@ -193,44 +279,18 @@ function setup(){
     canvas = createCanvas(1920, 1000); //WEBGL);
     rectMode(CENTER);
     noStroke();
-    for (let i = 0; i < 4096; i++){
-        block[i] = new Block(start_x + (itx % 1326), start_y + (ity % 926), null);
-        itx = itx > 1290 ? 0 : itx + space_x;
-        ity = itx == 0 ? ity + space_y : ity;
-        //if (i > 2023 && i < 3000) block[i].clr = clrs.red;
-        if (i >= (64 * 32) && i < (64 * 40)) block[i].clr = clrs.blue;
-        if (i >= (64 * 0) && i < (64 * 8)) block[i].clr = clrs.green;
-    }
+    init_blocks();
 }
 
 function draw(){
     //canvas_resize();
     background(0);
     //print player names
-    textAlign(CENTER, CENTER);
-    textFont('Courier New');
-    textFont('Joystix Monospace');
-    textStyle(BOLD);
-    textSize(30);
-    fill(255,255,255,255);
-    text("Player 1 vs Player 2", 1213, 950);
     //initiate font for arena printing
-    textAlign(LEFT, TOP);
-    textFont('Courier New');
-    text_mode_bold ? textStyle(BOLD) : textStyle(NORMAL);
-    textSize(11.5);
     background(back_img);
-    if (block_mode == true){
-        //update_clrs();
-        for (let i = 0; i < 4096; i++){
-            block[i].draw();
-        }
-    }
-    if (text_mode == true){
-        str = mem_div.innerHTML;
-        trim = str.rpl(/0x0.*: /, '')
-        fill(255,255,255,200);
-        text(trim, 550, 20); //win.w * 18 / 20, win.h * 18 / 20);
-    }
+    update_names();
+    update_blocks();
+    update_hexdump();
+    update_cycles();
     //...
 }
