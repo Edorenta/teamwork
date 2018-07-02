@@ -10,7 +10,8 @@ var clrs = {
     grey : "rgb(80,80,80)",  //grey
     white : "rgb(255,255,255)",
     dark_grey : "rgb(45,45,45)",
-    theme : "rgb(255,255,255)"
+    light_grey : "rgb(255,240,220)",
+    theme : "rgb(200,200,200)"
 };
 
 var dark_mode = true;
@@ -110,8 +111,8 @@ class Block{
         if (typeof player !== 'undefined'){
             this.player = player;
             this.shape = player.shape;
-            this.clr = this.is_proc ? ShadeBlend(+0.35, player.clr) : player.clr;
-            this.shape = this.is_proc ? ['round', 0] : player.shape;
+            this.clr = this.is_proc ? ShadeBlend(+0.25, player.clr) : player.clr;
+            this.shape = this.is_proc ? ['round', 1] : player.shape;
         }
     }
     set_proc(player){
@@ -144,16 +145,17 @@ class Proc{
         this.block = block;
         this.block.set_proc(player);
     }
-    move(player, to_block){
-        if (player != this.player){ //proc has been stolen
+    move(to_player, to_block){
+        if (to_player != this.player){ //proc has been stolen
             this.player.nb_procs--;
-            this.player = player;
+            this.player = to_player;
             this.player.nb_procs++;
         }
         this.block.is_proc = false;
         this.block.clr = this.block.player.clr;
+        this.block.shape = this.block.player.shape;
         this.block = to_block;
-        this.block.set_proc(player);
+        this.block.set_proc(to_player);
     }
 };
 
@@ -305,7 +307,7 @@ function get_procs(){
             return 0;
         }
     }
-    procs[procs.length] = new Proc(pid, player[owner], block[mem]);
+    procs[procs.length] = new Proc(pid, player[owner-1], block[mem]);
     // block[parseInt(in_exe[i + 1])].set_player(parseInt(in_exe[i + 1]));
     // block[parseInt(in_exe[i + 1])].set_proc(parseInt(in_exe[i + 2]));
     // }    
@@ -517,14 +519,16 @@ function keyPressed(){
         case 72: text_mode_bold = sw(text_mode_bold); break;
         case 84: dark_mode = sw(dark_mode);
             if(dark_mode){
-                clrs.theme = clrs.white;
                 back_clr = clrs.dark_grey;
-                theme_ui = dark_ui;
+                document.body.style.backgroundColor = back_clr;
+                clrs.theme = clrs.light_grey;
+                theme_ui = light_ui;
             }
             else{
+                back_clr = clrs.light_grey;
+                document.body.style.backgroundColor = back_clr;
                 clrs.theme = clrs.dark_grey;
-                back_clr = clrs.white;
-                theme_ui = light_ui;
+                theme_ui = dark_ui;
             }
         break;
     }
