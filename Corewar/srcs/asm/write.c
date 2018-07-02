@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 05:37:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 06:08:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int	write_args(int fd, t_ops *ops)
 			if (ops->label[count] == -1)
 				write_fill(fd, ops->argv[count], 2, 2);
 			else
-				write_fill(fd, ops->label[count], g_op_tab[ops->type -1].label,
-				g_op_tab[ops->type -1].label == 4 ? 3 : 2);		
+				write_fill(fd, ops->label[count], g_op_tab[ops->type -1].label ? 2 : 4,
+				g_op_tab[ops->type -1].label ? 2 : 3);		
 		}
 		else if (num == 3)
 			write_fill(fd, ops->argv[count], 2, 2);

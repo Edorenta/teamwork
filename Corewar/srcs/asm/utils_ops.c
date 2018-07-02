@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 05:42:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 05:57:59 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ static unsigned int	ops_getlen(t_ops *ops)
 		else if (num == 1)
 			len++;
 		else if (num == 2)
-			len += g_op_tab[ops->type - 1].label;
+		{
+			if (ops->argv[count] == -1)
+				len += g_op_tab[ops->type - 1].label ? 4 : 2;
+			else
+				len += 2;
+		}
 		else if (num == 3)
 			len += 2;	
 		else
@@ -61,6 +66,8 @@ static unsigned int	ops_getlen(t_ops *ops)
 			break;
 	}
 	len += g_op_tab[ops->type - 1].octal;
+	printf("len : %d\n", len);
+	printf("\n");
 	return (len);
 }
 
@@ -68,6 +75,7 @@ unsigned int		ops_get_len(t_ops *ops)
 {
 	t_ops			*iter;
 	unsigned int	len;
+	unsigned int	att;
 
 	len = 0;
 	if (ops)
@@ -75,7 +83,10 @@ unsigned int		ops_get_len(t_ops *ops)
 		iter = ops;
 		while (iter)
 		{
-			len += ops_getlen(iter);
+			att = 0;
+			att = ops_getlen(iter);
+			iter->len = att;
+			len += att;
 			iter = iter->next;
 		}
 	}
