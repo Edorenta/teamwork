@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 03:11:49 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/03 01:10:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 01:27:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_err(t_iter *iter, int token, int count)
 	return (-1);
 }
 
-void	end_line(t_iter *iter)
+void		end_line(t_iter *iter)
 {
 	clear_wsp(iter);
 	if (*iter->line == ';')
@@ -37,7 +37,7 @@ void	end_line(t_iter *iter)
 		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
-int		check_head(t_iter *iter)
+int			check_head(t_iter *iter)
 {
 	if (ft_strnequ((iter->line), NAME_CMD_STRING, 5))
 	{
@@ -64,7 +64,18 @@ int		check_head(t_iter *iter)
 	return (1);
 }
 
-int	check_name(t_iter *iter)
+int			while_check(t_iter **iter, int cpt)
+{
+	++((*iter)->line);
+	++cpt;
+	if ((*iter)->token == 0x82 && cpt == 129)
+		return (check_err(*iter, NAME_ERR0, (*iter)->count + cpt));
+	else if ((*iter)->token == 0x84 && cpt == 2049)
+		return (check_err(*iter, COMT_ERR0, (*iter)->count + cpt));
+	return (cpt);
+}
+
+int			check_name(t_iter *iter)
 {
 	int countchar;
 
@@ -79,14 +90,8 @@ int	check_name(t_iter *iter)
 	if ((*(iter->line)) && *(iter->line) == '"')
 		return (check_err(iter, NAME_ERR1, iter->count));
 	while ((*(iter->line)) && *(iter->line) != '"')
-	{
-		++(iter->line);
-		++countchar;
-		if (iter->token == 0x82 && countchar == 129)
-			return (check_err(iter, NAME_ERR0, iter->count + countchar));
-		else if (iter->token == 0x84 && countchar == 2049)
-			return (check_err(iter, COMT_ERR0, iter->count + countchar));
-	}
+		if ((countchar = while_check(&iter, countchar)) == -1)
+			return (-1);
 	++(iter->line);
 	while ((*(iter->line)) && *(iter->line) == ' ')
 	{
@@ -98,7 +103,7 @@ int	check_name(t_iter *iter)
 	return (0);
 }
 
-int		lexer_basics(t_iter *iter)
+int			lexer_basics(t_iter *iter)
 {
 	int	i;
 
