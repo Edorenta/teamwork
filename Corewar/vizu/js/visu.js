@@ -7,9 +7,13 @@ var clrs = {
     red : "rgb(230,0,0)",      //red
     purple : "rgb(230,0,230)", //purple
     yellow : "rgb(250,250,0)", //yellow
-    grey : "rgb(80,80,80)"  //grey
+    grey : "rgb(80,80,80)",  //grey
+    white : "rgb(255,255,255)",
+    dark_grey : "rgb(45,45,45)",
+    theme : white
 };
 
+var dark_mode = true;
 var text_mode = true;
 var block_mode = true;
 var text_mode_bold = false;
@@ -38,7 +42,10 @@ var title;
 var canvas;
 var mem_div;
 var cmd_div;
-var back_img;
+var dark_bg;
+var light_bg;
+var theme_bg;
+var back_clr = clrs.dark_grey;
 var joystix_font;
 var str;
 var trim;
@@ -177,7 +184,8 @@ class Player{
 
 //initialization function
 function preload(){
-    back_img = loadImage("../assets/corewar_background_2.png");
+    dark_bg = loadImage("../assets/corewar_dark_back.png");
+    light_bg = loadImage("../assets/corewar_white_back.png");
     joystix_font = loadFont("../fonts/joystix_monospace.ttf");
     title = document.getElementById('title');
     mem_div = document.getElementById("mem");
@@ -328,7 +336,7 @@ function update_cycles(){
     textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
     textSize(20);
-    fill(255,255,255,255);
+    fill(clrs.theme);
     let cyc_tot = "Total  : "; //in_cyc[0];
     let cyc_td = "To Die : "; //in_cyc[1];
     if (typeof in_cyc !== 'undefined' && in_cyc.length > 0){
@@ -351,12 +359,12 @@ function update_lives(){
     textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
     textSize(20);
-    fill(255,255,255,255);
+    fill(clrs.theme);
     let x = 88;
     text("last :", x, 740);
-    last_alive ? fill(last_alive.clr) : fill(255,255,255,255);
+    last_alive ? fill(last_alive.clr) : fill(clrs.theme);
     last_alive ? text(last_alive.name, 200, 740) : text("--", 220, 740);
-    fill(255,255,255,255);
+    fill(clrs.theme);
     text("CTD  :", x, 770);
     textSize(14);
     x += 110
@@ -378,7 +386,7 @@ function update_names(){
     textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
     textSize(20);
-    fill(255,255,255,255);
+    fill(clrs.theme);
     let x = 88;
     let y = 270;
     if (typeof in_set !== 'undefined' && in_cyc.length > 0){
@@ -392,7 +400,7 @@ function update_names(){
                 text(player[i].name, x, y);
             }
             else{
-                fill(255,255,255,255);
+                fill(clrs.theme);
                 text("unknown", x, y);
             }
         }
@@ -408,7 +416,7 @@ function update_procs(){
     // textStyle(BOLD);
     textSize(20);
     let x = 88;
-    fill(255,255,255,255);
+    fill(clrs.theme);
     text("SUM :", x, 600);
     x += 110
     if (typeof procs !== 'undefined' && procs.length > 0){
@@ -453,7 +461,7 @@ function update_map_control(){
     }
     else{
         textSize(20);
-        fill(255,255,255,255);
+        fill(clrs.theme);
         text("waiting for players", x, 895);
     }
 }
@@ -484,8 +492,8 @@ function setup(){
 function draw(){
     //clean and resize the canvas
     //canvas_resize();
-    background(0);
-    background(back_img);
+    background(the);
+    background(theme_bg);
     //update UI
     update_names();
     update_cycles();
@@ -498,11 +506,27 @@ function draw(){
     //...
 }
 
+function sw(what){
+    what = what ? false : true;
+}
+
 function keyPressed(){
     switch (keyCode){ //RESET setting
-        case 86: text_mode = text_mode ? false : true; break;
-        case 66: block_mode = block_mode ? false : true; break;
-        case 72: text_mode_bold = text_mode_bold ? false : true; break;
+        case 86: sw(text_mode); break;
+        case 66: sw(block_mode); break;
+        case 72: sw(text_mode_bold); break;
+        case 84: sw(dark_mode);
+            if(dark_mode){
+                clrs.theme = clrs.white;
+                back_clr = clrs.dark_grey;
+                bg = dark_bg;
+            }
+            else{
+                clrs.theme = clrs.dark_grey;
+                back_clr = clrs.white;
+                theme_bg = light_bg;
+            }
+        break;
     }
     //TO ADD: color and shape bindings
     //  console.log(keyCode);
