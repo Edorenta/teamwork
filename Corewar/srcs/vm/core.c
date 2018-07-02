@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 02:57:58 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:21:31 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
 
-		send_to_socket(vm, "]$<exe>[", 8);
-			proc->next ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
-			: ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
+		send_to_socket(vm, "$<exe>[", 8);
+			//(proc->next && proc->next->op && proc->next->op.active)
+			// ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
+			/*: */ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
 			send_to_socket(vm, buf, ft_strlen(buf));
+		send_to_socket(vm, "]", 1);
 			send_mem(vm);
 			send_num_player(vm);
-		send_to_socket(vm, "]", 1);
-		// ft_printf("pc: %d - player: %d\n", proc->pc, proc->num);//
 			delete_op(proc);
 		}
 	}
@@ -82,6 +82,7 @@ void	run(t_vm *vm)
 		send_to_socket(vm, buf, ft_strlen(buf));
 		ft_sprintf(buf, "\"%d\"", vm->ctd);
 		send_to_socket(vm, buf, ft_strlen(buf));
+		send_to_socket(vm, "]", 1);
 		list_proc(vm, proc);
 		vm->cycle++;
 		if (vm->dump != -1)
