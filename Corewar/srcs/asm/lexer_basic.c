@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 03:11:49 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/01 20:10:09 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 04:14:57 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,17 @@ int	check_name(t_iter *iter)
 		{
 			iter->token = HEAD_ERR3;
 			return (-1);
-		}	
+		}
 		++(iter->count);
 		++(iter->line);
 	}
 	++(iter->count);
 	++(iter->line);
+	if ((*(iter->line)) && *(iter->line) == '"')
+	{
+		iter->token = NAME_ERR1;
+		return (-1);
+	}
 	while ((*(iter->line)) && *(iter->line) != '"')
 	{
 		++(iter->line);
