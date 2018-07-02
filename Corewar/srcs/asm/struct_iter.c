@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/29 04:07:10 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 01:48:20 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ t_iter	*iter_add_list(t_iter *iter, char *label, int type)
 			node->next = token_create(type, label, iter->lnb, iter->count);
 		}
 		else
-		{
 			iter->iter->list = token_create(type, label, iter->lnb, iter->count);
-		}
 	}
 	return (iter);
 }
