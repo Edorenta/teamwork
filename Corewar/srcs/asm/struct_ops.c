@@ -18,6 +18,7 @@ void	ops_debug(t_ops *ops)
 	printf("args : %ld, %ld, %ld\n", ops->args[0], ops->args[1], ops->args[2]);
 	printf("argv : %ld, %ld, %ld\n", ops->argv[0], ops->argv[1], ops->argv[2]);
 	printf("label : %ld, %ld, %ld\n", ops->label[0], ops->label[1], ops->label[2]);
+	printf("length : %d\n", ops->len);
 }
 
 void	ops_tostring(t_ops *ops)

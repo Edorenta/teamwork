@@ -46,9 +46,11 @@ static int	write_args(int fd, t_ops *ops)
 {
 	int		count;
 	int		num;
+	int		len;
 
 	count = -1;
 	num = 0;
+	len = 0;
 	while (++count < 3)
 	{
 		num = (ops->args[count]);
@@ -57,21 +59,34 @@ static int	write_args(int fd, t_ops *ops)
 		else if (num == 1)
 		{
 			write_fill(fd, ops->argv[count], 1, 1);
+			len++;
 		}
 		else if (num == 2)
-		{
-			if (ops->label[count] == -1)
-				write_fill(fd, ops->argv[count], 2, 2);
+		{	
+			int	type;
+			type = (ops->argv[count] == -1);
+			if (g_op_tab[ops->type - 1].label)
+			{
+				write_fill(fd, type ? ops->label[count] : ops->argv[count], 4, 3);
+				len += 4;
+			}
 			else
-				write_fill(fd, ops->label[count], g_op_tab[ops->type -1].label ? 2 : 4,
-				g_op_tab[ops->type -1].label ? 2 : 3);		
+			{
+				write_fill(fd, type ? ops->label[count] : ops->argv[count], 2, 2);
+				len += 2;
+			}
 		}
 		else if (num == 3)
+		{
 			write_fill(fd, ops->argv[count], 2, 2);
+			len += 2;
+		}
 		else
 			//error here;
 			break;
 	}
+	printf("\nlen : %d\n", len);
+	ops_debug(ops);
 	return (1);
 }
 
@@ -82,7 +97,6 @@ void		write_head(int fd, t_header head)
 
 	pad = 0;
 	write(fd, header, 4);
-	head.prog_size = 77;
 	write(fd, head.prog_name, PROG_NAME_LENGTH);
 	write(fd, &pad, 4);
 	write_fill(fd, head.prog_size, 4, 4);
@@ -101,7 +115,7 @@ void		write_ops(int fd, t_ops *ops)
 		write(fd, &iter->type, 1);
 		if (g_op_tab[iter->type - 1].octal)
 			write(fd, &iter->opcode, 1);
-		write_args(fd, ops);
+		write_args(fd, iter);
 		iter = iter->next;
 	}
 }
@@ -111,6 +125,7 @@ void		write_all(char *filename, t_ops *ops, t_header header)
 	int			fd;
 	
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
+	header.prog_size = ops_get_len(ops);
 	write_head(fd, header);
 	write_ops(fd, ops);
 	close(fd);

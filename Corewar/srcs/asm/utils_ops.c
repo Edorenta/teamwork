@@ -53,12 +53,7 @@ static unsigned int	ops_getlen(t_ops *ops)
 		else if (num == 1)
 			len++;
 		else if (num == 2)
-		{
-			if (ops->argv[count] == -1)
-				len += g_op_tab[ops->type - 1].label ? 4 : 2;
-			else
-				len += 2;
-		}
+			len += g_op_tab[ops->type - 1].label ? 4 : 2;
 		else if (num == 3)
 			len += 2;	
 		else
@@ -66,8 +61,6 @@ static unsigned int	ops_getlen(t_ops *ops)
 			break;
 	}
 	len += g_op_tab[ops->type - 1].octal;
-	printf("len : %d\n", len);
-	printf("\n");
 	return (len);
 }
 

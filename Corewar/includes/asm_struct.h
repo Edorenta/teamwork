@@ -50,6 +50,7 @@ typedef struct		s_op
 	int				cycle;
 	char			*desc;
 	int				octal;
+	int				addr;
 	int				label;
 }					t_op;
 
