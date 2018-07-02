@@ -30,7 +30,8 @@ all :
 	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm $(FILE)$(TARGET).s
 	@echo 
-	hexdump -C test.cor
+	@hexdump -C test.cor
+	@echo
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)

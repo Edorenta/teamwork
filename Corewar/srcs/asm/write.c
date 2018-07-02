@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 06:08:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 18:50:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_op		g_op_tab[17];
 
-static int	write_fill(int fd, long value, int size, int type)
+int			write_fill(int fd, long value, int size, int type)
 {
 	char	print[4];
 
@@ -26,14 +26,14 @@ static int	write_fill(int fd, long value, int size, int type)
 		print[0] = ((value & 0xFF00) >> 8);
 	}
 	else if (type == 3)
-	{	
+	{
 		print[3] = (value & 0xFF);
 		print[2] = ((value & 0xFF00) >> 8);
 		print[1] = ((value & 0xFF0000) >> 16);
 		print[0] = ((value & 0xFF000000) >> 24);
 	}
 	else if (type == 4)
-	{	
+	{
 		print[3] = (value & 0xFF);
 		print[2] = (value & 0xFF00);
 		print[1] = (value & 0xFF0000);
@@ -42,48 +42,30 @@ static int	write_fill(int fd, long value, int size, int type)
 	return (write(fd, &print, size));
 }
 
-static int	write_args(int fd, t_ops *ops)
+int			write_args(int fd, t_ops *ops)
 {
-	int		count;
+	int		c;
 	int		num;
-	int		len;
+	int		type;
 
-	count = -1;
-	num = 0;
-	len = 0;
-	while (++count < 3)
+	c = -1;
+	while (++c < 3)
 	{
-		num = (ops->args[count]);
-		if (num == -1)
-			break;
+		num = (ops->args[c]);
+		if (num == -1 || num > 3)
+			break ;
 		else if (num == 1)
-		{
-			write_fill(fd, ops->argv[count], 1, 1);
-			len++;
-		}
+			write_fill(fd, ops->argv[c], 1, 1);
 		else if (num == 2)
-		{	
-			int	type;
-			type = (ops->argv[count] == -1);
+		{
+			type = (ops->argv[c] == -1);
 			if (g_op_tab[ops->type - 1].label)
-			{
-				write_fill(fd, type ? ops->label[count] : ops->argv[count], 4, 3);
-				len += 4;
-			}
+				write_fill(fd, type ? ops->label[c] : ops->argv[c], 4, 3);
 			else
-			{
-				write_fill(fd, type ? ops->label[count] : ops->argv[count], 2, 2);
-				len += 2;
-			}
+				write_fill(fd, type ? ops->label[c] : ops->argv[c], 2, 2);
 		}
 		else if (num == 3)
-		{
-			write_fill(fd, ops->argv[count], 2, 2);
-			len += 2;
-		}
-		else
-			//error here;
-			break;
+			write_fill(fd, ops->argv[c], 2, 2);
 	}
 	return (1);
 }
@@ -91,7 +73,7 @@ static int	write_args(int fd, t_ops *ops)
 void		write_head(int fd, t_header head)
 {
 	const char	header[4] = {0, 0xea, 0x83, 0xf3};
-	int	pad;
+	int			pad;
 
 	pad = 0;
 	write(fd, header, 4);
@@ -102,11 +84,10 @@ void		write_head(int fd, t_header head)
 	write(fd, &pad, 4);
 }
 
-
 void		write_ops(int fd, t_ops *ops)
 {
 	t_ops		*iter;
-	
+
 	iter = ops;
 	while (iter)
 	{
@@ -121,7 +102,7 @@ void		write_ops(int fd, t_ops *ops)
 void		write_all(char *filename, t_ops *ops, t_header header)
 {
 	int			fd;
-	
+
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXG | S_IRWXU | S_IRWXO);
 	header.prog_size = ops_get_len(ops);
 	write_head(fd, header);
