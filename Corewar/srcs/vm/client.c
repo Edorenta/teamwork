@@ -18,7 +18,7 @@ void	send_exe(t_vm *vm, t_proc *proc)
 
 	ft_bzero(buf, 50000);
 	send_to_socket(vm, "$<exe>[", 7);
-	ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
+	ft_sprintf(buf, "\"%d\",\"%d\"", ft_iabs(proc->num), proc->pc);
 	send_to_socket(vm, buf, ft_strlen(buf));
 	send_to_socket(vm, "]", 1);
 	send_mem(vm);

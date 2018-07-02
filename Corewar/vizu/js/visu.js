@@ -48,6 +48,7 @@ var in_exe = [];
 var in_liv = [];
 var in_hex;
 var in_map;
+var last_alive;
 
 //min max of array as .this function
 Array.prototype.max = function(){
@@ -117,6 +118,7 @@ class Player{
         this.msg = msg;
         this.clr = clr;
         this.shape = shape;
+        this.sum_alives = 0;
         console.log("New player:", this.name);
     }
     set_name(name){
@@ -157,27 +159,30 @@ function init()
                 init_players();
                 break;
             case "<cyc>":
-                in_cyc = JSON.parse(data.slice(5, data.length));
-                // update_cycles();
+                let tmp = JSON.parse(data.slice(5, data.length));
+                in_cyc[1] == tmp[1] ? 0 : init_new_period();
+                in_cyc = tmp;
                 break;
             case "<exe>":
                 in_exe = JSON.parse(data.slice(5, data.length));
-                console.log(data);
                 console.log(in_exe);
-                // update_procs();
+                update_procs();
                 break;
             case "<liv>":
                 in_liv = JSON.parse(data.slice(5, data.length));
-                console.log(data);
-                console.log(in_liv);
+                set_alive();
                 break;
             case "<hex>":
                 in_hex = data.slice(5, data.length);
                 // update_hexdump();
                 break;
-            case "<map>": in_map = data.slice(5, data.length);
+            case "<map>":
+                in_map = data.slice(5, data.length);
                 update_ownership();
                 break;
+            case "<end>": victory();
+                break;
+
         }
     };
     ws.onclose = function(){
@@ -200,8 +205,23 @@ function init_blocks(){
     }
 }
 function init_players(){
-    for(let i = 0; i < in_set.length; i++){
+    for (let i = 0; i < in_set.length; i++){
         player[i] = new Player(in_set[i], "insert_warcry", player_clrs[i], player_shapes[i]);
+    }
+}
+
+function set_alive(){
+    if (typeof player !== 'undefined' && player.length > 0){
+        ++player[parseInt(in_liv) - 1].sum_alives;
+        last_alive = player[parseInt(in_liv) - 1];
+    }
+}
+
+function init_new_period(){
+    if (typeof player !== 'undefined' && player.length > 0){
+        for (let i = 0; i < player.length; i++){
+            player[i].sum_alives = 0;
+        }
     }
 }
 
@@ -212,18 +232,45 @@ function update_cycles(){
     // textStyle(BOLD);
     textSize(20);
     fill(255,255,255,255);
-    let cyc_tot = "Total : "; //in_cyc[0];
-    let cyc_td = "To Die: "; //in_cyc[1];
+    let cyc_tot = "Total  : "; //in_cyc[0];
+    let cyc_td = "To Die : "; //in_cyc[1];
     if (typeof in_cyc !== 'undefined' && in_cyc.length > 0){
         cyc_tot += in_cyc[0];
         cyc_td += in_cyc[1];
     }
     else{
-        cyc_tot += "-";
-        cyc_td += "-";
+        cyc_tot += "--";
+        cyc_td += "--";
     }
     text(cyc_tot, 88, 425);
     text(cyc_td, 88, 455); 
+}
+
+function update_lives(){
+    //hori,verti
+    textAlign(LEFT, CENTER);
+    textFont(joystix_font); // textFont('Courier New');
+    // textStyle(BOLD);
+    textSize(20);
+    fill(255,255,255,255);
+    let x = 88;
+    text("last :", x, 740);
+    last_alive ? fill(last_alive.clr) : fill(255,255,255,255);
+    last_alive ? text(last_alive.name, 200, 740) : text("--", 220, 740);
+    fill(255,255,255,255);
+    text("CTD  :", x, 770);
+    textSize(14);
+    x += 110
+    if (typeof player !== 'undefined' && player.length > 0){
+        for (let i = 0; i < player.length; i++){
+            fill(player[i].clr);
+            text(player[i].sum_alives, x, 770);
+            x += 70;
+        }
+    }
+    else{
+        text("--", 220, 770);
+    }
 }
 
 function update_names(){
@@ -236,10 +283,10 @@ function update_names(){
     let x = 88;
     let y = 270;
     if (typeof in_set !== 'undefined' && in_cyc.length > 0){
-        for(let i = 0; i < in_set.length; i++){
+        for (let i = 0; i < in_set.length; i++){
             if (i == 1 || i == 3) y += 30;
             else y = 270;
-            if (i == 2 || i == 3) x += 220;
+            if (i == 2 || i == 3) x = 308;
             else x = 88;
             if (typeof player[i].name !== 'undefined'){
                 fill(player[i].clr);
@@ -267,10 +314,11 @@ function update_blocks(){
 function update_ownership(){
     if (block_mode == true){
         //update_clrs();
-        if (typeof in_map !== 'undefined' || in_map.length == 0)
+        if (typeof in_map !== 'undefined' || in_map.length == 0){
             for (let i = 0; i < 4096; i++){
                 block[i].set_player(player[parseInt(in_map[i]) - 1]);
             }
+        }
     }
 }
 
@@ -303,10 +351,11 @@ function draw(){
     //print player names
     //initiate font for arena printing
     background(back_img);
+    update_cycles();
     update_names();
+    update_lives();
     update_blocks();
     update_hexdump();
-    update_cycles();
     //...
 }
 
