@@ -6,28 +6,11 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:06:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 18:40:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-# define A_LIVE(x)	x == 0x01
-# define A_LD(x)	x == 0x02
-# define A_ST(x)	x == 0x03
-# define A_ADD(x)	x == 0x04
-# define A_SUB(x)	x == 0x05
-# define A_AND(x)	x == 0x06
-# define A_OR(x)	x == 0x07
-# define A_XOR(x)	x == 0x08
-# define A_ZJMP(x)	x == 0x09
-# define A_LDI(x)	x == 0x0A
-# define A_STI(x)	x == 0x0B
-# define A_FORK(x)	x == 0x0C
-# define A_LLD(x)	x == 0x0D
-# define A_LLDI(x)	x == 0x0E
-# define A_LFORK(x)	x == 0x0F
-# define A_AFF(x)	x == 0x10
 
 t_op	g_op_tab[17];
 
