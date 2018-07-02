@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:27:00 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 04:37:31 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ void	lab_del(t_lab *lab)
 	}
 }
 
-int	lab_create(t_iter *iter)
+int	lab_create(t_iter *iter, char *ligne)
 {
 	char	*line;
 	char	*label;
 
-	line = iter->line;
-	//ft_error here
+	line = ligne;
 	label = lab_parse(line);
 	if (label == NULL || lab_exist(iter->labels, label))
 	{

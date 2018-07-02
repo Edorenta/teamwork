@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:25:51 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 04:37:10 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*lexer_label(unsigned int token)
 	return "TOKEN_ERROR";
 }
 
-static t_tok	*lexer_token(t_iter *iter)
+static t_tok	*lexer_token(t_iter *iter, char *line)
 {
 	t_tok			*new;
 	unsigned int	token;
@@ -48,7 +48,7 @@ static t_tok	*lexer_token(t_iter *iter)
 	{
 		new = token_iter(iter, lexer_label(token));
 		if ((new->type >> 4) == TOKEN_LAB)
-			if (lab_create(iter) == -1)
+			if (lab_create(iter, line) == -1)
 				return (NULL);
 	}
 	else
@@ -88,6 +88,8 @@ void	put_error(t_iter *iter, char *line)
 		printf("%s\n%*c\nPas le bon type de parametre.\n", line, iter->count, '^');
 	else if (iter->token == NAME_ERR1)
 		printf("%s\n%*c\nLe nom/commentaire, ne peut pas etre vide.\n", line, iter->count, '^');
+	else if (iter->token == LABEL_ERR3)
+		printf("%s\n%*c\nCe label existe deja.\n", line, iter->count + 1 , '^');	
 	exit (0);
 }
 
@@ -107,12 +109,12 @@ t_iter	*lexer(t_iter *iter, int fd)
 		{
 			if (!iter->first)
 			{
-				iter->first = lexer_token(iter);
+				iter->first = lexer_token(iter, line);
 				iter->iter = iter->first;
 			}
 			else
 			{
-				if ((iter->iter->next = lexer_token(iter)) == NULL)
+				if ((iter->iter->next = lexer_token(iter, line)) == NULL)
 					put_error(iter, line);
 				iter->iter = iter->iter->next;
 			}
@@ -129,12 +131,12 @@ t_iter	*lexer(t_iter *iter, int fd)
 			put_error(iter, line);
 		else if (!iter->first)
 		{
-			iter->first = lexer_token(iter);
+			iter->first = lexer_token(iter, line);
 			iter->iter = iter->first;
 		}
 		else
 		{
-			iter->iter->next = lexer_token(iter);
+			iter->iter->next = lexer_token(iter, line);
 			iter->iter = iter->iter->next;
 		}
 		++(iter->lnb);
