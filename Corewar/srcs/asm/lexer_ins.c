@@ -6,8 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:29:25 by fmadura          ###   ########.fr       */
-/*   Updated: 2018/07/01 23:19:30 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 03:53:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +45,6 @@ static int	lexer_ins_log(t_iter *iter, int op, int para)
 			iter->token = PAR_ERR0;
 			return (-1);
 		}
-		//else if (g_op_tab[op].arg[i] !=
 	}
 	else if (*iter->line == 'r')
 	{
@@ -96,6 +94,11 @@ int		lexer_ins_sub(t_iter *iter, int op)
 		sep++;
 	}
 	if (g_op_tab[op].nbarg != sep + 1)
+	{
+		iter->token = PAR_ERR1;
+		return (-1);
+	}
+	if (test_param(iter) == -1)
 	{
 		iter->token = PAR_ERR1;
 		return (-1);
