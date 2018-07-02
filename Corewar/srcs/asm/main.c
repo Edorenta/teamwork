@@ -6,16 +6,18 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:23:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:31:14 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include <strings.h>
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (argc > 1)
-		ft_asm(argv);
+	{
+		if (ft_asm(argv))
+			printf("Malloc error, do not use a program to crash ours !\n");
+	}
 	return (0);
 }

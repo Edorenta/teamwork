@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:19:14 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 21:30:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 
 int		ft_asm(char **argv)
 {
-	int		fd; 
+	int		fd;
 	t_iter	*iter;
 	t_ops	*ops;
 
-	//error handling here
 	iter = iter_new();
 	if (iter == NULL)
 		return (1);

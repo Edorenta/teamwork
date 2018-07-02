@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:02:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:27:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,17 @@ int		token_lab(t_iter *itr)
 	while (*iter && (ft_isalpha(*iter) || ft_isdigit(*iter) || *iter == '_'))
 	{
 		++iter;
-		count++;
+		++count;
 	}
 	if (*iter == ':')
 	{
 		++iter;
-		count++;
+		itr->count = (++count);
 		if ((*iter) && ((*iter) != ' ' && (*iter) != '\t'))
 		{
 			itr->token |= LABEL_ERR2;
-			itr->count = count;
 			return (-1);
 		}
-		itr->count = count;
 		itr->line = iter;
 		return (1);
 	}
