@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 22:24:31 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 03:17:13 by jyildiz-         ###   ########.fr       */
 /*   Updated: 2018/07/01 19:01:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ int					ft_asm(char **argv);
 t_iter				*lexer(t_iter *iter, int fd);
 t_ops				*parser(t_iter *iter, int fd);
 
+int					test_param(t_iter *iter);
 int					lexer_ins_sub(t_iter *iter, int op);
 int					lexer_ins(t_iter *iter);
 int					lexer_basics(t_iter *iter);
