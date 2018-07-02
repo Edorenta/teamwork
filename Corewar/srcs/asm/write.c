@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/01 23:51:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:23:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,9 @@ void		write_ops(int fd, t_ops *ops)
 	iter = ops;
 	while (iter)
 	{
-		write(fd, (const char *)&iter->type, 1);
-		write(fd, (const char *)&iter->opcode, 1);
+		write(fd, &iter->type, 1);
+		printf("OPC : %d\n", iter->opcode);
+		write(fd, &iter->opcode, 1);
 		write_args(fd, ops);
 		iter = iter->next;
 	}

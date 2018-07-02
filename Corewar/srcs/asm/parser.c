@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:16:27 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:25:33 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static long		get_index(t_iter *iter, char *line)
 	return (ret);
 }
 
-static long		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
+static void		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
 {
 	int		len;
 
@@ -61,7 +61,7 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line)
 		iter = iter->next;
 	}
 	new->lnb = token->lnb;
-	ops_debug(new);
+	ops_get_ocp(new);
 	return (new);
 }
 
@@ -84,7 +84,6 @@ t_ops	*parser(t_iter *iter, int fd)
 		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
-		printf("\n%s\n", line);
 		if ((iter->iter->type & 0x600) == 0x600)
 		{
 			if (!first)

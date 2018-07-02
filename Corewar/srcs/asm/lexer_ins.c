@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:04:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:29:25 by fmadura          ###   ########.fr       */
 /*   Updated: 2018/07/01 23:19:30 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -34,7 +34,6 @@ int		lexer_sub_dir(t_iter *iter)
 	}
 	else
 		return (-1);
-	printf("{%d} {%d} {%s}\n", iter->lnb, iter->count, iter->line);
 	return (0);
 }
 
@@ -126,7 +125,6 @@ int		lexer_ins(t_iter *iter)
 			clear_wsp(iter);
 			while (--len > -1)
 				increment(iter);
-			printf("{%d} {%d} {%s}\n", iter->lnb, iter->count, iter->line);
 			if (lexer_ins_sub(iter, op) == -1)
 				return (-1);
 			end_line(iter);
