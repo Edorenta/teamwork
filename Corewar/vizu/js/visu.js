@@ -10,6 +10,15 @@ var clrs = {
     grey : "rgb(80,80,80)"  //grey
 };
 
+var dark = {
+    blue : "rgb(0,95,145)",   //blue
+    green : "rgb(20,145,0)",   //green
+    red : "rgb(145,0,0)",      //red
+    purple : "rgb(145,0,145)", //purple
+    yellow : "rgb(145,145,0)", //yellow
+    grey : "rgb(50,50,50)"  //grey
+};
+
 var text_mode = true;
 var block_mode = true;
 var text_mode_bold = false;
@@ -32,7 +41,6 @@ var joystix_font;
 var str;
 var trim;
 var fontsize;
-var block = [];
 var start_x = 557;
 var start_y = 35;
 var itx = 0;
@@ -41,7 +49,10 @@ var space_x = 20.7;
 var space_y = 14.4;
 
 //core GET variables
+var procs = [];
+var block = [];
 var player = [];
+
 var in_set = [];
 var in_cyc = [];
 var in_exe = [];
@@ -83,14 +94,19 @@ class Block{
         this.shape = player ? player.shape : arena_block_shape;
         this.clr = player ? player.clr : arena_block_clr;
         this.player = player ? player : null;
+        this.is_proc = false;
         //console.log(this.clr);
     }
     set_player(player){
         if (typeof player !== 'undefined'){
             this.player = player;
             this.shape = player.shape;
-            this.clr = player.clr;
+            this.clr = this.is_proc ? ShadeBlend(-0.4, player.clr) : player.clr;
         }
+    }
+    set_proc(player){
+        this.is_proc = true;
+        this.set_player(player);
     }
     draw(){
         fill(this.clr);
@@ -109,6 +125,26 @@ class Block{
         }
     }
 };
+
+class Proc{
+    constructor(pid, player, block){
+        this.pid = pid;
+        this.player = player;
+        this.block = block;
+        this.block.set_proc(player);
+    }
+    move(player, to){
+        this.player = player;
+        this.block.is_proc = false;
+        this.block.clr = this.block.player.clr;
+        tmp(this.block);
+        this.block = to;
+    }
+};
+
+function tmp(block){
+    block.set_proc(player);    
+}
 
 //Player shapes: square / triangle / round
 
@@ -165,7 +201,7 @@ function init()
                 break;
             case "<exe>":
                 in_exe = JSON.parse(data.slice(5, data.length));
-                console.log(in_exe);
+                // console.log(in_exe);
                 update_procs();
                 break;
             case "<liv>":
@@ -300,6 +336,21 @@ function update_names(){
     }
     else if (in_cyc.length == 0)
         text("waiting for players", x, y);
+}
+
+function update_procs(){
+    let owner = parseInt(in_exe[0]);
+    let mem = parseInt(in_exe[1]);
+    let pid = parseInt(in_exe[2]);
+    for (let i = 0; i < (procs.length); i++){
+        if (procs[i].pid == pid)
+            procs[i].move(owner, mem);
+        return 0;
+    }
+    procs[procs.length + 1] = new Proc(pid, owner, mem);
+    // block[parseInt(in_exe[i + 1])].set_player(parseInt(in_exe[i + 1]));
+    // block[parseInt(in_exe[i + 1])].set_proc(parseInt(in_exe[i + 2]));
+    // }
 }
 
 function update_blocks(){

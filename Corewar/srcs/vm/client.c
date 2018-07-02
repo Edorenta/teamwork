@@ -18,7 +18,8 @@ void	send_exe(t_vm *vm, t_proc *proc)
 
 	ft_bzero(buf, 50000);
 	send_to_socket(vm, "$<exe>[", 7);
-	ft_sprintf(buf, "\"%d\",\"%d\"", ft_iabs(proc->num), proc->pc);
+	ft_sprintf(buf, "\"%d\",\"%d\",\"%d\"",
+	ft_iabs(proc->num), proc->pc, proc->id);
 	send_to_socket(vm, buf, ft_strlen(buf));
 	send_to_socket(vm, "]", 1);
 	send_mem(vm);
@@ -32,9 +33,9 @@ void	send_player(t_vm *vm, int nb)
 	if (vm->vizu)
 	{
 		ft_bzero(c, 129);
-		(nb == vm->nb_player || vm->nb_player == 1) ?
-			ft_sprintf(c, "\"%s\"", vm->player[nb].name) :
-			ft_sprintf(c, "\"%s\",", vm->player[nb].name);
+		(nb == vm->nb_player || vm->nb_player == 1)
+		? ft_sprintf(c, "\"%s\"", vm->player[nb].name)
+		: ft_sprintf(c, "\"%s\",", vm->player[nb].name);
 		send_to_socket(vm, c, ft_strlen(c));
 	}
 }
