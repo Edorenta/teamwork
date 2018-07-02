@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 03:21:31 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:30:29 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
 
-		send_to_socket(vm, "$<exe>[", 8);
+		send_to_socket(vm, "$<exe>[", 7);
 			//(proc->next && proc->next->op && proc->next->op.active)
 			// ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
 			/*: */ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
