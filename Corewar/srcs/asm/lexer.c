@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 22:01:18 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 22:34:54 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,23 @@ static t_tok	*lexer_token(t_iter *iter, char *line)
 	return (new);
 }
 
+void			if_lab(t_iter **iter, char *line)
+{
+	if (!(*iter)->first)
+	{
+		(*iter)->first = lexer_token(*iter, line);
+		(*iter)->iter = (*iter)->first;
+	}
+	else
+	{
+		if (((*iter)->iter->next = lexer_token(*iter, line)) == NULL)
+			put_error(*iter, line);
+		(*iter)->iter = (*iter)->iter->next;
+	}
+	(*iter)->token = 0;
+	(lexer_ins(*iter, 0, 0) == -1) ? put_error(*iter, line) : 0;
+}
+
 t_iter			*lexer(t_iter *iter, int fd)
 {
 	char			*line;
@@ -74,7 +91,7 @@ t_iter			*lexer(t_iter *iter, int fd)
 		basic = lexer_basics(iter);
 		if (basic == (TOKEN_LAB << 4))
 		{
-			if (!iter->first)
+/*			if (!iter->first)
 			{
 				iter->first = lexer_token(iter, line);
 				iter->iter = iter->first;
@@ -86,7 +103,8 @@ t_iter			*lexer(t_iter *iter, int fd)
 				iter->iter = iter->iter->next;
 			}
 			iter->token = 0;
-			(lexer_ins(iter, 0, 0) == -1) ? put_error(iter, line) : 0;
+			(lexer_ins(iter, 0, 0) == -1) ? put_error(iter, line) : 0;*/
+			if_lab(&iter, line);
 		}
 		else if (basic == 0)
 			(lexer_ins(iter, 0, 0) == -1) ? put_error(iter, line) : 0;
