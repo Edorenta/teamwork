@@ -23,14 +23,14 @@ static int	write_fill(int fd, long value, int size, int type)
 	else if (type == 2)
 	{
 		print[1] = (value & 0xFF);
-		print[0] = ((value & 0xFF00) >> 16);
+		print[0] = ((value & 0xFF00) >> 8);
 	}
 	else if (type == 3)
 	{	
 		print[3] = (value & 0xFF);
-		print[2] = ((value & 0xFF00) >> 16);
-		print[1] = ((value & 0xFF0000) >> 32);
-		print[0] = ((value & 0xFF000000) >> 48);
+		print[2] = ((value & 0xFF00) >> 8);
+		print[1] = ((value & 0xFF0000) >> 16);
+		print[0] = ((value & 0xFF000000) >> 24);
 	}
 	else if (type == 4)
 	{	

@@ -86,7 +86,37 @@ unsigned int		ops_get_len(t_ops *ops)
 		;//error here;	
 	return (len);
 }
+static unsigned int	ops_diff(t_ops *ops, int labline, int opsline)
+{
+	unsigned int	len;
+	t_ops		*hop;
 
+	len = 0;
+	hop = ops;
+	if (opsline < labline)
+	{
+		while (hop && hop->lnb < opsline)
+			hop = hop->next;
+		while (hop && hop->lnb < labline)
+		{
+			len += hop->len;
+			hop = hop->next;
+		}
+		printf("hal %#x\n", len);
+	}
+	else if (opsline > labline)
+	{
+		while (hop && hop->lnb < labline)
+			hop = hop->next;
+		while (hop && hop->lnb < opsline)
+		{
+			len += hop->len;
+			hop = hop->next;
+		}
+		printf("hel %#x\n", (len = ~len + 1));
+	}
+	return (len);
+}
 unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 {
 	t_lab	*label;
@@ -107,12 +137,13 @@ unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 			while (++count < 3)
 			{
 				num = (hop->args[count]);
-				if (num != 2)
+				if (num == -1)
 					break;
-				else if (hop->label[count] == -1)
-					printf("hello\n");
+				else if (num == 2 && hop->label[count] != -1)
+				{
+					hop->label[count] = ops_diff(ops, hop->label[count], hop->lnb);
+				}
 			}
-
 			hop = hop->next;
 		}
 	}
