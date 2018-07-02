@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:23:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 04:20:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static int	write_fill(int fd, long value, int size, int type)
 		print[0] = (value);
 	else if (type == 2)
 	{
-		print[0] = (value & 0xFF);
-		print[1] = (value & 0xFF00);
+		print[1] = (value & 0xFF);
+		print[0] = (value & 0xFF00);
 	}
 	else if (type == 3)
 	{	
-		print[0] = (value & 0xFF);
-		print[1] = (value & 0xFF00);
-		print[2] = (value & 0xFF0000);
-		print[3] = (value & 0xFF000000);
+		print[3] = (value & 0xFF);
+		print[2] = (value & 0xFF00);
+		print[1] = (value & 0xFF0000);
+		print[0] = (value & 0xFF000000);
 	}
 	else if (type == 4)
 	{	
@@ -96,7 +96,6 @@ void		write_ops(int fd, t_ops *ops)
 	while (iter)
 	{
 		write(fd, &iter->type, 1);
-		printf("OPC : %d\n", iter->opcode);
 		write(fd, &iter->opcode, 1);
 		write_args(fd, ops);
 		iter = iter->next;
