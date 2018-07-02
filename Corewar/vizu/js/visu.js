@@ -45,6 +45,7 @@ var cmd_div;
 var dark_bg;
 var light_bg;
 var theme_bg;
+var back_clr = clrs.dark_grey;
 var joystix_font;
 var str;
 var trim;
@@ -491,8 +492,8 @@ function setup(){
 function draw(){
     //clean and resize the canvas
     //canvas_resize();
-    background(0);
-    dark_mode ? background(dark_bg) : background(light_bg);
+    background(the);
+    background(theme_bg);
     //update UI
     update_names();
     update_cycles();
@@ -517,10 +518,12 @@ function keyPressed(){
         case 84: sw(dark_mode);
             if(dark_mode){
                 clrs.theme = clrs.white;
+                back_clr = clrs.dark_grey;
                 bg = dark_bg;
             }
             else{
                 clrs.theme = clrs.dark_grey;
+                back_clr = clrs.white;
                 theme_bg = light_bg;
             }
         break;
