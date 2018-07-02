@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 19:04:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 19:32:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ static unsigned int	ops_getlen(t_ops *ops)
 	return (len);
 }
 
+/*
+** ft_error here
+*/
+
 unsigned int		ops_get_len(t_ops *ops)
 {
 	t_ops			*iter;
@@ -80,7 +84,7 @@ unsigned int		ops_get_len(t_ops *ops)
 		}
 	}
 	else
-		;//error here;	
+		;
 	return (len);
 }
 
@@ -88,33 +92,28 @@ static unsigned int	ops_diff(t_ops *ops, int labline, int opsline)
 {
 	unsigned int	len;
 	t_ops			*hop;
-	int				up;
-	int				down;
+	int				from;
+	int				to;
 
 	len = 0;
 	hop = ops;
-	if (opsline < labline)
+	from = opsline < labline ? opsline : labline;
+	to = opsline < labline ? labline : opsline;
+	while (hop && hop->lnb < from)
+		hop = hop->next;
+	while (hop && hop->lnb < to)
 	{
-		while (hop && hop->lnb < opsline)
-			hop = hop->next;
-		while (hop && hop->lnb < labline)
-		{
-			len += hop->len;
-			hop = hop->next;
-		}
+		len += hop->len;
+		hop = hop->next;
 	}
-	else if (opsline > labline)
-	{
-		while (hop && hop->lnb < labline)
-			hop = hop->next;
-		while (hop && hop->lnb < opsline)
-		{
-			len += hop->len;
-			hop = hop->next;
-		}
-	}
+	if (opsline > labline)
+		len = (unsigned int)(~len + 1);
 	return (len);
 }
+
+/*
+** ft_error here
+*/
 
 unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 {
@@ -122,7 +121,6 @@ unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 	t_ops		*hop;
 	int			c;
 
-	//error here
 	if (!iter || !ops)
 		return (0);
 	else
@@ -135,7 +133,7 @@ unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 			while (++c < 3)
 			{
 				if (hop->args[c] == -1)
-					break;
+					break ;
 				else if (hop->args[c] == 2 && hop->label[c] != -1)
 					hop->label[c] = ops_diff(ops, hop->label[c], hop->lnb);
 			}

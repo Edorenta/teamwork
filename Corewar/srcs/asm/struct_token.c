@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:03:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/28 16:57:50 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 19:34:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	token_tostring(t_tok *tok)
 {
 	t_tok	*list;
-	
+
 	if (tok)
 	{
 		printf("[LINE %d][TYPE %#.3x][LABEL %-13s][POS %-4d]\n",
-		 tok->lnb, tok->type, tok->label, tok->pos);
+				tok->lnb, tok->type, tok->label, tok->pos);
 		list = tok->list;
 		while (list)
 		{
 			printf("[LINE %d][TYPE %#.3x][LABEL %-13s][POS %-4d]\n",
-		 	list->lnb, list->type, list->label, list->pos);
+					list->lnb, list->type, list->label, list->pos);
 			list = list->next;
 		}
 	}
@@ -43,18 +43,21 @@ void	token_del(t_tok *tok)
 			list = tok->list;
 			tok->list = tok->list->next;
 			token_del(list);
-			list = NULL;	
+			list = NULL;
 		}
 		free(tok);
 		tok = NULL;
 	}
 }
 
+/*
+** error here 
+*/
+
 t_tok	*token_new(void)
 {
 	t_tok	*new;
 
-	//error here	
 	if ((new = (t_tok *)malloc(sizeof(t_tok))) == NULL)
 		return (NULL);
 	new->type = -1;
@@ -67,11 +70,14 @@ t_tok	*token_new(void)
 	return (new);
 }
 
+/*
+** error here 
+*/
+
 t_tok	*token_create(int type, char *label, int lnb, int pos)
 {
 	t_tok	*tok;
 
-	//error here	
 	if ((tok = token_new()) == NULL)
 		return (NULL);
 	tok->type = type;

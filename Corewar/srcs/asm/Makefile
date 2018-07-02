@@ -15,7 +15,8 @@ SRC = asm.c \
       utils_lab.c \
       utils_iter.c \
       write.c \
-	  params.c
+	  params.c \
+	  params_three.c
 
 CFLAGS = -Wall -Werror -Wextra
 LIB = ../../libft/libft.a
