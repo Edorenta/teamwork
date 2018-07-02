@@ -10,7 +10,7 @@ var clrs = {
     grey : "rgb(80,80,80)",  //grey
     white : "rgb(255,255,255)",
     dark_grey : "rgb(45,45,45)",
-    theme : white
+    theme : "rgb(255,255,255)"
 };
 
 var dark_mode = true;
@@ -42,9 +42,9 @@ var title;
 var canvas;
 var mem_div;
 var cmd_div;
-var dark_bg;
-var light_bg;
-var theme_bg;
+var dark_ui;
+var light_ui;
+var theme_ui;
 var back_clr = clrs.dark_grey;
 var joystix_font;
 var str;
@@ -184,11 +184,12 @@ class Player{
 
 //initialization function
 function preload(){
-    dark_bg = loadImage("../assets/corewar_dark_back.png");
-    light_bg = loadImage("../assets/corewar_white_back.png");
+    dark_ui = loadImage("../assets/corewar_dark_back.png");
+    light_ui = loadImage("../assets/corewar_white_back.png");
     joystix_font = loadFont("../fonts/joystix_monospace.ttf");
-    title = document.getElementById('title');
+    //title = document.getElementById('title');
     mem_div = document.getElementById("mem");
+    theme_ui = light_ui;
     init();
 }
 
@@ -481,7 +482,6 @@ function update_hexdump(){
 
 function setup(){
     //noLoop();
-
     frameRate(30);
     canvas = createCanvas(1920, 1000); //WEBGL);
     rectMode(CENTER);
@@ -492,8 +492,8 @@ function setup(){
 function draw(){
     //clean and resize the canvas
     //canvas_resize();
-    background(the);
-    background(theme_bg);
+    background(back_clr);
+    background(theme_ui);
     //update UI
     update_names();
     update_cycles();
@@ -507,24 +507,24 @@ function draw(){
 }
 
 function sw(what){
-    what = what ? false : true;
+    return (what ? false : true);
 }
 
 function keyPressed(){
     switch (keyCode){ //RESET setting
-        case 86: sw(text_mode); break;
-        case 66: sw(block_mode); break;
-        case 72: sw(text_mode_bold); break;
-        case 84: sw(dark_mode);
+        case 86: text_mode = sw(text_mode); break;
+        case 66: block_mode = sw(block_mode); break;
+        case 72: text_mode_bold = sw(text_mode_bold); break;
+        case 84: dark_mode = sw(dark_mode);
             if(dark_mode){
                 clrs.theme = clrs.white;
                 back_clr = clrs.dark_grey;
-                bg = dark_bg;
+                theme_ui = dark_ui;
             }
             else{
                 clrs.theme = clrs.dark_grey;
                 back_clr = clrs.white;
-                theme_bg = light_bg;
+                theme_ui = light_ui;
             }
         break;
     }
