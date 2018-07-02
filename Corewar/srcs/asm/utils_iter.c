@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_iter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/02 20:12:16 by fmadura           #+#    #+#             */
+/*   Updated: 2018/07/02 20:15:38 by fmadura          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-static int	head_get(t_header *head, char *line, int boolean)
+static int		head_get(t_header *head, char *line, int boolean, int count)
 {
-	int		count;
 	char	*dup;
 
 	count = 0;
@@ -16,7 +27,7 @@ static int	head_get(t_header *head, char *line, int boolean)
 			++dup;
 			while (*dup && *dup != '"')
 			{
-				if (boolean) 
+				if (boolean)
 					head->prog_name[count] = *dup;
 				else
 					head->comment[count] = *dup;
@@ -30,7 +41,11 @@ static int	head_get(t_header *head, char *line, int boolean)
 	return (0);
 }
 
-void	iter_head(char *line, t_iter *iter, int token)
+/*
+** error here
+*/
+
+void			iter_head(char *line, t_iter *iter, int token)
 {
 	t_tok		*tok;
 
@@ -38,11 +53,10 @@ void	iter_head(char *line, t_iter *iter, int token)
 	if (iter)
 	{
 		tok = iter->first;
-		//error here
 		while (tok)
 		{
 			if (tok->type == token)
-				head_get(&iter->header, line, (token == 0x82));
+				head_get(&iter->header, line, (token == 0x82), 0);
 			tok = tok->next;
 		}
 	}

@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:47:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:39:21 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 20:17:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	lab_tostring(t_iter *iter)
+void		lab_tostring(t_iter *iter)
 {
 	t_lab	*lab;
 
@@ -27,7 +27,7 @@ void	lab_tostring(t_iter *iter)
 	}
 }
 
-t_lab	*lab_new(void)
+t_lab		*lab_new(void)
 {
 	t_lab	*new;
 
@@ -39,7 +39,7 @@ t_lab	*lab_new(void)
 	return (new);
 }
 
-void	lab_del(t_lab *lab)
+void		lab_del(t_lab *lab)
 {
 	t_lab	*iter;
 
@@ -55,7 +55,7 @@ void	lab_del(t_lab *lab)
 	}
 }
 
-int	lab_create(t_iter *iter, char *ligne)
+int			lab_create(t_iter *iter, char *ligne)
 {
 	char	*line;
 	char	*label;

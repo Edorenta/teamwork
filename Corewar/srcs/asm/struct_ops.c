@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:21:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 19:35:29 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 20:17:14 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				ops_tostring(t_ops *ops)
 
 static inline void	set_arr(long arr[3])
 {
-	int count;
+	int		count;
 
 	count = -1;
 	while (++count < 3)
