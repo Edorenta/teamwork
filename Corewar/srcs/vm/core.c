@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 03:30:29 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:49:50 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	dump(t_vm *vm)
 
 void	exec_proc(t_vm *vm, t_proc *proc)
 {
-	char	buf[50000];//
 	vm->ram[proc->pc % MEM_SIZE].pc = 0;
 	if (!proc->op.active)
 	{
@@ -50,15 +49,7 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 			if (proc->op.code != 9 ||
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
-
-		send_to_socket(vm, "$<exe>[", 7);
-			//(proc->next && proc->next->op && proc->next->op.active)
-			// ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
-			/*: */ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
-			send_to_socket(vm, buf, ft_strlen(buf));
-		send_to_socket(vm, "]", 1);
-			send_mem(vm);
-			send_num_player(vm);
+			send_exe(vm, proc);
 			delete_op(proc);
 		}
 	}
@@ -70,6 +61,7 @@ void	run(t_vm *vm)
 	t_proc	*proc;
 	char	buf[50000];
 
+	ft_bzero(buf, 50000);
 	while (process_living(vm))
 	{
 		if (!((vm->cycle + 1) % vm->ctd))
@@ -90,5 +82,4 @@ void	run(t_vm *vm)
 	}
 	if (vm->last_one)
 		ft_printf("Last_one => %s\n", vm->last_one->file_name);
-	send_to_socket(vm, "$<end>", 6);
 }

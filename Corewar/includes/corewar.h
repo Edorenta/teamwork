@@ -6,7 +6,7 @@
 /*   By: fmadura <fmadura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/30 18:32:45 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:54:46 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,6 @@ void					send_to_socket(t_vm *vm, char *payload, size_t size);
 void					send_mem(t_vm *vm);
 void					send_num_player(t_vm *vm);
 void					send_player(t_vm *vm, int nb);
+void 					send_exe(t_vm *vm, t_proc *proc);
 
 #endif

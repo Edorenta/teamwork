@@ -6,11 +6,24 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/07/02 03:00:46 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:56:23 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	send_exe(t_vm *vm, t_proc *proc)
+{
+	char	buf[50000];
+
+	ft_bzero(buf, 50000);
+	send_to_socket(vm, "$<exe>[", 7);
+	ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
+	send_to_socket(vm, buf, ft_strlen(buf));
+	send_to_socket(vm, "]", 1);
+	send_mem(vm);
+	send_num_player(vm);
+}
 
 void	send_player(t_vm *vm, int nb)
 {
@@ -32,7 +45,6 @@ void	send_to_socket(t_vm *vm, char *payload, size_t size)
 
 	if (vm->vizu)
 		ret = send(vm->sock, payload, size, 0);
-	printf("%s", payload);
 }
 
 int		init_socket(void)
