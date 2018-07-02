@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 03:57:28 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 20:41:26 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int		lexer_sub_dir(t_iter *iter)
 		iter->token <<= 4;
 		iter->token |= INS_DIR;
 		iter_add_list(iter, "INS_DIL", INS_DIL);
-		increment(iter);	
+		increment(iter);
 	}
 	else if (ft_isdigit(*iter->line) || *iter->line == '-')
 	{
-		// tiret a
 		iter->token <<= 4;
 		iter->token |= INS_DIR;
 		iter_add_list(iter, "INS_DIR", INS_DIR);

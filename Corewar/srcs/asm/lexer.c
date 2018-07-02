@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:17:59 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 20:36:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ char	*lexer_label(unsigned int token)
 {
 	token >>= 4;
 	if (token == TOKEN_COM)
-		return "TOKEN_COMMENT";
+		return ("TOKEN_COMMENT");
 	if (token == TOKEN_LAB)
-		return "TOKEN_LABEL";
+		return ("TOKEN_LABEL");
 	if (token == TOKEN_HEA)
-		return "TOKEN_HEAD";
+		return ("TOKEN_HEAD");
 	if (token == TOKEN_SPA)
-		return "TOKEN_SPACE";
-	return "TOKEN_ERROR";
+		return ("TOKEN_SPACE");
+	return ("TOKEN_ERROR");
 }
 
 static t_tok	*lexer_token(t_iter *iter, char *line)
@@ -58,41 +58,6 @@ static t_tok	*lexer_token(t_iter *iter, char *line)
 		new->list = token_iter(iter, lexer_head(token));
 	}
 	return (new);
-}
-
-void	put_error(t_iter *iter, char *line)
-{
-	//iter_del(iter);
-	//printf("iter->token : %x\n", iter->token);
-	if (iter->token == LABEL_ERR2)
-		printf("%s\n%*c\nApres les deux points il faut un espace.\n", line, iter->count + 1 , '^');
-	else if (iter->token == HEAD_ERR1)
-		printf("%s\n%*c\nIl faut un espace apres name.\n", line, iter->count, '^');
-	else if (iter->token == HEAD_ERR2)
-		printf("%s\n%*c\nIl faut un espace apres comment.\n", line, iter->count , '^');
-	else if (iter->token == HEAD_ERR0)
-		printf("%s\n%*c\nCe n'est pas un mot correct (name ou comment).\n", line, iter->count + 1 , '^');
-	else if (iter->token == NAME_ERR0)
-		printf("%s\n%*c\nLe nom ne peut pas depasser les 128 caracteres.\n", line, iter->count, '^');
-	else if (iter->token == COMT_ERR0)
-		printf("%s\n%*c\nLes commentaires ne peuvent pas depasser les 2048 caracteres.\n", line, iter->count , '^');
-	else if (iter->token == ENDLI_ERR)
-		printf("%s\n%*c\nLa ligne se termine soit par un commentaire soit par rien.\n", line, iter->count + 1 , '^');
-	else if (iter->token == INS_ERR0)
-		printf("%s\n%*c\nInstruction non defini.\n", line, iter->count, '^');
-	else if (iter->token == PAR_ERR0)
-		printf("%s\n%*c\nCela n'est pas un parametre valable.\n", line, iter->count, '^');
-	else if (iter->token == PAR_ERR1)
-		printf("%s\n%*c\nPas le bon nombre de parametre.\n", line, iter->count, '^');
-	else if (iter->token == PAR_ERR2)
-		printf("%s\n%*c\nPas le bon type de parametre.\n", line, iter->count, '^');
-	else if (iter->token == NAME_ERR1)
-		printf("%s\n%*c\nLe nom/commentaire, ne peut pas etre vide.\n", line, iter->count, '^');
-	else if (iter->token == LABEL_ERR3)
-		printf("%s\n%*c\nCe label existe deja.\n", line, iter->count + 1 , '^');
-	else if (iter->token == READ_ERR)
-		printf("%s\n", line);
-	exit (0);
 }
 
 t_iter	*lexer(t_iter *iter, int fd)
@@ -149,7 +114,7 @@ t_iter	*lexer(t_iter *iter, int fd)
 	if (ret == -1)
 	{
 		iter->token = READ_ERR;
-		put_error(iter, "Erreur de lecture");
+		put_error(iter, NULL);
 	}
 	return (iter);
 }

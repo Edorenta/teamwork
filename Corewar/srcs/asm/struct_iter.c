@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 18:36:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 20:40:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_iter	*iter_new(void)
 	return (iter);
 }
 
-t_iter	*iter_add_list(t_iter *iter, char *label, int type)
+t_iter	*iter_add_list(t_iter *iter, char *label, int typ)
 {
 	t_tok	*node;
 
@@ -38,15 +38,15 @@ t_iter	*iter_add_list(t_iter *iter, char *label, int type)
 		{
 			while (node->next)
 				node = node->next;
-			node->next = token_create(type, label, iter->lnb, iter->count);
+			node->next = token_create(typ, label, iter->lnb, iter->count);
 		}
 		else
-			iter->iter->list = token_create(type, label, iter->lnb, iter->count);
+			iter->iter->list = token_create(typ, label, iter->lnb, iter->count);
 	}
 	return (iter);
 }
 
-void 	iter_del(t_iter *iter)
+void	iter_del(t_iter *iter)
 {
 	t_tok	*token;
 
