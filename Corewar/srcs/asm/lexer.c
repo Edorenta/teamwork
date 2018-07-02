@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:36:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:44:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_op	g_op_tab[17];
 
-char	*lexer_head(unsigned int token)
+char			*lexer_head(unsigned int token)
 {
 	return ((token & 0x2) ? "HEAD_NAME" : "HEAD_COMMENT");
 }
 
-char	*lexer_label(unsigned int token)
+char			*lexer_label(unsigned int token)
 {
 	token >>= 4;
 	if (token == TOKEN_COM)
@@ -37,8 +37,8 @@ static t_tok	*lexer_token(t_iter *iter, char *line)
 {
 	t_tok			*new;
 	unsigned int	token;
-	int 			lnb;
-	int 			pos;
+	int				lnb;
+	int				pos;
 
 	token = iter->token;
 	pos = iter->count;
@@ -60,7 +60,7 @@ static t_tok	*lexer_token(t_iter *iter, char *line)
 	return (new);
 }
 
-t_iter	*lexer(t_iter *iter, int fd)
+t_iter			*lexer(t_iter *iter, int fd)
 {
 	char			*line;
 	int				ret;
@@ -86,14 +86,10 @@ t_iter	*lexer(t_iter *iter, int fd)
 				iter->iter = iter->iter->next;
 			}
 			iter->token = 0;
-			if (lexer_ins(iter) == -1)
-				put_error(iter, line);
+			(lexer_ins(iter) == -1) ? put_error(iter, line) : 0;
 		}
 		else if (basic == 0)
-		{
-			if (lexer_ins(iter) == -1)
-				put_error(iter, line);
-		}
+			(lexer_ins(iter) == -1) ? put_error(iter, line) : 0;
 		else if (basic == -1)
 			put_error(iter, line);
 		else if (!iter->first)
