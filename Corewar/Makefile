@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/07/02 21:00:28 by fmadura          ###   ########.fr        #
+#    Updated: 2018/07/03 00:53:23 by jjourne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n'
 # COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
 # SRC1_FILES = $(COMMON_FILES)
 # SRC2_FILES = $(COMMON_FILES)
+
 
 # SRC2_FILES += 	vm/corewar.c vm/check_arg.c vm/parse_player.c
 SRC2_FILES = 	corewar.c check_arg.c parse_player.c \
@@ -96,12 +97,16 @@ EOLCLR		= "\\033[0K"
 CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-all : $(NAME_1) $(NAME_2)
+all : $(LIBFT) $(NAME_1) $(NAME_2)
+
+$(LIBFT):
+	make -C ./libft/
 
 $(NAME_1) : $(OBJ1)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"$(NAME_1) compiled\t"$(OK)'\n'
 	@ $(CC) -I./includes -I./libft/includes $(OBJ1) -o $@
+	# @printf '\t\ttest\n'
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
@@ -131,8 +136,8 @@ $(OBJ_PATH2)%.o: $(SRC_PATH2)%.c
 	@$(CC) -I./includes -I./libft/includes -o $@ -c $<
 	@printf '\t'$(OK)
 
-libft :
-	@make -C ./printf
+# libft :
+	# @make -C ./printf
 
 clean :
 	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
