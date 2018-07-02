@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:11:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 20:39:33 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 	return (new);
 }
 
+static void		if_parse(t_iter **iter, char **line, t_ops **itera, t_ops **first)
+{
+	if (!(*first))
+	{
+		*first = parse_sub(*iter, (*iter)->iter, *line, 0);
+		*itera = *first;
+	}
+	else
+	{
+		(*itera)->next = parse_sub(*iter, (*iter)->iter, *line, 0);
+		*(itera) = (*itera)->next;
+	}
+}
+
+static void		els_parse(t_iter **iter, char *line, t_ops **itera)
+{
+	if ((*iter)->iter->next && (*iter)->iter->lnb == (*iter)->iter->next->lnb)
+	{
+		(*iter)->iter = (*iter)->iter->next;
+		(*itera)->next = parse_sub(*iter, (*iter)->iter,
+				&line[(*iter)->iter->pos], 0);
+		(*itera) = (*itera)->next;
+	}
+}
+
 t_ops			*parser(t_iter *iter, int fd)
 {
 	char		*line;
@@ -84,7 +109,7 @@ t_ops			*parser(t_iter *iter, int fd)
 	{
 		if ((TYPE & 0x600) == 0x600)
 		{
-			if (!first)
+/*			if (!first)
 			{
 				first = parse_sub(iter, iter->iter, line, 0);
 				itera = first;
@@ -93,19 +118,21 @@ t_ops			*parser(t_iter *iter, int fd)
 			{
 				itera->next = parse_sub(iter, iter->iter, line, 0);
 				itera = itera->next;
-			}
+			}*/
+			if_parse(&iter, &line, &itera, &first);
 		}
 		else if (TYPE == 0x82 || TYPE == 0x84)
 			iter_head(line, iter, TYPE);
 		else if (TYPE == (TOKEN_LAB << 4) && itera)
 		{
-			if (iter->iter->next && iter->iter->lnb == iter->iter->next->lnb)
+			/*if (iter->iter->next && iter->iter->lnb == iter->iter->next->lnb)
 			{
 				iter->iter = iter->iter->next;
 				itera->next = parse_sub(iter, iter->iter,
 					&line[iter->iter->pos], 0);
 				itera = itera->next;
-			}
+			}*/
+			els_parse(&iter, line, &itera);
 		}
 		free(line);
 		line = NULL;
