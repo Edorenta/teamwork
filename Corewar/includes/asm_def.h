@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 18:38:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:26:19 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 18:59:58 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@
 # define PAR_ERR0	0x9e
 # define PAR_ERR1	0xae
 # define PAR_ERR2	0xbe
+# define READ_ERR	0xde
+
 #endif

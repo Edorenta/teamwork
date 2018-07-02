@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:37:10 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 19:00:39 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void	put_error(t_iter *iter, char *line)
 	else if (iter->token == NAME_ERR1)
 		printf("%s\n%*c\nLe nom/commentaire, ne peut pas etre vide.\n", line, iter->count, '^');
 	else if (iter->token == LABEL_ERR3)
-		printf("%s\n%*c\nCe label existe deja.\n", line, iter->count + 1 , '^');	
+		printf("%s\n%*c\nCe label existe deja.\n", line, iter->count + 1 , '^');
+	else if (iter->token == READ_ERR)
+		printf("%s\n", line);
 	exit (0);
 }
 
@@ -143,6 +145,11 @@ t_iter	*lexer(t_iter *iter, int fd)
 		free(line);
 		iter->line = NULL;
 		line = NULL;
+	}
+	if (ret == -1)
+	{
+		iter->token = READ_ERR;
+		put_error(iter, "Erreur de lecture");
 	}
 	return (iter);
 }
