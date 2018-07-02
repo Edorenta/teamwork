@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/01 23:25:55 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/02 03:51:58 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 03:53:46 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	three_param(t_iter *iter)
 	list = iter->iter->list;
 	if (iter->iter->type == 0x604 || iter->iter->type == 0x605)
 	{
-		if (list->type != INS_REG || list->next->type != INS_REG || list->next->next->type != INS_REG)
+		if (list->type != INS_REG || list->next->next->type != INS_REG || list->next->next->next->next->type != INS_REG)
 			return (-1);
 	}
 	else if (iter->iter->type == 0x606 || iter->iter->type == 0x607 || iter->iter->type == 0x608)
