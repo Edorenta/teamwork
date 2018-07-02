@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:18:59 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 23:35:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ static void		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
 	ops->argv[argc] = ft_atoi(&line[iter->pos]);
 }
 
-static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
+t_ops			*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 {
 	t_ops		*new;
 	t_tok		*iter;
 
 	iter = token->list;
-	//error here
 	new = ops_new();
 	new->type = (token->type & 0xFF);
 	while (iter && argc < 3)
@@ -62,31 +61,6 @@ static t_ops	*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 	new->lnb = token->lnb;
 	ops_get_ocp(new);
 	return (new);
-}
-
-static void		if_parse(t_iter **it, char **line, t_ops **itera, t_ops **fst)
-{
-	if (!(*fst))
-	{
-		*fst = parse_sub(*it, (*it)->iter, *line, 0);
-		*itera = *fst;
-	}
-	else
-	{
-		(*itera)->next = parse_sub(*it, (*it)->iter, *line, 0);
-		*(itera) = (*itera)->next;
-	}
-}
-
-static void		els_parse(t_iter **iter, char *line, t_ops **itera)
-{
-	if ((*iter)->iter->next && (*iter)->iter->lnb == (*iter)->iter->next->lnb)
-	{
-		(*iter)->iter = (*iter)->iter->next;
-		(*itera)->next = parse_sub(*iter, (*iter)->iter,
-				&line[(*iter)->iter->pos], 0);
-		(*itera) = (*itera)->next;
-	}
 }
 
 t_ops			*parser(t_iter *iter, int fd, int ret)
