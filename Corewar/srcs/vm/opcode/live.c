@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:04:10 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 02:58:51 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:08:54 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	live(t_vm *vm, t_proc *proc)
 
 		send_to_socket(vm, "$<liv>[", 7);
 		ft_sprintf(buf, "\"%d\"", num);
+		send_to_socket(vm, buf, ft_strlen(buf));
 		send_to_socket(vm, "]", 1);
 	}
 }

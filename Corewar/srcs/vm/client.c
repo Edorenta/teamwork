@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 22:06:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/30 20:17:50 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:00:46 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	send_to_socket(t_vm *vm, char *payload, size_t size)
 
 	if (vm->vizu)
 		ret = send(vm->sock, payload, size, 0);
+	printf("%s", payload);
 }
 
 int		init_socket(void)

@@ -15,8 +15,8 @@ var block_mode = true;
 var text_mode_bold = false;
 var arena_block_clr = clrs.grey;
 var player_clrs = [clrs.blue, clrs.red, clrs.green, clrs.purple, clrs.yellow];
-var arena_block_shape = ['round', 1];
-var player_shapes = [['square', 2], ['square', 2], ['square', 2], ['square', 2], ['square', 2]];
+var arena_block_shape = ['square', 6];
+var player_shapes = [['square', 4], ['square', 4], ['square', 4], ['square', 4], ['square', 4]];
 var uri = "127.0.0.1";
 var port = "8082";
 var address = "ws://" + uri + ":" + port;
@@ -45,6 +45,7 @@ var player = [];
 var in_set = [];
 var in_cyc = [];
 var in_exe = [];
+var in_liv = [];
 var in_hex;
 var in_map;
 
@@ -112,7 +113,7 @@ class Block{
 
 class Player{
     constructor(name, msg, clr, shape){
-        this.name = name;
+        this.name = (name.length > 11 ? name.slice(0, 11) : name);
         this.msg = msg;
         this.clr = clr;
         this.shape = shape;
@@ -161,7 +162,14 @@ function init()
                 break;
             case "<exe>":
                 in_exe = JSON.parse(data.slice(5, data.length));
+                console.log(data);
+                console.log(in_exe);
                 // update_procs();
+                break;
+            case "<liv>":
+                in_liv = JSON.parse(data.slice(5, data.length));
+                console.log(data);
+                console.log(in_liv);
                 break;
             case "<hex>":
                 in_hex = data.slice(5, data.length);
@@ -200,23 +208,51 @@ function init_players(){
 function update_cycles(){
     //hori,verti
     textAlign(LEFT, CENTER);
-    // textFont('Courier New');
-    textFont(joystix_font);
+    textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
-    textSize(30);
+    textSize(20);
     fill(255,255,255,255);
-    let cyc_tot = in_cyc[0];
-    let cyc_td = in_cyc[1];
-    if (typeof in_cyc !== 'undefined' || in_cyc.length == 0){
-        cyc_tot = "Total : " + in_cyc[0];
-        cyc_td = "To Die: " + in_cyc[1];
+    let cyc_tot = "Total : "; //in_cyc[0];
+    let cyc_td = "To Die: "; //in_cyc[1];
+    if (typeof in_cyc !== 'undefined' && in_cyc.length > 0){
+        cyc_tot += in_cyc[0];
+        cyc_td += in_cyc[1];
     }
     else{
-        cyc_tot = "-";
-        cyc_td = "-";
+        cyc_tot += "-";
+        cyc_td += "-";
     }
     text(cyc_tot, 88, 425);
     text(cyc_td, 88, 455); 
+}
+
+function update_names(){
+    //hori,verti
+    textAlign(LEFT, CENTER);
+    textFont(joystix_font); // textFont('Courier New');
+    // textStyle(BOLD);
+    textSize(20);
+    fill(255,255,255,200);
+    let x = 88;
+    let y = 270;
+    if (typeof in_set !== 'undefined' && in_cyc.length > 0){
+        for(let i = 0; i < in_set.length; i++){
+            if (i == 1 || i == 3) y += 30;
+            else y = 270;
+            if (i == 2 || i == 3) x += 220;
+            else x = 88;
+            if (typeof player[i].name !== 'undefined'){
+                fill(player[i].clr);
+                text(player[i].name, x, y);
+            }
+            else{
+                fill(255,255,255,200);
+                text("unknown", x, y);
+            }
+        }
+    }
+    else if (in_cyc.length == 0)
+        text("waiting for players", x, y);
 }
 
 function update_blocks(){
@@ -251,27 +287,6 @@ function update_hexdump(){
     }
 }
 
-function update_names(){
-    // textAlign(CENTER, CENTER);
-    // textFont('Courier New');
-    // textFont('Joystix Monospace');
-    // textStyle(BOLD);
-    // textSize(30);
-    // fill(255,255,255,255);
-    // let names = "";
-    // if (typeof in_set !== 'undefined'){
-    //     for(let i = 0; i < in_set.length; i++){
-    //         if (typeof player[i].name !== 'undefined')
-    //             names += (player[i].name + "\n");
-    //         else
-    //             names += "unknown";
-    //     }
-    // }
-    // else
-    //     names = "unknown";
-    // text(names, 1213, 950);
-}
-
 function setup(){
     //noLoop();
 
@@ -293,4 +308,13 @@ function draw(){
     update_hexdump();
     update_cycles();
     //...
+}
+
+function keyPressed(){
+    switch (keyCode){ //RESET setting
+        case 86: text_mode = text_mode ? false : true; break;
+        case 66: block_mode = block_mode ? false : true; break;
+        case 72: text_mode_bold = text_mode_bold ? false : true; break;
+    }
+    console.log(keyCode);
 }
