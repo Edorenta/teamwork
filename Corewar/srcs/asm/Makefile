@@ -14,6 +14,8 @@ SRC = asm.c \
       utils_ops.c \
       utils_lab.c \
       utils_iter.c \
+      utils_parser.c \
+      utils_lexer.c \
       write.c \
       error.c \
 	  params.c \

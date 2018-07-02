@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 23:20:24 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 23:32:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,6 @@ void			if_lab(t_iter **iter, char *line, int lab)
 		(*iter)->token = 0;
 		(lexer_ins(*iter, 0, 0) == -1) ? put_error(*iter, line) : 0;
 	}
-}
-
-static void		end_while(t_iter **iter, char *line)
-{
-	++((*iter)->lnb);
-	free(line);
-	(*iter)->line = NULL;
-	line = NULL;
-}
-
-static void		err_read(t_iter *iter)
-{
-	iter->token = READ_ERR;
-	put_error(iter, NULL);
 }
 
 t_iter			*lexer(t_iter *iter, int fd)
