@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:34:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:19:34 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void				token_del(t_tok *tok);
 
 int					ft_asm(char **argv);
 t_iter				*lexer(t_iter *iter, int fd);
-t_ops				*parser(t_iter *iter, int fd);
+t_ops				*parser(t_iter *iter, int fd, int ret);
 
 int					test_param(t_iter *iter);
 int					lexer_ins_sub(t_iter *iter, int op);

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 21:15:45 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 21:18:59 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ static void		els_parse(t_iter **iter, char *line, t_ops **itera)
 	}
 }
 
-t_ops			*parser(t_iter *iter, int fd)
+t_ops			*parser(t_iter *iter, int fd, int ret)
 {
 	char		*line;
-	int			ret;
 	t_ops		*first;
 	t_ops		*itera;
 
@@ -100,7 +99,8 @@ t_ops			*parser(t_iter *iter, int fd)
 	first = NULL;
 	itera = NULL;
 	iter->iter = iter->first;
-	lseek(fd, 0, SEEK_SET) < 0 ? return (NULL) : 0;
+	if (lseek(fd, 0, SEEK_SET) < 0)
+		return (NULL);
 	while ((ret = get_next_line(fd, &line)) > 0 && iter->iter)
 	{
 		if ((TYPE & 0x600) == 0x600)

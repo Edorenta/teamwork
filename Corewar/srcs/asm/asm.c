@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:37:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 18:36:25 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:19:14 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_asm(char **argv)
 		if (fd > 0)
 		{
 			iter = lexer(iter, fd);
-			ops = parser(iter, fd);
+			ops = parser(iter, fd, 0);
 			iter->header.prog_size = ops_get_len(ops);
 			ops_get_lab(iter, ops);
 			write_all("test.cor", ops, iter->header);
