@@ -85,8 +85,6 @@ static int	write_args(int fd, t_ops *ops)
 			//error here;
 			break;
 	}
-	printf("\nlen : %d\n", len);
-	ops_debug(ops);
 	return (1);
 }
 

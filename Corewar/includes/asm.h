@@ -57,6 +57,7 @@ void				ops_tostring(t_ops *ops);
 void				ops_debug(t_ops *ops);
 int					ops_get_ocp(t_ops *ops);
 unsigned int		ops_get_len(t_ops *ops);
+unsigned int		ops_get_lab(t_iter *iter, t_ops *ops);
 
 void				write_ops(int fd, t_ops *ops);
 void				write_head(int fd, t_header head);

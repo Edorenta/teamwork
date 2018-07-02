@@ -31,7 +31,7 @@ int		ft_asm(char **argv)
 			iter = lexer(iter, fd);
 			ops = parser(iter, fd);
 			iter->header.prog_size = ops_get_len(ops);
-			printf("len %u \n", iter->header.prog_size);
+			ops_get_lab(iter, ops);
 			write_all("test.cor", ops, iter->header);
 			iter_del(iter);
 			ops_del(ops);

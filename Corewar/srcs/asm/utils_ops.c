@@ -44,7 +44,6 @@ static unsigned int	ops_getlen(t_ops *ops)
 
 	count = -1;
 	len = 1;
-	ops_debug(ops);
 	while (++count < 3)
 	{
 		num = (ops->args[count]);
@@ -86,4 +85,36 @@ unsigned int		ops_get_len(t_ops *ops)
 	else
 		;//error here;	
 	return (len);
+}
+
+unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
+{
+	t_lab	*label;
+	t_ops	*hop;
+	int		count;
+	int		num;
+
+	//error here
+	if (!iter || !ops)
+		return 0;
+	else
+	{
+		hop = ops;
+		while (hop)
+		{
+			label = iter->labels;
+			count = -1;
+			while (++count < 3)
+			{
+				num = (hop->args[count]);
+				if (num != 2)
+					break;
+				else if (hop->label[count] == -1)
+					printf("hello\n");
+			}
+
+			hop = hop->next;
+		}
+	}
+	return 1;
 }
