@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:12:22 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/29 09:27:10 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 03:55:15 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ void	init_vm(t_vm *vm)
 int		main(int argc, char *argv[])
 {
 	t_vm		vm;
+	char		buf[255];
 
 	ft_bzero(&vm, sizeof(t_vm));
+	ft_bzero(buf, 255);
 	init_vm(&vm);
 	if (check_arg(&vm, argc, argv))
 		exit_error("Error: arguments invalide");
@@ -87,6 +89,10 @@ int		main(int argc, char *argv[])
 	get_winner(&vm);
 	ft_printf("Contestant %d, \"%s\", has won !\n", vm.winner,
 		vm.player[vm.winner].name);
+	send_to_socket(&vm, "$<end>", 6);
+	ft_sprintf(buf, "Contestant %d, \"%s\", has won !\n", vm.winner,
+		vm.player[vm.winner].name);
+	send_to_socket(&vm, buf, ft_strlen(buf));
 	free_all(&vm);
 	return (0);
 }
