@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 01:52:05 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/02 02:52:43 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	dump(t_vm *vm)
 
 void	exec_proc(t_vm *vm, t_proc *proc)
 {
+	char	buf[50000];//
 	vm->ram[proc->pc % MEM_SIZE].pc = 0;
 	if (!proc->op.active)
 	{
@@ -49,8 +50,13 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 			if (proc->op.code != 9 ||
 				(proc->op.code == 9 && !proc->carry))
 				proc->pc += move_pc(proc);
+
+			proc->next ? ft_sprintf(buf, "\"%d\",\"%d\",", proc->num, proc->pc)
+			: ft_sprintf(buf, "\"%d\",\"%d\"", proc->num, proc->pc);
+			send_to_socket(vm, buf, ft_strlen(buf));
 			send_mem(vm);
 			send_num_player(vm);
+		// ft_printf("pc: %d - player: %d\n", proc->pc, proc->num);//
 			delete_op(proc);
 		}
 	}
