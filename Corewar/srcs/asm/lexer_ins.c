@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:41:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:02:10 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		lexer_sub_dir(t_iter *iter)
 
 static int	lexer_ins_log(t_iter *iter, int op, int para)
 {
+	(void)op;
+	(void)para;
 	if (*iter->line == '%')
 	{
 		if (lexer_sub_dir(iter) == -1)
@@ -71,6 +73,7 @@ int		lexer_ins_sub(t_iter *iter, int op)
 	int sep;
 
 	sep = 0;
+	(void)op;
 	clear_wsp(iter);
 	while (sep < 3)
 	{

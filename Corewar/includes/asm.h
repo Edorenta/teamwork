@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 19:51:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 20:34:49 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,6 @@ int					lab_create(t_iter *iter, char *ligne);
 void				lab_tostring(t_iter *iter);
 char				*lab_parse(char *line);
 char				*lab_parse_ins(char *line);
+
+void				put_error(t_iter *iter,char *line);
 #endif

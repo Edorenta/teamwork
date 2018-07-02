@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 18:40:41 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 21:02:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		token_ins(t_iter *iter, char *line)
 	int		len;
 	int		ret;
 
+	(void)line;
 	ret = -1;
 	i = 0;
 	clear_wsp(iter);
