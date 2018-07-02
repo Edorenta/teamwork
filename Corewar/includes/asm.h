@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 23:23:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 23:34:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ t_iter				*iter_add_list(t_iter *iter, char *label, int type);
 t_iter				*iter_new(void);
 void				iter_head(char *line, t_iter *iter, int token);
 void				iter_del(t_iter *iter);
+void				end_while(t_iter **iter, char *line);
+void				err_read(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);
 void				increment(t_iter *iter);
 void				increment_num(t_iter *iter, int num);
 void				end_line(t_iter *iter);
 int					three_param(t_iter *iter);
+void				if_parse(t_iter **it, char **line, t_ops **ir, t_ops **fs);
+void				els_parse(t_iter **it, char *line, t_ops **ir);
+t_ops				*parse_sub(t_iter *iter, t_tok *tok, char *line, int argc);
 
 t_ops				*ops_new(void);
 void				ops_del(t_ops *ops);
