@@ -6,11 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:21:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 05:42:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+t_op	g_op_tab[17];
 
 int		ops_get_ocp(t_ops *ops)
 {
@@ -41,7 +43,8 @@ static unsigned int	ops_getlen(t_ops *ops)
 	long			num;
 
 	count = -1;
-	len = 0;
+	len = 1;
+	ops_debug(ops);
 	while (++count < 3)
 	{
 		num = (ops->args[count]);
@@ -50,13 +53,14 @@ static unsigned int	ops_getlen(t_ops *ops)
 		else if (num == 1)
 			len++;
 		else if (num == 2)
-			len += (ops->argv[count] == -1) ? 4 : 2;
+			len += g_op_tab[ops->type - 1].label;
 		else if (num == 3)
 			len += 2;	
 		else
 			//error here
 			break;
 	}
+	len += g_op_tab[ops->type - 1].octal;
 	return (len);
 }
 

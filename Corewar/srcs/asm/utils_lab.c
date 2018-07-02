@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:38:08 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:39:30 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/02 05:42:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ long	lab_get(t_iter *iter, char *name)
 	if (!iter || !name || !iter->labels)
 		return (-1);
 	lab = iter->labels;
-	printf("hello\n");
 	while (lab)
 	{
 		if (ft_strequ(lab->name, name))

@@ -6,11 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 04:20:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/02 05:37:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+t_op		g_op_tab[17];
 
 static int	write_fill(int fd, long value, int size, int type)
 {
@@ -21,14 +23,14 @@ static int	write_fill(int fd, long value, int size, int type)
 	else if (type == 2)
 	{
 		print[1] = (value & 0xFF);
-		print[0] = (value & 0xFF00);
+		print[0] = ((value & 0xFF00) >> 16);
 	}
 	else if (type == 3)
 	{	
 		print[3] = (value & 0xFF);
-		print[2] = (value & 0xFF00);
-		print[1] = (value & 0xFF0000);
-		print[0] = (value & 0xFF000000);
+		print[2] = ((value & 0xFF00) >> 16);
+		print[1] = ((value & 0xFF0000) >> 32);
+		print[0] = ((value & 0xFF000000) >> 48);
 	}
 	else if (type == 4)
 	{	
@@ -61,7 +63,8 @@ static int	write_args(int fd, t_ops *ops)
 			if (ops->label[count] == -1)
 				write_fill(fd, ops->argv[count], 2, 2);
 			else
-				write_fill(fd, ops->label[count], 4, 3);		
+				write_fill(fd, ops->label[count], g_op_tab[ops->type -1].label,
+				g_op_tab[ops->type -1].label == 4 ? 3 : 2);		
 		}
 		else if (num == 3)
 			write_fill(fd, ops->argv[count], 2, 2);
@@ -79,9 +82,9 @@ void		write_head(int fd, t_header head)
 
 	pad = 0;
 	write(fd, header, 4);
-	write(fd, &pad, 4);
 	head.prog_size = 77;
 	write(fd, head.prog_name, PROG_NAME_LENGTH);
+	write(fd, &pad, 4);
 	write_fill(fd, head.prog_size, 4, 4);
 	write(fd, head.comment, COMMENT_LENGTH);
 	write(fd, &pad, 4);
@@ -96,7 +99,8 @@ void		write_ops(int fd, t_ops *ops)
 	while (iter)
 	{
 		write(fd, &iter->type, 1);
-		write(fd, &iter->opcode, 1);
+		if (g_op_tab[iter->type - 1].octal)
+			write(fd, &iter->opcode, 1);
 		write_args(fd, ops);
 		iter = iter->next;
 	}
