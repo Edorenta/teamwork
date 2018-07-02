@@ -198,23 +198,25 @@ function init_players(){
 }
 
 function update_cycles(){
-    textAlign(CENTER, CENTER);
+    //hori,verti
+    textAlign(LEFT, CENTER);
     // textFont('Courier New');
-    textFont('Joystix Monospace');
+    textFont(joystix_font);
     // textStyle(BOLD);
     textSize(30);
     fill(255,255,255,255);
     let cyc_tot = in_cyc[0];
     let cyc_td = in_cyc[1];
     if (typeof in_cyc !== 'undefined' || in_cyc.length == 0){
-        cyc_tot = "Total: " + in_cyc[0];
+        cyc_tot = "Total : " + in_cyc[0];
         cyc_td = "To Die: " + in_cyc[1];
     }
     else{
         cyc_tot = "-";
         cyc_td = "-";
     }
-    text(cyc_tot, 200, 440);
+    text(cyc_tot, 88, 425);
+    text(cyc_td, 88, 455); 
 }
 
 function update_blocks(){
@@ -237,16 +239,16 @@ function update_ownership(){
 }
 
 function update_hexdump(){
-    // if (text_mode == true){
-    //     textAlign(LEFT, TOP);
-    //     textFont('Courier New');
-    //     text_mode_bold ? textStyle(BOLD) : textStyle(NORMAL);
-    //     textSize(11.5);
-    //     // str = mem_div.innerHTML;
-    //     // trim = str.rpl(/0x0.*: /, '')
-    //     fill(255,255,255,200);
-    //     text(in_hex, 550, 28); //win.w * 18 / 20, win.h * 18 / 20);
-    // }
+    if (text_mode == true){
+        textAlign(LEFT, TOP);
+        textFont('Courier New');
+        text_mode_bold ? textStyle(BOLD) : textStyle(NORMAL);
+        textSize(11.5);
+        // str = mem_div.innerHTML;
+        // trim = str.rpl(/0x0.*: /, '')
+        fill(255,255,255,200);
+        text(in_hex, 550, 28); //win.w * 18 / 20, win.h * 18 / 20);
+    }
 }
 
 function update_names(){
