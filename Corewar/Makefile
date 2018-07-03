@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/06/20 15:23:39 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/07/03 08:11:26 by fmadura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,7 +130,7 @@ $(VM_NAME) : $(VM_OBJS)
 	"Build Successful\t"$(OK)'\n'
 
 $(ASM_OBJS) : | $(ASM_OBJ_PATH)
-$(VM_OBJS) : | $(ASM_OBJ_PATH)
+$(VM_OBJS) : | $(VM_OBJ_PATH)
 
 $(ASM_OBJ_PATH) :
 	@mkdir -p $(ASM_OBJ_PATH)
@@ -150,8 +150,7 @@ $(VM_OBJ_PATH) :
 
 clean :
 	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
-	@rm -rf $(ASM_OBJ_PATH)
-	@rm -rf $(VM_OBJ_PATH)
+	@rm -rf ./objs
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean

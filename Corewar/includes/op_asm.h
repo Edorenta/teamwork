@@ -6,12 +6,12 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 06:58:11 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/03 06:58:15 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/03 08:14:08 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OP_H
-# define OP_H
+#ifndef OP_ASM_H
+# define OP_ASM_H
 
 # include "libft.h"
 
@@ -66,41 +66,40 @@ typedef struct	s_asm
 	t_lbl	*label;
 }				t_asm;
 
-int				ft_skip_whitespace(char *str, int i);
-void			ft_display_labels(t_asm *comp);
-void			ft_get_header(t_asm *comp, int i, int ret);
-void			ft_get_instructions(t_asm *comp);
-int				ft_get_label(t_asm *comp, int start, int pc);
-void			ft_get_number(t_asm *comp, int start, int i);
-void			ft_place_labels(t_asm *comp);
-void			ft_place_size(t_asm *comp);
-void			ft_count_args(t_asm *comp, char *str, int nbr);
 int				ft_check_dir(t_asm *comp, char *str, int i);
 int				ft_check_ind(t_asm *comp, char *str, int i);
 int				ft_check_reg(t_asm *comp, char *str, int i);
-void			ft_live(t_asm *comp, int i);
-void			ft_ld(t_asm *comp, int i);
-void			ft_st(t_asm *comp, int i);
+int				ft_check_separator(t_asm *comp, int i, char *error);
+int				ft_get_args(t_asm *comp, int i, int size, int octet);
+int				ft_get_label(t_asm *comp, int start, int pc);
+int				ft_get_type(char c, int *total_size);
+int				ft_skip_whitespace(char *str, int i);
+int				ft_tsize(int dir_size, int type, int mode);
 void			ft_add(t_asm *comp, int i);
-void			ft_sub(t_asm *comp, int i);
+void			ft_aff(t_asm *comp, int i);
 void			ft_and(t_asm *comp, int i);
-void			ft_or(t_asm *comp, int i);
-void			ft_xor(t_asm *comp, int i);
-void			ft_zjmp(t_asm *comp, int i);
-void			ft_ldi(t_asm *comp, int i);
-void			ft_sti(t_asm *comp, int i);
+void			ft_clean_line(t_asm *comp);
+void			ft_count_args(t_asm *comp, char *str, int nbr);
+void			ft_create_file(t_asm *comp);
+void			ft_display_labels(t_asm *comp);
+void			ft_error(t_asm *comp, char *str);
 void			ft_fork(t_asm *comp, int i);
+void			ft_free_struct(t_asm *comp);
+void			ft_get_header(t_asm *comp, int i, int ret);
+void			ft_get_instructions(t_asm *comp);
+void			ft_get_number(t_asm *comp, int start, int i);
+void			ft_ld(t_asm *comp, int i);
+void			ft_ldi(t_asm *comp, int i);
+void			ft_lfork(t_asm *comp, int i);
+void			ft_live(t_asm *comp, int i);
 void			ft_lld(t_asm *comp, int i);
 void			ft_lldi(t_asm *comp, int i);
-void			ft_lfork(t_asm *comp, int i);
-void			ft_aff(t_asm *comp, int i);
-void			ft_clean_line(t_asm *comp);
-void			ft_error(t_asm *comp, char *str);
-void			ft_free_struct(t_asm *comp);
-void			ft_create_file(t_asm *comp);
-int				ft_get_type(char c, int *total_size);
-int				ft_get_args(t_asm *comp, int i, int size, int octet);
-int				ft_check_separator(t_asm *comp, int i, char *error);
-int				ft_tsize(int dir_size, int type, int mode);
-
+void			ft_or(t_asm *comp, int i);
+void			ft_place_labels(t_asm *comp);
+void			ft_place_size(t_asm *comp);
+void			ft_st(t_asm *comp, int i);
+void			ft_sti(t_asm *comp, int i);
+void			ft_sub(t_asm *comp, int i);
+void			ft_xor(t_asm *comp, int i);
+void			ft_zjmp(t_asm *comp, int i);
 #endif
