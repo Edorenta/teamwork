@@ -5,39 +5,49 @@
 		ld	%0,r15
 		fork	%:xxx
 		zjmp	%:torp
-xxx:		live	%42
+xxx:	
+	live	%42
 		fork	%:torp
 		zjmp	%:xxx
 	
-zork:		live	%42
+zork:	
+	live	%42
 		fork	%:zork2
 		st	r1,13
 		ld	%0,r15		
-zork_:		live	%42
+zork_:	
+	live	%42
 		zjmp	%-5
 		
-zork2:		live	%42
+zork2:	
+	live	%42
 		fork	%:zork3
 		st	r1,13
 		ld	%0,r15
-zork2_:		live	%42
+zork2_:	
+	live	%42
 		zjmp	%-5
 
-zork3:		live	%42
+zork3:	
+	live	%42
 		fork	%:zork4
 		st	r1,13
 		ld	%0,r15
-zork3_:		live	%42
+zork3_:	
+	live	%42
 		zjmp	%-5
 
-zork4:		live	%42
+zork4:	
+	live	%42
 		fork	%:zork
 		st	r1,13
 		ld	%0,r15
-zork4_:		live	%42
+zork4_:	
+	live	%42
 		zjmp	%-5		
 			
-back_wall:      live	%42	
+back_wall: 
+     live	%42	
 		st	r8,-400
 		st	r8,-400
 		st	r8,-400

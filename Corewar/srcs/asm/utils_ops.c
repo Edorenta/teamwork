@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 04:45:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 06:44:38 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static unsigned int	ops_diff(t_ops *ops, int labline, int opsline)
 	}
 	if (opsline > labline)
 		len = (~len + 1);
+	printf("%#x\n", len);
 	return (len);
 }
 

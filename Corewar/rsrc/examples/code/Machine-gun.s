@@ -1,8 +1,8 @@
 .name "Machine-gun"
 .comment "yipikai mother fucker"
 
-entry:	sti r1, %:live, %1
-		
+entry:
+		sti r1, %:live, %1	
 		ld	%0, r2
 		live %10
 		ld	%47, r3
@@ -20,10 +20,12 @@ wall:	ld %70, r3
 		st r3, -206
 
 
-live:	live %15
+live:
+		live %15
 		zjmp %3
 
-def:	st r2, -270
+def:
+		st r2, -270
 		zjmp %:wall
 		st r2, -261
 		st r2, -252
@@ -46,7 +48,8 @@ def:	st r2, -270
 		zjmp %:def
 		zjmp %:live
 
-wall2:	live %130000
+wall2:
+		live %130000
 		st r5, 66
 		st r5, 75
 		st r5, 84

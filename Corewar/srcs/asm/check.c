@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 15:02:01 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 06:23:49 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/03 06:33:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	token_lab_check(t_iter *itr, int count)
 	{
 		++iter;
 		itr->count = (++count);
-		if ((*iter) && (token_com(iter, count) || token_wsp(iter, count)))
+		if ((*iter) && (token_com(iter, &count) || token_wsp(iter, &count)))
 		{
 			itr->token |= LABEL_ERR2;
 			return (-1);

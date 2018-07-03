@@ -42,39 +42,51 @@
 		add	r8,r9,r8
 		ld	%:roger,r12
 		sub	r12,r8,r12
-fork1:		live	%42
+fork1:
+		live	%42
 		fork	%:fork_live
-fork2:		live	%42
+fork2:
+		live	%42
 		fork	%:leon
-fork3:		live	%42
+fork3:
+		live	%42
 		fork	%:roger
 		ld	%0,r15	
 		zjmp	%:torp
-leon:		ld      %0,r2
-leon_live:	live    %42
+leon:
+		ld      %0,r2
+leon_live:
+	live    %42
 		ldi     %:leon,r2,r3
 		sti     r3,r8,r2
 		add     r2,r4,r2
 		xor     r13,r2,r7
 		zjmp    %415
 		ld      %0,r15
-leon_ecrit:	zjmp    %:leon_live
-roger:		ld	%0,r10
-roger_live:	live	%42
+leon_ecrit:
+	zjmp    %:leon_live
+roger:
+		ld	%0,r10
+roger_live:
+	live	%42
 		ldi	%:roger,r10,r11
 		sti	r11,r12,r10
 		add	r10,r4,r10
 		xor	r6,r10,r7
 		zjmp	%-361
 		ld	%0,r15
-roger_ecrit:	zjmp	%:roger_live
-torp:		live	%42	
+roger_ecrit:
+	zjmp	%:roger_live
+torp:
+		live	%42	
 		fork	%:leon
-torp_:		live	%42
+torp_:
+		live	%42
 		fork	%:roger
 		ld	%0,r15
 		zjmp	%:torp
-live:		live	%42
+live:
+		live	%42
 		live	%42
 		live	%42
 		live	%42
@@ -99,7 +111,8 @@ live:		live	%42
 		live	%42
 		live	%42	
 		zjmp	%:live
-fork_live:	live	%42
+fork_live:
+	live	%42
 		fork	%:live
 		ld	%0,r15
 		zjmp	%:fork_live

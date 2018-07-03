@@ -32,7 +32,6 @@ TARGET = THUNDER
 all :
 	@rm -f test.cor
 	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm $(FILE)$(TARGET).s
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)

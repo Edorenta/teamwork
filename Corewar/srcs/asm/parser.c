@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 05:41:05 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 06:56:56 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,18 @@ static void		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
 	int			len;
 
 	len = ft_strlen(line);
-	while (iter->pos >= len)
-		--iter->pos;
-	if (iter->pos > 0 && (ft_isdigit(line[iter->pos - 1])
-		|| line[iter->pos - 1] == '-'))
-		--iter->pos;
-	ops->argv[argc] = ft_atol(&line[iter->pos]);
+	if (iter->type == 0x4 || iter->type == 0x6)
+	{
+		if (iter->pos > 0 && ft_isdigit(line(iter->pos - 1))
+			|| line[iter->pos - 1] == '-')
+			--iter->pos;
+		while (iter->pos >= len)
+			--iter->pos;
+		if (iter->pos > 0 && (ft_isdigit(line[iter->pos - 1])
+					|| line[iter->pos - 1] == '-'))
+			--iter->pos;
+		ops->argv[argc] = ft_atol(&line[iter->pos]);
+	}
 }
 
 static long		get_num(t_iter *iter, char *line, int type, int pos)

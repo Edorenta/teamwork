@@ -10,6 +10,7 @@ for f in $CHAMPS
 		cat tmp | grep "definitely lost"
 		cat tmp | grep "indirectly lost"
 		rm tmp
+		./asm $f
 		echo
 	done
 mv $COR ./bin1/
@@ -19,8 +20,9 @@ for f in $CHAMPS
 		./zaz_asm $f
 	done
 mv $COR ./bin2/
-cd bin1
-for f in *.cor
+cd ./bin1
+for f in ./*.cor
 	do
+		echo $f
 		diff <(xxd $f) <(xxd ../bin2/$f)
 	done
