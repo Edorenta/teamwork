@@ -57,6 +57,7 @@ var itx = 0;
 var ity = 0;
 var space_x = 20.7;
 var space_y = 14.4;
+var countdown = 0;
 
 //core GET variables
 var procs = [];
@@ -104,20 +105,28 @@ class Block{
         this.shape = player ? player.shape : arena_block_shape;
         this.clr = player ? player.clr : arena_block_clr;
         this.player = player ? player : null;
-        this.is_proc = false;
+        this.proc = null;
         //console.log(this.clr);
     }
     set_player(player){
         if (typeof player !== 'undefined'){
             this.player = player;
-            this.shape = player.shape;
-            this.clr = this.is_proc ? ShadeBlend(+0.25, player.clr) : player.clr;
-            this.shape = this.is_proc ? ['round', 1] : player.shape;
+            if (this.proc == null){
+                this.shape = player.shape;
+                this.clr = player.clr;
+            }
         }
     }
-    set_proc(player){
-        this.is_proc = true;
-        this.set_player(player);
+    set_proc(pc){
+        this.proc = pc;
+        this.clr = ShadeBlend(+0.30, this.proc.player.clr);
+        this.shape = ['round', 1];
+        //this.set_player(player);
+    }
+    unset_proc(){
+        this.proc = null;
+        this.clr = this.player ? this.player.clr : arena_block_clr;
+        this.shape = this.player ? this.player.shape : arena_block_shape;
     }
     draw(){
         fill(this.clr);
@@ -140,22 +149,28 @@ class Block{
 class Proc{
     constructor(pid, player, block){
         this.pid = pid;
+        console.log("New proc pid: " + pid);
         this.player = player;
         this.player.nb_procs++;
         this.block = block;
-        this.block.set_proc(player);
+        this.block.set_proc(this);
+        this.is_alive = true;
     }
     move(to_player, to_block){
         if (to_player != this.player){ //proc has been stolen
             this.player.nb_procs--;
+            console.log('move');
             this.player = to_player;
             this.player.nb_procs++;
         }
-        this.block.is_proc = false;
-        this.block.clr = this.block.player.clr;
-        this.block.shape = this.block.player.shape;
+        this.block.unset_proc();
         this.block = to_block;
-        this.block.set_proc(to_player);
+        this.block.set_proc(this);
+    }
+    kill(){
+        this.player.nb_procs--;
+        console.log('kill');
+        this.block.unset_proc();
     }
 };
 
@@ -219,6 +234,7 @@ function init()
                 let tmp = JSON.parse(data.slice(5, data.length));
                 in_cyc[1] == tmp[1] ? 0 : init_new_period();
                 in_cyc = tmp;
+                countdown = countdown > 0 ? --countdown : parseInt(in_cyc[1]);
                 break;
             case "<exe>":
                 in_exe = JSON.parse(data.slice(5, data.length));
@@ -227,7 +243,7 @@ function init()
                 break;
             case "<liv>":
                 in_liv = JSON.parse(data.slice(5, data.length));
-                set_alive();
+                get_life();
                 break;
             case "<hex>":
                 in_hex = data.slice(5, data.length);
@@ -240,19 +256,7 @@ function init()
                 get_map_control();
                 break;
             case "<end>": victory();
-                //core GET variables
-                procs = [];
-                block = [];
-                player = [];
-                in_set = [];
-                in_cyc = [];
-                in_exe = [];
-                in_liv = [];
-                in_hex = undefined;
-                in_map = undefined;
-                last_alive = undefined;
                 break;
-
         }
     };
     ws.onclose = function(){
@@ -280,11 +284,13 @@ function init_players(){
     }
 }
 
-function set_alive(){
+function get_life(){
     if (typeof player !== 'undefined' && player.length > 0){
         ++player[parseInt(in_liv) - 1].sum_alives;
-        last_alive = player[parseInt(in_liv) - 1];
+        last_alive = player[parseInt(in_liv[0]) - 1];
     }
+    let alive = get_proc_by_pid(parseInt(in_liv[1]));
+    if (alive) alive.is_alive = true;
 }
 
 function init_new_period(){
@@ -293,24 +299,30 @@ function init_new_period(){
             player[i].sum_alives = 0;
         }
     }
+    if (typeof procs !== 'undefined' && procs.length > 0){
+        for (let i = 0; i < (procs.length); i++){
+            if (procs[i].is_alive == false){
+                procs[i].kill();
+                procs.splice(i, 1);
+                return 0;
+            }
+            else
+                procs[i].is_alive = false;
+        }
+    }
 }
 
 //GET METHODS
 
 function get_procs(){
-    let owner = parseInt(in_exe[0]);
-    let mem = parseInt(in_exe[1]);
+    let owner = parseInt(in_exe[0]) - 1;
+    let addr = parseInt(in_exe[1]);
     let pid = parseInt(in_exe[2]);
-    for (let i = 0; i < (procs.length); i++){
-        if (procs[i].pid == pid){
-            procs[i].move(player[owner-1], block[mem]);
-            return 0;
-        }
-    }
-    procs[procs.length] = new Proc(pid, player[owner-1], block[mem]);
-    // block[parseInt(in_exe[i + 1])].set_player(parseInt(in_exe[i + 1]));
-    // block[parseInt(in_exe[i + 1])].set_proc(parseInt(in_exe[i + 2]));
-    // }    
+    let pc = get_proc_by_pid(pid);
+    if (pc)
+        pc.move(player[owner], block[addr]);
+    else
+        procs[procs.length] = new Proc(pid, player[owner], block[addr]);
 }
 
 function get_ownership(){
@@ -338,20 +350,24 @@ function update_cycles(){
     textAlign(LEFT, CENTER);
     textFont(joystix_font); // textFont('Courier New');
     // textStyle(BOLD);
-    textSize(20);
+    textSize(14);
     fill(clrs.theme);
-    let cyc_tot = "Total  : "; //in_cyc[0];
-    let cyc_td = "To Die : "; //in_cyc[1];
+    let cyc_tot = "Game Total   : "; //in_cyc[0];
+    let cyc_cd  = "Next Death   : "
+    let cyc_td  = "Cycle to Die : "; //in_cyc[1];
     if (typeof in_cyc !== 'undefined' && in_cyc.length > 0){
         cyc_tot += in_cyc[0];
         cyc_td += in_cyc[1];
+        cyc_cd += countdown;
     }
     else{
         cyc_tot += "--";
         cyc_td += "--";
+        cyc_cd += "--";
     }
     text(cyc_tot, 88, 425);
-    text(cyc_td, 88, 455); 
+    text(cyc_cd, 88, 445);
+    text(cyc_td, 88, 465);
 }
 
 //UPDATE METHODS
@@ -422,7 +438,8 @@ function update_procs(){
     fill(clrs.theme);
     text("SUM :", x, 600);
     x += 110
-    if (typeof procs !== 'undefined' && procs.length > 0){
+    if ((typeof procs !== 'undefined' && procs.length > 0)
+        && (typeof player !== 'undefined' && player.length > 0)){
         for (let i = 0; i < player.length; i++){
             fill(player[i].clr);
             text(player[i].nb_procs, x, 600);
@@ -512,13 +529,23 @@ function sw(what){
     return (what ? false : true);
 }
 
+function get_proc_by_pid(pid){
+    if (typeof procs !== 'undefined' && procs.length > 0){
+        for (let i = 0; i < procs.length; i++){
+            if (procs[i].pid == pid)
+                return (procs[i]);
+        }
+    }
+    return null;
+}
+
 function keyPressed(){
     switch (keyCode){ //RESET setting
         case 86: text_mode = sw(text_mode); break;
         case 66: block_mode = sw(block_mode); break;
         case 72: text_mode_bold = sw(text_mode_bold); break;
         case 84: dark_mode = sw(dark_mode);
-            if(dark_mode){
+            if (dark_mode){
                 back_clr = clrs.dark_grey;
                 document.body.style.backgroundColor = back_clr;
                 clrs.theme = clrs.light_grey;
@@ -534,4 +561,18 @@ function keyPressed(){
     }
     //TO ADD: color and shape bindings
     //  console.log(keyCode);
+}
+
+function victory(){
+    //reinit core GET variables
+    procs = [];
+    block = [];
+    player = [];
+    in_set = [];
+    in_cyc = [];
+    in_exe = [];
+    in_liv = [];
+    in_hex = undefined;
+    in_map = undefined;
+    last_alive = undefined;
 }
