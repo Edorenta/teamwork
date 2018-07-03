@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:36:47 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 02:05:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:07:07 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_iter				*iter_new(void);
 void				iter_head(char *line, t_iter *iter, int token);
 void				iter_del(t_iter *iter);
 void				end_while(t_iter **iter, char *line);
+void				end_line(t_iter *iter);
 void				err_read(t_iter *iter);
 
 void				clear_wsp(t_iter *iter);

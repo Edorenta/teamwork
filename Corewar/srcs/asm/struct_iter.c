@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 00:44:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:07:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ void	iter_del(t_iter *iter)
 
 	token = NULL;
 	if (iter->line)
-	{
-		//free(iter->line);
 		iter->line = NULL;
-	}
 	while (iter->first)
 	{
 		token = iter->first;

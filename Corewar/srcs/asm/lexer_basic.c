@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 03:11:49 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/03 02:01:33 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:06:21 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ static int	check_err(t_iter *iter, int token, int count)
 	iter->token = token;
 	iter->count = count;
 	return (-1);
-}
-
-void		end_line(t_iter *iter)
-{
-	clear_wsp(iter);
-	if (*iter->line == ';')
-	{
-		iter_add_list(iter, "INS_COM", INS_COM);
-		iter_add_list(iter, "INS_END", INS_END);
-	}
-	else if (!(*iter->line))
-		iter_add_list(iter, "INS_END", INS_END);
-	else if (*iter->line == '#')
-		iter_add_list(iter, "INS_END", INS_END);
-	else
-		iter_add_list(iter, "INS_ERR", INS_ERR);
 }
 
 int			check_head(t_iter *iter)
