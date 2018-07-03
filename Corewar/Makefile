@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -15,19 +14,20 @@ ASM_NAME   	= asm
 VM_NAME    	= corewar
 ASM_SRC_PATH= srcs/asm/
 VM_SRC_PATH	= srcs/vm/
-OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -g #-fsanitize=address
+ASM_OBJ_PATH= objs/asm/
+VM_OBJ_PATH	= objs/vm/
+FLAGS		= -Wall -Werror -Wextra #-g -fsanitize=address,undefined
 LIB			= libft/libft.a
 INC			= -Iincludes -Ilibft/includes
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(ASM_NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 
 SRC_SUFFIX	= .c
-SRC_SUFFIX	= .o
+OBJ_SUFFIX	= .o
 #ASM_PREFIX	= 
 #VM_PREFIX	=
 
-ASM_SRC =
+ASM_SRC = \
 	asm \
 	op \
 	main \
@@ -51,14 +51,14 @@ ASM_SRC =
 	params \
 	params_three
 
-VM_SRC =
+VM_SRC = \
 	corewar \
 	check_arg \
 	parse_player \
 	player \
 	parse_op \
 	check_ocp \
-	show
+	show \
 	process \
 	get_arg \
 	core \
@@ -84,11 +84,11 @@ VM_SRC =
 	aff \
 	fork
 
-ASM_SRCS	= $(addprefix $(addsuffix $(SRC_SUFFIX),$(ASM_SRC)), $(ASM_SRC_PATH))
-VM_SRCS		= $(addprefix $(addsuffix $(SRC_SUFFIX),$(VM_SRC)), $(VM_SRC_PATH))
+ASM_SRCS	= $(addprefix $(ASM_SRC_PATH), $(addsuffix $(SRC_SUFFIX),$(ASM_SRC)))
+VM_SRCS		= $(addprefix $(VM_SRC_PATH),$(addsuffix $(SRC_SUFFIX),$(VM_SRC)))
 
-ASM_OBJS	= $(addprefix $(addsuffix $(OBJ_SUFFIX),$(ASM_SRC)), $(OBJ_PATH))
-VM_OBJS		= $(addprefix $(addsuffix $(OBJ_SUFFIX),$(VM_SRC)), $(OBJ_PATH))
+ASM_OBJS	= $(addprefix $(OBJ_PATH), $(addsuffix $(OBJ_SUFFIX),$(ASM_SRC)))
+VM_OBJS		= $(addprefix $(OBJ_PATH), $(addsuffix $(OBJ_SUFFIX),$(VM_SRC)))
 
 #color
 YELLOW		= "\\033[33m"
@@ -107,26 +107,32 @@ CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
 all : $(ASM_NAME) $(VM_NAME)
+vm : $(VM_NAME)
 
 $(ASM_NAME) : $(ASM_OBJS)
+	@$(MAKE) -C libft/
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"Corewar ASM compiled\t"$(OK)'\n'
-	@ $(CC) cludes $(ASM_OBJS) -o $@
+	@$(CC) $(INC) $(ASM_SRCS) -L libft/ -lft -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"Build Successful\t"$(OK)'\n'
 
 $(VM_NAME) : $(VM_OBJS)
+	@$(MAKE) -C libft/
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"Corewar VM compiled\t"$(OK)'\n'
-	@ $(CC) $(INC) $(VM_OBJS) -o $@
+	@$(CC) $(INC) $(VM_SRCS) -L libft/ -lft -o $@
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"Build Successful\t"$(OK)'\n'
 
-$(ASM_OBJS) : | $(OBJ_PATH)
-$(VM_OBJS) : | $(OBJ_PATH)
+$(ASM_OBJS) : | $(ASM_OBJ_PATH)
+$(VM_OBJS) : | $(ASM_OBJ_PATH)
 
-$(OBJ_PATH) : 
-	@mkdir -p $(OBJ_PATH)
+$(ASM_OBJ_PATH) :
+	@mkdir -p $(ASM_OBJ_PATH)
+
+$(VM_OBJ_PATH) :
+	@mkdir -p $(VM_OBJ_PATH)
 
 (OBJ_PATH)%.o: $(ASM_SRC_PATH)%.c
 	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
@@ -140,7 +146,8 @@ $(OBJ_PATH) :
 
 clean :
 	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
-	@rm -rf $(OBJ_PATH)
+	@rm -rf $(ASM_OBJ_PATH)
+	@rm -rf $(VM_OBJ_PATH)
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
