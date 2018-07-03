@@ -2,7 +2,7 @@
 
 CHAMPS=code/*.s
 COR=code/*.cor
-mv ../../srcs/asm/asm .
+cp ../../asm .
 for f in $CHAMPS
 	do
 		valgrind --log-file="tmp" ./asm $f

@@ -5,4 +5,5 @@ do
 	xxd $f > tmp
 	xxd ../bin2/$f > tmp2
 	diff tmp tmp2
+	rm tmp tmp2
 done

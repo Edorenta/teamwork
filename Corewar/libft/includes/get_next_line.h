@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:15:12 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/06/25 12:36:18 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 08:26:24 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 5000
 # endif
-
 
 # define BUFF_SIZE 42
 # ifndef IS
