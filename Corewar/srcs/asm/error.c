@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/02 20:21:46 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 02:41:04 by jyildiz-         ###   ########.fr       */
+/*   Updated: 2018/07/03 03:39:48 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	put_error_first(t_iter *iter, char *line)
 		printf("%s\n%*c\nComment over 2048 char\n", line, iter->count, '^');
 	else if (iter->token == ENDLI_ERR)
 		printf("%s\n%*c\nEndline must be empty.\n", line, ++iter->count, '^');
-	line ? free(line) : 0;
 	iter_del(iter);
 	exit(0);
 }

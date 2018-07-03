@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 01:30:57 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 03:59:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ static long		get_index(t_iter *iter, char *line)
 	char		*label;
 	long		ret;
 
-	if ((label = lab_parse_ins(line)) == NULL)
-	{
-		iter->token = LABEL_ERR4;
-		put_error(iter, line);
-	}
+	label = lab_parse_ins(line);
 	ret = 0;
 	ret = lab_get(iter, label);
 	free(label);
@@ -36,7 +32,7 @@ static void		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
 	len = ft_strlen(line);
 	while (iter->pos >= len)
 		iter->pos--;
-	ops->argv[argc] = ft_atoi(&line[iter->pos]);
+	ops->argv[argc] = ft_atol(&line[iter->pos]);
 }
 
 t_ops			*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
@@ -53,7 +49,7 @@ t_ops			*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 		{
 			new->args[argc] = (iter->type >> 1);
 			if (iter->type == 0x1)
-				new->argv[argc] = ft_atoi(&line++[iter->pos]);
+				new->argv[argc] = ft_atol(&line++[iter->pos]);
 			else if (iter->type == 0x5)
 				new->label[argc] = get_index(itera, &line[iter->pos]);
 			else
