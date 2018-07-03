@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 00:57:48 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 01:30:57 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static long		get_index(t_iter *iter, char *line)
 	if ((label = lab_parse_ins(line)) == NULL)
 	{
 		iter->token = LABEL_ERR4;
-		put_error(iter, line);	
+		put_error(iter, line);
 	}
 	ret = 0;
 	ret = lab_get(iter, label);
