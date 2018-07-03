@@ -18,7 +18,7 @@ ASM_OBJ_PATH= objs/asm/
 VM_OBJ_PATH	= objs/vm/
 FLAGS		= -Wall -Werror -Wextra #-g -fsanitize=address,undefined
 LIB			= libft/libft.a
-INC			= -Iincludes/ -Ilibft/includes
+INC			= -Iincludes -Ilibft/includes
 CC			= gcc $(FLAGS)
 NAME_P		= $(shell echo $(ASM_NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 
@@ -28,32 +28,28 @@ OBJ_SUFFIX	= .o
 #VM_PREFIX	=
 
 ASM_SRC = \
-	ft_parser \
-	ft_get_header \
-	ft_get_instructions \
-	ft_get_label \
-	ft_get_number \
-	ft_place_labels_size \
-	ft_args \
-	ft_instruction_ft \
-	ft_live \
-	ft_ld \
-	ft_st \
-	ft_add \
-	ft_sub \
-	ft_and \
-	ft_or \
-	ft_xor \
-	ft_zjmp \
-	ft_ldi \
-	ft_sti \
-	ft_fork \
-	ft_lld \
-	ft_lldi \
-	ft_lfork \
-	ft_aff \
-	ft_error \
-	ft_create_file
+	asm \
+	op \
+	main \
+	parser \
+	lexer \
+	lexer_basic \
+	lexer_ins \
+	struct_iter \
+	struct_lab \
+	struct_ops \
+	struct_token \
+	check \
+	utils \
+	utils_ops \
+	utils_lab \
+	utils_iter \
+	utils_parser \
+	utils_lexer \
+	write \
+	error \
+	params \
+	params_three
 
 VM_SRC = \
 	corewar \

@@ -1,5 +1,0 @@
-*.cor
-*.s
-.gitignore
-asm
-test.cor
