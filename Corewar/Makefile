@@ -6,7 +6,7 @@
 #    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/07/03 00:53:23 by jjourne          ###   ########.fr        #
+#    Updated: 2018/07/03 02:47:45 by jjourne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ_PATH1	= objs/asm/
 OBJ_PATH2	= objs/vm/
 
 FLAGS		= -Wall -Werror -Wextra
-CC			= gcc $(FLAGS)
+CC			= gcc
 NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 # SRC_SUFFIX	= .c
 
@@ -97,7 +97,7 @@ EOLCLR		= "\\033[0K"
 CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-all : $(LIBFT) $(NAME_1) $(NAME_2)
+all : $(LIBFT) $(NAME_1) $(NAME_1)
 
 $(LIBFT):
 	make -C ./libft/
@@ -105,15 +105,15 @@ $(LIBFT):
 $(NAME_1) : $(OBJ1)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"$(NAME_1) compiled\t"$(OK)'\n'
-	@ $(CC) -I./includes -I./libft/includes $(OBJ1) -o $@
-	# @printf '\t\ttest\n'
+	# @ $(CC) -I./includes -I./libft/includes $(OBJ1) -o $@
+	@$(CC) $(SRC1) -I./includes -I./libft/includes libft/libft.a -o $@ $(CFLAGS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
 $(NAME_2) : $(OBJ2)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"checker compiled\t"$(OK)'\n'
-	@ $(CC) -I./includes -I./libft/includes $(OBJ2) -o $@
+	@ $(CC) $(SRC2) -I./includes -I./libft/includes libft/libft.a -o $@ $(CFLAGS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 

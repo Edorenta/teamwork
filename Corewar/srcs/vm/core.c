@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 23:26:12 by jjourne           #+#    #+#             */
-/*   Updated: 2018/07/02 18:25:01 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:20:35 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 		if (is_opcode(vm->ram[proc->pc % MEM_SIZE].mem))
 			create_op(proc, vm->ram[proc->pc % MEM_SIZE].mem);
 		else
+		{
 			proc->pc = (proc->pc + 1) % MEM_SIZE;
+			send_exe(vm, proc);
+		}
 	}
 	else
 	{
@@ -47,10 +50,8 @@ void	exec_proc(t_vm *vm, t_proc *proc)
 			if (fill_cur_op(vm, proc))
 				g_op_tab[proc->op.code - 1].func(vm, proc);
 			if (proc->op.code != 9 || (proc->op.code == 9 && !proc->carry))
-			{
 				proc->pc += move_pc(proc);
-				proc->pc = modulo(proc->pc, MEM_SIZE);
-			}
+			proc->pc = modulo(proc->pc, MEM_SIZE);
 			send_exe(vm, proc);
 			delete_op(proc);
 		}

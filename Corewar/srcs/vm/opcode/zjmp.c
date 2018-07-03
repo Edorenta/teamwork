@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 15:05:05 by jjourne           #+#    #+#             */
-/*   Updated: 2018/06/28 15:20:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:02:10 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	zjmp(t_vm *vm, t_proc *proc)
 		proc->pc = modulo(proc->op.pos_opcode + (proc->op.ar[0] % IDX_MOD),
 		MEM_SIZE);
 		proc->last_pc = proc->pc;
+		
 	}
 	if (0x4 & vm->verbosity)
 	{
