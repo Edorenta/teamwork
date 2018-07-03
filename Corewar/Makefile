@@ -1,63 +1,164 @@
-NAME    		= corewar
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
+#    Updated: 2018/06/20 15:23:39 by pde-rent         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC				= gcc
+ASM_NAME   	= asm
+VM_NAME    	= corewar
+ASM_SRC_PATH= srcs/asm/
+VM_SRC_PATH	= srcs/vm/
+ASM_OBJ_PATH= objs/asm/
+VM_OBJ_PATH	= objs/vm/
+FLAGS		= -Wall -Werror -Wextra #-g -fsanitize=address,undefined
+LIB			= libft/libft.a
+INC			= -Iincludes -Ilibft/includes
+CC			= gcc $(FLAGS)
+NAME_P		= $(shell echo $(ASM_NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 
-CFLAGS			= -Wall -Werror -Wextra
-DEBUG_FLAGS =		-fsanitize=address -g
+SRC_SUFFIX	= .c
+OBJ_SUFFIX	= .o
+#ASM_PREFIX	= 
+#VM_PREFIX	=
 
-HEADER_DIR 		= ./includes/
-HEADER_LIBFT_DIR = ./libft/includes
+ASM_SRC = \
+	asm \
+	op \
+	main \
+	parser \
+	lexer \
+	lexer_basic \
+	lexer_ins \
+	struct_iter \
+	struct_lab \
+	struct_ops \
+	struct_token \
+	check \
+	utils \
+	utils_ops \
+	utils_lab \
+	utils_iter \
+	utils_parser \
+	utils_lexer \
+	write \
+	error \
+	params \
+	params_three
 
-LIBFT_DIR 		= ./libft/
-LIBFT 			= $(LIBFT_DIR)libft.a
-OBJ_DIR =			./obj/
+VM_SRC = \
+	corewar \
+	check_arg \
+	parse_player \
+	player \
+	parse_op \
+	check_ocp \
+	show \
+	process \
+	get_arg \
+	core \
+	op \
+	tools \
+	flib \
+	action_proc \
+	client \
+	live \
+	ld \
+	st \
+	add \
+	sub \
+	and \
+	or \
+	xor \
+	zjmp \
+	ldi \
+	sti \
+	lld \
+	lldi \
+	lfork \
+	aff \
+	fork
 
-SRCS =			srcs/vm/corewar.c check_arg.c parse_player.c \
-				srcs/vm/player.c parse_op.c check_ocp.c \
-				srcs/vm/show.c process.c get_arg.c \
-				srcs/vm/core.c op.c tools.c \
-				srcs/vm/flib.c action_proc.c client.c \
-				srcs/vm/opcode/live.c \
-				srcs/vm/opcode/ld.c \
-				srcs/vm/opcode/st.c \
-				srcs/vm/opcode/add.c \
-				srcs/vm/opcode/sub.c \
-				srcs/vm/opcode/and.c \
-				srcs/vm/opcode/or.c \
-				srcs/vm/opcode/xor.c \
-				srcs/vm/opcode/zjmp.c \
-				srcs/vm/opcode/ldi.c \
-				srcs/vm/opcode/sti.c \
-				srcs/vm/opcode/lld.c \
-				srcs/vm/opcode/lldi.c \
-				srcs/vm/opcode/lfork.c \
-				srcs/vm/opcode/aff.c \
-				srcs/vm/opcode/fork.c \
+ASM_SRCS	= $(addprefix $(ASM_SRC_PATH), $(addsuffix $(SRC_SUFFIX),$(ASM_SRC)))
+VM_SRCS		= $(addprefix $(VM_SRC_PATH),$(addsuffix $(SRC_SUFFIX),$(VM_SRC)))
 
-all: $(NAME_1) $(NAME_2)
+ASM_OBJS	= $(addprefix $(OBJ_PATH), $(addsuffix $(OBJ_SUFFIX),$(ASM_SRC)))
+VM_OBJS		= $(addprefix $(OBJ_PATH), $(addsuffix $(OBJ_SUFFIX),$(VM_SRC)))
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+#color
+YELLOW		= "\\033[33m"
+BLUE		= "\\033[34m"
+RED			= "\\033[31m"
+WHITE		= "\\033[0m"
+CYAN		= "\\033[36m"
+GREEN		= "\\033[32m"
+BOLD		= "\\033[1m"
+PINK		= "\\033[95m"
 
-$(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(SRC) -I$(HEADER_DIR) -I$(HEADER_LIBFT_DIR) libft/libft.a -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
+#command
+EOLCLR		= "\\033[0K"
+#unicode
+CHECK		= "\\xE2\\x9C\\x94"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-$(OBJ_DIR)%.o: $(SRCS)%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) -I$(HEADER_DIR) -c $< -o $@
+all : $(ASM_NAME) $(VM_NAME)
+vm : $(VM_NAME)
 
-clean:
-	rm -rf $(OBJ_DIR)
-	@make -C $(LIBFT_DIR) clean
-	@echo clean $@ Done !
+$(ASM_NAME) : $(ASM_OBJS)
+	@$(MAKE) -C libft/
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"Corewar ASM compiled\t"$(OK)'\n'
+	@$(CC) $(INC) $(ASM_SRCS) -L libft/ -lft -o $@
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
+	"Build Successful\t"$(OK)'\n'
 
-fclean:	clean
-	rm -f $(NAME_1)
-	rm -f $(NAME_2)
-	@make -C $(LIBFT_DIR) fclean
-	@echo fclean $@ Done !
+$(VM_NAME) : $(VM_OBJS)
+	@$(MAKE) -C libft/
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"Corewar VM compiled\t"$(OK)'\n'
+	@$(CC) $(INC) $(VM_SRCS) -L libft/ -lft -o $@
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
+	"Build Successful\t"$(OK)'\n'
 
-re:		fclean all
+$(ASM_OBJS) : | $(ASM_OBJ_PATH)
+$(VM_OBJS) : | $(ASM_OBJ_PATH)
 
-.PHONY: clean fclean re
-.SUFFIXES:
+$(ASM_OBJ_PATH) :
+	@mkdir -p $(ASM_OBJ_PATH)
+
+$(VM_OBJ_PATH) :
+	@mkdir -p $(VM_OBJ_PATH)
+
+(OBJ_PATH)%.o: $(ASM_SRC_PATH)%.c
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
+	@$(CC) $(INC) -o $@ -c $<
+	@printf '\t'$(OK)
+
+(OBJ_PATH)%.o: $(VM_SRC_PATH)%.c
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
+	@$(CC) $(INC) -o $@ -c $<
+	@printf '\t'$(OK)
+
+clean :
+	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
+	@rm -rf $(ASM_OBJ_PATH)
+	@rm -rf $(VM_OBJ_PATH)
+	@printf '\t\t'$(OK)'\n'
+
+fclean : clean
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(ASM_NAME)$(WHITE)"
+	@rm -f $(ASM_NAME)
+	@rm -f $(VM_NAME)
+	@printf '\t'$(OK)'\n'
+
+re : fclean all
+
+norm :
+	@norminette srcs/ include/
+
+.PHONY: all clean fclean re norm
