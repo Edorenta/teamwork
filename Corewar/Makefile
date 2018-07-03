@@ -1,161 +1,87 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/06/07 19:21:52 by pde-rent          #+#    #+#              #
-#    Updated: 2018/07/03 02:47:45 by jjourne          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME_1    		= asm
+NAME_2    		= corewar
 
-NAME_1    	= asm
-NAME_2    	= corewar
+CC				= gcc
 
-SRC_PATH1	= srcs/asm/
-SRC_PATH2	= srcs/vm/
+CFLAGS			= -Wall -Werror -Wextra
+DEBUG_FLAGS =		-fsanitize=address -g
 
-OBJ_PATH1	= objs/asm/
-OBJ_PATH2	= objs/vm/
+HEADER_DIR 		= ./includes/
+HEADER_LIBFT_DIR = ./libft/includes
 
-FLAGS		= -Wall -Werror -Wextra
-CC			= gcc
-NAME_P		= $(shell echo $(NAME_1) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
-# SRC_SUFFIX	= .c
+LIBFT_DIR 		= ./libft/
+LIBFT 			= $(LIBFT_DIR)libft.a
+OBJ_DIR =			./obj/
 
-# COMMON =	op
+SRCS =			srcs/vm/corewar.c check_arg.c parse_player.c \
+				srcs/vm/player.c parse_op.c check_ocp.c \
+				srcs/vm/show.c process.c get_arg.c \
+				srcs/vm/core.c op.c tools.c \
+				srcs/vm/flib.c action_proc.c client.c \
+				srcs/vm/opcode/live.c \
+				srcs/vm/opcode/ld.c \
+				srcs/vm/opcode/st.c \
+				srcs/vm/opcode/add.c \
+				srcs/vm/opcode/sub.c \
+				srcs/vm/opcode/and.c \
+				srcs/vm/opcode/or.c \
+				srcs/vm/opcode/xor.c \
+				srcs/vm/opcode/zjmp.c \
+				srcs/vm/opcode/ldi.c \
+				srcs/vm/opcode/sti.c \
+				srcs/vm/opcode/lld.c \
+				srcs/vm/opcode/lldi.c \
+				srcs/vm/opcode/lfork.c \
+				srcs/vm/opcode/aff.c \
+				srcs/vm/opcode/fork.c \
+				\
+				srcs/asm/asm.c \
+      			srcs/asm/op.c \
+      			srcs/asm/main.c \
+      			srcs/asm/parser.c \
+      			srcs/asm/lexer.c \
+      			srcs/asm/lexer_basic.c \
+      			srcs/asm/lexer_ins.c \
+      			srcs/asm/struct_iter.c \
+      			srcs/asm/struct_lab.c \
+      			srcs/asm/struct_ops.c \
+      			srcs/asm/struct_token.c \
+      			srcs/asm/check.c \
+      			srcs/asm/utils.c \
+      			srcs/asm/utils_ops.c \
+      			srcs/asm/utils_lab.c \
+      			srcs/asm/utils_iter.c \
+     			srcs/asm/write.c \
+				srcs/asm/arams.c
 
-# Common Files
-# COMMON_FILES =	$(addsuffix $(SRC_SUFFIX),$(COMMON))
-# SRC1_FILES = $(COMMON_FILES)
-# SRC2_FILES = $(COMMON_FILES)
-
-
-# SRC2_FILES += 	vm/corewar.c vm/check_arg.c vm/parse_player.c
-SRC2_FILES = 	corewar.c check_arg.c parse_player.c \
-				player.c parse_op.c check_ocp.c \
-				show.c process.c get_arg.c \
-				core.c op.c tools.c \
-				flib.c action_proc.c client.c \
-				opcode/live.c \
-				opcode/ld.c \
-				opcode/st.c \
-				opcode/add.c \
-				opcode/sub.c \
-				opcode/and.c \
-				opcode/or.c \
-				opcode/xor.c \
-				opcode/zjmp.c \
-				opcode/ldi.c \
-				opcode/sti.c \
-				opcode/lld.c \
-				opcode/lldi.c \
-				opcode/lfork.c \
-				opcode/aff.c \
-				opcode/fork.c
-# SRC1_FILES +=	asm/asm.c
-SRC1_FILES =	asm.c \
-      			op.c \
-      			main.c \
-      			parser.c \
-      			lexer.c \
-      			lexer_basic.c \
-      			lexer_ins.c \
-      			struct_iter.c \
-      			struct_lab.c \
-      			struct_ops.c \
-      			struct_token.c \
-      			check.c \
-      			utils.c \
-      			utils_ops.c \
-      			utils_lab.c \
-      			utils_iter.c \
-     			write.c \
-				params.c
-
-OBJ1_FILES	= $(SRC1_FILES:.c=.o)
-OBJ2_FILES	= $(SRC2_FILES:.c=.o)
-OBJ1		= $(addprefix $(OBJ_PATH1),$(OBJ1_FILES))
-OBJ2		= $(addprefix $(OBJ_PATH2),$(OBJ2_FILES))
-SRC1		= $(addprefix $(SRC_PATH1),$(SRC1_FILES))
-SRC2		= $(addprefix $(SRC_PATH2),$(SRC2_FILES))
-
-#color
-YELLOW		= "\\033[33m"
-BLUE		= "\\033[34m"
-RED			= "\\033[31m"
-WHITE		= "\\033[0m"
-CYAN		= "\\033[36m"
-GREEN		= "\\033[32m"
-BOLD		= "\\033[1m"
-PINK		= "\\033[95m"
-
-#command
-EOLCLR		= "\\033[0K"
-#unicode
-CHECK		= "\\xE2\\x9C\\x94"
-OK			= " $(CYAN)$(CHECK)$(WHITE)"
-
-all : $(LIBFT) $(NAME_1) $(NAME_1)
+all: $(NAME_1) $(NAME_2)
 
 $(LIBFT):
-	make -C ./libft/
+	make -C $(LIBFT_DIR)
 
-$(NAME_1) : $(OBJ1)
-	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"$(NAME_1) compiled\t"$(OK)'\n'
-	# @ $(CC) -I./includes -I./libft/includes $(OBJ1) -o $@
-	@$(CC) $(SRC1) -I./includes -I./libft/includes libft/libft.a -o $@ $(CFLAGS)
-	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
-	"build successful\t"$(OK)'\n'
+$(NAME_1): $(LIBFT) $(OBJ)
+	$(CC) $(SRC) -I$(HEADER_DIR) -I$(HEADER_LIBFT_DIR) libft/libft.a -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
 
-$(NAME_2) : $(OBJ2)
-	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
-	"checker compiled\t"$(OK)'\n'
-	@ $(CC) $(SRC2) -I./includes -I./libft/includes libft/libft.a -o $@ $(CFLAGS)
-	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
-	"build successful\t"$(OK)'\n'
+$(OBJ_DIR)%.o: $(SRCS)%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -I$(HEADER_DIR) -c $< -o $@
 
-$(OBJ1) : | $(OBJ_PATH1)
-$(OBJ2) : | $(OBJ_PATH2)
+# $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	# mkdir -p $(OBJ_DIR)
+	# $(CC) -I$(HEADER_DIR) -c $< -o $@
 
-$(OBJ_PATH1) :
-	@mkdir -p $(OBJ_PATH1)
+clean:
+	rm -rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean
+	@echo clean $@ Done !
 
-$(OBJ_PATH2) :
-	@mkdir -p $(OBJ_PATH2)
+fclean:	clean
+	rm -f $(NAME_1)
+	rm -f $(NAME_2)
+	@make -C $(LIBFT_DIR) fclean
+	@echo fclean $@ Done !
 
-$(OBJ_PATH1)%.o: $(SRC_PATH1)%.c
-	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
-	@$(CC) -I./includes -I./libft/includes -o $@ -c $<
-	@printf '\t'$(OK)
+re:		fclean all
 
-$(OBJ_PATH2)%.o: $(SRC_PATH2)%.c
-	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t\t$(BOLD)$(YELLOW)$<$(WHITE)"
-	@$(CC) -I./includes -I./libft/includes -o $@ -c $<
-	@printf '\t'$(OK)
-
-# libft :
-	# @make -C ./printf
-
-clean :
-	@printf "[$(NAME_P)] removing\t\t$(PINK)all obj file$(WHITE)"
-	@rm -rf $(OBJ_PATH1)
-	@rm -rf $(OBJ_PATH2)
-	@make clean -C ./printf
-	@printf '\t\t'$(OK)'\n'
-
-fclean : clean
-	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME_1)$(WHITE)"
-	@rm -f $(NAME_1)
-	@rm -f $(NAME_2)
-	@make fclean ./printf
-	@printf '\t\t'$(OK)'\n'
-
-re : fclean all
-
-norm :
-	@norminette srcs/ include/
-
-.PHONY: all clean fclean re norm
+.PHONY: clean fclean re
+.SUFFIXES:
