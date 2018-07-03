@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:27:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 02:07:27 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:35:30 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_iter	*iter_new(void)
 	iter->iter = NULL;
 	iter->labels = NULL;
 	iter->token = 0;
+	iter->head_ok = 0;
 	return (iter);
 }
 

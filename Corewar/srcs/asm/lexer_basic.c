@@ -6,7 +6,7 @@
 /*   By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 03:11:49 by jyildiz-          #+#    #+#             */
-/*   Updated: 2018/07/03 02:06:21 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:37:58 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			check_head(t_iter *iter)
 		else
 		{
 			iter->token |= HEAD_NAME;
+			iter->head_ok = 1;
 			increment_num(iter, 5);
 		}
 	}
@@ -39,6 +40,7 @@ int			check_head(t_iter *iter)
 			return (check_err(iter, HEAD_ERR2, 9));
 		else
 		{
+			iter->head_ok += 1;
 			increment_num(iter, 8);
 			iter->token |= HEAD_COMT;
 		}
@@ -94,10 +96,6 @@ int			lexer_basics(t_iter *iter)
 	i = token_lab(iter);
 	if (iter->line && *(iter->line) == COMMENT_CHAR)
 		(iter->token) |= TOKEN_COM;
-	else if (iter->line && i == 1)
-		(iter->token) |= TOKEN_LAB;
-	else if (iter->line && i == -1)
-		return (-1);
 	else if (iter->line && *(iter->line) == '.')
 	{
 		(iter->token) |= TOKEN_HEA;
@@ -108,6 +106,10 @@ int			lexer_basics(t_iter *iter)
 			return (-1);
 		return (iter->token);
 	}
+	else if (iter->line && i == 1 && iter->head_ok == 2)
+		(iter->token) |= TOKEN_LAB;
+	else if (iter->line && (i == -1 || iter->head_ok < 2))
+		return (-1);
 	else if ((iter->line) && token_wsp(iter->line, &(iter->count)))
 		(iter->token) |= TOKEN_SPA;
 	(iter->token) <<= 4;

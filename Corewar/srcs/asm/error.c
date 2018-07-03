@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/02 20:21:46 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 01:24:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 02:41:04 by jyildiz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	put_error(t_iter *iter, char *line)
 		printf("%s\n%*c\nRedefinition of label.\n", line, ++iter->count, '^');
 	else if (iter->token == LABEL_ERR4)
 		printf("%s\n%*c\nSpace after label.\n", line, ++iter->count, '^');
+	else if (iter->token == 0)
+		printf("%s\nNo name & comment.\n", line);
 	if (iter->token == READ_ERR)
 	{
 		printf("Read error\n");
