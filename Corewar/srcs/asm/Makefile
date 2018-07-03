@@ -1,48 +1,73 @@
-SRC = asm.c \
-      op.c \
-      main.c \
-      parser.c \
-      lexer.c \
-      lexer_basic.c \
-      lexer_ins.c \
-      struct_iter.c \
-      struct_lab.c \
-      struct_ops.c \
-      struct_token.c \
-      check.c \
-      utils.c \
-      utils_ops.c \
-      utils_lab.c \
-      utils_iter.c \
-      utils_parser.c \
-      utils_lexer.c \
-      write.c \
-      error.c \
-	  params.c \
-	  params_three.c
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jyildiz- <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/07/03 07:08:25 by jyildiz-          #+#    #+#              #
+#    Updated: 2018/07/03 07:08:27 by jyildiz-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CFLAGS = -Wall -Werror -Wextra
-LIB = ../../libft/libft.a
-INC = -I../../includes -I../../libft/includes
-LUB = -lft
-NAME = asm
-FILE = ./#../../rsrc/examples/code/
-TARGET = THUNDER
+.PHONY:			all clean fclean re
 
-all :
-	@rm -f test.cor
-	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm $(FILE)$(TARGET).s
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+NAME			= asm
+SRC				= cw_parser.c \
+				  cw_get_header.c \
+				  cw_get_instructions.c \
+				  cw_get_label.c \
+				  cw_get_number.c \
+				  cw_place_labels_size.c \
+				  cw_args.c \
+				  cw_instruction_ft.c \
+				  cw_live.c \
+				  cw_ld.c \
+				  cw_st.c \
+				  cw_add.c \
+				  cw_sub.c \
+				  cw_and.c \
+				  cw_or.c \
+				  cw_xor.c \
+				  cw_zjmp.c \
+				  cw_ldi.c \
+				  cw_sti.c \
+				  cw_fork.c \
+				  cw_lld.c \
+				  cw_lldi.c \
+				  cw_lfork.c \
+				  cw_aff.c \
+				  cw_error.c \
+				  cw_create_file.c
+SRC_PATH		= src/
+SRCS			= $(addprefix $(SRC_PATH), $(SRC))
+OBJ				= $(SRCS:.c=.o)
+INC				= op.h
+INC_PATH		= includes/
+INCS			= $(addprefix $(INC_PATH), $(INC))
+LIB_PATH		= libft/
+LIB_INC_PATH	= $(addprefix $(LIB_PATH), includes/)
 
-val :
-	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind --leak-check=full --track-origins=yes ./asm ../../rsrc/examples/code/bee_gees.s
+all:			lib $(NAME)
 
-clean :
-	rm -rf asm.dSym
+$(NAME):		$(OBJ)
+	@$(CC) -I $(INC_PATH) -I $(LIB_INC_PATH) -L $(LIB_PATH) -lftprintf \
+		-o $(NAME) $(SRCS)
 
-fsan :
-	clang -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
+lib:
+	@make -C $(LIB_PATH)
 
-lldb :
-	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
+%.o:			%.c $(INCS) $(LIB_PATH)libftprintf.a
+	@$(CC) $(CFLAGS) -o $@ -c $< -I $(INC_PATH) -I $(LIB_INC_PATH)
+
+clean:
+	@rm -f $(OBJ)
+	@make clean -C $(LIB_PATH)
+
+fclean:			clean
+	@rm -f $(NAME)
+	@rm -f $(LIB_PATH)libftprintf.a
+
+re:				fclean all

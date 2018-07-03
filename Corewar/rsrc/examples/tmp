@@ -1,0 +1,101 @@
+==35524== Memcheck, a memory error detector
+==35524== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==35524== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==35524== Command: ./asm code/Wall.s
+==35524== Parent PID: 35424
+==35524== 
+==35524== Syscall param msg->desc.port.name points to uninitialised byte(s)
+==35524==    at 0x1003C534A: mach_msg_trap (in /usr/lib/system/libsystem_kernel.dylib)
+==35524==    by 0x1003C4796: mach_msg (in /usr/lib/system/libsystem_kernel.dylib)
+==35524==    by 0x1003BE485: task_set_special_port (in /usr/lib/system/libsystem_kernel.dylib)
+==35524==    by 0x10055A10E: _os_trace_create_debug_control_port (in /usr/lib/system/libsystem_trace.dylib)
+==35524==    by 0x10055A458: _libtrace_init (in /usr/lib/system/libsystem_trace.dylib)
+==35524==    by 0x1000C39DF: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==35524==    by 0x100033A1A: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==35524==    by 0x100033C1D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==35524==    by 0x10002F4A9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==35524==    by 0x10002F440: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==35524==    by 0x10002E523: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==35524==    by 0x10002E5B8: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==35524==  Address 0x1048a6dec is on thread 1's stack
+==35524==  in frame #2, created by task_set_special_port (???:)
+==35524== 
+==35524== Invalid read of size 1
+==35524==    at 0x100005927: ft_strsub (ft_strsub.c:27)
+==35524==    by 0x1000059E9: ft_strsubin (ft_strsubin.c:20)
+==35524==    by 0x100004DF9: get_next_line (ft_getline.c:25)
+==35524==    by 0x100004EA1: get_next_line (ft_getline.c:32)
+==35524==    by 0x10000128A: lexer (in ./asm)
+==35524==    by 0x1000008D2: ft_asm (in ./asm)
+==35524==    by 0x100000B68: main (in ./asm)
+==35524==  Address 0x100b785eb is 0 bytes after a block of size 43 alloc'd
+==35524==    at 0x1000B4A46: malloc (in /Users/jyildiz-/.brew/Cellar/valgrind/3.13.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==35524==    by 0x100005474: ft_strdup (ft_strdup.c:22)
+==35524==    by 0x100004E5D: get_next_line (ft_getline.c:31)
+==35524==    by 0x10000128A: lexer (in ./asm)
+==35524==    by 0x1000008D2: ft_asm (in ./asm)
+==35524==    by 0x100000B68: main (in ./asm)
+==35524== 
+==35524== Invalid read of size 16
+==35524==    at 0x10050F5C5: _platform_memchr$VARIANT$Base (in /usr/lib/system/libsystem_platform.dylib)
+==35524==    by 0x1002BB4D1: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002C5898: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002EB422: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002C133D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002BF247: printf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1000045F4: put_error (in ./asm)
+==35524==    by 0x100001343: lexer (in ./asm)
+==35524==    by 0x1000008D2: ft_asm (in ./asm)
+==35524==    by 0x100000B68: main (in ./asm)
+==35524==  Address 0x100b78620 is 16 bytes before a block of size 14 alloc'd
+==35524==    at 0x1000B4A46: malloc (in /Users/jyildiz-/.brew/Cellar/valgrind/3.13.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==35524==    by 0x1000058E1: ft_strsub (ft_strsub.c:22)
+==35524==    by 0x1000059AC: ft_strsubin (ft_strsubin.c:19)
+==35524==    by 0x100004DF9: get_next_line (ft_getline.c:25)
+==35524==    by 0x100004EA1: get_next_line (ft_getline.c:32)
+==35524==    by 0x10000128A: lexer (in ./asm)
+==35524==    by 0x1000008D2: ft_asm (in ./asm)
+==35524==    by 0x100000B68: main (in ./asm)
+==35524== 
+==35524== Conditional jump or move depends on uninitialised value(s)
+==35524==    at 0x10050F5E8: _platform_memchr$VARIANT$Base (in /usr/lib/system/libsystem_platform.dylib)
+==35524==    by 0x1002BB4D1: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002C5898: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002EB422: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002C133D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1002BF247: printf (in /usr/lib/system/libsystem_c.dylib)
+==35524==    by 0x1000045F4: put_error (in ./asm)
+==35524==    by 0x100001343: lexer (in ./asm)
+==35524==    by 0x1000008D2: ft_asm (in ./asm)
+==35524==    by 0x100000B68: main (in ./asm)
+==35524== 
+==35524== 
+==35524== Process terminating with default action of signal 2 (SIGINT)
+==35524==    at 0x1000383C0: ImageLoaderMachOCompressed::libReExported(unsigned int) const (in /usr/lib/dyld)
+==35524==    by 0x100032D61: ImageLoaderMachO::findExportedSymbol(char const*, bool, char const*, ImageLoader const**) const (in /usr/lib/dyld)
+==35524==    by 0x10002D897: ImageLoader::findExportedSymbolAddress(ImageLoader::LinkContext const&, char const*, ImageLoader const*, int, bool, ImageLoader const**, unsigned long*) const (in /usr/lib/dyld)
+==35524==    by 0x1000392F1: ImageLoaderMachOCompressed::resolveTwolevel(ImageLoader::LinkContext const&, char const*, ImageLoader const*, ImageLoader const*, unsigned int, bool, bool, ImageLoader const**) (in /usr/lib/dyld)
+==35524==    by 0x100039550: ImageLoaderMachOCompressed::resolve(ImageLoader::LinkContext const&, char const*, unsigned char, long, ImageLoader const**, ImageLoaderMachOCompressed::LastLookup*, bool) (in /usr/lib/dyld)
+==35524==    by 0x10003B065: ImageLoaderMachOCompressed::doBindFastLazySymbol(unsigned int, ImageLoader::LinkContext const&, void (*)(), void (*)()) (in /usr/lib/dyld)
+==35524==    by 0x10002286C: dyld::fastBindLazySymbol(ImageLoader**, unsigned long) (in /usr/lib/dyld)
+==35524==    by 0x10021A281: dyld_stub_binder (in /usr/lib/system/libdyld.dylib)
+==35524==    by 0x100B100DF: ??? (in /usr/lib/libc++.1.dylib)
+==35524==    by 0x100AC4A1F: std::__1::basic_ostream<char, std::__1::char_traits<char> >::flush() (in /usr/lib/libc++.1.dylib)
+==35524==    by 0x100ACE441: std::__1::ios_base::Init::~Init() (in /usr/lib/libc++.1.dylib)
+==35524==    by 0x1002DB177: __cxa_finalize_ranges (in /usr/lib/system/libsystem_c.dylib)
+==35524== 
+==35524== HEAP SUMMARY:
+==35524==     in use at exit: 22,264 bytes in 165 blocks
+==35524==   total heap usage: 184 allocs, 19 frees, 30,742 bytes allocated
+==35524== 
+==35524== LEAK SUMMARY:
+==35524==    definitely lost: 0 bytes in 0 blocks
+==35524==    indirectly lost: 0 bytes in 0 blocks
+==35524==      possibly lost: 72 bytes in 3 blocks
+==35524==    still reachable: 243 bytes in 8 blocks
+==35524==         suppressed: 21,949 bytes in 154 blocks
+==35524== Rerun with --leak-check=full to see details of leaked memory
+==35524== 
+==35524== For counts of detected and suppressed errors, rerun with: -v
+==35524== Use --track-origins=yes to see where uninitialised values come from
+==35524== ERROR SUMMARY: 16 errors from 4 contexts (suppressed: 4 from 4)
