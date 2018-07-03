@@ -13,6 +13,7 @@
 #ifndef CHAR_CLASS_H
 # define CHAR_CLASS_H
 
+int		ft_skip_whitespace(char *str, int i);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
