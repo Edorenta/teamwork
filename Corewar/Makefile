@@ -1,5 +1,4 @@
-NAME_1    		= asm
-NAME_2    		= corewar
+NAME    		= corewar
 
 CC				= gcc
 
@@ -34,41 +33,18 @@ SRCS =			srcs/vm/corewar.c check_arg.c parse_player.c \
 				srcs/vm/opcode/lfork.c \
 				srcs/vm/opcode/aff.c \
 				srcs/vm/opcode/fork.c \
-				\
-				srcs/asm/asm.c \
-      			srcs/asm/op.c \
-      			srcs/asm/main.c \
-      			srcs/asm/parser.c \
-      			srcs/asm/lexer.c \
-      			srcs/asm/lexer_basic.c \
-      			srcs/asm/lexer_ins.c \
-      			srcs/asm/struct_iter.c \
-      			srcs/asm/struct_lab.c \
-      			srcs/asm/struct_ops.c \
-      			srcs/asm/struct_token.c \
-      			srcs/asm/check.c \
-      			srcs/asm/utils.c \
-      			srcs/asm/utils_ops.c \
-      			srcs/asm/utils_lab.c \
-      			srcs/asm/utils_iter.c \
-     			srcs/asm/write.c \
-				srcs/asm/arams.c
 
 all: $(NAME_1) $(NAME_2)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(NAME_1): $(LIBFT) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(SRC) -I$(HEADER_DIR) -I$(HEADER_LIBFT_DIR) libft/libft.a -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
 
 $(OBJ_DIR)%.o: $(SRCS)%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) -I$(HEADER_DIR) -c $< -o $@
-
-# $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	# mkdir -p $(OBJ_DIR)
-	# $(CC) -I$(HEADER_DIR) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)

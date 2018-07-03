@@ -1,40 +1,65 @@
-SRC = 	corewar.c check_arg.c parse_player.c player.c parse_op.c check_ocp.c \
- 		show.c process.c get_arg.c core.c op.c tools.c flib.c action_proc.c \
-		\
-		client.c \
-		\
-		opcode/live.c \
-		opcode/ld.c \
-		opcode/st.c \
-		opcode/add.c \
-		opcode/sub.c \
-		opcode/and.c \
-		opcode/or.c \
-		opcode/xor.c \
-		opcode/zjmp.c \
-		opcode/ldi.c \
-		opcode/sti.c \
-		opcode/lld.c \
-		opcode/lldi.c \
-		opcode/lfork.c \
-		opcode/aff.c \
-		opcode/fork.c \
+CC =				gcc
+EXEC =				corewar
+SRC_DIR =			./
+OBJ_DIR =			./obj/
+HEADER_DIR =		./../../includes/
+HEADER_LIBFT_DIR = 	./../../libft/includes/
+LIBFT_DIR = 		./../../libft/
+LIBFT =			$(LIBFT_DIR)libft.a
+CFLAGS =			-Wall -Werror -Wextra
+DEBUG_FLAGS =		-fsanitize=address -g
+INCLUDES =			-I../../includes/ -I../../libft/includes/
+CFILES = 			corewar check_arg parse_player \
+					player parse_op check_ocp \
+					show process get_arg \
+					core op tools \
+					flib action_proc client \
+					live \
+					ld \
+					st \
+					add \
+					sub \
+					and \
+					or \
+					xor \
+					zjmp \
+					ldi \
+					sti \
+					lld \
+					lldi \
+					lfork \
+					aff \
+					fork
 
-INC = -I../../includes -I ../../libft/includes
-LIB = -L ../../libft -lft
-NAME = corewar
+SRC =				$(CFILES:%=$(SRC_DIR)%.c)
+OBJ =				$(CFILES:%=$(OBJ_DIR)%.o)
 
-all :
-	#rm -f corewar
-	# gcc -lncurses $(SRC) $(LIB) $(INC) -o $(NAME) -g -fsanitize=address
-	clang -std=c99 $(SRC) $(INC) $(LIB) -o $(NAME) -g -Wall -Wextra -Werror
+all: $(EXEC)
 
-clean :
-	rm -rf corewar.dSym
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
-fsan :
-	gcc $(SRC) $(INC) $(LIB) -o $(NAME) -g -fsanitize=address
+$(EXEC): $(LIBFT) $(OBJ)
+	echo $(HEADER_LIBFT_DIR)
+	$(CC) $(INCLUDES) $(SRC) $(LIBFT) -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
 
-val :
-	gcc $(SRC) $(LIB) $(INC) -o $(NAME) -g
-	valgrind ./corewar ../../rsrc/champs/toto.cor ../../rsrc/champs/toto.cor
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -I$(HEADER_DIR) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean
+	@echo clean $@ Done !
+
+fclean:	clean
+	rm -f $(EXEC)
+	@make -C $(LIBFT_DIR) fclean
+	@echo fclean $@ Done !
+
+dbg:
+	echo $(HEADER_LIBFT_DIR)
+re:		fclean all
+
+.PHONY: clean fclean re
+.SUFFIXES:
