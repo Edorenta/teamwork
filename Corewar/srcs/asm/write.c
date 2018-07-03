@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 03:32:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 04:22:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			write_args(int fd, t_ops *ops)
 				write_fill(fd, type ? ops->label[c] : ops->argv[c], 2, 2);
 		}
 		else if (num == 3)
-			write_fill(fd, ops->argv[c], 2, 2);
+			write_fill(fd, (unsigned short)ops->argv[c], 2, 2);
 	}
 	return (1);
 }

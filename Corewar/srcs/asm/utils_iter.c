@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/02 20:12:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 20:15:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 04:23:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ static int		head_get(t_header *head, char *line, int boolean, int count)
 	}
 	return (0);
 }
-
-/*
-** error here
-*/
 
 void			iter_head(char *line, t_iter *iter, int token)
 {
