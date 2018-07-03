@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 11:12:05 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 02:33:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 03:32:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int			write_fill(int fd, long value, int size, int type)
 	else if (type == 4)
 	{
 		print[3] = (value & 0xFF);
-		print[2] = (value & 0xFF00);
-		print[1] = (value & 0xFF0000);
-		print[0] = (value & 0xFF000000);
+		print[2] = (value & 0xFF00) >> 8;
+		print[1] = (value & 0xFF0000) >> 16;
+		print[0] = (value & 0xFF000000) >> 24;
 	}
 	return (write(fd, &print, size));
 }
