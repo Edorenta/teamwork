@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/02 19:32:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 04:28:39 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,6 @@ static unsigned int	ops_diff(t_ops *ops, int labline, int opsline)
 		len = (unsigned int)(~len + 1);
 	return (len);
 }
-
-/*
-** ft_error here
-*/
 
 unsigned int		ops_get_lab(t_iter *iter, t_ops *ops)
 {
