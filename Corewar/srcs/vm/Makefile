@@ -41,7 +41,7 @@ all: $(EXEC)
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(EXEC): $(OBJ)#$(LIBFT)
+$(EXEC): $(LIBFT) $(OBJ) 
 	echo $(HEADER_LIBFT_DIR)
 	$(CC) $(INCLUDES) $(SRC) $(LIBFTF) -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
 
