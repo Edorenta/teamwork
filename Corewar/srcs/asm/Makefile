@@ -39,7 +39,7 @@ all :
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
-	valgrind --leak-check=full --track-origins=yes ./asm ../../rsrc/examples/bee_gees.s
+	valgrind --leak-check=full --track-origins=yes ./asm ../../rsrc/examples/code/bee_gees.s
 
 clean :
 	rm -rf asm.dSym
