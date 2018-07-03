@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 12:53:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 04:28:39 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 04:45:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ static unsigned int	ops_getlen(t_ops *ops)
 	return (len);
 }
 
-/*
-** ft_error here
-*/
-
 unsigned int		ops_get_len(t_ops *ops)
 {
 	t_ops			*iter;
@@ -107,7 +103,7 @@ static unsigned int	ops_diff(t_ops *ops, int labline, int opsline)
 		hop = hop->next;
 	}
 	if (opsline > labline)
-		len = (unsigned int)(~len + 1);
+		len = (~len + 1);
 	return (len);
 }
 
