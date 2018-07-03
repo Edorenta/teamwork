@@ -26,8 +26,8 @@ LIB = ../../libft/libft.a
 INC = -I../../includes -I../../libft/includes
 LUB = -lft
 NAME = asm
-FILE = ../../rsrc/examples/code/
-TARGET = bee_gees
+FILE = ./#../../rsrc/examples/code/
+TARGET = THUNDER
 
 all :
 	@rm -f test.cor

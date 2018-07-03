@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:38:08 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 04:23:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 05:39:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,13 @@ char	*lab_parse_ins(char *line)
 		return (NULL);
 	count = 0;
 	label = NULL;
-	if (line[count] == ':')
+	c = line[count];
+	while (c && (ft_isalpha(c) || ft_isdigit(c) || c == '_'))
 	{
-		++count;
+		count++;
 		c = line[count];
-		while (c && (ft_isalpha(c) || ft_isdigit(c) || c == '_'))
-		{
-			count++;
-			c = line[count];
-		}
-		label = ft_strsub(line, 1, count - 1);
 	}
-	else
-		return (NULL);
+	label = ft_strsub(line, 0, count);
 	return (label);
 }
 

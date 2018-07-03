@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:20:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/07/03 03:59:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/07/03 05:41:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,32 @@ static void		parse_dir(t_ops *ops, t_tok *iter, char *line, int argc)
 
 	len = ft_strlen(line);
 	while (iter->pos >= len)
-		iter->pos--;
+		--iter->pos;
+	if (iter->pos > 0 && (ft_isdigit(line[iter->pos - 1])
+		|| line[iter->pos - 1] == '-'))
+		--iter->pos;
 	ops->argv[argc] = ft_atol(&line[iter->pos]);
+}
+
+static long		get_num(t_iter *iter, char *line, int type, int pos)
+{
+	if (type == 0x1)
+	{
+		while (pos > 0 && line[pos] != 'r')
+			--pos;
+		if (line[pos] == 'r')
+			pos++;
+		return (ft_atol(&line[pos]));
+	}
+	else if (type == 0x05)
+	{
+		while (pos > 0 && line[pos] != ':')
+			--pos;
+		if (line[pos] == ':')
+			pos++;
+		return (get_index(iter, &line[pos]));
+	}
+	return (0);
 }
 
 t_ops			*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
@@ -48,10 +72,10 @@ t_ops			*parse_sub(t_iter *itera, t_tok *token, char *line, int argc)
 		if ((iter->type & 0x0F) <= 0x6)
 		{
 			new->args[argc] = (iter->type >> 1);
-			if (iter->type == 0x1)
-				new->argv[argc] = ft_atol(&line++[iter->pos]);
+			if (new->args[argc] == 0x1)
+				new->argv[argc] = get_num(itera, line, 0x1, iter->pos);
 			else if (iter->type == 0x5)
-				new->label[argc] = get_index(itera, &line[iter->pos]);
+				new->label[argc] = get_num(itera, line, 0x5, iter->pos);
 			else
 				parse_dir(new, iter, line, argc);
 			argc++;

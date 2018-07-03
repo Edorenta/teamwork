@@ -2,7 +2,7 @@
 
 CHAMPS=code/*.s
 COR=code/*.cor
-BIN=bin1/*.cor
+mv ../../srcs/asm/asm .
 for f in $CHAMPS
 	do
 		valgrind --log-file="tmp" ./asm $f
@@ -19,8 +19,8 @@ for f in $CHAMPS
 		./zaz_asm $f
 	done
 mv $COR ./bin2/
-
-for f in $BIN
+cd bin1
+for f in *.cor
 	do
-		diff <(xxd bin1/$f) <(xxd bin2/$f)
+		diff <(xxd $f) <(xxd ../bin2/$f)
 	done
