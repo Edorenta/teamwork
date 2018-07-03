@@ -2,15 +2,13 @@ CC =				gcc
 EXEC =				corewar
 SRC_DIR =			./
 OBJ_DIR =			./obj/
-HEADER_DIR =		../../includes/
-HEADER_LIBFT_DIR = 	../../libft/includes/
-LIBFT_DIR = 		../../libft/
-LIBFTF =			$(LIBFT_DIR)libft.a
+HEADER_DIR =		./../../includes/
+HEADER_LIBFT_DIR = 	./../../libft/includes/
+LIBFT_DIR = 		./../../libft/
+LIBFT =			$(LIBFT_DIR)libft.a
 CFLAGS =			-Wall -Werror -Wextra
 DEBUG_FLAGS =		-fsanitize=address -g
-# INCLUDES =			-I$(HEADER_DIR) -I$(HEADER_LIBFT_DIR)
 INCLUDES =			-I../../includes/ -I../../libft/includes/
-ARFLAGS =			-rcs
 CFILES = 			corewar check_arg parse_player \
 					player parse_op check_ocp \
 					show process get_arg \
@@ -41,9 +39,9 @@ all: $(EXEC)
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(EXEC): $(LIBFT) $(OBJ) 
+$(EXEC): $(LIBFT) $(OBJ)
 	echo $(HEADER_LIBFT_DIR)
-	$(CC) $(INCLUDES) $(SRC) $(LIBFTF) -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
+	$(CC) $(INCLUDES) $(SRC) $(LIBFT) -o $@ $(CFLAGS) #$(DEBUG_FLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
