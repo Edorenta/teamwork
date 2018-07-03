@@ -26,16 +26,13 @@ LIB = ../../libft/libft.a
 INC = -I../../includes -I../../libft/includes
 LUB = -lft
 NAME = asm
-FILE = ../../rsrc/examples/
+FILE = ../../rsrc/examples/code/
 TARGET = bee_gees
 
 all :
 	@rm -f test.cor
 	@clang $(SRC) $(LIB) $(INC) -o $(NAME)
 	./asm $(FILE)$(TARGET).s
-	@echo 
-	@hexdump -C test.cor
-	@echo
 
 val :
 	clang $(SRC) $(LIB) $(INC) -o $(NAME)
@@ -46,8 +43,6 @@ clean :
 
 fsan :
 	clang -ggdb -fsanitize=address -fno-omit-frame-pointer $(SRC) $(LIB) $(INC) -o $(NAME)
-	./asm $(FILE)$(TARGET).s
 
 lldb :
 	clang -g -Wall -Werror -Wextra $(SRC) $(LIB) $(INC) -o $(NAME)
-	lldb ./asm $(FILE)$(TARGET).s
